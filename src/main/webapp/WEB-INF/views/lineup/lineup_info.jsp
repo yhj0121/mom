@@ -28,7 +28,7 @@
 		for(int i =0; i<11; i++)
 		{
 		%>
-		<%=(i+1) %>. 이름 (이름에 링크달기) <br/>
+<%-- 		<%=(i+1) %>. 이름 (이름에 링크달기) <br/> --%>
  		
  		<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=lineups.get(i).getPlayerDto().getUser_id()%></a></td> 
 

@@ -5,7 +5,8 @@ import java.util.List;
 public interface LineupService {
 	List<LineupDto> getList(LineupDto dto);
 	List<LineupPlayerDto> getPlayerList(LineupDto dto);
-	
+    LineupPlayerDto getPlayer(String userkey);
+    
 	void insert(LineupDto dto);
 	void delete(String key);
 	void update(LineupDto dto);

@@ -3,23 +3,24 @@ package com.mom.momhome.game;
 import com.mom.momhome.common.BaseDto;
 
 public class GameDto extends BaseDto {
-	private int GAME_KEY;
-	private int TEAM_KEY;
+	private String GAME_KEY;
+	private String TEAM_KEY;
 	private String GAME_DATE;
 	private String GAME_LOCATION;
 	private String GAME_TITLE;
 	private String GAME_CONTENTS;
 	private String GAME_FDATE;
-	public int getGAME_KEY() {
+	
+	public String getGAME_KEY() {
 		return GAME_KEY;
 	}
-	public void setGAME_KEY(int gAME_KEY) {
+	public void setGAME_KEY(String gAME_KEY) {
 		GAME_KEY = gAME_KEY;
 	}
-	public int getTEAM_KEY() {
+	public String getTEAM_KEY() {
 		return TEAM_KEY;
 	}
-	public void setTEAM_KEY(int tEAM_KEY) {
+	public void setTEAM_KEY(String tEAM_KEY) {
 		TEAM_KEY = tEAM_KEY;
 	}
 	public String getGAME_DATE() {
@@ -53,6 +54,7 @@ public class GameDto extends BaseDto {
 		GAME_FDATE = gAME_FDATE;
 	}
 	
+
 	
 	
 }

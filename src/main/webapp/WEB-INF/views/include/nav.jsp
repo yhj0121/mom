@@ -29,7 +29,7 @@ String phone = StringUtil.nullToValue(session.getAttribute("phone"), "");
 			<%
 			}
 			%>
-			<li><a href="teamMain">Team</a></li>
+			<li><a href="${commonURL}/team/main">Team</a></li>
 			<li><a href="#">Match</a></li>
 			<li><a href="#">고객센터</a></li>
 		</ul>
@@ -66,7 +66,7 @@ String phone = StringUtil.nullToValue(session.getAttribute("phone"), "");
 	<!-- Links -->
 	<section>
 		<ul class="links">
-			<li><a href="#">
+			<li><a href="${commonURL}/team/main">
 					<h3>Team</h3>
 					<p>함께 경기할 수 있는 상대 팀 내역을 볼 수 있습니다.</p>
 			</a></li>

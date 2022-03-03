@@ -9,7 +9,7 @@
 		
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="resources/assets/css/main.css" />
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/${pageContext.request.contextPath}/resources/assets/css/main.css" />
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		
 		
@@ -38,7 +38,7 @@
 				                <col width="*">
 				            </colgroup>
 				        <div id="title">
-				        	<h3><img src="resources/images/note.jpg"width="100" height="100"> 내 팀 정보를 작성하고 등록 합니다.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;빈 칸을 알맞게 채워주세요.</h3>
+				        	<h3><img src="${pageContext.request.contextPath}/resources/images/note.jpg"width="100" height="100"> 내 팀 정보를 작성하고 등록 합니다.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;빈 칸을 알맞게 채워주세요.</h3>
 				        </div>
 				            <tbody>
 				              <tr>
@@ -102,11 +102,11 @@
 				</form>
 		</div>
 			<!-- Scripts -->
-			<script src="resources/assets/js/jquery.min.js"></script>
-			<script src="resources/assets/js/browser.min.js"></script>
-			<script src="resources/assets/js/breakpoints.min.js"></script>
-			<script src="resources/assets/js/util.js"></script>
-			<script src="resources/assets/js/main.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 		</body>
 		
 </html>

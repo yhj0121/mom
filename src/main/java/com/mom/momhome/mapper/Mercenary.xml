@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mercenary">
+	 <select id="Mercenary_getList" parameterType="MercenaryDto"	resultType="MercenaryDto">
+ 		select 
+ 			mercenary_key
+ 			,(select user_name from user B where B.user_key=A.user_key) as user_name
+ 			,(select game_key from game C where C.game_key=A.game_key)
+ 			,user_key
+ 			,mercenary_title
+ 			,mercenary_contents
+ 			,mercenary_complete
+ 			,reg_date
+ 			,rnum
+ 			
+ 		from
+ 		(
+ 		select
+			A.mercenary_key
+			,A.mercenary_title
+			,A.user_key
+			,A.game_key
+			,A.mercenary_contents 
+			,mercenary_complete
+			,reg_date
+			,@rownum := @rownum+1 AS rnum
+			from mercenary A, (select @rownum:=0) B
+			<if test='key!=null and keyword!=null'>
+				<if test='key=="1"'>
+				 	where mercenary_title like concat('%',#{keyword}, '%')
+				</if>
+				<if test='key=="2"'>
+				 	where mercenary_contents like concat('%',#{keyword}, '%')	  
+				</if>
+				<if test='key=="3"'>
+					 where mercenary_title like concat('%',#{keyword}, '%') or
+				 	  	   mercenary_contents like concat('%',#{keyword}, '%') 
+				</if>
+			</if>
+			order by mercenary_key desc
+			) A
+			limit #{start}, #{pageSize}
+
+	</select>
+	
+	<select id="Mercenary_getTotal" parameterType="MercenaryDto" resultType="Integer">
+		select count(*) from mercenary
+		<if test='key!=null and keyword!=null'>
+				<if test='key=="1"'>
+				 	where mercenary_title like concat('%',#{keyword}, '%')
+				</if>
+				<if test='key=="2"'>
+				 	where mercenary_contents like concat('%',#{keyword}, '%')	  
+				</if>
+				<if test='key=="3"'>
+					 where mercenary_title like concat('%',#{keyword}, '%') or
+				 	  	   mercenary_contents like concat('%',#{keyword}, '%') 
+				</if>
+			</if>
+	</select>
+
+	<insert id="Mercenary_insert" parameterType="MercenaryDto">
+		insert into mercenary
+		(user_key, game_key, mercenary_title, mercenary_contents, mercenary_complete, reg_date, reg_user)
+		values
+		(#{user_key}, #{game_key}, #{mercenary_title}, #{mercenary_contents},0, now(), #{user_name})
+	</insert>
+	
+	 <select id="Mercenary_getView" parameterType="String" resultType="MercenaryDto">
+		select
+				A.mercenary_key,
+				A.mercenary_title,
+				A.user_key,
+				A.game_key,
+				A.mercenary_contents,
+				A.mercenary_complete,
+				(select user_name from user B where B.user_key=A.user_key) as user_name
+		 from mercenary A 
+		where mercenary_key=#{mercenary_key}
+	</select>
+	
+	<delete id= "Mercenary_delete" parameterType="String">
+		delete from mercenary where mercenary_key=#{mercenary_key}
+	</delete>
+	
+	<update id= "Mercenary_update" parameterType="MercenaryDto">
+		update mercenary set mercenary_title = #{mercenary_title}
+						  ,mercenary_contents= #{mercenary_contents}
+						  ,chg_user = #{user_name}
+						  ,chg_date = now()
+				where mercenary_key = #{mercenary_key}
+	</update>
+</mapper>

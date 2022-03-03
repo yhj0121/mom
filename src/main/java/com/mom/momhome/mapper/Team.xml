@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	 
+<mapper namespace="Team">
+
+<select id="cityList" parameterType="String" resultType="BaseDto">
+	select city from code where codegroup_id='ct';
+</select>
+
+<insert id="teamWrite" parameterType="TeamDto">
+		insert into team
+		( team_name, team_fdate, team_fee, code_key, team_intro, team_emblem, team_notice, team_num, team_recruit_yn)
+		values
+		(#{team_name}, now(), #{team_fee}, #{code_key}, #{team_intro}, #{team_emblem}, #{team_notice}, #{team_num}, #{team_recruit_yn})
+</insert>
+
+
+
+
+
+</mapper>

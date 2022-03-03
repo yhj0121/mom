@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Game">
+
+	
+	<insert id="insert" parameterType="GameDto">
+	INSERT INTO game
+(
+
+GAME_DATE,
+GAME_LOCATION,
+GAME_TITLE,
+GAME_CONTENTS,
+GAME_FDATE)
+VALUES
+(
+
+now(),
+#{GAME_LOCATION},
+#{GAME_TITLE},
+#{GAME_CONTENTS},
+#{GAME_FDATE}
+);
+	</insert>
+	
+<select id="list" parameterType="GameDto"  resultType="GameDto">
+
+    
+          select * from (
+                select GAME_KEY, TEAM_KEY, GAME_DATE, GAME_LOCATION, GAME_TITLE, GAME_CONTENTS,  GAME_FDATE
+                from game
+                <if test="keyword != null">
+                    where GAME_TITLE like concat('%',#{keyword},'%' )
+                </if>
+                order by GAME_KEY desc) as T1
+        limit #{start},#{pageSize}	
+
+</select>
+	
+	<select id="view" parameterType="String"  resultType="GameDto">
+SELECT GAME_KEY,
+    TEAM_KEY,
+    GAME_DATE,
+    GAME_LOCATION,
+    GAME_TITLE,
+    GAME_CONTENTS,
+    GAME_FDATE
+FROM game
+where GAME_KEY=#{GAME_KEY};
+
+	</select>
+	
+	
+	<update id="update" parameterType="GameDto">
+UPDATE game
+SET
+GAME_DATE = #{GAME_DATE },
+GAME_LOCATION = #{GAME_LOCATION},
+GAME_TITLE = #{GAME_TITLE},
+GAME_CONTENTS = #{GAME_CONTENTS},
+GAME_FDATE = #{GAME_FDATE}
+WHERE GAME_KEY = #{GAME_KEY}
+	</update>
+	
+	<delete id="delete" parameterType="Integer">
+		delete from game where GAME_KEY=#{GAME_KEY};
+	</delete>
+	
+		<select id="getTotal" parameterType="GameDto" resultType="Integer">
+		select count(*) from game 
+		 <if test="keyword != null">
+       where GAME_TITLE like concat('%',#{keyword},'%')	
+       	</if>
+	</select>
+		
+</mapper>

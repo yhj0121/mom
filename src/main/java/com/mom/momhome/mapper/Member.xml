@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	<select id="Member_isDuplicate" parameterType="MemberDto"
+		resultType="Integer">
+		select
+		count(*) from User
+		where user_id=#{ user_id }
+	</select>
+
+	<insert id="Member_insert" parameterType="MemberDto">
+		INSERT INTO User(
+		user_id
+		, user_password
+		, user_name
+		, user_mail
+		, user_phone
+		, user_address1
+		, user_address2
+		, user_position
+		, user_intro
+		) VALUES(
+		#{ user_id }
+		, #{ user_password }
+		, #{ user_name }
+		, #{ user_mail }
+		, #{ user_phone }
+		, #{ user_address1 }
+		, #{ user_address2 }
+		, #{ user_position }
+		, #{ user_intro }
+		)
+	</insert>
+	
+	<select id="getPositionList" parameterType="BaseDto" resultType="BaseDto">
+		select position from Code where CODEGROUP_ID='po'
+	</select>
+
+	<select id="Member_getInfo" parameterType="MemberDto" resultType="MemberDto">
+			select 	 
+			user_id
+			, user_password
+			, user_name
+			, user_mail
+			, user_phone
+			, user_address1
+			, user_address2
+			, user_position
+			, user_intro
+			from User
+			where user_id=#{ user_id } and USER_PASSWORD=#{ user_password }
+		</select>
+		
+		<update id="Member_update" parameterType="MemberDto">
+			update User set
+			user_name = #{ user_name }
+			, user_mail = #{ user_mail }
+			, user_phone = #{ user_phone }
+			, user_address1 = #{ user_address1 }
+			, user_address2 = #{ user_address2 }
+			, user_position = #{ user_position }
+			, user_intro = #{ user_intro }
+			where user_id=#{ user_id }
+		</update>
+</mapper>

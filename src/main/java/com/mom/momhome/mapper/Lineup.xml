@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="Lineup">
+
+<!-- 쿼리를 xml로 작성하고 
+id:식별값,
+parameterType: 전달할값
+resultType : 받아오는값  
+-->
+	<select id="Lineup_getList" parameterType="LineupDto"	resultType="LineupDto">
+ 		select
+ 			user_key
+ 			,team_key
+ 			,game_key
+ 			,code_key
+ 			,team_side
+ 		from lineup
+ 		where game_key = #{game_key} AND team_side = #{team_side}
+            
+	</select>
+	
+	
+	<insert id="Lineup_insert" parameterType="LineupDto">
+	insert into lineup(
+	    user_key
+		,team_key
+		,game_key
+		,code_key
+		,team_side
+	)
+	value(
+		#{user_key},
+		#{team_key},
+		#{game_key},
+		#{code_key},
+		#{team_side}
+	);
+	</insert>
+	
+	<insert id="Lineup_insertUserData" parameterType="LineupPlayerDto">
+	insert into user(
+	    user_id,
+	    user_password,
+	    user_name,
+	    user_mail,
+	    user_phone,
+	    user_address1,
+	    user_address2,
+	    user_position,
+	    user_intro
+	)
+	value(
+		#{user_id},
+	    #{user_password},
+	    #{user_name},
+	    #{user_mail},
+	    #{user_phone},
+	    #{user_address1},
+	    #{user_address2},
+	    #{user_position},
+	    #{user_intro}
+	);
+	</insert>
+	
+	<insert id="Lineup_insertTeamData" parameterType="LineupTeamDto">
+	insert into team(
+	    TEAM_NAME,
+		TEAM_FDATE,
+		CODE_KEY,
+		TEAM_FEE,
+		TEAM_INTRO,
+		TEAM_EMBLEM,
+		TEAM_NOTICE,
+		TEAM_NUM,
+		TEAM_RECRUIT_YN
+	)
+	value(
+		#{team_name},
+		now(),
+		#{code_key},
+		#{team_fee},
+		#{team_intro},
+		#{team_emblem},
+		#{team_notice},
+		#{team_num},
+		#{team_recruit_yn}
+	);
+	</insert>
+	
+	<insert id="Lineup_insertMemberShipData" parameterType="LineupMembershipDto">
+	insert into membership(
+		USER_KEY,
+		TEAM_KEY,
+		MEMBERSHIP_ROLE,	
+		TEAM_JOINDATE
+	)
+	value(
+		#{user_key},
+		#{team_key},
+		#{membership_role},
+		now()
+	);
+	</insert>
+	
+	<insert id="Lineup_insertGameData" parameterType="LineupGameDto">
+	insert into game(
+		TEAM_KEY,	
+		GAME_DATE,	
+		GAME_LOCATION,	
+		GAME_TITLE,
+		GAME_CONTENTS,	
+		GAME_FDATE
+	)
+	value(
+		#{team_key},
+		now(),
+		#{game_location},
+		#{game_title},
+		#{game_contents},
+		now()
+	);
+	</insert>
+	
+</mapper>
+
+
+

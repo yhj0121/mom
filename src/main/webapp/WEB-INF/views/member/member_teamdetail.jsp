@@ -21,6 +21,18 @@ textarea {
 	text-align: left !important;
 	resize: none;
 }
+
+table th {
+	text-align: center !important;
+}
+
+table td {
+	padding: .4rem .75em;
+}
+
+table td:not(.introduction) {
+	text-align: center;
+}
 </style>
 </head>
 <body class="is-preload">
@@ -35,83 +47,85 @@ textarea {
 
 		<!-- Main -->
 		<div id="main">
-
-			<!-- Intro -->
-			<section id="intro">
-				<a href="#" class="logo"><img
-					src="${pageContext.request.contextPath}/resources/images/logo.jpg"
-					alt="" /></a>
-				<header>
-					<h2>Man of the match</h2>
-					<p>쉬운 경기 매칭 서비스 및 팀 관리 서비스를 제공합니다.</p>
-				</header>
-			</section>
-
 			<!-- Post -->
 			<article class="post">
 				<header>
 					<div class="title">
-						<h2>My Page</h2>
-						<p>내 정보 수정이나 팀 신청 내역, 경기 매칭 내역 등을 확인할 수 있습니다.</p>
+						<h2>팀 가입/탈퇴 신청내역</h2>
+						<p>우리 팀에 가입을 신청하거나 탈퇴를 신청한 회원 내역을 보여줍니다.</p>
 					</div>
 				</header>
 
-				<!-- Posts List -->
 				<section>
-					<ul class="posts">
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="${ commonURL }/member/myinfo">내 정보 수정</a>
-									</h3>
-									<p class="published">내 정보를 수정합니다. </p>
-								</header>
-								<a href="single.html" class="image"><img
-									src="${pageContext.request.contextPath}/resources/images/icon_account.png"
-									alt="" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">팀 가입/탈퇴 신청 내역</a>
-									</h3>
-									<p class="published">팀에 가입 신청을 한 내역을 확인합니다.</p>
-								</header>
-								<a href="single.html" class="image"><img
-									src="${pageContext.request.contextPath}/resources/images/icon_list.png"
-									alt="" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">매칭 신청 내역</a>
-									</h3>
-									<p class="published">우리 팀과 경기를 원하는 신청 내역을 확인합니다.</p>
-								</header>
-								<a href="single.html" class="image"><img
-									src="${pageContext.request.contextPath}/resources/images/icon_calendar.png"
-									alt="" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">미정</a>
-									</h3>
-									<p class="published">미정</p>
-								</header>
-								<a href="single.html" class="image"><img
-									src="${pageContext.request.contextPath}/resources/images/icon_list.png"
-									alt="" /></a>
-							</article>
-						</li>
-					</ul>
+					<h3>가입 신청내역</h3>
+					<div class="table-wrapper">
+						<table>
+							<colgroup>
+								<col width="5%" />
+								<col width="7%" />
+								<col width="5%" />
+								<col width="*" />
+								<col width="15%" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>이름</th>
+									<th>포지션</th>
+									<th>자기소개</th>
+									<th>상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>홍길동</td>
+									<td>LW</td>
+									<td class="introduction">같이 축구하고 싶습니다..</td>
+									<td><a href="" class="button"
+										style="line-height: 0; padding: 1rem; height: auto;">수락</a> <a
+										href="" class="button"
+										style="line-height: 0; padding: 1rem; height: auto;">거절</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<hr />
+
+					<h3>탈퇴 신청내역</h3>
+					<div class="table-wrapper">
+						<table>
+							<colgroup>
+								<col width="5%" />
+								<col width="7%" />
+								<col width="5%" />
+								<col width="*" />
+								<col width="15%" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>이름</th>
+									<th>포지션</th>
+									<th>자기소개</th>
+									<th>상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1</td>
+									<td>홍길동</td>
+									<td>LW</td>
+									<td class="introduction">탈퇴합니다 빠염</td>
+									<td><a href="" class="button"
+										style="line-height: 0; padding: 1rem; height: auto;">수락</a> <a
+										href="" class="button"
+										style="line-height: 0; padding: 1rem; height: auto;">거절</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</section>
 			</article>
 			<!-- Footer -->

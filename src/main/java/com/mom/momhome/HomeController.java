@@ -41,6 +41,10 @@ public class HomeController {
 		return "single";
 	}
 	
+	@RequestMapping(value = "/demo", method = RequestMethod.GET)
+	public String demo() {
+		return "demo";
+	}
 	
 	
 	

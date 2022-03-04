@@ -67,7 +67,7 @@ textarea {
 									</h3>
 									<p class="published">내 정보를 수정합니다. </p>
 								</header>
-								<a href="single.html" class="image"><img
+								<a href="${ commonURL }/member/myinfo" class="image"><img
 									src="${pageContext.request.contextPath}/resources/images/icon_account.png"
 									alt="" /></a>
 							</article>
@@ -76,11 +76,11 @@ textarea {
 							<article>
 								<header>
 									<h3>
-										<a href="single.html">팀 가입/탈퇴 신청 내역</a>
+										<a href="${ commonURL }/member/teamdetail">팀 가입/탈퇴 신청 내역</a>
 									</h3>
 									<p class="published">팀에 가입 신청을 한 내역을 확인합니다.</p>
 								</header>
-								<a href="single.html" class="image"><img
+								<a href="${ commonURL }/member/teamdetail" class="image"><img
 									src="${pageContext.request.contextPath}/resources/images/icon_list.png"
 									alt="" /></a>
 							</article>
@@ -89,11 +89,11 @@ textarea {
 							<article>
 								<header>
 									<h3>
-										<a href="single.html">매칭 신청 내역</a>
+										<a href="${pageContext.request.contextPath}/member/matchinglist">매칭 신청 내역</a>
 									</h3>
 									<p class="published">우리 팀과 경기를 원하는 신청 내역을 확인합니다.</p>
 								</header>
-								<a href="single.html" class="image"><img
+								<a href="${pageContext.request.contextPath}/member/matchinglist" class="image"><img
 									src="${pageContext.request.contextPath}/resources/images/icon_calendar.png"
 									alt="" /></a>
 							</article>

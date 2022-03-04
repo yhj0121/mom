@@ -145,4 +145,16 @@ public class MemberController {
 		map.put("result", "success");
 		return map;
 	}
+	
+	//마이페이지-팀 가입/탈퇴내역으로 이동 
+	@RequestMapping("member/teamdetail")
+	String member_teamdetail() {
+		return "member/member_teamdetail";
+	}
+	
+	//마이페이지-팀 매칭신청내역으로 이동 
+	@RequestMapping("member/matchinglist")
+	String member_matchingdetail() {
+		return "member/member_matchingdetail";
+	}
 }

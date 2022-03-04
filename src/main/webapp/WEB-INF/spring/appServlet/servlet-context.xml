@@ -33,11 +33,13 @@
       <beans:property name="maxInMemorySize" value="10485760"></beans:property>
    </beans:bean>
 	
- 	<!-- <interceptors>
+ 	<interceptors>
 		<interceptor>
-			<mapping path="/**/w*"></mapping> 
-			<mapping path="/**/m*"></mapping>
+			<mapping path="/member/myinfo"></mapping> 
+			<mapping path="/mercenary/write"></mapping> 
+			<mapping path="/game/write"></mapping> 
+			<mapping path="/team/write"></mapping> 
 			<beans:bean id="LoginInterceptor" class="com.mom.momhome.common.LoginInterceptor" /> 
-		</interceptor> -->
-
+		</interceptor>
+ 	</interceptors>
 </beans:beans>

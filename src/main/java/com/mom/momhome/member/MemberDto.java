@@ -1,6 +1,7 @@
 package com.mom.momhome.member;
 
 public class MemberDto {
+	String user_key="";
 	String user_id="";
 	String user_password="";
 	String user_name="";
@@ -10,6 +11,12 @@ public class MemberDto {
 	String user_address2="";
 	String user_position="";
 	String user_intro="";
+	public String getUser_key() {
+		return user_key;
+	}
+	public void setUser_key(String user_key) {
+		this.user_key = user_key;
+	}
 	public String getUser_id() {
 		return user_id;
 	}
@@ -66,9 +73,9 @@ public class MemberDto {
 	}
 	@Override
 	public String toString() {
-		return "MemberDto [user_id=" + user_id + ", user_password=" + user_password + ", user_name=" + user_name
-				+ ", user_mail=" + user_mail + ", user_phone=" + user_phone + ", user_address1=" + user_address1
-				+ ", user_address2=" + user_address2 + ", user_position=" + user_position + ", user_intro=" + user_intro
-				+ "]";
+		return "MemberDto [user_key=" + user_key + ", user_id=" + user_id + ", user_password=" + user_password
+				+ ", user_name=" + user_name + ", user_mail=" + user_mail + ", user_phone=" + user_phone
+				+ ", user_address1=" + user_address1 + ", user_address2=" + user_address2 + ", user_position="
+				+ user_position + ", user_intro=" + user_intro + "]";
 	}
 }

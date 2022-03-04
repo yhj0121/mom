@@ -40,17 +40,7 @@
 	</select>
 
 	<select id="Member_getInfo" parameterType="MemberDto" resultType="MemberDto">
-			select 	 
-			user_id
-			, user_password
-			, user_name
-			, user_mail
-			, user_phone
-			, user_address1
-			, user_address2
-			, user_position
-			, user_intro
-			from User
+			select * from User
 			where user_id=#{ user_id } and USER_PASSWORD=#{ user_password }
 		</select>
 		

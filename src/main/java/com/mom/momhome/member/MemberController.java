@@ -133,7 +133,7 @@ public class MemberController {
 		MemberDto resultDto = memberService.getInfo(dto);
 		model.addAttribute("memberDto", resultDto);
 		System.out.println("resultDto는 "+resultDto);
-		return "member/memeber_myinfo";
+		return "member/member_myinfo";
 	}
 	
 	//마이페이지-회원정보 수정페이지 수정 기능 

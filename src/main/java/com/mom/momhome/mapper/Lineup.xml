@@ -23,22 +23,32 @@ resultType : 받아오는값
             
 	</select>
 	
-	    <select id="Lineup_getPlayerList" parameterType="LineupPlayerDto"    resultType="LineupPlayerDto">
-         select
-             user_key
-             ,team_key
-             ,game_key
-             ,code_key
-             ,team_side
-         from user
-         where game_key = #{game_key} AND team_side = #{team_side}
-            
-    </select>
+<!-- //1. team_key 로 Membership테이블에서 해당 팀의 user_key들을 다 가져온다. -->
+<!-- //2. 가져온 user_key들로 User테이블에서 해당 유저들 정보 가져온다. -->
+	<select id="Lineup_getPlayerList" parameterType="String"    resultType="LineupPlayerDto">
+    select
+        user_key
+        ,user_id
+        ,user_password
+        ,user_name
+        ,user_mail
+        ,user_phone
+        ,user_address1
+        ,user_address2
+        ,user_position
+        ,user_intro
+    	from user
+    	where user_key IN(
+    		select  user_key
+   			from membership
+   			where team_key = #{team_key}
+    	)
+    </select>    
     
     <select id="Lineup_getPlayer" parameterType="String"    resultType="LineupPlayerDto">
     select
         user_key
-         ,user_id
+        ,user_id
         ,user_password
         ,user_name
         ,user_mail

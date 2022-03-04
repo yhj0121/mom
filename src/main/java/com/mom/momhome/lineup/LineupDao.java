@@ -8,7 +8,7 @@ public interface LineupDao {
 	List<LineupDto> getList(LineupDto dto);
 
 	//라인업에 선수 등록을위해 클릭시 해당팀 선수리스트 보여주기 위해.
-	List<LineupPlayerDto> getPlayerList(LineupDto dto);
+	List<LineupPlayerDto> getPlayerList(String teamkey);
 	
     LineupPlayerDto getPlayer(String userkey);
     

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LineupController {
@@ -155,11 +156,17 @@ public class LineupController {
 	}
 	
 	@RequestMapping(value = "/lineup/modify", method = RequestMethod.GET)
-	public String modify(Model model, LineupDto dto) {
+	public String modify(String game_key, String team_key, String team_side, Model model) {
 		
+//		System.out.println(game_key);
+//		System.out.println(team_key);
+//		System.out.println(team_side);
+		
+		LineupDto dto = new LineupDto();
         //---temp---------
-        dto.setGame_key("1");
-        dto.setTeam_side("1");
+        dto.setGame_key(game_key);
+        dto.setTeam_key(team_key);
+        dto.setTeam_side(team_side);
         //--------------
         List<LineupDto> list = service.getList(dto);
         
@@ -182,9 +189,38 @@ public class LineupController {
 			}
 		}
 		
+		model.addAttribute("game_key", game_key);
+		model.addAttribute("team_key", team_key);
+		model.addAttribute("team_side", team_side);
 		model.addAttribute("lineupList", list);
 		
 		return "lineup/lineup_modify";
 	}
 	
+	@RequestMapping("/lineup/modify/getPlayerList")
+	@ResponseBody
+	List<LineupPlayerDto> modify_getPlayerList(String team_key, Model model)
+	{
+		List<LineupPlayerDto> list = service.getPlayerList(team_key);
+		model.addAttribute("lineupPlayerList", list);
+		return list; 
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,19 +8,24 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="../resources/assets/css/main.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
+<!-- 	<link rel="stylesheet" href="../resources/assets/css/main.css" /> -->
+	<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+	
 	<title>Insert title here</title>
 </head>
 <body class="is-preload">
 
 	<!-- Wrapper -->
-	<div id="wrapper">
+	<div id="main">
 
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
 		
 		<%
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
+		List<LineupPlayerDto> playersInTeam = (List<LineupPlayerDto>)request.getAttribute("lineupPlayerList");
+		String team_key = (String)request.getAttribute("team_key");
 		%>
 			      
           <section>
@@ -48,12 +53,17 @@
 						<tr>
 							<td><%=(i+1)%></td>
 							<td>
-								<select id="positionList" name="user_position">
-									<option id="opt1" value="NN">원하는 포지션을 선택해주세요.</option>
+								<select id="positionList" name="positionList">
+									<option id="positionList_opt" value="NN">원하는 포지션을 선택해주세요.</option>
 								</select>
 							</td>
-							<td><a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a></td>
+							<td>
+								<select id="playerList" name="playerList">
+									<option id="playerList_opt" value="NN">원하는 선수를 선택해주세요.</option>
+								</select>
+							</td>
 							<td><%=name%></td>
+<%-- 							<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> --%>
 						</tr>
 					<%
 					}
@@ -72,9 +82,12 @@
 </body>
 </html>
 
+
+
 <script>
 $(()=>{
 	getPositionList();
+	getPlayerList();
 })
 
 function goPlayerInfo(id)
@@ -86,9 +99,19 @@ function goPlayerInfo(id)
 	frm.submit();
 }
 
+function goSave()
+{
+	//저장하면 info페이지로 이동
+	let frm = document.myform;
+	frm.id.value=id;
+	frm.method="get";
+    frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
+	frm.submit();
+}
+
 function getPositionList(){
 	
-	console.log("getPositionList()");
+// 	console.log("getPositionList()");
 	
 	$.ajax({
 		url: "${commonURL}/member/selectPosition",
@@ -97,15 +120,42 @@ function getPositionList(){
 		type: "POST"
 	})
 	.done( (result) => {
-		var i=1;
-	
-	  result.forEach( (item)=>{
-	    	var data = "<option "+"value='"+item.position+"'>";
-	    	    data +=  item.position ;
-	    	    data += "</option>";
-	    	i++;
-	      	$("#opt1").after(data);
+	    let selects = document.getElementsByName("positionList")
+// 	    console.log(selects.length);
+	    
+		for(select of selects)
+    	{
+	    	//select.append(data);
+	    	for(item of result)
+	    		select.options[select.options.length] = new Option(item.position, item.position);
+    	}
 	})
+	.fail( (error) => {
+		alert("정보 가져오기 실패");
+	})
+}
+
+function getPlayerList()
+{
+<%-- 	console.log("getPlayerList().team_key : " + <%=team_key%>); --%>
+	
+	$.ajax({
+		url: "${commonURL}/lineup/modify/getPlayerList",
+		data:{team_key:<%=team_key%>},
+		type: "POST",
+		dataType:"JSON"
+	})
+	.done( (result) => {
+		let selects = document.getElementsByName("playerList")
+// 	    console.log(selects.length);
+	    
+		for(select of selects)
+    	{
+	    	for(item of result)
+	    		select.options[select.options.length] = new Option(item.user_id, item.user_id);
+
+	    	select.options[select.options.length] = new Option("용병", "용병");
+    	}
 	})
 	.fail( (error) => {
 		alert("정보 가져오기 실패");

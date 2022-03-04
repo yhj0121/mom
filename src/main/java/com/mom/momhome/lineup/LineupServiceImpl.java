@@ -18,8 +18,8 @@ public class LineupServiceImpl implements LineupService{
 	}
 
 	@Override
-	public List<LineupPlayerDto> getPlayerList(LineupDto dto) {
-		return lineupDao.getPlayerList(dto);
+	public List<LineupPlayerDto> getPlayerList(String teamkey) {
+		return lineupDao.getPlayerList(teamkey);
 	}
 	
     @Override

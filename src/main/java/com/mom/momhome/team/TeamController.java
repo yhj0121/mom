@@ -28,7 +28,7 @@ public class TeamController {
 	//팀 메인 페이지 연결
 	@RequestMapping(value = "/team/main", method = RequestMethod.GET)
 	public String teamList() {
-		return "team/teamMain";
+		return "team/team_main";
 	}
 	
 	
@@ -36,14 +36,10 @@ public class TeamController {
 	//팀 생성 화면 연결
 	@RequestMapping(value="/team/write")
 	public String teamWrite() {	
-		return "team/teamWrite";
+		return "team/team_write";
 	}
 	
-	@RequestMapping(value="/team/register2")
-	public String teamRegister2() {	
-		return "team/teamRegister2";
-	}
-	
+
 	//지역 정보 리스트 (팀생성 화면에서)
 	@RequestMapping("/team/selectCity")
 	@ResponseBody

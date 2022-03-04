@@ -39,7 +39,7 @@
 									<div class="title">
 										
 										<h3><img src="${pageContext.request.contextPath}/resources/images/note.jpg"width="100" height="100">이미 함께하는 동료가 있나요?<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;팀을 등록 해서 운영해보고 싶다면,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;등록은 여기입니다.</h3>
-										<input type="button" class="btn btn-secondary" value="팀 생성 하러가기" onClick="location.href='/momhome/team/register2'"><br><br>
+										<input type="button" class="btn btn-secondary" value="팀 생성 하러가기" onClick="location.href='/momhome/team/write'"><br><br>
 										
 									</div>
 									

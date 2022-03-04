@@ -74,7 +74,13 @@ public class MercenaryController {
 		return "mercenary/mercenary_write";
 	}
 	
-	
+	@RequestMapping(value="/mercenary/apply")
+	@ResponseBody
+	String mercenary_apply(MercenaryDto dto)
+	{
+		service.insertJoin(dto);
+		return "redirect:/mercenary/list";
+	}
 	
 	
 	

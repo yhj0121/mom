@@ -32,9 +32,11 @@ border-right:solid 1px;
 text-align : center;
 margin:auto;
 overflow:hidden;
-
 }  
-
+img{
+display:block;
+margin:auto;
+}
 </style> 
 
 
@@ -57,7 +59,7 @@ overflow:hidden;
 						<p>감독 권한으로 올린 용병 구인 게시글을 확인하는 페이지</p>
 					</div>
 					<div class="meta">
-						<a href="#" class="author"><span class="name">Jane Doe</span><img src="resources/images/avatar.jpg" alt="" /></a>
+						<a href="#" class="logo"><img src="${pageContext.request.contextPath}/resources/images/icon_mercenary.png" alt="" /></a>
 					</div>
 				</header>
 	 		

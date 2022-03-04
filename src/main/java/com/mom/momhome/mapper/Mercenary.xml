@@ -90,4 +90,11 @@
 						  ,chg_date = now()
 				where mercenary_key = #{mercenary_key}
 	</update>
+	
+	<insert id="MercenaryJoin_insert" parameterType="MercenaryDto">
+		insert into mercenaryjoin
+		(mercenary_key, user_key, mercenary_proc)
+		values
+		(#{mercenary_key}, #{user_key}, #{mercenary_proc})
+	</insert>
 </mapper>

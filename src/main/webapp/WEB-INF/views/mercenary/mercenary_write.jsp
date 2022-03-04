@@ -12,12 +12,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>Insert title here</title>
+<style>
+img{
+display:block;
+margin:auto;
+}
+</style>
 </head>
 <body class= "is-preload">
 	<div id="wrapper">
 	<%@include file="../include/nav.jsp"%>
 	<%
-		MercenaryDto dto = (MercenaryDto)request.getAttribute("mercenaryDto");
+		MercenaryDto mdto = (MercenaryDto)request.getAttribute("mercenaryDto");
    %>
 		<div id="main">
 		 		<article class="post">
@@ -27,7 +33,7 @@
 							<p>감독 권한으로 용병 구인글 작성하는 페이지</p>
 						</div>
 						<div class="meta">
-							<a href="#" class="author"><span class="name">Jane Doe</span><img src="resources/images/avatar.jpg" alt="" /></a>
+						<a href="#" class="logo"><img src="${pageContext.request.contextPath}/resources/images/icon_mercenary.png" alt="" /></a>
 						</div>
 					</header>
 					
@@ -36,20 +42,17 @@
 							<form name="myform" >
 								<input type="hidden" name="user_key" value="2"/>
 								<input type="hidden" name="game_key" value="1"/>
-								<input type="hidden" name="mercenary_key" value="<%=dto.getMercenary_key()%>"/>
+								<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>"/>
 								
 								<div class="row gtr-uniform">
 									<div class="col-12">
-										<input type="text" name="mercenary_title" id="mercenary_title" value="<%=dto.getMercenary_title()%>" placeholder="제목" />
+										<input type="text" name="mercenary_title" id="mercenary_title" value="<%=mdto.getMercenary_title()%>" placeholder="제목" />
 									</div>
-									<!-- <div class="col-6 col-12-xsmall">
-										<input type="text" name="team_name" id="team_name" value="" placeholder="팀이름" />
-									</div> -->
 									<div class="col-6 col-12-xsmall">
 										<input type="text" name="user_name" id="user_name" value="임꺽정" placeholder="작성자" readonly/>
 									</div>
 									<div class="col-12">
-										<textarea name="mercenary_contents" id="mercenary_contents" placeholder="내용" rows="6"><%=dto.getMercenary_contents()%></textarea>
+										<textarea name="mercenary_contents" id="mercenary_contents" placeholder="내용" rows="6"><%=mdto.getMercenary_contents()%></textarea>
 									</div>
 									<div class="col-12">
 										<ul class="actions">

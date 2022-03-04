@@ -11,6 +11,12 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>용병 구인 상세보기</title>
+<style>
+img{
+display:block;
+margin:auto;
+}
+</style>
 </head>
 <body class= "is-preload">
 	<div id="wrapper">
@@ -23,7 +29,7 @@
 	 	/* String user_key = (String)session.getAttribute("user_key"); */
 	 %>
 	 <%
-	   MercenaryDto dto = (MercenaryDto)request.getAttribute("mercenaryDto");
+	   MercenaryDto mdto = (MercenaryDto)request.getAttribute("mercenaryDto");
 	  %>
 		<div id="main">
 	 		<article class="post">
@@ -33,7 +39,7 @@
 						<p>용병 구인 상세보기 화면</p>
 					</div>
 					<div class="meta">
-						<a href="#" class="author"><span class="name">Jane Doe</span><img src="resources/images/avatar.jpg" alt="" /></a>
+						<a href="#" class="logo"><img src="${pageContext.request.contextPath}/resources/images/icon_mercenary.png" alt="" /></a>
 					</div>
 				</header>
 				
@@ -44,22 +50,20 @@
 					     	<input type="hidden" name="key"     value="<%=key%>" >
 					        <input type="hidden" name="keyword" value="<%=keyword%>" >
 					        <input type="hidden" name="user_key" value=""/>
-							<input type="hidden" name="game_key" value="1"/>
-							<input type="hidden" name="mercenary_key" value="<%=dto.getMercenary_key()%>" />
+							<input type="hidden" name="game_key" value="<%=mdto.getGame_key()%>"/>
+							<input type="hidden" name="mercenary_key" value="2" />
+							<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_proc()%>" />
 					   
 					      	
 							<div class="row gtr-uniform">
 								<div class="col-12">
-									<input type="text" name="mercenary_title" id="mercenary_title" value="<%=dto.getMercenary_title()%>" readonly />
+									<input type="text" name="mercenary_title" id="mercenary_title" value="<%=mdto.getMercenary_title()%>" readonly />
 								</div>
-								<!-- <div class="col-6 col-12-xsmall">
-									<input type="text" name="team_name" id="team_name" value="" placeholder="팀이름" />
-								</div> -->
 								<div class="col-6 col-12-xsmall">
-									<input type="text" name="user_name" id="user_name" value="<%=dto.getUser_name()%>" readonly/>
+									<input type="text" name="user_name" id="user_name" value="<%=mdto.getUser_name()%>" readonly/>
 								</div>
 								<div class="col-12">
-									<textarea name="mercenary_contents" id="mercenary_contents" rows="6" readonly><%=dto.getMercenary_contents()%></textarea>
+									<textarea name="mercenary_contents" id="mercenary_contents" rows="6" readonly><%=mdto.getMercenary_contents()%></textarea>
 								</div>
 								<div class="col-12">
 									<ul class="actions">
@@ -89,7 +93,22 @@ function goList()
 
 function goApply()
 {
-	alert("신청이 완료되었습니다.");
+	var frmData = document.myform; 
+	var queryString = $("form[name=myform]").serialize();
+	$.ajax({
+		url:"<%=request.getContextPath()%>/mercenary/apply",
+		data:queryString,
+		processData:false,
+		type:"POST"
+	})
+	.done((result)=>{
+		console.log(result);
+		alert("신청이 완료되었습니다.");
+		location.href="<%=request.getContextPath()%>/mercenary/list";
+	})
+	.fail((error)=>{
+		console.log(error);
+	})
 }
 
 function goModify()

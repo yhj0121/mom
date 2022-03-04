@@ -6,12 +6,21 @@ public class MercenaryDto extends BaseDto {
 	private String game_key = "";
 	private String mercenary_title = "";
 	private String mercenary_contents = "";
-	private String mercenary_complete = "";
+	private String mercenary_complete = "1";
 	private String reg_date = "";
 	private String reg_user = ""; 
 	private String chg_date = "";
 	private String chg_user = ""; 
+	private String mercenary_proc = "1";
 	
+	public String getMercenary_proc() {
+		return mercenary_proc;
+	}
+
+	public void setMercenary_proc(String mercenary_proc) {
+		this.mercenary_proc = mercenary_proc;
+	}
+
 	public String user_name = "";
 
 	public String getMercenary_key() {

@@ -9,4 +9,7 @@ public interface MercenaryService {
 	void update(MercenaryDto dto);
 	MercenaryDto getView(String mercenary_key);
 	int getTotal(MercenaryDto dto);
+	
+	void insertJoin(MercenaryDto dto);
+
 }

@@ -40,4 +40,10 @@ public class MercenaryDaoImpl implements MercenaryDao {
 	public int getTotal(MercenaryDto dto) {
 		return sm.selectOne("Mercenary_getTotal",dto);
 	}
+
+	@Override
+	public void insertJoin(MercenaryDto dto) {
+		sm.insert("MercenaryJoin_insert",dto);
+		
+	}
 }

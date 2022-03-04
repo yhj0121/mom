@@ -18,38 +18,97 @@
 
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
-
-		<h1>Lineup info</h1>
 		
 		<%
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
-		
-		for(int i =0; i<11; i++)
-		{
 		%>
-		<%=(i+1) %>. 이름 (이름에 링크달기) <br/>
- 		
- 		<a href="#none" onclick="goModify('<%=lineups.get(i).getLineup_key()%>')"><%=lineups.get(i).getPlayerDto().getUser_id()%></a></td> 
-
-		<%
-		}
-		%>
-	
-          <div class="container mt-3" style="text-align:right;">
-            <a href="<%=request.getContextPath()%>/lineup/modify" class="btn btn-secondary">수정</a>
-          </div>
+			      
+          <section>
+			<h1>라인업 수정</h1>
+			<div class="table-wrapper">
+				<table class="alt">
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>포지션</th>
+							<th>아이디</th>
+							<th>이름</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+					<%
+					
+					for(int i =0; i<11; i++)
+					{
+						String id = lineups.get(i).getPlayerDto().getUser_id();
+						String name = lineups.get(i).getPlayerDto().getUser_name();
+						String position = lineups.get(i).getCode_key();
+					%>
+						<tr>
+							<td><%=(i+1)%></td>
+							<td>
+								<select id="positionList" name="user_position">
+									<option id="opt1" value="NN">원하는 포지션을 선택해주세요.</option>
+								</select>
+							</td>
+							<td><a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a></td>
+							<td><%=name%></td>
+						</tr>
+					<%
+					}
+					%>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="container mt-3" style="text-align:right;">
+            	<a href="<%=request.getContextPath()%>/lineup/modify" class="btn btn-secondary">저장</a>
+          	</div>
+          
+		</section>
           
 	</div>
 </body>
 </html>
 
 <script>
-function goModify(id)
+$(()=>{
+	getPositionList();
+})
+
+function goPlayerInfo(id)
 {
 	let frm = document.myform;
 	frm.id.value=id;
 	frm.method="get";
-	frm.action="${pageContext.request.contextPath}/board/view";
+    frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
 	frm.submit();
+}
+
+function getPositionList(){
+	
+	console.log("getPositionList()");
+	
+	$.ajax({
+		url: "${commonURL}/member/selectPosition",
+		contentType: false,
+		processData: false,
+		type: "POST"
+	})
+	.done( (result) => {
+		var i=1;
+	
+	  result.forEach( (item)=>{
+	    	var data = "<option "+"value='"+item.position+"'>";
+	    	    data +=  item.position ;
+	    	    data += "</option>";
+	    	i++;
+	      	$("#opt1").after(data);
+	})
+	})
+	.fail( (error) => {
+		alert("정보 가져오기 실패");
+	})
 }
 </script>

@@ -66,7 +66,7 @@ public class LineupController {
 			tempDto.setUser_key(String.valueOf((i*2 + 1)));
 			tempDto.setTeam_key("1");
 			tempDto.setGame_key("1");
-			tempDto.setCode_key("KR");
+			tempDto.setCode_key("GK");
 			tempDto.setTeam_side("1");
 			
 			service.insert(tempDto);
@@ -153,4 +153,38 @@ public class LineupController {
 			service.insert_gameDummy(tempDto);
 		}
 	}
+	
+	@RequestMapping(value = "/lineup/modify", method = RequestMethod.GET)
+	public String modify(Model model, LineupDto dto) {
+		
+        //---temp---------
+        dto.setGame_key("1");
+        dto.setTeam_side("1");
+        //--------------
+        List<LineupDto> list = service.getList(dto);
+        
+        for(LineupDto tempDto : list)
+        {
+            tempDto.getPlayerDto().setUser_key(tempDto.getUser_key());
+            tempDto.setPlayerDto(service.getPlayer(tempDto.getUser_key())); 
+            
+//            System.out.println("LineupKey: " + tempDto.getLineup_key());
+//            System.out.println("UserKey: " + tempDto.getUser_key());
+//            System.out.println("UserID: " + tempDto.getPlayerDto().getUser_id());
+        }
+        
+		int length = list.size();
+		if(length < 11)
+		{
+			for(int i =0; i < 11-length; i++)
+			{
+				list.add(new LineupDto());
+			}
+		}
+		
+		model.addAttribute("lineupList", list);
+		
+		return "lineup/lineup_modify";
+	}
+	
 }

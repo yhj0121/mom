@@ -18,28 +18,51 @@
 
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
-
-		<h1>Lineup info</h1>
 		
 		<%
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
-		int length = lineups.size();
-		
-		for(int i =0; i<11; i++)
-		{
-            String id = lineups.get(i).getPlayerDto().getUser_id();
 		%>
-        <%=(i+1) + " / " + length %>. 이름 (이름에 링크달기) <br/>
- 		
- 		         <a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> 
-
-		<%
-		}
-		%>
-	
-          <div class="container mt-3" style="text-align:right;">
-            <a href="<%=request.getContextPath()%>/lineup/modify" class="btn btn-secondary">수정</a>
-          </div>
+			      
+          <section>
+			<h1>라인업</h1>
+			<div class="table-wrapper">
+				<table class="alt">
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>포지션</th>
+							<th>아이디</th>
+							<th>이름</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+					<%
+					
+					for(int i =0; i<11; i++)
+					{
+						String id = lineups.get(i).getPlayerDto().getUser_id();
+						String name = lineups.get(i).getPlayerDto().getUser_name();
+						String position = lineups.get(i).getCode_key();
+					%>
+						<tr>
+							<td><%=(i+1)%></td>
+							<td><%=position%></td>
+							<td><a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a></td>
+							<td><%=name%></td>
+						</tr>
+					<%
+					}
+					%>
+					</tbody>
+				</table>
+			</div>
+			
+			<div class="container mt-3" style="text-align:right;">
+            	<a href="<%=request.getContextPath()%>/lineup/modify" class="btn btn-secondary">수정</a>
+          	</div>
+          
+		</section>
           
 	</div>
 </body>
@@ -54,4 +77,5 @@ function goPlayerInfo(id)
     frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
 	frm.submit();
 }
+
 </script>

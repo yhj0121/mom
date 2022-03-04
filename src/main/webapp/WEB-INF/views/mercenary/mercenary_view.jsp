@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="com.mom.momhome.mercenary.*" %>
 <%@page import="com.mom.momhome.common.*" %>
+<%@page import="com.mom.momhome.member.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,8 +26,6 @@ margin:auto;
 	 	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 	 	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 	 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	 	
-	 	/* String user_key = (String)session.getAttribute("user_key"); */
 	 %>
 	 <%
 	   MercenaryDto mdto = (MercenaryDto)request.getAttribute("mercenaryDto");
@@ -49,10 +48,11 @@ margin:auto;
 							<input type="hidden" name="pg"      value="<%=pg%>" >
 					     	<input type="hidden" name="key"     value="<%=key%>" >
 					        <input type="hidden" name="keyword" value="<%=keyword%>" >
-					        <input type="hidden" name="user_key" value=""/>
+					        <%-- <input type="text" name="test" value="<%=user_key%>" > --%>
+					        <input type="hidden" name="user_key" value="${userkey}" >
 							<input type="hidden" name="game_key" value="<%=mdto.getGame_key()%>"/>
-							<input type="hidden" name="mercenary_key" value="2" />
-							<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_proc()%>" />
+							<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>" />
+							<input type="hidden" name="mercenary_proc" value="<%=mdto.getMercenary_proc()%>" />
 					   
 					      	
 							<div class="row gtr-uniform">
@@ -69,10 +69,10 @@ margin:auto;
 									<ul class="actions">
 										<li><input type="button" value="목록" onclick="goList()" /></li>
 										<li><input type="button" value="용병신청" onclick="goApply()" /></li>
-								<%-- <%if(user_key.equals(dto.getUser_key())) {%> --%>
+								<%if(user_key.equals(mdto.getUser_key())) {%>
 										<li><input type="button" value="수정" onclick="goModify()" /></li>
 										<li><input type="button" value="삭제" onclick="goDelete()" /></li>
-										<%-- <%}%> --%>
+								<%}%> 
 									</ul>
 								</div>
 							</div>

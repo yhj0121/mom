@@ -44,14 +44,13 @@ margin:auto;
 				<section>
 						<h3 style="text-align: center">용병구인리스트 (${totalCnt}건)</h3>		
 							<form name="myform"> 	
-								<input type="hidden" name="user_key" id="user_key" value="2"/>
+								<%-- <input type="hidden" name="user_key" id="user_key" value="<%=user_key%>"/> --%>
 							   	<input type="hidden" name="pg"  id="pg" value="<%=pg%>"/>
-							   	<input type="hidden" name="key" id="key" value="<%=key%>"/>
 							   	<input type="hidden" name="mercenary_key" id="mercenary_key" value=""/>
 							   	
 							   	<div class="row gtr-uniform">
 									<div class="col-3 col-6-xsmall">
-											<select name="searchItem" id="searchItem">
+											<select name="key" id="key">
 												<option value="">- 선택하세요 -</option>
 												<option value="1">제목</option>
 												<option value="2">내용</option>

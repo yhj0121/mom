@@ -40,7 +40,7 @@ margin:auto;
 		 			<section>
 						<h3>용병구인작성</h3>
 							<form name="myform" >
-								<input type="hidden" name="user_key" value="2"/>
+								<input type="hidden" name="user_key" value="<%=user_key%>"/>
 								<input type="hidden" name="game_key" value="1"/>
 								<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>"/>
 								
@@ -49,7 +49,7 @@ margin:auto;
 										<input type="text" name="mercenary_title" id="mercenary_title" value="<%=mdto.getMercenary_title()%>" placeholder="제목" />
 									</div>
 									<div class="col-6 col-12-xsmall">
-										<input type="text" name="user_name" id="user_name" value="임꺽정" placeholder="작성자" readonly/>
+										<input type="text" name="user_name" id="user_name" value="<%=username%>" placeholder="작성자" readonly/>
 									</div>
 									<div class="col-12">
 										<textarea name="mercenary_contents" id="mercenary_contents" placeholder="내용" rows="6"><%=mdto.getMercenary_contents()%></textarea>

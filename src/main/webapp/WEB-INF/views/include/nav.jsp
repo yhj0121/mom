@@ -10,6 +10,7 @@ String userid = StringUtil.nullToValue(session.getAttribute("userid"), "");
 String username = StringUtil.nullToValue(session.getAttribute("username"), "");
 String email = StringUtil.nullToValue(session.getAttribute("email"), "");
 String phone = StringUtil.nullToValue(session.getAttribute("phone"), "");
+String user_key = StringUtil.nullToValue(session.getAttribute("userkey"), "");
 %>
 <meta charset="UTF-8">
 <header id="header">

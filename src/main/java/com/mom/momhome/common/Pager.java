@@ -34,10 +34,10 @@ public class Pager {
 
 		String path="";
 		//System.out.println(path);
-		String beginLabel 	= "first";//image  태그
-		String prevLabel 	= "previous"; 
-		String nextLabel 	= "next";
-		String endLabel 	= "last";	
+		String beginLabel 	= "<<";//image  태그
+		String prevLabel 	= "<"; 
+		String nextLabel 	= ">";
+		String endLabel 	= ">>";	
 
 		
 		try {

@@ -12,35 +12,13 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <title>용병 구인 게시판</title>
-
+</head>
 <style>
-.pagination{
-list-style:none;
-text-align : center;
-display:block;
-justify-content: center;
-margin:auto;
-}
-.page-item{
-text-align:center;
-display: inline-block;
-} 
-ul li a.page-link{
-display:block;
-padding:9px 12px;
-border-right:solid 1px;
-text-align : center;
-margin:auto;
-overflow:hidden;
-}  
 img{
 display:block;
 margin:auto;
 }
-</style> 
-
-
-</head>
+</style>
 <body class= "is-preload">
 	<div id="wrapper">
 	<%@include file="../include/nav.jsp"%>
@@ -128,9 +106,11 @@ margin:auto;
 							</form>
 					</section>
 			</article>
-				<div>
+			<!-- Pagination  -->
+				<div class="container" style="display: flex; justify-content: center;">
 				<%=Pager.makeTag(request,10,totalCnt) %>
 				</div>
+				<!-- /Pagination  -->
 		</div>
 	</div>
 </body>

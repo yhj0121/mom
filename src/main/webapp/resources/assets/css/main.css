@@ -3225,3 +3225,45 @@ input:read-only, textarea:read-only {
 .main-slider .swiper-pagination-bullet-active {
 	background: #0297ff
 }
+
+/* pagination */
+
+ul.pagination{
+display: flex;
+list-style: none;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
+  margin: 2rem;
+  border-radius: 0.6rem;
+  background: #ffffff;
+  box-shadow: 0 0.8rem 2rem rgba(#5a6181, 0.05);
+}
+ul.pagination li.page-item{
+display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.8rem;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 2px 10px;
+} 
+ul.pagination li.page-item a.page-link{
+display:block;
+font-size: 13px;
+text-align : center;
+margin:auto;
+overflow:hidden;
+border-bottom: none;
+}
+
+ul.pagination li.page-item.active{
+	color: #ffffff;
+      background: rgb(46, 174, 173);
+      border-radius: 2px; 
+      font-weight: 600;
+}
+
+ul.pagination li.page-item a.page-link:hover {
+	
+}

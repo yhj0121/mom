@@ -43,6 +43,7 @@ margin:auto;
 								<input type="hidden" name="user_key" value="<%=user_key%>"/>
 								<input type="hidden" name="game_key" value="1"/>
 								<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>"/>
+								<input type="hidden" name="mercenary_complete" value="<%=mdto.getMercenary_complete()%>"/>
 								
 								<div class="row gtr-uniform">
 									<div class="col-12">

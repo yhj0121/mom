@@ -25,7 +25,7 @@ public class MemberController {
 	String member_register( Model model ) {
 		MemberDto dto = new MemberDto();
 		model.addAttribute("memberDto", dto); //jsp에서 이거로 받아옴 
-		return "member/signup";
+		return "member/member_signup";
 	}
 	
 	//회원가입시 아이디 중복체크
@@ -60,7 +60,7 @@ public class MemberController {
 	//로그인 페이지로 이동 
 	@RequestMapping("member/login")
 	String member_login() {
-		return "member/login";
+		return "member/member_login";
 	}
 	
 	//로그인 실행 
@@ -85,6 +85,7 @@ public class MemberController {
 				map.put("flag", "1"); //로그온 성공시 세션에 정보를 저장한다 
 				session.setMaxInactiveInterval(1800); //30분 세션 유지 
 				session.setAttribute("userid", resultDto.getUser_id());
+				session.setAttribute("userkey", resultDto.getUser_key());
 				session.setAttribute("password", resultDto.getUser_password());
 				session.setAttribute("username", resultDto.getUser_name());
 				session.setAttribute("email", resultDto.getUser_mail());
@@ -110,7 +111,7 @@ public class MemberController {
 	//마이페이지로 이동
 	@RequestMapping("member/mypage")
 	String member_mypage() {
-		return "member/mypage";
+		return "member/member_mypage";
 	}
 	
 	//마이페이지-회원정보 수정페이지로 이동 
@@ -123,7 +124,7 @@ public class MemberController {
 		System.out.println("userid: "+userid);
 		System.out.println("password: "+password);
 		if( userid==null ) {
-			return "redirect:/member/login";
+			return "redirect:/member/member_login";
 		}
 		MemberDto dto = new MemberDto();
 		dto.setUser_id(userid);
@@ -132,7 +133,7 @@ public class MemberController {
 		MemberDto resultDto = memberService.getInfo(dto);
 		model.addAttribute("memberDto", resultDto);
 		System.out.println("resultDto는 "+resultDto);
-		return "member/mypageMyinfo";
+		return "member/memeber_myinfo";
 	}
 	
 	//마이페이지-회원정보 수정페이지 수정 기능 

@@ -12,7 +12,8 @@ resultType : 받아오는값
 -->
 	<select id="Lineup_getList" parameterType="LineupDto"	resultType="LineupDto">
  		select
- 			user_key
+            lineup_key
+            ,user_key
  			,team_key
  			,game_key
  			,code_key
@@ -22,6 +23,33 @@ resultType : 받아오는값
             
 	</select>
 	
+	    <select id="Lineup_getPlayerList" parameterType="LineupPlayerDto"    resultType="LineupPlayerDto">
+         select
+             user_key
+             ,team_key
+             ,game_key
+             ,code_key
+             ,team_side
+         from user
+         where game_key = #{game_key} AND team_side = #{team_side}
+            
+    </select>
+    
+    <select id="Lineup_getPlayer" parameterType="String"    resultType="LineupPlayerDto">
+    select
+        user_key
+         ,user_id
+        ,user_password
+        ,user_name
+        ,user_mail
+        ,user_phone
+        ,user_address1
+        ,user_address2
+        ,user_position
+        ,user_intro
+    from user
+    where user_key = #{user_key}
+    </select>
 	
 	<insert id="Lineup_insert" parameterType="LineupDto">
 	insert into lineup(

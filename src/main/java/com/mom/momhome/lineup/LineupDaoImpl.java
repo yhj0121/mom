@@ -22,6 +22,12 @@ public class LineupDaoImpl implements LineupDao{
 	public List<LineupPlayerDto> getPlayerList(LineupDto dto) {
 		return sm.selectList("Lineup_getPlayersList", dto);
 	}
+    
+    @Override
+    public LineupPlayerDto getPlayer(String userkey) {
+        
+        return sm.selectOne("Lineup_getPlayer", userkey);
+    }
 
 	@Override
 	public void insert(LineupDto dto) {

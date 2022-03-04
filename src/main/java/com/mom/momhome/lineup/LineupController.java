@@ -18,8 +18,22 @@ public class LineupController {
 	@RequestMapping(value = "/lineup/info", method = RequestMethod.GET)
 	public String info(Model model, LineupDto dto) {
 		
-		List<LineupDto> list = service.getList(dto);
-		
+        //---temp---------
+        dto.setGame_key("1");
+        dto.setTeam_side("1");
+        //--------------
+        List<LineupDto> list = service.getList(dto);
+        
+        for(LineupDto tempDto : list)
+        {
+            tempDto.getPlayerDto().setUser_key(tempDto.getUser_key());
+            tempDto.setPlayerDto(service.getPlayer(tempDto.getUser_key())); 
+            
+//            System.out.println("LineupKey: " + tempDto.getLineup_key());
+//            System.out.println("UserKey: " + tempDto.getUser_key());
+//            System.out.println("UserID: " + tempDto.getPlayerDto().getUser_id());
+        }
+        
 		int length = list.size();
 		if(length < 11)
 		{
@@ -27,12 +41,6 @@ public class LineupController {
 			{
 				list.add(new LineupDto());
 			}
-		}
-		
-		for(LineupDto tempDto : list)
-		{
-			System.out.println("LineupKey: " + tempDto.getLineup_key());
-			System.out.println("UserKey: " + tempDto.getUser_key());
 		}
 		
 		model.addAttribute("lineupList", list);

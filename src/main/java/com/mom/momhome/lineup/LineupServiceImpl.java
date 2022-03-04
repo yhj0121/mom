@@ -21,6 +21,11 @@ public class LineupServiceImpl implements LineupService{
 	public List<LineupPlayerDto> getPlayerList(LineupDto dto) {
 		return lineupDao.getPlayerList(dto);
 	}
+	
+    @Override
+    public LineupPlayerDto getPlayer(String userkey) {
+        return lineupDao.getPlayer(userkey);
+    }
 
 	@Override
 	public void insert(LineupDto dto) {

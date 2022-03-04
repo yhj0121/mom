@@ -27,10 +27,11 @@
 		
 		for(int i =0; i<11; i++)
 		{
+            String id = lineups.get(i).getPlayerDto().getUser_id();
 		%>
-<%-- 		<%=(i+1) %>. 이름 (이름에 링크달기) <br/> --%>
+        <%=(i+1) + " / " + length %>. 이름 (이름에 링크달기) <br/>
  		
- 		<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=lineups.get(i).getPlayerDto().getUser_id()%></a></td> 
+ 		         <a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> 
 
 		<%
 		}
@@ -50,7 +51,7 @@ function goPlayerInfo(id)
 	let frm = document.myform;
 	frm.id.value=id;
 	frm.method="get";
-	frm.action="${pageContext.request.contextPath}/lineup/lineup_modify";
+    frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
 	frm.submit();
 }
 </script>

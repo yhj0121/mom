@@ -15,22 +15,15 @@ public class TeamServiceImpl implements TeamService{
 	TeamDao teamDao;
 
 	@Override
-	public List<TeamDto> getList(TeamDto dto) {
-		
-		return teamDao.getList(dto);
-	}
-
-	@Override
 	public void insert(TeamDto dto) {
-		
 		teamDao.insert(dto);
 		
 	}
 
 	@Override
-	public int getTotal(TeamDto dto) {
+	public boolean isDuplicate(TeamDto dto) {
 		
-		return teamDao.getTotal(dto);
+		return teamDao.isDuplicate(dto);
 	}
 
 	@Override
@@ -38,6 +31,8 @@ public class TeamServiceImpl implements TeamService{
 		
 		return teamDao.getCityList(dto);
 	}
+
+
 	
 
 }

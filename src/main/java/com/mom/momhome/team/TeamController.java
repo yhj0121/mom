@@ -1,6 +1,7 @@
 package com.mom.momhome.team;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.common.FileUploadUtil;
+import com.mom.momhome.member.MemberDto;
 
 @Controller
 public class TeamController {
@@ -23,46 +25,49 @@ public class TeamController {
 	@Resource(name="teamService")
 	TeamService teamService;
 	
+	//팀 메인 페이지 연결
 	@RequestMapping(value = "/team/main", method = RequestMethod.GET)
 	public String teamList() {
 		return "team/teamMain";
 	}
 	
-	@RequestMapping("/team/list")
-	   String gallery_list(Model model, TeamDto dto)
-	   {
-		   dto.setPageSize(12);
-		   dto.setStart(dto.getPg()*dto.getPageSize());
-		   
-		   List<TeamDto> list = teamService.getList(dto);
-		   int cnt = teamService.getTotal(dto);
-		   
-		   model.addAttribute("galleryList", list);
-		   model.addAttribute("totalCnt", cnt);
-		   
-	      return "gallery/gallery_list";
-	   }
 	
 	
-	
-//	@RequestMapping(value = "/teamWrite", method = RequestMethod.GET)
-//	public String teamWrite() {
-//		return "team/teamWrite";
-//	}
-	
-	@RequestMapping("/team/write")
-	String teamWrite(Model model) {
-		TeamDto dto = new TeamDto();
-		model.addAttribute("teamDto", dto);
+	//팀 생성 화면 연결
+	@RequestMapping(value="/team/write")
+	public String teamWrite() {	
 		return "team/teamWrite";
 	}
 	
+	@RequestMapping(value="/team/register2")
+	public String teamRegister2() {	
+		return "team/teamRegister2";
+	}
+	
+	//지역 정보 리스트 (팀생성 화면에서)
+	@RequestMapping("/team/selectCity")
+	@ResponseBody
+	List<BaseDto> team_getCityList(BaseDto dto, Model model)
+	{
+		List<BaseDto> list = teamService.getCityList(dto);
+		model.addAttribute("cityList", list);
+		return list;
+	}
+	
+	//팀 생성 에서 팀이름 중복검사
+	@RequestMapping("/team/isDuplicate")
+	@ResponseBody
+	public HashMap<String, String> team_isDuplicate(TeamDto dto ) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", teamService.isDuplicate(dto)+"");
+		return map;
+	}
+	
+	//팀 생성시 앰블럼(사진) 저장하기
 	 @RequestMapping("/team/save")
 	   String team_save( TeamDto dto, HttpServletRequest req, MultipartHttpServletRequest multi )
 	   {
-	      
 
-		   
 		  List<MultipartFile> multiList = new ArrayList<MultipartFile>();
 		  multiList.add(multi.getFile("upload"));
 		  
@@ -71,10 +76,20 @@ public class TeamController {
 		  System.out.println("������ ��ġ�� :" + path);
 		  FileUploadUtil.upload(path, multiList, fileNameList);
 		  
-	      dto.setTeam_emblem(fileNameList.get(0));
+	      dto.setTeam_emblem(fileNameList.get(0)); //Team_emblem 에 파일 저장
 	      
 	      teamService.insert(dto);
 	      
 	      return "redirect:/team/main";
 	   }
+	 
+	 // 팀 생성 하기
+	 @RequestMapping(value="/team/insert", method=RequestMethod.POST)
+	 @ResponseBody
+		public HashMap<String, String> team_insert(TeamDto dto) {
+			teamService.insert(dto);
+			HashMap<String, String> map = new HashMap<String, String>();
+			map.put("result", "success");
+			return map;
+		}
 }

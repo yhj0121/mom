@@ -39,7 +39,7 @@
 									<div class="title">
 										
 										<h3><img src="${pageContext.request.contextPath}/resources/images/note.jpg"width="100" height="100">이미 함께하는 동료가 있나요?<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;팀을 등록 해서 운영해보고 싶다면,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;등록은 여기입니다.</h3>
-										<input type="button" class="btn btn-secondary" value="팀 생성 하러가기" onClick="location.href='/momhome/teamWrite'"><br><br>
+										<input type="button" class="btn btn-secondary" value="팀 생성 하러가기" onClick="location.href='/momhome/team/register2'"><br><br>
 										
 									</div>
 									
@@ -67,13 +67,7 @@
 								<img style="border:3px solid black; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px;"onclick="javascript:location.href='/momhome';" src="${pageContext.request.contextPath}/resources/images/citylogo/gyeongnam.jpg" width="150" height="200" />
 								<img style="border:3px solid black; border-radius:7px; -moz-border-radius:7px; -webkit-border-radius:7px;"onclick="javascript:location.href='/momhome';" src="${pageContext.request.contextPath}/resources/images/citylogo/jeju.jpg" width="150" height="200" />
 								</div>
-								<footer>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
-									</ul>
-								</footer>
+								
 							</article>
 
 					</div>

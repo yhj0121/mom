@@ -5,10 +5,12 @@ import java.util.List;
 import com.mom.momhome.common.BaseDto;
 
 public interface TeamDao {
-	List<TeamDto> getList(TeamDto dto);
-	void insert(TeamDto dto);
-	int getTotal(TeamDto dto);
-	List<BaseDto> getCityList(BaseDto dto);
+	
+void insert(TeamDto dto); //팀 생성 
+	
+	boolean isDuplicate(TeamDto dto); //팀 이름 중복확인
+	
+	List<BaseDto> getCityList(BaseDto dto); //지역 리스트 
 	
 	
 }

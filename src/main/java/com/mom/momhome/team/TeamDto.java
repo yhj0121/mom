@@ -7,6 +7,7 @@ public class TeamDto extends BaseDto {
 	private String team_name = ""; 
 	private String team_fdate = ""; 
 	private String team_fee = "";  
+	private String team_city = "";
 	private String team_intro = ""; 
 	private String team_emblem = ""; 
 	private String team_notice = ""; 
@@ -16,6 +17,14 @@ public class TeamDto extends BaseDto {
 	
 	
 	
+	
+	
+	public String getTeam_city() {
+		return team_city;
+	}
+	public void setTeam_city(String team_city) {
+		this.team_city = team_city;
+	}
 	public String getTeam_name() {
 		return team_name;
 	}

@@ -13,30 +13,28 @@ public class TeamDaoImpl implements TeamDao {
 
 	@Autowired
 	SqlSessionTemplate sm;
-	
-	@Override
-	public List<TeamDto> getList(TeamDto dto) {
-		
-		return sm.selectList("teamList", dto);
-	}
 
-	@Override
+	@Override //팀 생성
 	public void insert(TeamDto dto) {
-		sm.insert("teamWrite", dto);
+		sm.insert("Team_insert", dto);
 		
 	}
 
-	@Override
-	public int getTotal(TeamDto dto) {
-		
-		return sm.selectOne("Team_getTotal", dto);
+	@Override // 팀 이름 중복 검사하기
+	public boolean isDuplicate(TeamDto dto) {
+		int cnt = sm.selectOne("Team_isDuplicate", dto);
+		if(cnt == 0)
+			return false;
+		else
+			return true;
 	}
 
-	@Override
+	@Override //지역 정보
 	public List<BaseDto> getCityList(BaseDto dto) {
 		
 		return sm.selectList("getCityList", dto);
 	}
+	
 
 	
 }

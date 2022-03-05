@@ -58,7 +58,7 @@
 								</select>
 							</td>
 							<td>
-								<select id="playerList" name="playerList">
+								<select id="<%=i%>>" name="playerList" onChange="onPlayerSelectChanged(this.id)">
 									<option id="playerList_opt" value="NN">원하는 선수를 선택해주세요.</option>
 								</select>
 							</td>
@@ -85,9 +85,11 @@
 
 
 <script>
+let playerSelectList;
+
 $(()=>{
-	getPositionList();
-	getPlayerList();
+	positionSelectListInit();
+	playerSelectListInit();
 })
 
 function goPlayerInfo(id)
@@ -109,7 +111,7 @@ function goSave()
 	frm.submit();
 }
 
-function getPositionList(){
+function positionSelectListInit(){
 	
 // 	console.log("getPositionList()");
 	
@@ -135,7 +137,7 @@ function getPositionList(){
 	})
 }
 
-function getPlayerList()
+function playerSelectListInit()
 {
 <%-- 	console.log("getPlayerList().team_key : " + <%=team_key%>); --%>
 	
@@ -146,10 +148,9 @@ function getPlayerList()
 		dataType:"JSON"
 	})
 	.done( (result) => {
-		let selects = document.getElementsByName("playerList")
-// 	    console.log(selects.length);
-	    
-		for(select of selects)
+		playerSelectList = document.getElementsByName("playerList")
+  
+		for(select of playerSelectList)
     	{
 	    	for(item of result)
 	    		select.options[select.options.length] = new Option(item.user_id, item.user_id);
@@ -160,5 +161,21 @@ function getPlayerList()
 	.fail( (error) => {
 		alert("정보 가져오기 실패");
 	})
+}
+
+function onPlayerSelectChanged(id)
+{
+// 	console.log("onPlayerSelectChanged.id: " + id);
+	
+	for(select of playerSelectList)
+	{
+		if(select.id != id)
+		{
+			if(select.value ==  playerSelectList[parseInt(id)].value)
+			{
+				select.value = select.options[0].value;
+			}
+		}
+	}
 }
 </script>

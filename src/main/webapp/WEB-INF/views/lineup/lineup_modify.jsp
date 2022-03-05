@@ -31,7 +31,7 @@
           <section>
 			<h1>라인업 수정</h1>
 			<div class="table-wrapper">
-				<table class="alt">
+				<table id="tb" class="alt">
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -58,11 +58,11 @@
 								</select>
 							</td>
 							<td>
-								<select id="<%=i%>>" name="playerList" onChange="onPlayerSelectChanged(this.id)">
+								<select id="<%=i%>" name="playerList" onChange="onPlayerSelectChanged(this.id)">
 									<option id="playerList_opt" value="NN">원하는 선수를 선택해주세요.</option>
 								</select>
 							</td>
-							<td><%=name%></td>
+							<td> <a id = "playerName<%=i%>" href ="#none"><%=name%></a> </td>
 <%-- 							<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> --%>
 						</tr>
 					<%
@@ -86,30 +86,12 @@
 
 <script>
 let playerSelectList;
+let playerDictionary = {};
 
 $(()=>{
 	positionSelectListInit();
-	playerSelectListInit();
+	playerDictionaryInit();
 })
-
-function goPlayerInfo(id)
-{
-	let frm = document.myform;
-	frm.id.value=id;
-	frm.method="get";
-    frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
-	frm.submit();
-}
-
-function goSave()
-{
-	//저장하면 info페이지로 이동
-	let frm = document.myform;
-	frm.id.value=id;
-	frm.method="get";
-    frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
-	frm.submit();
-}
 
 function positionSelectListInit(){
 	
@@ -137,10 +119,8 @@ function positionSelectListInit(){
 	})
 }
 
-function playerSelectListInit()
+function playerDictionaryInit()
 {
-<%-- 	console.log("getPlayerList().team_key : " + <%=team_key%>); --%>
-	
 	$.ajax({
 		url: "${commonURL}/lineup/modify/getPlayerList",
 		data:{team_key:<%=team_key%>},
@@ -148,34 +128,83 @@ function playerSelectListInit()
 		dataType:"JSON"
 	})
 	.done( (result) => {
-		playerSelectList = document.getElementsByName("playerList")
-  
-		for(select of playerSelectList)
-    	{
-	    	for(item of result)
-	    		select.options[select.options.length] = new Option(item.user_id, item.user_id);
+		
+		for(item of result)
+		{
+			playerDictionary[item.user_id] = item;
+		}
+// 		for(key of Object.keys(playerDictionary)){
+// 			console.log(key);
+// 		}	
 
-	    	select.options[select.options.length] = new Option("용병", "용병");
-    	}
+		playerSelectListInit();
 	})
 	.fail( (error) => {
 		alert("정보 가져오기 실패");
 	})
 }
 
+function playerSelectListInit()
+{
+	playerSelectList = document.getElementsByName("playerList")
+	  
+	for(select of playerSelectList)
+	{
+ 		for(key of Object.keys(playerDictionary)){
+ 			select.options[select.options.length] = new Option(key, key);	
+ 		}
+    	
+    	select.options[select.options.length] = new Option("용병", "용병");
+	}
+}
+
 function onPlayerSelectChanged(id)
 {
 // 	console.log("onPlayerSelectChanged.id: " + id);
 	
+	let tr_length = $('#tb tr').length-1;//맨위 테이블 행은 빼줘야한다.
+    let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
+    let maxColumn = tab_td.length / tr_length;
+    
 	for(select of playerSelectList)
 	{
 		if(select.id != id)
 		{
-			if(select.value ==  playerSelectList[parseInt(id)].value)
+			let selectedUserId = playerSelectList[parseInt(id)].value;
+			
+			if(select.value ==  selectedUserId)
 			{
+				//다른곳에 선택되어있던 유저 아이디 제거
 				select.value = select.options[0].value;
+				
+				//유저이름 제거
+			    let idx = select.id * maxColumn + (maxColumn - 1);
+			    tab_td.eq(idx).text("");
 			}
+			
+			//새롭게 선택한곳에 유저 아이디 넣기.
+		    let idx = id * maxColumn + (maxColumn - 1);
+		    tab_td.eq(idx).text(playerDictionary[selectedUserId].user_name);
 		}
 	}
+}
+
+function goPlayerInfo(id)
+{
+	let frm = document.myform;
+	frm.id.value=id;
+	frm.method="get";
+    frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
+	frm.submit();
+}
+
+function goSave()
+{
+	//저장하면 info페이지로 이동
+	let frm = document.myform;
+	frm.id.value=id;
+	frm.method="get";
+    frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
+	frm.submit();
 }
 </script>

@@ -66,4 +66,18 @@
 		select count(*) from mercenary where user_key =(select user_key from User
 			where user_key=#{ user_key }) 
 	</select>
+	
+	<select id="Member_findid" parameterType="MemberDto" resultType="MemberDto">
+		select 	
+		    user_id
+		from User
+		where user_name=#{user_name} and user_phone=#{user_phone} 
+	</select>
+	
+	<select id="Member_findpassword" parameterType="MemberDto" resultType="MemberDto">
+		select 	
+		    user_password
+		from User
+		where user_id=#{user_id} and user_name=#{user_name} and user_phone=#{user_phone} 
+	</select>
 </mapper>

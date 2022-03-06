@@ -48,4 +48,14 @@ public class MemberServiceImpl implements MemberService {
 	public int getTotal(String userkey) {
 		return memberDao.getTotal(userkey);
 	}
+
+	@Override
+	public MemberDto findId(MemberDto dto) {
+		return memberDao.findId(dto);
+	}
+
+	@Override
+	public MemberDto findPassword(MemberDto dto) {
+		return memberDao.findPassword(dto);
+	}
 }

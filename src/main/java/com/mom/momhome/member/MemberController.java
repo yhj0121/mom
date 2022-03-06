@@ -103,6 +103,56 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	//아이디 찾기 페이지로 이동
+	@RequestMapping("member/findInfo")
+	String member_findinfo() {
+		return "member/member_findinfo";
+	}
+	
+	//아이디 찾기 페이지로 이동
+	@RequestMapping("member/findid")
+	String member_findid() {
+		return "member/member_findid";
+	}
+
+	//비밀번호 찾기 페이지로 이동
+	@RequestMapping("member/findpw")
+	String member_findpw() {
+		return "member/member_findpw";
+	}
+	
+	@RequestMapping(value="member/findid_proc")
+	@ResponseBody
+	public HashMap<String, String> member_findid_proc( MemberDto dto ){
+		MemberDto findDto = memberService.findId(dto);
+		HashMap map = new HashMap<String, String>();
+		if(findDto == null)
+			map.put("result","fail");
+		else {
+			map.put("result", findDto.getUser_id());
+			map.put("userid", findDto.getUser_id());
+			map.put("phone", findDto.getUser_phone());
+		}
+		return map;
+	}
+	
+	@RequestMapping(value="/member/findpw_proc")
+	@ResponseBody
+	public HashMap<String, String> member_findpw_proc(MemberDto dto)
+	{	
+		MemberDto findDto = memberService.findPassword(dto);
+		HashMap map = new HashMap<String, String>();
+		if (findDto==null)
+			map.put("result", "fail");
+		else
+		{
+			map.put("result", findDto.getUser_password());
+			map.put("userid", findDto.getUser_id());
+			map.put("username", findDto.getUser_name());
+		}
+		return map;
+	}
+	
 	//마이페이지로 이동
 	@RequestMapping("member/mypage")
 	String member_mypage() {

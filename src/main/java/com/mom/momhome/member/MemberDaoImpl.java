@@ -52,4 +52,14 @@ public class MemberDaoImpl implements MemberDao {
 	public int getTotal(String userkey) {
 		return sm.selectOne("Memger_mercenaryGetTotal",userkey);
 	}
+
+	@Override
+	public MemberDto findId(MemberDto dto) {
+		return sm.selectOne("Member_findid", dto);
+	}
+
+	@Override
+	public MemberDto findPassword(MemberDto dto) {
+		return sm.selectOne("Member_findpassword", dto);
+	}
 }

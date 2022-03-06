@@ -157,4 +157,10 @@ public class MemberController {
 	String member_matchingdetail() {
 		return "member/member_matchingdetail";
 	}
+	
+	//마이페이지-팀 용병구인내역으로 이동 
+	@RequestMapping("member/mercenarylist")
+	String member_mercenarydetail() {
+		return "member/member_mercenarydetail";
+	}
 }

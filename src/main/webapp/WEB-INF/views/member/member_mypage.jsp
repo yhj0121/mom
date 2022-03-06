@@ -102,11 +102,11 @@ textarea {
 							<article>
 								<header>
 									<h3>
-										<a href="single.html">미정</a>
+										<a href="${pageContext.request.contextPath}/member/mercenarylist">용병 구인 내역</a>
 									</h3>
-									<p class="published">미정</p>
+									<p class="published">내가 작성한 용병 구인 내역을 볼 수 있습니다.</p>
 								</header>
-								<a href="single.html" class="image"><img
+								<a href="${pageContext.request.contextPath}/member/mercenarylist" class="image"><img
 									src="${pageContext.request.contextPath}/resources/images/icon_list.png"
 									alt="" /></a>
 							</article>

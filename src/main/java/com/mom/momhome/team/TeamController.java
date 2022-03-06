@@ -27,20 +27,26 @@ public class TeamController {
 	
 	//팀 메인 페이지 연결
 	@RequestMapping(value = "/team/main", method = RequestMethod.GET)
-	public String teamList() {
+	public String teamMain() {
 		return "team/team_main";
 	}
 	
+	@RequestMapping(value = "/team/list", method = RequestMethod.GET)
+	public String teamList() {
+		return "team/team_list";
+	}
 	
 	
 	//팀 생성 화면 연결
-	@RequestMapping(value="/team/write")
-	public String teamWrite() {	
+	@RequestMapping("/team/write")
+	String team_write(Model model) {
+		TeamDto dto = new TeamDto();
+		model.addAttribute("teamDto", dto);
 		return "team/team_write";
 	}
 	
 
-	//지역 정보 리스트 (팀생성 화면에서)
+	//지역 정보 리스트 (팀생성 화면에서 보여주기)
 	@RequestMapping("/team/selectCity")
 	@ResponseBody
 	List<BaseDto> team_getCityList(BaseDto dto, Model model)

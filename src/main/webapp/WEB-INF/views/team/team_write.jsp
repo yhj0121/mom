@@ -98,10 +98,7 @@ textarea {
 			                    <label>지역 선택
 			                    <div>
 									<select id="cityList" name="team_city">
-				                        <option>지역 선택
-				                        </option>
-				                        <option value="1">전국
-				                        </option>
+				                        <option id="cityoption" value="">원하는 지역을 선택하세요</option>
 				                    </select>
 								</div>
 								</label>
@@ -158,7 +155,7 @@ textarea {
 							 <br><br>
 							<div class="col-12">
 								<ul class="actions">
-									<li><input type="button" id="goSignup" value="팀 작성 완료" /></li>
+									<li><input type="button" id="goInsert" value="팀 작성 완료" /></li>
 									<li><input type="reset" onclick="formReset()" value="돌아가기" /></li>
 								</ul>
 							</div>
@@ -178,7 +175,85 @@ textarea {
 	<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 	<script>
+	
+	$(()=>{
+		getCityList();
+		
+		$("#btnDuplicate").click(function(){
+			$.ajax({
+				url: "${ commonURL }/team/isDuplicate",
+				data:{ team_name: $("#tname").val()},
+				dataType: "json",
+				type: "POST"
+			})
+			.done( (data)=>{
+				console.log(data);
+				if( data.result == "true" ) {
+					alert("이미 사용중인 팀 이름 입니다.");
+				} else {
+					alert("사용 가능한 팀 이름 입니다.");
+					$("#tnamecheck").val("Y");
+					$("#tname").prop("readonly", true); //사용중인 아이디라고 판명되면 읽기전용으로 입력창이 막힘 
+				}
+			})
+			.fail( (error) => {
+				console.log(error);
+			})
+		});
+	});
+	
+	$("#goInsert").click(function(){
+		// input이 비어있는지 확인
+		if( $("#username").val() == "" ) {
+			alert("이름을 입력해주세요.");
+			 $("#username").focus();
+			 return;
+		} else if( $("#password").val() == "" ) {
+			alert("비밀번호를 입력해주세요.");
+			 $("#password").focus();
+			 return;
+		} else if( $("#userid").val() == "") {
+			alert("아이디를 입력해주세요.");
+			 $("#userid").focus();
+			 return;
+		} else if( $("#email").val() == "" ) {
+			alert("이메일을 입력해주세요.");
+			 $("#email").focus();
+			 return;
+		} else if( $("#address1").val() == "" ) {
+			alert("주소를 입력해주세요.");
+			 $("#address1").focus();
+			 return;
+		} else if( $("#phone").val() == "" ) {
+			alert("전화번호를 입력해주세요.");
+			 $("#phone").focus();
+			 return;
+		}
 
+		
+		function getCityList(){
+			$.ajax({
+				url: "${commonURL}/team/selectCity",
+				contentType: false,
+				processData: false,
+				type: "POST"
+			})
+			.done( (result) => {
+				var i=1;
+			
+			  result.forEach( (item)=>{
+			    	var data = "<option "+"value='"+item.city+"'>";
+			    	    data +=  item.city ;
+			    	    data += "</option>";
+			    	i++;
+			      	$("#cityoption").after(data);
+			})
+			})
+			.fail( (error) => {
+				alert("정보 가져오기 실패");
+			})
+		}
+		
 	</script>
 
 </body>

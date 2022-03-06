@@ -5,15 +5,36 @@
 	 
 <mapper namespace="Team">
 
-<select id="cityList" parameterType="String" resultType="BaseDto">
-	select city from code where codegroup_id='ct';
+<select id="getCityList" parameterType="BaseDto" resultType="BaseDto">
+	select city from code where codegroup_id='ct'
 </select>
 
-<insert id="teamWrite" parameterType="TeamDto">
+<select id="Team_isDuplicate" parameterType="TeamDto" resultType="Integer">
+	select count(*) from Team
+	where team_name=#{team_name}
+</select>
+
+<insert id="team_insert" parameterType="TeamDto">
 		insert into team
-		( team_name, team_fdate, team_fee, code_key, team_intro, team_emblem, team_notice, team_num, team_recruit_yn)
+		( team_name, 
+		team_fdate, 
+		team_fee, 
+		team_city, 
+		team_intro, 
+		team_emblem, 
+		team_notice, 
+		team_num, 
+		team_recruit_yn)
 		values
-		(#{team_name}, now(), #{team_fee}, #{code_key}, #{team_intro}, #{team_emblem}, #{team_notice}, #{team_num}, #{team_recruit_yn})
+		(#{team_name}, 
+		now(), 
+		#{team_fee}, 
+		#{team_city}, 
+		#{team_intro}, 
+		#{team_emblem}, 
+		#{team_notice}, 
+		#{team_num}, 
+		#{team_recruit_yn})
 </insert>
 
 

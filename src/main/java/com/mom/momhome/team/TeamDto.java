@@ -2,7 +2,7 @@ package com.mom.momhome.team;
 
 import com.mom.momhome.common.BaseDto;
 
-public class TeamDto extends BaseDto {
+public class TeamDto{
 
 	private String team_name = ""; 
 	private String team_fdate = ""; 

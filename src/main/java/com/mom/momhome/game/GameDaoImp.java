@@ -19,15 +19,11 @@ public class GameDaoImp implements GameDao {
 	}
 
 	@Override
-	public GameDto getView(String id) {
+	public GameDto getView(String game_key) {
 		// TODO Auto-generated method stub
-		return sm.selectOne("view",id);
+		return sm.selectOne("view",game_key);
 	}
-	@Override
-	public void delete(int id) {
-		
-		sm.delete("delete", id);
-	}
+
 
 	@Override
 	public void update(GameDto dto) {
@@ -45,6 +41,12 @@ public class GameDaoImp implements GameDao {
 	public int getTotal(GameDto dto) {
 		// TODO Auto-generated method stub
 		return sm.selectOne("getTotal",dto);
+	}
+
+	@Override
+	public void delete(String game_key) {
+			sm.delete("delete",game_key);
+		
 	}
 
 

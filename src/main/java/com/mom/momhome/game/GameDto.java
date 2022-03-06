@@ -3,56 +3,65 @@ package com.mom.momhome.game;
 import com.mom.momhome.common.BaseDto;
 
 public class GameDto extends BaseDto {
-	private String GAME_KEY;
-	private String TEAM_KEY;
-	private String GAME_DATE;
-	private String GAME_LOCATION;
-	private String GAME_TITLE;
-	private String GAME_CONTENTS;
-	private String GAME_FDATE;
+	private String game_key="";
+	private String team_key="";
+	private String game_date="";
+	private String game_location="";
+	private String game_title="";
+	private String game_contents="";
+	private String game_fdate="";
+	private String team_name="";
+	public String getGame_key() {
+		return game_key;
+	}
+	public void setGame_key(String game_key) {
+		this.game_key = game_key;
+	}
+	public String getTeam_key() {
+		return team_key;
+	}
+	public void setTeam_key(String team_key) {
+		this.team_key = team_key;
+	}
+	public String getGame_date() {
+		return game_date;
+	}
+	public void setGame_date(String game_date) {
+		this.game_date = game_date;
+	}
+	public String getGame_location() {
+		return game_location;
+	}
+	public void setGame_location(String game_location) {
+		this.game_location = game_location;
+	}
+	public String getGame_title() {
+		return game_title;
+	}
+	public void setGame_title(String game_title) {
+		this.game_title = game_title;
+	}
+	public String getGame_contents() {
+		return game_contents;
+	}
+	public void setGame_contents(String game_contents) {
+		this.game_contents = game_contents;
+	}
+	public String getGame_fdate() {
+		return game_fdate;
+	}
+	public void setGame_fdate(String game_fdate) {
+		this.game_fdate = game_fdate;
+	}
+	public String getTeam_name() {
+		return team_name;
+	}
+	public void setTeam_name(String team_name) {
+		this.team_name = team_name;
+	}
 	
-	public String getGAME_KEY() {
-		return GAME_KEY;
-	}
-	public void setGAME_KEY(String gAME_KEY) {
-		GAME_KEY = gAME_KEY;
-	}
-	public String getTEAM_KEY() {
-		return TEAM_KEY;
-	}
-	public void setTEAM_KEY(String tEAM_KEY) {
-		TEAM_KEY = tEAM_KEY;
-	}
-	public String getGAME_DATE() {
-		return GAME_DATE;
-	}
-	public void setGAME_DATE(String gAME_DATE) {
-		GAME_DATE = gAME_DATE;
-	}
-	public String getGAME_LOCATION() {
-		return GAME_LOCATION;
-	}
-	public void setGAME_LOCATION(String gAME_LOCATION) {
-		GAME_LOCATION = gAME_LOCATION;
-	}
-	public String getGAME_TITLE() {
-		return GAME_TITLE;
-	}
-	public void setGAME_TITLE(String gAME_TITLE) {
-		GAME_TITLE = gAME_TITLE;
-	}
-	public String getGAME_CONTENTS() {
-		return GAME_CONTENTS;
-	}
-	public void setGAME_CONTENTS(String gAME_CONTENTS) {
-		GAME_CONTENTS = gAME_CONTENTS;
-	}
-	public String getGAME_FDATE() {
-		return GAME_FDATE;
-	}
-	public void setGAME_FDATE(String gAME_FDATE) {
-		GAME_FDATE = gAME_FDATE;
-	}
+	
+
 	
 
 	

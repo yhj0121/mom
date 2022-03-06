@@ -10,6 +10,7 @@
 <title>Man of the match</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="../resources/assets/css/main.css" /></head>
 <style>
 .form_input {
@@ -40,44 +41,35 @@ margin:auto;
 
 
 	<%
-   GameDto dto = (GameDto)request.getAttribute("GameDto");
+   GameDto dao = (GameDto)request.getAttribute("GameDto");
    %>
    
-   	<form  name="myform" action="<%=request.getContextPath()%>/game/save" method="post">
-   <input type="hidden" name="GAME_KEY" value="<%=dto.getGAME_KEY() %>" />
-    <input type="hidden" name=""TEAM_KEY""      id="TEAM_KEY"      value="<%=dto.getTEAM_KEY()%>" />
-    <div class="container" style="margin-top:80px">
-        <h2 style="text-align:center; font-size:large;">게시판 글쓰기</h2>
-        <h3 style="text-align:center">게시판에 글을 써보세요</h3>
-  </div>
-        <table class="table table-hover " style="margin-top: 30px;">
-          
-        
-            <tbody style="padding:30px;">
-              <tr>
-                <td>제목</td>
-                <td>
-                    <div  style="margin-top:13px; float:left width:30%;">
-                        <input type="text" class="form_input" id="GAME_TITLE" name="GAME_TITLE" 
-                        placeholder="제목을 입력하세요">
-                    </div>
-                </td>
-              </tr>       
-                  <tr>
-                  <div style="width:50%; float:left;">
-                <td>경기날짜</td>
-                <td>
-                    <div  style="margin-top:13px;">
-                        <input type="datetime-local" class="form-control" id="GAME_FDATE" name="GAME_FDATE">
-                    </div>
-                </td>
-                </div>
-                
-                                <td>지역</td>
-                                <td>
-                    <div style="margin-top:13px; width:50%; float:left;">
-                    
-                        <select name="GAME_LOCATION" id="GAME_LOCATION" >
+   
+	<div id="main">
+		 		<article class="post">
+		 			<header>
+						<div class="title">
+							<h2><a href="#">게임 신청 게시판</a></h2>
+							<p>게임할 사람을 구하는 페이지</p>
+						</div>
+						<div class="meta">
+							<a href="#" class="author"><span class="name">Jane Doe</span><img src="resources/images/avatar.jpg" alt="" /></a>
+						</div>
+					</header>
+					
+		 			<section>
+						<h3>게임게시글 작성</h3>
+							<form name="myform" >
+							<input type="hidden" name="team_key" value="1"/>	
+				<input type="hidden" name="game_key" value="<%=dao.getGame_key()%>"/>
+								
+								<div class="row gtr-uniform">
+									<div class="col-12">
+										<input type="text" name="game_title" id="game_title" value="<%=dao.getGame_title()%>" placeholder="제목" />
+									</div>
+									
+										<div class="col-12">
+										  <select name="game_location" id="game_location" value="<%=dao.getGame_location()%>">
     					<option value="kr">지역선택</option>
    		      			 <option value="SU">SU</option>
     					<option value="BS">BS</option>
@@ -92,70 +84,77 @@ margin:auto;
       					<option value="CN">CN</option>
     					
 						</select>
-							</div>
-						</td>
-					
-                  
-                
-              </tr>   
-              
-    
-              <tr>
-                <td>내용</td>
-                <td>
-                    <div class="mb-3" style="margin-top:13px;">
-                      <textarea class="form-control" rows="5" id="GAME_CONTENTS" name="GAME_CONTENTS"></textarea>
-                    </div>
-                </td>
-              </tr>          
-            </tbody>
-          </table>
-       
-          <div class="container mt-3">
-            <input id="button" type="submit" class="btn btn-secondary" value="등록" onclick="goWriter()">
-          </div>
-          
-    </div>
-   
-       </form>
-   
+									</div>
+									
+									
+									<div class="col-6 col-12-xsmall">
+										<input type="text" name="user_name" id="user_name" value="미정" placeholder="작성자" readonly>
+									</div>
+									<div class="col-6 col-12-xsmall">
+									           <input type="datetime-local"  id="game_fdate" name="game_fdate">
+									</div>
+										<div class="col-6 col-12-xsmall">
+									           <input type="text"  id="team_name" name="team_name" value="<%=dao.getTeam_name()%>">
+									</div>
+									
+									
+									<div class="col-12">
+										<textarea name="game_contents" id="game_contents"  rows="6"><%=dao.getGame_contents()%></textarea>
+									</div>
+									<div class="col-12">
+										<ul class="actions">
+											<li><input type="button" value="등록" onclick="goWrite()" /></li>
+											<li><input type="button" value="취소" onclick="goCancle()" /></li>
+										</ul>
+									</div>
+								</div>
+							</form>
+						</section>
+					</article>
+				</div>
+		</div>
 </body>
 </html>
-<script src="../resources/assets/js/jquery.min.js"></script>
+			<script src="../resources/assets/js/jquery.min.js"></script>
 			<script src="../resources/assets/js/browser.min.js"></script>
 			<script src="../resources/assets/js/breakpoints.min.js"></script>
 			<script src="../resources/assets/js/util.js"></script>
 			<script src="../resources/assets/js/main.js"></script>
-			<script>
+		
 			
 <script>
-function goWriter()
+function goWrite()
 {
-	let frm = document.myform;
-	
-	if( frm.GAME_TITLE.value.trim().length==0)
+	var frmData = document.myform; 
+	var queryString = $("form[name=myform]").serialize();
+	if(frmData.game_title.value.trim().length<10)
 	{
-		alert("제목을 입력해주세요");
-		frm.GAME_TITLE.focus();
+		alert("제목을 10글자 이상 작성하시오");
+		frmData.game_title.focus();
 		return false;
 	}
 	
-	
-	
-	if( frm.GAME_CONTENTS.value.trim().length==10)
+	if(frmData.game_contents.value.trim().length<10)
 	{
-		alert("내용을 적어주세요");
-		frm.comment.focus();
+		alert("내용을 10글자 이상 작성하시오");
+		frmData.game_contents.focus();
 		return false;
-	}
-
-
-	frm.action="<%=request.getContextPath()%>/game/save";
-	frm.method="post";
-	frm.submit();
-	}
-
-
+	} 
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/save",
+		data:queryString,
+		processData:false,
+		type:"POST"
+	})
+	.done((result)=>{
+		console.log(result);
+		alert("성공");
+		location.href="<%=request.getContextPath()%>/game/list";
+	})
+	.fail((error)=>{
+		console.log(error);
+	})
+}
 
 
 </script>

@@ -9,71 +9,111 @@
 	<insert id="insert" parameterType="GameDto">
 	INSERT INTO game
 (
-
+TEAM_KEY,
 GAME_DATE,
 GAME_LOCATION,
 GAME_TITLE,
 GAME_CONTENTS,
-GAME_FDATE)
+GAME_FDATE,
+TEAM_NAME)
 VALUES
 (
-
+#{team_key},
 now(),
-#{GAME_LOCATION},
-#{GAME_TITLE},
-#{GAME_CONTENTS},
-#{GAME_FDATE}
+#{game_location},
+#{game_title},
+#{game_contents},
+#{game_fdate},
+#{team_name}
 );
 	</insert>
 	
 <select id="list" parameterType="GameDto"  resultType="GameDto">
 
     
-          select * from (
-                select GAME_KEY, TEAM_KEY, GAME_DATE, GAME_LOCATION, GAME_TITLE, GAME_CONTENTS,  GAME_FDATE
-                from game
-                <if test="keyword != null">
-                    where GAME_TITLE like concat('%',#{keyword},'%' )
-                </if>
-                order by GAME_KEY desc) as T1
-        limit #{start},#{pageSize}	
-
+         select GAME_KEY
+         ,(select TEAM_NAME from team B where B.TEAM_KEY =A.TEAM_KEY) as TEAM_NAME
+		 ,GAME_DATE
+		 ,GAME_LOCATION
+		 ,GAME_TITLE
+		 ,GAME_CONTENTS
+		 ,GAME_FDATE
+		 ,rnum
+		 from
+ 		(
+ 		select
+ 		A.GAME_KEY
+ 		,A.TEAM_KEY
+ 		,A.GAME_DATE
+ 		 ,A.GAME_LOCATION
+		 ,A.GAME_TITLE
+		 ,A.GAME_CONTENTS
+		 ,A.GAME_FDATE
+		,@rownum := @rownum+1 AS rnum
+		from game A, (select @rownum:=0) B
+			<if test='key!=null and keyword!=null'>
+				<if test='key=="1"'>
+				 	where GAME_TITLE like concat('%',#{keyword}, '%')
+				</if>
+				<if test='key=="2"'>
+				 	where GAME_CONTENTS like concat('%',#{keyword}, '%')	  
+				</if>
+				<if test='key=="3"'>
+					 where GAME_TITLE like concat('%',#{keyword}, '%') or
+				 	  	   GAME_CONTENTS like concat('%',#{keyword}, '%') 
+				</if>
+			</if>
+			order by GAME_KEY desc
+			) A
+			limit #{start}, #{pageSize}
+		 
+ 		
 </select>
 	
 	<select id="view" parameterType="String"  resultType="GameDto">
-SELECT GAME_KEY,
-    TEAM_KEY,
-    GAME_DATE,
-    GAME_LOCATION,
-    GAME_TITLE,
-    GAME_CONTENTS,
-    GAME_FDATE
-FROM game
-where GAME_KEY=#{GAME_KEY};
+select
+ 		A.GAME_KEY
+ 		,A.TEAM_KEY
+ 		,A.GAME_DATE
+ 		 ,A.GAME_LOCATION
+		 ,A.GAME_TITLE
+		 ,A.GAME_CONTENTS
+		 ,A.GAME_FDATE
+    
+FROM game A
+where GAME_KEY = #{game_key};
 
 	</select>
 	
 	
 	<update id="update" parameterType="GameDto">
-UPDATE game
-SET
-GAME_DATE = #{GAME_DATE },
-GAME_LOCATION = #{GAME_LOCATION},
-GAME_TITLE = #{GAME_TITLE},
-GAME_CONTENTS = #{GAME_CONTENTS},
-GAME_FDATE = #{GAME_FDATE}
-WHERE GAME_KEY = #{GAME_KEY}
+update game 
+set GAME_TITLE = #{game_title}
+	,GAME_DATE = now()
+  ,GAME_CONTENTS= #{game_contents}
+  ,GAME_FDATE = #{game_fdate}
+  ,GAME_LOCATION = #{game_location}
+where GAME_KEY = #{game_key};
 	</update>
 	
-	<delete id="delete" parameterType="Integer">
-		delete from game where GAME_KEY=#{GAME_KEY};
+	<delete id="delete" parameterType="String">
+		delete from game where GAME_KEY=#{game_key};
 	</delete>
 	
 		<select id="getTotal" parameterType="GameDto" resultType="Integer">
 		select count(*) from game 
-		 <if test="keyword != null">
-       where GAME_TITLE like concat('%',#{keyword},'%')	
-       	</if>
+		 <if test='key!=null and keyword!=null'>
+				<if test='key=="1"'>
+				 	where GAME_TITLE like concat('%',#{keyword}, '%')
+				</if>
+				<if test='key=="2"'>
+				 	where GAME_CONTENTS like concat('%',#{keyword}, '%')	  
+				</if>
+				<if test='key=="3"'>
+					 where GAME_TITLE like concat('%',#{keyword}, '%') or
+				 	  	   GAME_CONTENTS like concat('%',#{keyword}, '%') 
+				</if>
+			</if>
 	</select>
 		
 </mapper>

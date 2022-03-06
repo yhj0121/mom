@@ -61,6 +61,10 @@ table td:not(.introduction) {
 
 				<section>
 					<div class="table-wrapper">
+					<form name="myform">
+						<input type="hidden" name="pg" id="pg" value="<%=pg%>" />
+						<input
+							type="hidden" name="mercenary_key" id="mercenary_key" value="" />
 						<table>
 							<colgroup>
 								<col width="5%" />
@@ -85,12 +89,14 @@ table td:not(.introduction) {
 									<td><%=totalCnt - tempDto.getRnum() + 1%></td>
 										<td><%=tempDto.getMercenary_complete()%></td>
 										<td class="introduction"><a href="#none"
-											onclick="goView('<%=tempDto.getMercenary_key()%>')"><%=tempDto.getMercenary_title()%></a></td>
+											onclick="goView('<%=tempDto.getMercenary_key()%>')">
+											<%=tempDto.getMercenary_title()%></a></td>
 										<td><%=tempDto.getReg_date()%></td>
 								</tr>
 								<%} %>
 							</tbody>
 						</table>
+						</form>
 					</div>
 			<!-- Pagination  -->
 			<div class="container"

@@ -43,9 +43,9 @@
 							
 								<select name="key" id="key">
 									<option value="">- 선택하세요 -</option>
-									<option value="1">제목</option>
-									<option value="2">내용</option>
-									<option value="3">제목+내용</option>
+									<option value="1">지역</option>
+									<option value="2">팀이름</option>
+									<option value="3">지역+팀이름</option>
 								</select>
 							</div>
 							  
@@ -92,7 +92,7 @@
 						</div>
 					</form>
 				</section>
-					</div>	
+				</div>	
 					
 
 				<!-- Sidebar -->
@@ -114,7 +114,7 @@
 									<!-- Mini Post -->
 										<article class="mini-post">
 											<header>
-											<p>( 매칭 광고 )</p>
+											<h3>( 매칭 광고 )</h3>
 												<h3><a href="single.html">대전 무궁화 구장</a></h3>
 												<time class="published" datetime="2022-03-02">2022/03/02</time>
 												<div>
@@ -129,7 +129,7 @@
 									<!-- Mini Post -->
 										<article class="mini-post">
 											<header>
-											<p> ( 팀 모집 광고 )</p>
+											<h3> ( 팀 모집 광고 )</h3>
 												<h3><a href="single.html">SMfc 축구클럽</a></h3>
 												<time class="published" datetime="2022-03-01">2022/03/01</time>
 												<div>
@@ -144,7 +144,7 @@
 									<!-- Mini Post -->
 										<article class="mini-post">
 											<header>
-											<p> ( 동네 광고 )</p>
+											<h3> ( 동네 광고 )</h3>
 												<h3><a href="single.html">한양체육사</a></h3>
 												<time class="published" datetime="2022-02-25">2022/02/25</time>
 												<div>

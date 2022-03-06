@@ -2,7 +2,7 @@ package com.mom.momhome.team;
 
 import com.mom.momhome.common.BaseDto;
 
-public class TeamDto{
+public class TeamDto extends BaseDto{
 
 	private String team_name = ""; 
 	private String team_fdate = ""; 
@@ -12,12 +12,9 @@ public class TeamDto{
 	private String team_emblem = ""; 
 	private String team_notice = ""; 
 	private String team_num = ""; 
-	private String team_recruit_yn = "";
+	private String team_recruit_yn = "1"; //모집여부 상태 표시 , 1 yes, 2 no
 	
-	
-	
-	
-	
+
 	
 	public String getTeam_city() {
 		return team_city;

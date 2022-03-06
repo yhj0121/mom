@@ -6,7 +6,7 @@ import com.mom.momhome.common.BaseDto;
 
 public interface TeamDao {
 	
-void insert(TeamDto dto); //팀 생성 
+	void insert(TeamDto dto); //팀 생성 
 	
 	boolean isDuplicate(TeamDto dto); //팀 이름 중복확인
 	

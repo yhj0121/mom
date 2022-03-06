@@ -75,7 +75,7 @@ public class TeamController {
 		  
 		  List<String> fileNameList = new ArrayList<String>();
 		  String path = req.getServletContext().getRealPath("/");
-		  System.out.println("������ ��ġ�� :" + path);
+		  System.out.println("파일 이름:" + path);
 		  FileUploadUtil.upload(path, multiList, fileNameList);
 		  
 	      dto.setTeam_emblem(fileNameList.get(0)); //Team_emblem 에 파일 저장

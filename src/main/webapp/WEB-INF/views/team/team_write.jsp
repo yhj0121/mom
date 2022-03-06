@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@page import="java.util.List"%>
-<%@page import="com.mom.momhome.member.*"%>
+<%@page import="com.mom.momhome.team.*"%>
+<%@page import="com.mom.momhome.member.*" %>
 <%@page import="com.mom.momhome.common.*"%>
 <html>
 <head>
@@ -29,7 +30,10 @@ textarea {
 
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
-
+		<%
+			TeamDto tdto = (TeamDto)request.getAttribute("teamDto");
+			BaseDto bdto = (BaseDto)request.getAttribute("baseDto");
+		%>
 		<!-- Main -->
 		<div id="main">
 
@@ -55,13 +59,15 @@ textarea {
 
 				<section>
 					<form id="myform" name="myform" method="post" action="#">
+						<input type="hidden" name="user_key" value="<%=user_key%>"/>
+						
 						<legend>기본정보입력</legend><br>
 						<div class="row gtr-uniform">
 							<div class="col-6 col-12-medium">
 							<p>  
 			                    <label>팀 이름
 			                    <div>
-				                    <input type="text" id="tname" name="team_name" placeholder="팀 이름을 입력해주세요"><br>
+				                    <input type="text" id="tname" name="team_name" value="<%=tdto.getTeam_name()%>"placeholder="팀 이름을 입력해주세요"><br>
 				                    <button class="btn btn-success" type="button" id="btnTeamDuplicate">팀 이름 중복체크</button></input>
 			                    </div>
 			                    </label>
@@ -70,7 +76,7 @@ textarea {
 			                <p>  
 			                    <label>팀 앰블럼
 			                    <div>
-									<input type="file" name="team_emblem" id="emblem" value=""/>
+									<input type="file" name="team_emblem" id="emblem" value="<%=tdto.getTeam_emblem()%>"/>
 								</div>
 								</label>
 			                </p>
@@ -78,7 +84,7 @@ textarea {
 			                 <p>  
 			                    <label>팀 인원
 			                    <div>
-									<input type="text" name="team_num" id="tnum" value="" placeholder="몇 명 인지 숫자입력"/>
+									<input type="text" name="team_num" id="tnum" value="<%=tdto.getTeam_num()%>" placeholder="몇 명 인지 숫자입력"/>
 								</div>
 								</label>
 			                </p>
@@ -86,19 +92,13 @@ textarea {
 							</div>
 							
 							<div class="col-6 col-12-medium">
-							<p>  
-			                    <label>팀 창설 날짜
-			                    <div>
-									<input type="date" name="team_fdate" id="fdate" value=""/>
-								</div>
-								</label>
-			                </p>
-			                <br><br><br><br>
+
 			                <p>  
 			                    <label>지역 선택
 			                    <div>
 									<select id="cityList" name="team_city">
-				                        <option id="cityoption" value="">원하는 지역을 선택하세요</option>
+				                        <option id="cityoption" value="<%=tdto.getTeam_city()%>">원하는 지역을 선택하세요</option>
+				                        
 				                    </select>
 								</div>
 								</label>
@@ -107,13 +107,13 @@ textarea {
 			                <p>  
 			                    <label>팀 회비(월)
 			                    <div>
-									<input type="text" name="team_fee" id="tfee" value="" placeholder="월 회비 금액 숫자입력(원)"/>
+									<input type="text" name="team_fee" id="tfee" value="<%=tdto.getTeam_fee()%>" placeholder="월 회비 금액 숫자입력(원)"/>
 								</div>
 								</label>
 			                </p>
 			                <br>
 							</div>
-							</div>
+						</div>
 							<br>
 							<legend>상세정보입력</legend><br>
 							
@@ -122,7 +122,7 @@ textarea {
 							<p>  
 			                    <label>팀 소개
 			                    <div>
-									<textarea name="team_intro" id="tintro" rows="5" placeholder="팀 소개를 간단하게 작성해주세요"></textarea>
+									<textarea name="team_intro" id="tintro" rows="5" value="<%=tdto.getTeam_intro()%>"placeholder="팀 소개를 간단하게 작성해주세요"></textarea>
 								</div>
 								</label>
 			                </p>
@@ -130,7 +130,7 @@ textarea {
 			                <p>
 			                    <label>회원 모집 여부
 			                    </label>
-			                    <select id="recyn" name="team_recruit_yn">
+			                    <select id="recyn" name="team_recruit_yn" value="<%=tdto.getTeam_recruit_yn()%>">
 			                        <option>모집여부 선택
 			                        </option>
 			                        <option value="1">예
@@ -146,7 +146,7 @@ textarea {
 							<p>  
 			                    <label>팀 공지
 			                    <div>
-									<textarea name="team_notice" id="tnotice" rows="5" placeholder="팀 공지를 간단하게 작성해주세요"></textarea>
+									<textarea name="team_notice" id="tnotice" rows="5" value="<%=tdto.getTeam_notice()%>" placeholder="팀 공지를 간단하게 작성해주세요"></textarea>
 								</div>
 								</label>
 			                </p>
@@ -159,11 +159,11 @@ textarea {
 									<li><input type="reset" onclick="formReset()" value="돌아가기" /></li>
 								</ul>
 							</div>
-						</div>
+						
 					</form>
 				</section>
 			</article>
-			
+			</div>
 		</div>
 
 	
@@ -202,33 +202,39 @@ textarea {
 		});
 	});
 	
-	$("#goInsert").click(function(){
-		// input이 비어있는지 확인
-		if( $("#username").val() == "" ) {
-			alert("이름을 입력해주세요.");
-			 $("#username").focus();
-			 return;
-		} else if( $("#password").val() == "" ) {
-			alert("비밀번호를 입력해주세요.");
-			 $("#password").focus();
-			 return;
-		} else if( $("#userid").val() == "") {
-			alert("아이디를 입력해주세요.");
-			 $("#userid").focus();
-			 return;
-		} else if( $("#email").val() == "" ) {
-			alert("이메일을 입력해주세요.");
-			 $("#email").focus();
-			 return;
-		} else if( $("#address1").val() == "" ) {
-			alert("주소를 입력해주세요.");
-			 $("#address1").focus();
-			 return;
-		} else if( $("#phone").val() == "" ) {
-			alert("전화번호를 입력해주세요.");
-			 $("#phone").focus();
-			 return;
-		}
+	 function goInsert()
+	 {
+	 	var frmData = document.myform; 
+	 	var queryString = $("form[name=myform]").serialize();
+	 	if(frmData.team_name.value.trim().length<10)
+	 	{
+	 		alert("팀 이름을 5글자 이상 작성하시오");
+	 		frmData.team_name.focus();
+	 		return false;
+	 	}
+	 	
+	 	if(frmData.team_intro.value.trim().length<10)
+	 	{
+	 		alert("내용을 10글자 이상 작성하시오");
+	 		frmData.mercenary_contents.focus();
+	 		return false;
+	 	} 
+	 	$.ajax({
+	 		url:"<%=request.getContextPath()%>/team/save",
+	 		data:queryString,
+	 		//contentType:false,
+	 		processData:false,
+	 		type:"POST"
+	 	})
+	 	.done((result)=>{
+	 		console.log(result);
+	 		alert("성공");
+	 		location.href="<%=request.getContextPath()%>/team/list";
+	 	})
+	 	.fail((error)=>{
+	 		console.log(error);
+	 	})
+	 }
 
 		
 		function getCityList(){

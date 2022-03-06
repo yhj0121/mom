@@ -128,22 +128,16 @@ img {
 	</div>
 </body>
 <!-- Scripts -->
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
 function goSearch(){
-   let frm = document.myform;
-   frm.pg.value=0; 
-   frm.action = "<%=request.getContextPath()%>
-	/mercenary/list";
+	   let frm = document.myform;
+	   frm.pg.value=0; 
+	   frm.action = "<%=request.getContextPath()%>/mercenary/list";
 		frm.method = "get";
 		frm.submit();
 	}

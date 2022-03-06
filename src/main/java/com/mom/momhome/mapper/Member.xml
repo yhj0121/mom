@@ -55,4 +55,15 @@
 			, user_intro = #{ user_intro }
 			where user_id=#{ user_id }
 		</update>
+		
+		<select id="Member_mercenaryList" parameterType="String" resultType="MercenaryDto">
+			select * from mercenary where user_key=(select user_key from User
+			where user_key=#{ user_key }) 
+		</select>
+		
+		
+	<select id="Memger_mercenaryGetTotal" parameterType="String" resultType="Integer">
+		select count(*) from mercenary where user_key =(select user_key from User
+			where user_key=#{ user_key }) 
+	</select>
 </mapper>

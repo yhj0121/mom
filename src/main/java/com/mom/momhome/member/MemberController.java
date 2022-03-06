@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.mercenary.MercenaryDto;
 
 @Controller
 public class MemberController {
@@ -75,9 +76,6 @@ public class MemberController {
 		
 		MemberDto resultDto = memberService.getInfo(dto);
 		HashMap<String, String> map = new HashMap<String, String>();
-		
-		System.out.println("resultDto: "+resultDto);
-		
 		if(resultDto==null) {
 			map.put("flag", "2");	
 		} else {
@@ -90,7 +88,6 @@ public class MemberController {
 				session.setAttribute("username", resultDto.getUser_name());
 				session.setAttribute("email", resultDto.getUser_mail());
 				session.setAttribute("phone", resultDto.getUser_phone());
-				System.out.println("로그인 성공: "+resultDto.toString());
 			} else {
 				map.put("flag", "3");
 			}
@@ -103,8 +100,6 @@ public class MemberController {
 	public String member_logout(MemberDto dto, HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		System.out.println("로그아웃 성공: "+dto.toString());
-		System.out.println("로그아웃 성공: "+session.getId());
 		return "redirect:/";
 	}
 	
@@ -120,9 +115,6 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		String userid = (String)session.getAttribute("userid");
 		String password = (String)session.getAttribute("password");
-		System.out.println("세션상태: "+session.toString());
-		System.out.println("userid: "+userid);
-		System.out.println("password: "+password);
 		if( userid==null ) {
 			return "redirect:/member/member_login";
 		}
@@ -132,7 +124,6 @@ public class MemberController {
 		
 		MemberDto resultDto = memberService.getInfo(dto);
 		model.addAttribute("memberDto", resultDto);
-		System.out.println("resultDto는 "+resultDto);
 		return "member/member_myinfo";
 	}
 	
@@ -146,21 +137,28 @@ public class MemberController {
 		return map;
 	}
 	
-	//마이페이지-팀 가입/탈퇴내역으로 이동 
+	//마이페이지 - 팀 가입/탈퇴내역으로 이동 
 	@RequestMapping("member/teamdetail")
 	String member_teamdetail() {
 		return "member/member_teamdetail";
 	}
 	
-	//마이페이지-팀 매칭신청내역으로 이동 
+	//마이페이지 - 팀 매칭신청내역으로 이동 
 	@RequestMapping("member/matchinglist")
 	String member_matchingdetail() {
 		return "member/member_matchingdetail";
 	}
 	
-	//마이페이지-팀 용병구인내역으로 이동 
+	//마이페이지 - 용병구인내역으로 이동 
 	@RequestMapping("member/mercenarylist")
-	String member_mercenarydetail() {
+	String member_mercenarydetail( MercenaryDto dto, Model model, HttpServletRequest request ) {
+		HttpSession session = request.getSession();
+		String userkey = (String)session.getAttribute("userkey");
+		dto.setUser_key(userkey);
+		List<MercenaryDto> list = memberService.getMercenaryList(userkey);
+		dto.setStart(dto.getPg()*10);
+		model.addAttribute("mercenaryList", list);
+		model.addAttribute("totalCnt",memberService.getTotal(userkey));
 		return "member/member_mercenarydetail";
 	}
 }

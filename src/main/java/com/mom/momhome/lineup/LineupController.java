@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class LineupController {
 
+	int maxLineupCount = 11; 
+	
 	@Resource(name="lineupService")
 	LineupService service;
 	
@@ -181,9 +183,9 @@ public class LineupController {
         }
         
 		int length = list.size();
-		if(length < 11)
+		if(length < maxLineupCount)
 		{
-			for(int i =0; i < 11-length; i++)
+			for(int i =0; i < maxLineupCount-length; i++)
 			{
 				list.add(new LineupDto());
 			}
@@ -202,7 +204,7 @@ public class LineupController {
 	List<LineupPlayerDto> modify_getPlayerList(String team_key, Model model)
 	{
 		List<LineupPlayerDto> list = service.getPlayerList(team_key);
-		model.addAttribute("lineupPlayerList", list);
+		//model.addAttribute("lineupPlayerList", list);
 		return list; 
 	}
 }

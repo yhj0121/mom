@@ -24,8 +24,6 @@
 		
 		<%
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
-		List<LineupPlayerDto> playersInTeam = (List<LineupPlayerDto>)request.getAttribute("lineupPlayerList");
-		String team_key = (String)request.getAttribute("team_key");
 		%>
 			      
           <section>
@@ -43,26 +41,23 @@
 					</thead>
 					<tbody>
 					<%
-					
-					for(int i =0; i<11; i++)
+					int maxLineupCount = 11;
+					for(int i =0; i<maxLineupCount; i++)
 					{
-						String id = lineups.get(i).getPlayerDto().getUser_id();
-						String name = lineups.get(i).getPlayerDto().getUser_name();
-						String position = lineups.get(i).getCode_key();
 					%>
 						<tr>
 							<td><%=(i+1)%></td>
 							<td>
 								<select id="positionList" name="positionList">
-									<option id="positionList_opt" value="NN">원하는 포지션을 선택해주세요.</option>
+									<option id="positionList_opt">원하는 포지션을 선택해주세요.</option>
 								</select>
 							</td>
 							<td>
 								<select id="<%=i%>" name="playerList" onChange="onPlayerSelectChanged(this.id)">
-									<option id="playerList_opt" value="NN">원하는 선수를 선택해주세요.</option>
+									<option id="playerList_opt">원하는 선수를 선택해주세요.</option>
 								</select>
 							</td>
-							<td> <a id = "playerName<%=i%>" href ="#none"><%=name%></a> </td>
+							<td> <a id = "playerName<%=i%>" name="playerName" href ="#none">aa</a> </td>
 <%-- 							<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> --%>
 						</tr>
 					<%
@@ -72,6 +67,10 @@
 				</table>
 			</div>
 			
+			<div class="container mt-3" style="text-align:right;">
+            	<button  type="button" class="btn btn-secondary" onclick="test()">테스트</a>
+          	</div>
+          	
 			<div class="container mt-3" style="text-align:right;">
             	<a href="<%=request.getContextPath()%>/lineup/modify" class="btn btn-secondary">저장</a>
           	</div>
@@ -85,12 +84,23 @@
 
 
 <script>
+
+let game_key = <%=(String)request.getAttribute("game_key")%>;
+let team_key = <%=(String)request.getAttribute("team_key")%>;
+let team_side = <%=(String)request.getAttribute("team_side")%>;
+
+let tr_length = $('#tb tr').length-1;//맨위 테이블 행은 빼줘야한다.
+let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
+let maxColumn;
+
 let playerSelectList;
 let playerDictionary = {};
 
 $(()=>{
+	maxColumn = tab_td.length / tr_length;
+	
 	positionSelectListInit();
-	playerDictionaryInit();
+	playerDictionaryInit(loadLineup);
 })
 
 function positionSelectListInit(){
@@ -109,7 +119,6 @@ function positionSelectListInit(){
 	    
 		for(select of selects)
     	{
-	    	//select.append(data);
 	    	for(item of result)
 	    		select.options[select.options.length] = new Option(item.position, item.position);
     	}
@@ -119,11 +128,11 @@ function positionSelectListInit(){
 	})
 }
 
-function playerDictionaryInit()
+function playerDictionaryInit(callback)
 {
 	$.ajax({
 		url: "${commonURL}/lineup/modify/getPlayerList",
-		data:{team_key:<%=team_key%>},
+		data:{team_key: team_key},
 		type: "POST",
 		dataType:"JSON"
 	})
@@ -137,56 +146,85 @@ function playerDictionaryInit()
 // 			console.log(key);
 // 		}	
 
-		playerSelectListInit();
+		playerSelectListInit(callback);
 	})
 	.fail( (error) => {
 		alert("정보 가져오기 실패");
 	})
 }
 
-function playerSelectListInit()
+function playerSelectListInit(callback)
 {
 	playerSelectList = document.getElementsByName("playerList")
 	  
 	for(select of playerSelectList)
 	{
+		//select.options[select.options.length] = new Option("원하는 선수를 선택해주세요.", select.options.length);
+		
  		for(key of Object.keys(playerDictionary)){
- 			select.options[select.options.length] = new Option(key, key);	
+ 			select.options[select.options.length] = new Option(key, key);
  		}
     	
     	select.options[select.options.length] = new Option("용병", "용병");
 	}
+	
+	callback();
 }
 
 function onPlayerSelectChanged(id)
 {
-// 	console.log("onPlayerSelectChanged.id: " + id);
+ 	//console.log("onPlayerSelectChanged.id: " + id);
+
+	let selectedUserId = playerSelectList[parseInt(id)].value;
+	let nameTdIdx = id * maxColumn + (maxColumn - 1);
 	
-	let tr_length = $('#tb tr').length-1;//맨위 테이블 행은 빼줘야한다.
-    let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
-    let maxColumn = tab_td.length / tr_length;
-    
-	for(select of playerSelectList)
+	if(playerDictionary.hasOwnProperty(selectedUserId))
 	{
-		if(select.id != id)
+		//새롭게 선택한곳에 유저 아이디 넣기.
+	    tab_td.eq(nameTdIdx).text(playerDictionary[selectedUserId].user_name);
+			    
+		for(select of playerSelectList)
 		{
-			let selectedUserId = playerSelectList[parseInt(id)].value;
-			
-			if(select.value ==  selectedUserId)
+			if(select.id != id)
 			{
-				//다른곳에 선택되어있던 유저 아이디 제거
-				select.value = select.options[0].value;
-				
-				//유저이름 제거
-			    let idx = select.id * maxColumn + (maxColumn - 1);
-			    tab_td.eq(idx).text("");
+				//기존에 있던 유저아이디, 유저이름 제거
+				if(select.value ==  selectedUserId)
+				{
+					select.value = select.options[0].value;
+				    nameTdIdx = select.id * maxColumn + (maxColumn - 1);
+				    tab_td.eq(nameTdIdx).text("");
+				    break;
+				}
 			}
-			
-			//새롭게 선택한곳에 유저 아이디 넣기.
-		    let idx = id * maxColumn + (maxColumn - 1);
-		    tab_td.eq(idx).text(playerDictionary[selectedUserId].user_name);
 		}
 	}
+	else
+	{
+		tab_td.eq(nameTdIdx).text("");
+	}
+}
+
+function loadLineup(){
+	<%
+	for(int i =0; i <maxLineupCount; i++)
+	{
+		String id = lineups.get(i).getPlayerDto().getUser_id();
+		if(id == "")
+			id = "원하는 선수를 선택해주세요.";
+		String name = lineups.get(i).getPlayerDto().getUser_name();
+		String position = lineups.get(i).getCode_key();
+		if(position == "")
+			position = "원하는 포지션을 선택해주세요.";
+	%> 
+<%-- 		console.log("<%=name%>"); --%>
+		$("select[name=positionList]").eq(<%=i%>).val("<%=position%>").prop("selected", true);
+		$("select[name=playerList]").eq(<%=i%>).val("<%=id%>").prop("selected", true);
+		$("[name=playerName]").eq(<%=i%>).text("<%=name%>");
+<%-- 		console.log($("[name=playerName]").eq(<%=i%>).text()); --%>
+		
+	<%
+	}
+	%>
 }
 
 function goPlayerInfo(id)

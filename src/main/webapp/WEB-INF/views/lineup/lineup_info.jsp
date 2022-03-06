@@ -46,8 +46,8 @@
 						</thead>
 						<tbody>
 						<%
-						
-						for(int i =0; i<11; i++)
+						int maxLineupCount = 11;
+						for(int i =0; i<maxLineupCount; i++)
 						{
 							String id = lineups.get(i).getPlayerDto().getUser_id();
 							String name = lineups.get(i).getPlayerDto().getUser_name();

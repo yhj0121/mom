@@ -82,7 +82,12 @@ margin:auto;
 		</div>
 	</div>
 </body>
-</html>
+<!-- Scripts -->
+<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
 function goList()
 {
@@ -127,3 +132,4 @@ function goDelete()
 	   }
 }
 </script>
+</html>

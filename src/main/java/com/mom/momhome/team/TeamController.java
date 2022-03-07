@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.common.FileUploadUtil;
-import com.mom.momhome.member.MemberDto;
+import com.mom.momhome.membership.MembershipDto;
 
 @Controller
 public class TeamController {
@@ -65,29 +66,10 @@ public class TeamController {
 		return map;
 	}
 	
-	//팀 생성시 멤버쉽 추가하기
-	@RequestMapping(value="/team/insert_membership", method = RequestMethod.GET)
-	public void insert_membership()
-	{
-		for(int i=1; i<20; i++)
-		{
-			TeamMembershipDto tmDto = new TeamMembershipDto();
-			tmDto.setUser_key(i);
-			tmDto.setTeam_key(((i+1)%2)+1);
-			
-			if((i%15)==1)
-				tmDto.setMembership_role("1");
-			else
-				tmDto.setMembership_role("2");
-			teamService.team_InsertMembership(tmDto);
-		}
-	}
-	
 	//팀 insert 및 앰블럼(사진)저장하기
 	 @RequestMapping("/team/save")
-	   String team_save( TeamDto dto, HttpServletRequest req, MultipartHttpServletRequest multi )
+	   String team_save( TeamDto dto, MembershipDto mdto, HttpServletRequest req, MultipartHttpServletRequest multi )
 	   {
-
 		  List<MultipartFile> multiList = new ArrayList<MultipartFile>();
 		  multiList.add(multi.getFile("upload"));
 		  
@@ -98,9 +80,22 @@ public class TeamController {
 		  
 	      dto.setTeam_emblem(fileNameList.get(0)); //Team_emblem 에 파일 저장
 	      
-	      teamService.insert(dto);
+	      String team_key =    teamService.insert(dto);
+	      System.out.println("dto: " +dto.toString());
+	      System.out.println("팀 키: "+dto.getTeam_key());
+	      
+	      //멤버십 테이블에 삽입하기 전 로그인 한 유저 정보(user_key)로 세팅 
+			 HttpSession session = req.getSession();
+			 String userkey = (String)session.getAttribute("userkey");
+			mdto.setUser_key(userkey);
+		    mdto.setTeam_key( team_key );
+			mdto.setMembership_role("1");
+			System.out.println("userkey: "+mdto.getUser_key());
+			System.out.println("getTeam_key: "+dto.getTeam_key());
+		    teamService.membershipInsert(mdto);
 	      
 	      return "redirect:/team/list";
 	   }
-
 }
+
+

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.membership.MembershipDto;
 
 @Repository("teamDao")
 public class TeamDaoImpl implements TeamDao {
@@ -15,9 +16,12 @@ public class TeamDaoImpl implements TeamDao {
 	SqlSessionTemplate sm;
 
 	@Override //팀 생성
-	public void insert(TeamDto dto) {
+	public String insert(TeamDto dto) {
+
 		sm.insert("team_insert", dto);
-		
+		String id = sm.selectOne("lastid");
+		System.out.println("스트링 아이디: "+id);
+		return id;
 	}
 
 	@Override // 팀 이름 중복 검사하기
@@ -41,6 +45,11 @@ public class TeamDaoImpl implements TeamDao {
 	public void team_InsertMembership(TeamMembershipDto dto) {
 		sm.insert("Team_insertMembership", dto);
 		
+	}
+
+	@Override
+	public void membershipInsert(MembershipDto dto) {
+		sm.selectOne("Membership_insert", dto);
 	}
 	
 

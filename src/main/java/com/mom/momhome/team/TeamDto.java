@@ -4,6 +4,7 @@ import com.mom.momhome.common.BaseDto;
 
 public class TeamDto extends BaseDto{
 
+	private String team_key = "";
 	private String team_name = ""; 
 	private String team_fdate = ""; 
 	private String team_fee = "";  
@@ -16,6 +17,12 @@ public class TeamDto extends BaseDto{
 	
 
 	
+	public String getTeam_key() {
+		return team_key;
+	}
+	public void setTeam_key(String team_key) {
+		this.team_key = team_key;
+	}
 	public String getTeam_city() {
 		return team_city;
 	}
@@ -70,6 +77,13 @@ public class TeamDto extends BaseDto{
 	}
 	public void setTeam_recruit_yn(String team_recruit_yn) {
 		this.team_recruit_yn = team_recruit_yn;
+	}
+	@Override
+	public String toString() {
+		return "TeamDto [team_key=" + team_key + ", team_name=" + team_name + ", team_fdate=" + team_fdate
+				+ ", team_fee=" + team_fee + ", team_city=" + team_city + ", team_intro=" + team_intro
+				+ ", team_emblem=" + team_emblem + ", team_notice=" + team_notice + ", team_num=" + team_num
+				+ ", team_recruit_yn=" + team_recruit_yn + "]";
 	} 
 	
 	

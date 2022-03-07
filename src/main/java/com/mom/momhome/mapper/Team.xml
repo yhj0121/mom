@@ -2,57 +2,62 @@
 <!DOCTYPE mapper
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-	 
+
 <mapper namespace="Team">
 
-<select id="getCityList" parameterType="BaseDto" resultType="BaseDto">
-	select city from code where codegroup_id='ct'
-</select>
+	<select id="getCityList" parameterType="BaseDto"
+		resultType="BaseDto">
+		select city from code where codegroup_id='ct'
+	</select>
 
-<select id="Team_isDuplicate" parameterType="TeamDto" resultType="Integer">
-	select count(*) from Team
-	where team_name=#{team_name}
-</select>
+	<select id="Team_isDuplicate" parameterType="TeamDto"
+		resultType="Integer">
+		select count(*) from Team
+		where team_name=#{team_name}
+	</select>
 
-<insert id="team_insert" parameterType="TeamDto">
+	<insert id="team_insert"   parameterType="TeamDto"   >
 		insert into team
-		( team_name, 
-		team_fdate, 
-		team_fee, 
-		team_city, 
-		team_intro, 
-		team_emblem, 
-		team_notice, 
-		team_num, 
+		(
+		team_name,
+		team_fdate,
+		team_fee,
+		team_city,
+		team_intro,
+		team_emblem,
+		team_notice,
+		team_num,
 		team_recruit_yn)
 		values
-		(#{team_name}, 
-		now(), 
-		#{team_fee}, 
-		#{team_city}, 
-		#{team_intro}, 
-		#{team_emblem}, 
-		#{team_notice}, 
-		#{team_num}, 
+		(#{team_name},
+		now(),
+		#{team_fee},
+		#{team_city},
+		#{team_intro},
+		#{team_emblem},
+		#{team_notice},
+		#{team_num},
 		#{team_recruit_yn})
-</insert>
+	</insert>
 
-<insert id="Team_insertMemberShip" parameterType="TeamMembershipDto">
-	insert into membership(
-		USER_KEY,
+	<insert id="Membership_insert" parameterType="MembershipDto">
+		insert into membership(
+		user_key,
 		TEAM_KEY,
-		MEMBERSHIP_ROLE,	
+		MEMBERSHIP_ROLE,
 		TEAM_JOINDATE
-	)
-	value(
+		)
+		value(
 		#{user_key},
 		#{team_key},
 		#{membership_role},
 		now()
-	);
+		)
 	</insert>
-	
 
+	<select id="lastid"  resultType="String">
+			SELECT LAST_INSERT_ID() 
+		</select>
 
 
 

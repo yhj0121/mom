@@ -221,6 +221,7 @@ textarea {
 			    	    data += "</option>";
 			    	i++;
 			      	$("#cityoption").after(data);
+			      	
 			})
 			})
 			.fail( (error) => {
@@ -228,22 +229,22 @@ textarea {
 			})
 		}
 		
-		function Team_insertMemberShip()
-		{	
+		/* function Team_insertMemberShip(){	
 			alert("멤버쉽 만들기");
 			location.href = "${commonURL}/team/insert_membership";
-		}
+		} */
 		
 		
 		function goWrite()
 		{
-			
 			var frm = document.myform;
-		
-				
 				frm.action="<%=request.getContextPath()%>/team/save";
 				frm.method="post";
 				frm.submit(); //서버로 전송하기
+				
+
+		      	//멤버십 만들기 함수 호출
+		      	//Team_insertMemberShip();
 		}
 
 	</script>

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.membership.MembershipDto;
 
 @Service("teamService")
 public class TeamServiceImpl implements TeamService{
@@ -15,9 +16,8 @@ public class TeamServiceImpl implements TeamService{
 	TeamDao teamDao;
 
 	@Override
-	public void insert(TeamDto dto) {
-		teamDao.insert(dto);
-		
+	public String insert(TeamDto dto) {
+		return teamDao.insert(dto);
 	}
 
 	@Override
@@ -39,7 +39,8 @@ public class TeamServiceImpl implements TeamService{
 		
 	}
 
-
-	
-
+	@Override
+	public void membershipInsert(MembershipDto dto) {
+		teamDao.membershipInsert(dto);
+	}
 }

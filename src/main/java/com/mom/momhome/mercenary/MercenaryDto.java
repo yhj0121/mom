@@ -6,22 +6,13 @@ public class MercenaryDto extends BaseDto {
 	private String game_key = "";
 	private String mercenary_title = "";
 	private String mercenary_contents = "";
-	private String mercenary_complete = "1"; // 1이면 모집중. 2이면 모집완료
+	private String mercenary_complete = "0"; // 0이면 모집중. 1이면 모집완료
 	private String reg_date = "";
 	private String reg_user = ""; 
 	private String chg_date = "";
 	private String chg_user = ""; 
-	private String mercenary_proc = "1"; //1이면 신청 후 승인대기중. 2이면 승인. 3이면 거절.
-	
-	public String getMercenary_proc() {
-		return mercenary_proc;
-	}
-
-	public void setMercenary_proc(String mercenary_proc) {
-		this.mercenary_proc = mercenary_proc;
-	}
-
 	public String user_name = "";
+	
 
 	public String getMercenary_key() {
 		return mercenary_key;

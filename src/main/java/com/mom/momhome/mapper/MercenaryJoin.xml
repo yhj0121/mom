@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Mercenary">
+	 
+	<insert id="MercenaryJoin_insert" parameterType="MercenaryjoinDto">
+		insert into mercenaryjoin
+		(mercenary_key, user_key, mercenary_proc)
+		values
+		(#{mercenary_key}, #{user_key}, #{mercenary_proc})
+	</insert>
+	
+	<select id="Mercenary_getApplicantsList" parameterType="MercenaryjoinDto"	resultType="MercenaryjoinDto">
+ 		select 
+ 			mercenaryjoin_key
+ 			,mercenary_key
+ 			,(select user_name from user B where B.user_key=A.user_key) as user_name
+ 			,user_key
+ 			,mercenary_proc
+ 			,app_date
+ 			,rnum	
+ 		from
+ 		(
+ 		select
+			A.mercenaryjoin_key
+			,A.mercenary_key
+			,A.user_key
+			,A.mercenary_proc
+			,A.app_date
+			,@rownum := @rownum+1 AS rnum
+			from mercenary A, (select @rownum:=0) B
+			order by mercenaryjoin_key desc
+			) A
+
+	</select>
+	
+	<update id="Mercenaryjoin_update" parameterType="MercenaryjoinDto">
+		update mercenaryjoin set mercenary_proc = '2' where mercenaryjoin_key=#{mercenaryjoin_key}
+	</update>
+</mapper>

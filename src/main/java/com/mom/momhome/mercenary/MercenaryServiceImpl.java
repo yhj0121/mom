@@ -6,10 +6,16 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.mom.momhome.mercenaryjoin.MercenaryjoinDao;
+import com.mom.momhome.mercenaryjoin.MercenaryjoinDto;
+
 @Service("mercenaryService")
 public class MercenaryServiceImpl implements MercenaryService {
 	@Resource(name="mercenaryDao")
 	MercenaryDao mercenaryDao;
+	
+	@Resource(name="mercenaryjoinDao")
+	MercenaryjoinDao mercenaryjoinDao;
 
 	@Override
 	public List<MercenaryDto> getList(MercenaryDto dto) {
@@ -41,9 +47,16 @@ public class MercenaryServiceImpl implements MercenaryService {
 		return mercenaryDao.getTotal(dto);
 	}
 
+	
+
 	@Override
-	public void insertJoin(MercenaryDto dto) {
-		mercenaryDao.insertJoin(dto);
+	public void insertJoin(MercenaryjoinDto dto) {
+		mercenaryjoinDao.insertJoin(null);
 		
+	}
+
+	@Override
+	public List<MercenaryjoinDto> getApplicantsList(MercenaryjoinDto dto) {
+		return mercenaryjoinDao.getApplicantsList(null);
 	}
 }

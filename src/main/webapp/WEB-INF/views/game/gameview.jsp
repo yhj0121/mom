@@ -48,6 +48,7 @@
 					<input type="hidden" name="keyword" value="<%=keyword%>" >
 					<input type="hidden" name="team_key" id="team_key" value="${team_key}">
 				    <input type="hidden" name="user_key" value="${userkey}" >
+				    <input type="hidden" name="team_side" value="1" >
 	
 			   	<input type="hidden" name="game_key" value="<%=daoo.getGame_key()%>">
 				        
@@ -121,6 +122,14 @@ function goDelete()
 	      frm.action="<%=request.getContextPath()%>/game/delete";
 	      frm.submit();
 	   }
+}
+
+function homelineup()
+{
+	var frm = document.myform;
+	frm.
+	
+	
 }
 
 </script>

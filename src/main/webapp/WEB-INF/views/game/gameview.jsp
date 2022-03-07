@@ -48,7 +48,7 @@
 					<input type="hidden" name="keyword" value="<%=keyword%>" >
 					<input type="hidden" name="team_key" id="team_key" value="${team_key}">
 				    <input type="hidden" name="user_key" value="${userkey}" >
-				    <input type="hidden" name="team_side" value="1" >
+				    <input type="hidden" name="team_side" value="" >
 	
 			   	<input type="hidden" name="game_key" value="<%=daoo.getGame_key()%>">
 				        
@@ -124,10 +124,28 @@ function goDelete()
 	   }
 }
 
+function awaylineup()
+{
+	var frm = document.myform;
+	frm.team_side.value=2; //어웨이라서 2로 가져옴
+	frm.game_key.value=game_key;
+	frm.team_key.value=team_key;
+	frm.method="get";
+    frm.action="<%=request.getContextPath()%>/lineup/info";
+
+	
+	
+}
+
 function homelineup()
 {
 	var frm = document.myform;
-	frm.
+	frm.team_side.value=1; //홈이라서 그대로 값 가져오기
+	frm.game_key.value=game_key;
+	frm.team_key.value=team_key;
+	frm.method="get";
+    frm.action="<%=request.getContextPath()%>/lineup/info";
+
 	
 	
 }

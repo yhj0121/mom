@@ -41,26 +41,57 @@
 					</thead>
 					<tbody>
 					<%
-					int maxLineupCount = 11;
-					for(int i =0; i<maxLineupCount; i++)
+					int curRowNum = 0;
+					for(int i =0; i<maxRegularCount; i++)
 					{
 					%>
 						<tr>
-							<td><%=(i+1)%></td>
+							<td><%=curRowNum+1%></td>
 							<td>
 								<select id="positionList" name="positionList">
 									<option id="positionList_opt">원하는 포지션을 선택해주세요.</option>
 								</select>
 							</td>
 							<td>
-								<select id="<%=i%>" name="playerList" onChange="onPlayerSelectChanged(this.id)">
+								<select id="<%=curRowNum%>" name="playerList" onChange="onPlayerSelectChanged(this.id)">
 									<option id="playerList_opt">원하는 선수를 선택해주세요.</option>
 								</select>
 							</td>
-							<td> <a id = "playerName<%=i%>" name="playerName" href ="#none">aa</a> </td>
+							<td> <a id = "playerName<%=curRowNum%>" name="playerName" href ="#none"></a> </td>
 <%-- 							<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> --%>
 						</tr>
 					<%
+						curRowNum++;
+					}
+					%>
+					
+					<tr> 
+						<td colspan="999" class="text-center">
+							<hr style="border: dashed 1px;">
+						</td>
+					</tr>
+					
+					<%
+					for(int i =0; i<maxBenchCount; i++)
+					{
+					%>
+						<tr>
+							<td>후보</td>
+							<td>
+								<select id="positionList" name="positionList">
+									<option id="positionList_opt">원하는 포지션을 선택해주세요.</option>
+								</select>
+							</td>
+							<td>
+								<select id="<%=curRowNum%>" name="playerList" onChange="onPlayerSelectChanged(this.id)">
+									<option id="playerList_opt">원하는 선수를 선택해주세요.</option>
+								</select>
+							</td>
+							<td> <a id = "playerName<%=curRowNum%>" name="playerName" href ="#none"></a> </td>
+<%-- 							<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> --%>
+						</tr>
+					<%
+						curRowNum++;
 					}
 					%>
 					</tbody>
@@ -206,7 +237,7 @@ function onPlayerSelectChanged(id)
 
 function loadLineup(){
 	<%
-	for(int i =0; i <maxLineupCount; i++)
+	for(int i =0; i <lineups.size(); i++)
 	{
 		String id = lineups.get(i).getPlayerDto().getUser_id();
 		if(id == "")

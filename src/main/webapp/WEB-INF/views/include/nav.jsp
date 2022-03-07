@@ -11,6 +11,10 @@ String username = StringUtil.nullToValue(session.getAttribute("username"), "");
 String email = StringUtil.nullToValue(session.getAttribute("email"), "");
 String phone = StringUtil.nullToValue(session.getAttribute("phone"), "");
 String user_key = StringUtil.nullToValue(session.getAttribute("userkey"), "");
+
+int maxRegularCount = 11;
+int maxBenchCount = 7;
+int maxLineupCount = maxRegularCount + maxBenchCount;
 %>
 <meta charset="UTF-8">
 <header id="header">

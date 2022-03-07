@@ -16,7 +16,7 @@ public class TeamDaoImpl implements TeamDao {
 
 	@Override //팀 생성
 	public void insert(TeamDto dto) {
-		sm.insert("Team_insert", dto);
+		sm.insert("team_insert", dto);
 		
 	}
 

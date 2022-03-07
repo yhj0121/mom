@@ -83,7 +83,7 @@ public class TeamController {
 		}
 	}
 	
-	//팀 생성시 앰블럼(사진) 저장하기
+	//팀 insert 및 앰블럼(사진)저장하기
 	 @RequestMapping("/team/save")
 	   String team_save( TeamDto dto, HttpServletRequest req, MultipartHttpServletRequest multi )
 	   {
@@ -100,16 +100,7 @@ public class TeamController {
 	      
 	      teamService.insert(dto);
 	      
-	      return "redirect:/team/main";
+	      return "redirect:/team/list";
 	   }
-	 
-	 // 팀 생성 하기
-	 @RequestMapping(value="/team/insert", method=RequestMethod.POST)
-	 @ResponseBody
-		public HashMap<String, String> team_insert(TeamDto dto) {
-			teamService.insert(dto);
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("result", "success");
-			return map;
-		}
+
 }

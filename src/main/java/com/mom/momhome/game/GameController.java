@@ -74,8 +74,7 @@ public class GameController {
 	@ResponseBody
 	String board_save(GameDto dto)
 	{
-			System.out.println(dto.getGame_key());
-			System.out.println(dto.getGame_fdate());
+			
 		if(dto.getGame_key().equals(""))
 			service.insert(dto);
 		else
@@ -84,17 +83,18 @@ public class GameController {
 	}
 
 	@RequestMapping(value="/game/delete")
-	String game_delete(String id)
+	String game_delete(GameDto dto)
 	{
-		service.delete(id);
+		service.delete(dto.getGame_key());
 		
 		return "redirect:/game/list"; 
 	}
 	
 	@RequestMapping(value="/game/modify")
-	String game_modify(String id, Model model)
+	String game_modify(GameDto dto, Model model)
 	{
-		model.addAttribute("GameDto", service.getView(id));
+	
+		model.addAttribute("GameDto", service.getView(dto.getGame_key()));
 		
 		return "game/gamewrite";
 	}

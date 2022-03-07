@@ -21,6 +21,7 @@
 		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+		String team_key="1";
 	%>
 	<%
 	GameDto daoo = (GameDto)request.getAttribute("GameDto");
@@ -45,32 +46,43 @@
 					<input type="hidden" name="pg"      value="<%=pg%>" >
 					<input type="hidden" name="key"     value="<%=key%>" >
 					<input type="hidden" name="keyword" value="<%=keyword%>" >
-					<input type="hidden" name="team_key" id="team_key" value="1">
+					<input type="hidden" name="team_key" id="team_key" value="${team_key}">
+				    <input type="hidden" name="user_key" value="${userkey}" >
+	
 			   	<input type="hidden" name="game_key" value="<%=daoo.getGame_key()%>">
 				        
 					
-					<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_date()%>"/> 
+					<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_date()%>" readonly /> 
 					      	
 							<div class="row gtr-uniform">
 								<div class="col-12">
-								<input type="text" name="game_title"   name="game_title"  value="<%=daoo.getGame_title()%>" >
+								<input type="text" name="game_title"   name="game_title"  value="<%=daoo.getGame_title()%>"  readonly />
 								</div>
 							
 							
 										<div class="col-6 col-12-xsmall">
-									<input type="text" name="game_fdate" id="game_fdate" value="<%=daoo.getGame_fdate()%>">
+									<input type="text" name="game_fdate" id="game_fdate" value="<%=daoo.getGame_fdate()%>" readonly />
 								</div>
 								<div class="col-12">
-									<input type="text" name="game_location" id="game_location" value="<%=daoo.getGame_location()%>" >
+									<input type="text" name="game_location" id="game_location" value="<%=daoo.getGame_location()%>" readonly />
 								</div>
 								<div class="col-12">
-									<textarea name="game_contents" id="game_contents" rows="6"><%=daoo.getGame_contents()%></textarea>
+									<textarea name="game_contents" id="game_contents" rows="6" readonly><%=daoo.getGame_contents()%></textarea>
 								</div>
 								<div class="col-12">
 									<ul class="actions">
+									
 										<li><input type="button" value="목록" onclick="goList()" /></li>
-										<li><input type="button" value="참가신청" id="joinornot" /></li>
-							
+									<%if(team_key.equals(daoo.getTeam_key())) {%>
+										<li><input type="button" value="수정" onclick="goupdate()" /></li>
+										<li><input type="button" value="삭제" onclick="goDelete()" /></li>
+										<%}%>
+											<%if(team_key.equals(daoo.getTeam_key())) {%>
+										<li><input type="button" value="홈팀라인업짜기" onclick="homelineup()" /></li>
+										
+										<%} else {%>
+										<li><input type="button" value="어웨이 라인업 짜기" onclick="awaylineup()" /></li>
+									<%}%>
 									</ul>
 								</div>
 							</div>
@@ -94,36 +106,22 @@ function goList()
 	frm.submit();
 }
 
-$(()=>{
-    $("#joinornot").click(()=>{
-       $.ajax({
-          url:"${commonURL}/game/joinornot", //요청 url정보
-          data:{userid:$("#userid").val()},   //서버로 전달할 데이터정보: JSON형태
-          dataType:"json",  //결과를 jSON으로 받겠다. 결과가 text로 온다
-          type:"POST"
-       })
-       .done((data)=>{
-          //데이터가 정상적으로 수신되면 done메서드 호출되면서 매개변수는 전달받은 값
-          //값은 dataType 속성을 안주면 text로 온다.
-          console.log(data.result);
-         if(data.result == "true") //중복
-         {
-            alert("이미 사용중인 아이디입니다.")
-         }
-         else
-         {
-            alert("사용가능합니다.")
-            $("#idcheck").val("Y");
-            $("#userid").prop("readonly", true);   //수정못하게 막는 기능
-            
-         }
-       })
-       .fail((error)=>{
-          //통신에러, 오류에 관한 것
-             console.log(error)
-       })
-    })
- })
+function goupdate()
+{
+	var frm = document.myform;
+	frm.action="<%=request.getContextPath()%>/game/modify";
+	frm.submit();
+}
+
+function goDelete()
+{
+	if( confirm("삭제하시겠습니까?"))
+	   {
+	      var frm = document.myform;
+	      frm.action="<%=request.getContextPath()%>/game/delete";
+	      frm.submit();
+	   }
+}
 
 </script>
 </html>

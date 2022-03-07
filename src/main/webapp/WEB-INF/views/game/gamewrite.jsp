@@ -61,7 +61,8 @@ margin:auto;
 						<h3>게임게시글 작성</h3>
 							<form name="myform" >
 							<input type="hidden" name="team_key" value="1"/>	
-				<input type="hidden" name="game_key" value="<%=dao.getGame_key()%>"/>
+							<input type="hidden" name="user_key" value="<%=user_key%>"/>					
+							<input type="hidden" name="game_key" value="<%=dao.getGame_key()%>"/>
 								
 								<div class="row gtr-uniform">
 									<div class="col-12">
@@ -88,14 +89,15 @@ margin:auto;
 									
 									
 									<div class="col-6 col-12-xsmall">
-										<input type="text" name="user_name" id="user_name" value="미정" placeholder="작성자" readonly>
+										<input type="text" name="user_name" id="user_name" value="<%=username%>" placeholder="작성자" readonly/>
 									</div>
 									<div class="col-6 col-12-xsmall">
 									           <input type="datetime-local"  id="game_fdate" name="game_fdate">
 									</div>
-										<div class="col-6 col-12-xsmall">
+									
+									<!-- 	<div class="col-6 col-12-xsmall">
 									           <input type="text"  id="team_name" name="team_name" value="<%=dao.getTeam_name()%>">
-									</div>
+									</div> -->
 									
 									
 									<div class="col-12">

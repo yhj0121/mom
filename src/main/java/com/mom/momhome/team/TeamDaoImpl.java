@@ -34,6 +34,14 @@ public class TeamDaoImpl implements TeamDao {
 		
 		return sm.selectList("getCityList", dto);
 	}
+
+	
+
+	@Override
+	public void team_InsertMembership(TeamMembershipDto dto) {
+		sm.insert("Team_insertMembership", dto);
+		
+	}
 	
 
 	

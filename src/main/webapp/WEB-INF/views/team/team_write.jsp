@@ -33,6 +33,7 @@ textarea {
 		<%
 			TeamDto tdto = (TeamDto)request.getAttribute("teamDto");
 			BaseDto bdto = (BaseDto)request.getAttribute("baseDto");
+			TeamMembershipDto tmDto = (TeamMembershipDto)request.getAttribute("tmDto");
 		%>
 		<!-- Main -->
 		<div id="main">
@@ -60,6 +61,7 @@ textarea {
 				<section>
 					<form id="myform" name="myform" method="post" action="#">
 						<input type="hidden" name="user_key" value="<%=user_key%>"/>
+						
 						
 						<legend>기본정보입력</legend><br>
 						<div class="row gtr-uniform">
@@ -155,7 +157,7 @@ textarea {
 							 <br><br>
 							<div class="col-12">
 								<ul class="actions">
-									<li><input type="button" id="goInsert" value="팀 작성 완료" /></li>
+									<li><input type="button" id="goInsert" onclick="goInsert()"value="팀 작성 완료" /></li>
 									<li><input type="reset" onclick="formReset()" value="돌아가기" /></li>
 								</ul>
 							</div>
@@ -193,7 +195,7 @@ textarea {
 				} else {
 					alert("사용 가능한 팀 이름 입니다.");
 					$("#tnamecheck").val("Y");
-					$("#tname").prop("readonly", true); //사용중인 아이디라고 판명되면 읽기전용으로 입력창이 막힘 
+					$("#tname").prop("readonly", true); //사용중인 팀 이름 이라고 판명되면 읽기전용으로 입력창이 막힘 
 				}
 			})
 			.fail( (error) => {
@@ -202,11 +204,14 @@ textarea {
 		});
 	});
 	
+	//팀 등록하기
 	 function goInsert()
 	 {
+		Team_insertMemberShip();
 	 	var frmData = document.myform; 
+	 	
 	 	var queryString = $("form[name=myform]").serialize();
-	 	if(frmData.team_name.value.trim().length<10)
+	 	if(frmData.team_name.value.trim().length<5)
 	 	{
 	 		alert("팀 이름을 5글자 이상 작성하시오");
 	 		frmData.team_name.focus();
@@ -258,6 +263,12 @@ textarea {
 			.fail( (error) => {
 				alert("정보 가져오기 실패");
 			})
+		}
+		
+		function Team_insertMemberShip()
+		{	
+			alert("멤버쉽 만들기");
+			location.href = "${commonURL}/team/insert_membership";
 		}
 		
 	</script>

@@ -37,6 +37,22 @@
 		#{team_recruit_yn})
 </insert>
 
+<insert id="Team_insertMemberShip" parameterType="TeamMembershipDto">
+	insert into membership(
+		USER_KEY,
+		TEAM_KEY,
+		MEMBERSHIP_ROLE,	
+		TEAM_JOINDATE
+	)
+	value(
+		#{user_key},
+		#{team_key},
+		#{membership_role},
+		now()
+	);
+	</insert>
+	
+
 
 
 

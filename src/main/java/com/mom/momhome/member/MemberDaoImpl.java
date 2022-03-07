@@ -44,13 +44,13 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
-	public List<MercenaryDto> getMercenaryList(String userkey) {
-		return sm.selectList( "Member_mercenaryList", userkey );
+	public List<MercenaryDto> getMercenaryList(MercenaryDto dto) {
+		return sm.selectList( "Member_mercenaryList", dto );
 	}
 
 	@Override
-	public int getTotal(String userkey) {
-		return sm.selectOne("Memger_mercenaryGetTotal",userkey);
+	public int getTotal(MercenaryDto dto) {
+		return sm.selectOne("Memger_mercenaryGetTotal",dto);
 	}
 
 	@Override

@@ -36,16 +36,7 @@ public class LineupController {
 //            System.out.println("UserKey: " + tempDto.getUser_key());
 //            System.out.println("UserID: " + tempDto.getPlayerDto().getUser_id());
         }
-        
-		int length = list.size();
-		if(length < 11)
-		{
-			for(int i =0; i < 11-length; i++)
-			{
-				list.add(new LineupDto());
-			}
-		}
-		
+
 		model.addAttribute("lineupList", list);
 		
 		return "lineup/lineup_info";

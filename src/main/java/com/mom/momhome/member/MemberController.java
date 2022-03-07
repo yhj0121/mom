@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.membership.*;
 import com.mom.momhome.mercenary.MercenaryDto;
 
 @Controller
@@ -67,7 +68,7 @@ public class MemberController {
 	//로그인 실행 
 	@RequestMapping(value="/member/login_proc")
 	@ResponseBody
-	public HashMap<String, String> member_login_proc(MemberDto dto, HttpServletRequest request)
+	public HashMap<String, String> member_login_proc(MemberDto dto, MembershipDto mbsdto, HttpServletRequest request)
 	{
 		//각 페이지별로 정보 공유가 안된다. 
 		//예외(쿠키 또는 세션- 세션을 사용한다.)

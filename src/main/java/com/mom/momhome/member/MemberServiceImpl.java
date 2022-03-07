@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 
 @Service("memberService")
@@ -58,4 +59,5 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDto findPassword(MemberDto dto) {
 		return memberDao.findPassword(dto);
 	}
+
 }

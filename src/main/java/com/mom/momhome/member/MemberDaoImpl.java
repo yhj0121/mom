@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 
 @Repository("memberDao")
@@ -62,4 +63,5 @@ public class MemberDaoImpl implements MemberDao {
 	public MemberDto findPassword(MemberDto dto) {
 		return sm.selectOne("Member_findpassword", dto);
 	}
+
 }

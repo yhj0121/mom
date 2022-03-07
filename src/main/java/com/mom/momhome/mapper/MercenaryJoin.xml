@@ -36,6 +36,16 @@
 	</select>
 	
 	<update id="Mercenaryjoin_update" parameterType="MercenaryjoinDto">
-		update mercenaryjoin set mercenary_proc = '2' where mercenaryjoin_key=#{mercenaryjoin_key}
+		<if test='mercenary_proc == 2'>
+			update mercenaryjoin set mercenary_proc = '2' where mercenaryjoin_key=#{mercenaryjoin_key}	
+		</if>
+		<if test='mercenary_proc == 3'>
+			update mercenaryjoin set mercenary_proc = '3' where mercenaryjoin_key=#{mercenaryjoin_key}	
+		</if>
+		
 	</update>
+	
+	<!-- <update id="Mercenaryjoin_update_dec" parameterType="MercenaryjoinDto">
+		update mercenaryjoin set mercenary_proc = '3' where mercenaryjoin_key=#{mercenaryjoin_key}
+	</update> -->
 </mapper>

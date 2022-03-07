@@ -47,7 +47,6 @@ public class MercenaryServiceImpl implements MercenaryService {
 		return mercenaryDao.getTotal(dto);
 	}
 
-	
 
 	@Override
 	public void insertJoin(MercenaryjoinDto dto) {
@@ -59,4 +58,10 @@ public class MercenaryServiceImpl implements MercenaryService {
 	public List<MercenaryjoinDto> getApplicantsList(MercenaryjoinDto dto) {
 		return mercenaryjoinDao.getApplicantsList(dto);
 	}
+
+	@Override
+	public void update(MercenaryjoinDto dto) {
+		mercenaryjoinDao.update(dto);
+	}
+
 }

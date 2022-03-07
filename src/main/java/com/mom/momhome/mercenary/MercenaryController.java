@@ -1,5 +1,6 @@
 package com.mom.momhome.mercenary;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -100,15 +101,23 @@ public class MercenaryController {
 	}
 	
 	//용병 신청한 선수 리스트 보기-감독권한
-		@RequestMapping(value="/mercenary/viewApplicants")
-		@ResponseBody
-		List<MercenaryjoinDto> mercenary_viewApplicants(MercenaryjoinDto dto)
-		{
-			List<MercenaryjoinDto> appList = service.getApplicantsList(dto);
-			return appList;
-		}
+	@RequestMapping(value="/mercenary/viewApplicants")
+	@ResponseBody
+	List<MercenaryjoinDto> mercenary_viewApplicants(MercenaryjoinDto dto)
+	{
+		List<MercenaryjoinDto> appList = service.getApplicantsList(dto);
+		return appList;
+	}
 	
-	
+	//용병 신청한 선수 승인, 거절
+	@RequestMapping(value="/mercenary/proc")
+	@ResponseBody
+	String mercenary_proc(MercenaryjoinDto dto)
+	{
+		service.update(dto);
+		return "/mercenary/view";
+	}
+		
 	
 
 }

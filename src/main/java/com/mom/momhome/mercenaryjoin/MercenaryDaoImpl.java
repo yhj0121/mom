@@ -22,5 +22,11 @@ public class MercenaryDaoImpl implements MercenaryjoinDao{
 	public List<MercenaryjoinDto> getApplicantsList(MercenaryjoinDto dto) {
 		return sm.selectList("Mercenary_getApplicantsList",dto);
 	}
+
+	@Override
+	public void update(MercenaryjoinDto dto) {
+		sm.update("Mercenaryjoin_update", dto);
+	}
+
 	
 }

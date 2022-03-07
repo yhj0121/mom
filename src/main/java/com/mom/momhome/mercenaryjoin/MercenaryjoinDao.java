@@ -7,4 +7,6 @@ import com.mom.momhome.mercenary.MercenaryDto;
 public interface MercenaryjoinDao {
 	void insertJoin(MercenaryjoinDto dto);
 	List<MercenaryjoinDto> getApplicantsList(MercenaryjoinDto dto);
+	void update(MercenaryjoinDto dto);
+	
 }

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mom.momhome.mercenaryjoin.MercenaryjoinDto;
+
 @Controller
 public class MercenaryController {
 
@@ -87,11 +89,20 @@ public class MercenaryController {
 	//용병 신청
 	@RequestMapping(value="/mercenary/apply")
 	@ResponseBody
-	String mercenary_apply(MercenaryDto dto)
+	String mercenary_apply(MercenaryjoinDto dto)
 	{
 		service.insertJoin(dto);
 		return "redirect:/mercenary/list";
 	}
+	
+	//용병 신청한 선수 리스트 보기-감독권한
+		@RequestMapping(value="/mercenary/viewApplicants")
+		@ResponseBody
+		List<MercenaryjoinDto> mercenary_viewApplicants(MercenaryjoinDto dto)
+		{
+			List<MercenaryjoinDto> appList = service.getApplicantsList(dto);
+			return appList;
+		}
 	
 	
 	

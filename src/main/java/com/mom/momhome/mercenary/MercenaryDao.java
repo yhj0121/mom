@@ -10,6 +10,4 @@ public interface MercenaryDao {
 	MercenaryDto getView(String mercenary_key);
 	int getTotal(MercenaryDto dto);
 	
-	void insertJoin(MercenaryDto dto);
-	
 }

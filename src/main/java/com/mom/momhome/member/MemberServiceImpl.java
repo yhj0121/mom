@@ -40,13 +40,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MercenaryDto> getMercenaryList( String userkey ) {
-		return memberDao.getMercenaryList(userkey);
+	public List<MercenaryDto> getMercenaryList( MercenaryDto dto) {
+		return memberDao.getMercenaryList(dto);
 	}
 
 	@Override
-	public int getTotal(String userkey) {
-		return memberDao.getTotal(userkey);
+	public int getTotal(MercenaryDto dto) {
+		return memberDao.getTotal(dto);
 	}
 
 	@Override

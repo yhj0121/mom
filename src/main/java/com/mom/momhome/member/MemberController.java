@@ -121,6 +121,7 @@ public class MemberController {
 		return "member/member_findpw";
 	}
 	
+	//아이디 찾기 실행 
 	@RequestMapping(value="member/findid_proc")
 	@ResponseBody
 	public HashMap<String, String> member_findid_proc( MemberDto dto ){
@@ -135,7 +136,8 @@ public class MemberController {
 		}
 		return map;
 	}
-	
+
+	//비밀번호 찾기 실행 
 	@RequestMapping(value="/member/findpw_proc")
 	@ResponseBody
 	public HashMap<String, String> member_findpw_proc(MemberDto dto)
@@ -205,10 +207,10 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		String userkey = (String)session.getAttribute("userkey");
 		dto.setUser_key(userkey);
-		List<MercenaryDto> list = memberService.getMercenaryList(userkey);
+		List<MercenaryDto> list = memberService.getMercenaryList(dto);
 		dto.setStart(dto.getPg()*10);
 		model.addAttribute("mercenaryList", list);
-		model.addAttribute("totalCnt",memberService.getTotal(userkey));
+		model.addAttribute("totalCnt",memberService.getTotal(dto));
 		return "member/member_mercenarydetail";
 	}
 }

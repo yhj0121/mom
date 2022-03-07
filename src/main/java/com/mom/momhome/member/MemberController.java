@@ -207,8 +207,8 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		String userkey = (String)session.getAttribute("userkey");
 		dto.setUser_key(userkey);
-		List<MercenaryDto> list = memberService.getMercenaryList(dto);
 		dto.setStart(dto.getPg()*10);
+		List<MercenaryDto> list = memberService.getMercenaryList(dto);
 		model.addAttribute("mercenaryList", list);
 		model.addAttribute("totalCnt",memberService.getTotal(dto));
 		return "member/member_mercenarydetail";

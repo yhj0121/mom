@@ -140,6 +140,7 @@ function goSearch(){
 	   frm.action = "<%=request.getContextPath()%>/mercenary/list";
 		frm.method = "get";
 		frm.submit();
+		consol.log( frm.pg.value );
 	}
 
 	function goPage(pg) {

@@ -24,14 +24,14 @@ public class GameServiceImp implements GameService {
 	}
 
 	@Override
-	public GameDto getView(String id) {
+	public GameDto getView(String game_key) {
 		// TODO Auto-generated method stub
-		return dao.getView(id);
+		return dao.getView(game_key);
 	}
 
 	@Override
-	public void delete(int id) {
-		dao.delete(id);
+	public void delete(String game_key) {
+		dao.delete(game_key);
 	}
 
 	@Override
@@ -52,15 +52,5 @@ public class GameServiceImp implements GameService {
 		return dao.getTotal(dto);
 	}
 
-//	@Override
-//	public Character joinornot(MatchingJoinDto dto) {
-//		// TODO Auto-generated method stub
-//		return matchingJoinDao.joinornot(dto);
-//	}
-//
-//	@Override
-//	public void insert(MatchingJoinDto dto) {
-//		matchingJoinDao.insert(dto);		
-//	}
 
 }

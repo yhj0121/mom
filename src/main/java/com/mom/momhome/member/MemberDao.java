@@ -17,8 +17,8 @@ public interface MemberDao {
 	//회원정보수정
 	void update( MemberDto dto );
 	//용병 리스트 가져오기
-	List<MercenaryDto> getMercenaryList ( String userkey );
-	int getTotal(String userkey); //페이지네이션
+	List<MercenaryDto> getMercenaryList ( MercenaryDto dto );
+	int getTotal(MercenaryDto dto); //페이지네이션
 	//아이디 찾기
 	MemberDto findId(MemberDto dto);
 	//비밀번호 찾기 

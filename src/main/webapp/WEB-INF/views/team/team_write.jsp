@@ -33,6 +33,7 @@ textarea {
 		<%
 			TeamDto tdto = (TeamDto)request.getAttribute("teamDto");
 			BaseDto bdto = (BaseDto)request.getAttribute("baseDto");
+			TeamMembershipDto tmDto = (TeamMembershipDto)request.getAttribute("tmDto");
 		%>
 		<!-- Main -->
 		<div id="main">
@@ -58,8 +59,9 @@ textarea {
 				</header>
 
 				<section>
-					<form id="myform" name="myform" method="post" action="#">
+					<form id="myform" name="myform" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="user_key" value="<%=user_key%>"/>
+						
 						
 						<legend>기본정보입력</legend><br>
 						<div class="row gtr-uniform">
@@ -67,7 +69,7 @@ textarea {
 							<p>  
 			                    <label>팀 이름
 			                    <div>
-				                    <input type="text" id="tname" name="team_name" value="<%=tdto.getTeam_name()%>"placeholder="팀 이름을 입력해주세요"><br>
+				                    <input type="text" id="team_name" name="team_name" value="<%=tdto.getTeam_name()%>"placeholder="팀 이름을 입력해주세요"><br>
 				                    <button class="btn btn-success" type="button" id="btnTeamDuplicate">팀 이름 중복체크</button></input>
 			                    </div>
 			                    </label>
@@ -76,7 +78,7 @@ textarea {
 			                <p>  
 			                    <label>팀 앰블럼
 			                    <div>
-									<input type="file" name="team_emblem" id="emblem" value="<%=tdto.getTeam_emblem()%>"/>
+									<input type="file" class="form-control" name="upload" id="upload" value="<%=tdto.getTeam_emblem()%>"/>
 								</div>
 								</label>
 			                </p>
@@ -84,7 +86,7 @@ textarea {
 			                 <p>  
 			                    <label>팀 인원
 			                    <div>
-									<input type="text" name="team_num" id="tnum" value="<%=tdto.getTeam_num()%>" placeholder="몇 명 인지 숫자입력"/>
+									<input type="text" name="team_num" id="team_num" value="<%=tdto.getTeam_num()%>" placeholder="몇 명 인지 숫자입력"/>
 								</div>
 								</label>
 			                </p>
@@ -107,7 +109,7 @@ textarea {
 			                <p>  
 			                    <label>팀 회비(월)
 			                    <div>
-									<input type="text" name="team_fee" id="tfee" value="<%=tdto.getTeam_fee()%>" placeholder="월 회비 금액 숫자입력(원)"/>
+									<input type="text" name="team_fee" id="team_fee" value="<%=tdto.getTeam_fee()%>" placeholder="월 회비 금액 숫자입력(원)"/>
 								</div>
 								</label>
 			                </p>
@@ -122,7 +124,7 @@ textarea {
 							<p>  
 			                    <label>팀 소개
 			                    <div>
-									<textarea name="team_intro" id="tintro" rows="5" value="<%=tdto.getTeam_intro()%>"placeholder="팀 소개를 간단하게 작성해주세요"></textarea>
+									<textarea name="team_intro" id="team_intro" rows="5" value="<%=tdto.getTeam_intro()%>"placeholder="팀 소개를 간단하게 작성해주세요"></textarea>
 								</div>
 								</label>
 			                </p>
@@ -130,7 +132,7 @@ textarea {
 			                <p>
 			                    <label>회원 모집 여부
 			                    </label>
-			                    <select id="recyn" name="team_recruit_yn" value="<%=tdto.getTeam_recruit_yn()%>">
+			                    <select id="team_recruit_yn" name="team_recruit_yn" value="<%=tdto.getTeam_recruit_yn()%>">
 			                        <option>모집여부 선택
 			                        </option>
 			                        <option value="1">예
@@ -146,7 +148,7 @@ textarea {
 							<p>  
 			                    <label>팀 공지
 			                    <div>
-									<textarea name="team_notice" id="tnotice" rows="5" value="<%=tdto.getTeam_notice()%>" placeholder="팀 공지를 간단하게 작성해주세요"></textarea>
+									<textarea name="team_notice" id="team_notice" rows="5" value="<%=tdto.getTeam_notice()%>" placeholder="팀 공지를 간단하게 작성해주세요"></textarea>
 								</div>
 								</label>
 			                </p>
@@ -155,7 +157,7 @@ textarea {
 							 <br><br>
 							<div class="col-12">
 								<ul class="actions">
-									<li><input type="button" id="goInsert" value="팀 작성 완료" /></li>
+									<li><input type="button" onClick="goWrite()"value="팀 작성 완료" /></li>
 									<li><input type="reset" onclick="formReset()" value="돌아가기" /></li>
 								</ul>
 							</div>
@@ -182,7 +184,7 @@ textarea {
 		$("#btnDuplicate").click(function(){
 			$.ajax({
 				url: "${ commonURL }/team/isDuplicate",
-				data:{ team_name: $("#tname").val()},
+				data:{ team_name: $("#team_name").val()},
 				dataType: "json",
 				type: "POST"
 			})
@@ -192,8 +194,8 @@ textarea {
 					alert("이미 사용중인 팀 이름 입니다.");
 				} else {
 					alert("사용 가능한 팀 이름 입니다.");
-					$("#tnamecheck").val("Y");
-					$("#tname").prop("readonly", true); //사용중인 아이디라고 판명되면 읽기전용으로 입력창이 막힘 
+					$("#team_namecheck").val("Y");
+					$("#team_name").prop("readonly", true); //사용중인 팀 이름 이라고 판명되면 읽기전용으로 입력창이 막힘 
 				}
 			})
 			.fail( (error) => {
@@ -202,41 +204,7 @@ textarea {
 		});
 	});
 	
-	 function goInsert()
-	 {
-	 	var frmData = document.myform; 
-	 	var queryString = $("form[name=myform]").serialize();
-	 	if(frmData.team_name.value.trim().length<10)
-	 	{
-	 		alert("팀 이름을 5글자 이상 작성하시오");
-	 		frmData.team_name.focus();
-	 		return false;
-	 	}
-	 	
-	 	if(frmData.team_intro.value.trim().length<10)
-	 	{
-	 		alert("내용을 10글자 이상 작성하시오");
-	 		frmData.mercenary_contents.focus();
-	 		return false;
-	 	} 
-	 	$.ajax({
-	 		url:"<%=request.getContextPath()%>/team/save",
-	 		data:queryString,
-	 		//contentType:false,
-	 		processData:false,
-	 		type:"POST"
-	 	})
-	 	.done((result)=>{
-	 		console.log(result);
-	 		alert("성공");
-	 		location.href="<%=request.getContextPath()%>/team/list";
-	 	})
-	 	.fail((error)=>{
-	 		console.log(error);
-	 	})
-	 }
-
-		
+		//CityList 가져오기
 		function getCityList(){
 			$.ajax({
 				url: "${commonURL}/team/selectCity",
@@ -260,6 +228,24 @@ textarea {
 			})
 		}
 		
+		function Team_insertMemberShip()
+		{	
+			alert("멤버쉽 만들기");
+			location.href = "${commonURL}/team/insert_membership";
+		}
+		
+		
+		function goWrite()
+		{
+			
+			var frm = document.myform;
+		
+				
+				frm.action="<%=request.getContextPath()%>/team/save";
+				frm.method="post";
+				frm.submit(); //서버로 전송하기
+		}
+
 	</script>
 
 </body>

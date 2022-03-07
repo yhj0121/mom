@@ -65,7 +65,25 @@ public class TeamController {
 		return map;
 	}
 	
-	//팀 생성시 앰블럼(사진) 저장하기
+	//팀 생성시 멤버쉽 추가하기
+	@RequestMapping(value="/team/insert_membership", method = RequestMethod.GET)
+	public void insert_membership()
+	{
+		for(int i=1; i<20; i++)
+		{
+			TeamMembershipDto tmDto = new TeamMembershipDto();
+			tmDto.setUser_key(i);
+			tmDto.setTeam_key(((i+1)%2)+1);
+			
+			if((i%15)==1)
+				tmDto.setMembership_role("1");
+			else
+				tmDto.setMembership_role("2");
+			teamService.team_InsertMembership(tmDto);
+		}
+	}
+	
+	//팀 insert 및 앰블럼(사진)저장하기
 	 @RequestMapping("/team/save")
 	   String team_save( TeamDto dto, HttpServletRequest req, MultipartHttpServletRequest multi )
 	   {
@@ -75,23 +93,14 @@ public class TeamController {
 		  
 		  List<String> fileNameList = new ArrayList<String>();
 		  String path = req.getServletContext().getRealPath("/");
-		  System.out.println("파일 이름:" + path);
+		  System.out.println("물리적 위치값:" + path);
 		  FileUploadUtil.upload(path, multiList, fileNameList);
 		  
 	      dto.setTeam_emblem(fileNameList.get(0)); //Team_emblem 에 파일 저장
 	      
 	      teamService.insert(dto);
 	      
-	      return "redirect:/team/main";
+	      return "redirect:/team/list";
 	   }
-	 
-	 // 팀 생성 하기
-	 @RequestMapping(value="/team/insert", method=RequestMethod.POST)
-	 @ResponseBody
-		public HashMap<String, String> team_insert(TeamDto dto) {
-			teamService.insert(dto);
-			HashMap<String, String> map = new HashMap<String, String>();
-			map.put("result", "success");
-			return map;
-		}
+
 }

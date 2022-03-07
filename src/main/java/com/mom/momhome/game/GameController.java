@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mom.momhome.mercenary.MercenaryDto;
+
 
 @Controller
 public class GameController {
@@ -20,11 +22,7 @@ public class GameController {
 	GameService service;
 	
 	
-	@RequestMapping(value="/game" ,method=RequestMethod.GET)
-	String main()
-	{
-		return "game/gamemain";
-	}
+
 	
 //	@RequestMapping("/game/joinornot")
 //	@ResponseBody
@@ -37,11 +35,11 @@ public class GameController {
 //	}
 	
 	@RequestMapping(value="game/view", method=RequestMethod.GET)
-	String view(Model model,String id)
+	String view(Model model,String game_key)
 	{
-		GameDto dto = service.getView(id);
-		model.addAttribute("GameDto", dto);
 
+		GameDto dto = service.getView(game_key);
+		model.addAttribute("GameDto", dto);
 		return "game/gameview";
 	}
 	
@@ -73,20 +71,21 @@ public class GameController {
 	}
 	
 	@RequestMapping(value="/game/save")
+	@ResponseBody
 	String board_save(GameDto dto)
 	{
-//			service.insert(join);
-
+			
+		if(dto.getGame_key().equals(""))
 			service.insert(dto);
-	
-		
+		else
+			service.update(dto);
 		return "redirect:/game/list";  
 	}
 
 	@RequestMapping(value="/game/delete")
 	String game_delete(GameDto dto)
 	{
-		service.delete(dto.getGAME_KEY());
+		service.delete(dto.getGame_key());
 		
 		return "redirect:/game/list"; 
 	}
@@ -94,7 +93,8 @@ public class GameController {
 	@RequestMapping(value="/game/modify")
 	String game_modify(GameDto dto, Model model)
 	{
-		model.addAttribute("GameDto", service.getView(dto.getGAME_KEY()+""));
+	
+		model.addAttribute("GameDto", service.getView(dto.getGame_key()));
 		
 		return "game/gamewrite";
 	}

@@ -16,7 +16,7 @@ public class TeamDaoImpl implements TeamDao {
 
 	@Override //팀 생성
 	public void insert(TeamDto dto) {
-		sm.insert("Team_insert", dto);
+		sm.insert("team_insert", dto);
 		
 	}
 
@@ -33,6 +33,14 @@ public class TeamDaoImpl implements TeamDao {
 	public List<BaseDto> getCityList(BaseDto dto) {
 		
 		return sm.selectList("getCityList", dto);
+	}
+
+	
+
+	@Override
+	public void team_InsertMembership(TeamMembershipDto dto) {
+		sm.insert("Team_insertMembership", dto);
+		
 	}
 	
 

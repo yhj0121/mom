@@ -41,26 +41,57 @@
 					</thead>
 					<tbody>
 					<%
-					int maxLineupCount = 11;
-					for(int i =0; i<maxLineupCount; i++)
+					int curRowNum = 0;
+					for(int i =0; i<maxRegularCount; i++)
 					{
 					%>
 						<tr>
-							<td><%=(i+1)%></td>
+							<td><%=curRowNum+1%></td>
 							<td>
 								<select id="positionList" name="positionList">
 									<option id="positionList_opt">원하는 포지션을 선택해주세요.</option>
 								</select>
 							</td>
 							<td>
-								<select id="<%=i%>" name="playerList" onChange="onPlayerSelectChanged(this.id)">
+								<select id="<%=curRowNum%>" name="playerList" onChange="onPlayerSelectChanged(this.id)">
 									<option id="playerList_opt">원하는 선수를 선택해주세요.</option>
 								</select>
 							</td>
-							<td> <a id = "playerName<%=i%>" name="playerName" href ="#none">aa</a> </td>
+							<td> <a id = "playerName<%=curRowNum%>" name="playerName" href ="#none"></a> </td>
 <%-- 							<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> --%>
 						</tr>
 					<%
+						curRowNum++;
+					}
+					%>
+					
+					<tr> 
+						<td colspan="999" class="text-center">
+							<hr style="border: dashed 1px;">
+						</td>
+					</tr>
+					
+					<%
+					for(int i =0; i<maxBenchCount; i++)
+					{
+					%>
+						<tr>
+							<td>후보</td>
+							<td>
+								<select id="positionList" name="positionList">
+									<option id="positionList_opt">원하는 포지션을 선택해주세요.</option>
+								</select>
+							</td>
+							<td>
+								<select id="<%=curRowNum%>" name="playerList" onChange="onPlayerSelectChanged(this.id)">
+									<option id="playerList_opt">원하는 선수를 선택해주세요.</option>
+								</select>
+							</td>
+							<td> <a id = "playerName<%=curRowNum%>" name="playerName" href ="#none"></a> </td>
+<%-- 							<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> --%>
+						</tr>
+					<%
+						curRowNum++;
 					}
 					%>
 					</tbody>
@@ -89,16 +120,14 @@ let game_key = <%=(String)request.getAttribute("game_key")%>;
 let team_key = <%=(String)request.getAttribute("team_key")%>;
 let team_side = <%=(String)request.getAttribute("team_side")%>;
 
-let tr_length = $('#tb tr').length-1;//맨위 테이블 행은 빼줘야한다.
-let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
-let maxColumn;
+// let tr_length = $('#tb tr').length-1;//맨위 테이블 행은 빼줘야한다.
+// let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
+// let maxColumn = Math.ceil((tab_td.length-1) / tr_length); 
 
 let playerSelectList;
 let playerDictionary = {};
 
 $(()=>{
-	maxColumn = tab_td.length / tr_length;
-	
 	positionSelectListInit();
 	playerDictionaryInit(loadLineup);
 })
@@ -174,39 +203,38 @@ function playerSelectListInit(callback)
 function onPlayerSelectChanged(id)
 {
  	//console.log("onPlayerSelectChanged.id: " + id);
+ 	
+ 	let selectedUserId = playerSelectList[parseInt(id)].value;
 
-	let selectedUserId = playerSelectList[parseInt(id)].value;
-	let nameTdIdx = id * maxColumn + (maxColumn - 1);
-	
-	if(playerDictionary.hasOwnProperty(selectedUserId))
-	{
-		//새롭게 선택한곳에 유저 아이디 넣기.
-	    tab_td.eq(nameTdIdx).text(playerDictionary[selectedUserId].user_name);
-			    
-		for(select of playerSelectList)
-		{
-			if(select.id != id)
+ 	if(playerDictionary.hasOwnProperty(selectedUserId))
+ 	{
+ 		//새롭게 선택한곳에 유저 아이디 넣기.
+ 		$("#playerName"+id).text(playerDictionary[selectedUserId].user_name);
+ 		
+ 		//기존에 있던 유저아이디, 유저이름 제거
+ 		let i = 0;
+ 		for(select of playerSelectList)
+ 		{
+ 			if(select.id != id)
 			{
-				//기존에 있던 유저아이디, 유저이름 제거
 				if(select.value ==  selectedUserId)
 				{
 					select.value = select.options[0].value;
-				    nameTdIdx = select.id * maxColumn + (maxColumn - 1);
-				    tab_td.eq(nameTdIdx).text("");
-				    break;
+					$("#playerName"+i).text("");
 				}
 			}
-		}
-	}
+ 			i++;
+ 		}
+ 	}
 	else
 	{
-		tab_td.eq(nameTdIdx).text("");
+		$("#playerName"+id).text("");
 	}
 }
 
 function loadLineup(){
 	<%
-	for(int i =0; i <maxLineupCount; i++)
+	for(int i =0; i <lineups.size(); i++)
 	{
 		String id = lineups.get(i).getPlayerDto().getUser_id();
 		if(id == "")

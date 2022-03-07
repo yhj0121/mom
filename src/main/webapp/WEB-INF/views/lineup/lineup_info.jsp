@@ -46,22 +46,65 @@
 						</thead>
 						<tbody>
 						<%
-						int maxLineupCount = 11;
-						for(int i =0; i<maxLineupCount; i++)
+						int curRowNum = 0;
+						for(int i =0; i<maxRegularCount; i++)
 						{
-							String id = lineups.get(i).getPlayerDto().getUser_id();
-							String name = lineups.get(i).getPlayerDto().getUser_name();
-							String position = lineups.get(i).getCode_key();
+							String id = "";
+							String name = "";
+							String position = "";
+							String player_key = "";
+							if(curRowNum < lineups.size())
+							{
+								id = lineups.get(curRowNum).getPlayerDto().getUser_id();
+								name = lineups.get(curRowNum).getPlayerDto().getUser_name();
+								position = lineups.get(curRowNum).getCode_key();
+								player_key = lineups.get(curRowNum).getUser_key();
+							}
 						%>
 							<tr>
-								<td><%=(i+1)%></td>
+								<td><%=(curRowNum+1)%></td>
 								<td><%=position%></td>
-								<td><a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a></td>
+								<td><a href="#none" onclick="goPlayerInfo('<%=player_key%>')"><%=id%></a></td>
 								<td><%=name%></td>
 							</tr>
 						<%
+							curRowNum++;
 						}
 						%>
+						
+					
+					<tr> 
+						<td colspan="999" class="text-center">
+							<hr style="border: dashed 1px;">
+						</td>
+					</tr>
+					
+					<%
+						for(int i =0; i<maxBenchCount; i++)
+						{
+							String id = "";
+							String name = "";
+							String position = "";
+							String player_key = "";
+							if(curRowNum < lineups.size())
+							{
+								id = lineups.get(curRowNum).getPlayerDto().getUser_id();
+								name = lineups.get(curRowNum).getPlayerDto().getUser_name();
+								position = lineups.get(curRowNum).getCode_key();
+								player_key = lineups.get(curRowNum).getUser_key();
+							}
+						%>
+							<tr>
+								<td>후보</td>
+								<td><%=position%></td>
+								<td><a href="#none" onclick="goPlayerInfo('<%=player_key%>')"><%=id%></a></td>
+								<td><%=name%></td>
+							</tr>
+						<%
+							curRowNum++;
+						}
+						%>
+						
 						</tbody>
 					</table>
 				</div>
@@ -79,6 +122,9 @@
 <script>
 function goPlayerInfo(id)
 {
+	if(id == "")
+		return;
+	
 	let frm = document.myform;
 	frm.id.value=id;
 	frm.method="get";

@@ -32,6 +32,13 @@ public class TeamServiceImpl implements TeamService{
 		return teamDao.getCityList(dto);
 	}
 
+	
+	@Override
+	public void team_InsertMembership(TeamMembershipDto dto) {
+		teamDao.team_InsertMembership(dto);
+		
+	}
+
 
 	
 

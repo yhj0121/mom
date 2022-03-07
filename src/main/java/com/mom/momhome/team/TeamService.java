@@ -12,4 +12,6 @@ public interface TeamService {
 	boolean isDuplicate(TeamDto dto); //팀 이름 중복확인
 	
 	List<BaseDto> getCityList(BaseDto dto); //지역 리스트 
+	
+	void team_InsertMembership(TeamMembershipDto dto);//멤버쉽
 }

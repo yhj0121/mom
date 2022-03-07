@@ -26,6 +26,7 @@ String user_key = StringUtil.nullToValue(session.getAttribute("userkey"), "");
 			<%
 			} else {
 			%>
+			<li><a href="${commonURL}/member/logout">로그아웃</a></li>
 			<li><a href="${commonURL}/member/mypage">마이페이지</a></li>
 			<%
 			}

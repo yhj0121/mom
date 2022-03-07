@@ -70,7 +70,7 @@ textarea {
 			                    <label>팀 이름
 			                    <div>
 				                    <input type="text" id="team_name" name="team_name" value="<%=tdto.getTeam_name()%>"placeholder="팀 이름을 입력해주세요"><br>
-				                    <button class="btn btn-success" type="button" id="btnTeamDuplicate">팀 이름 중복체크</button></input>
+				                    <button class="btn btn-success" type="button" id="btnDuplicate">팀 이름 중복체크</button></input>
 			                    </div>
 			                    </label>
 			                </p>

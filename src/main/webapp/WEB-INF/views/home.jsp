@@ -17,6 +17,16 @@ request.setAttribute("commonURL", request.getContextPath());
 section {
 	margin-top: 3em !important;
 }
+
+.swiper-button-prev::after {
+	content: '' !importnant;
+	display: none !important;
+}
+
+.swiper-button-next:after {
+	content: '' !importnant;
+	display: none !important;
+}
 </style>
 </head>
 <body class="is-preload" style="overflow-x: hidden;">

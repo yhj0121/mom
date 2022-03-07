@@ -57,11 +57,6 @@
 		</update>
 		
 		<select id="Member_mercenaryList" parameterType="MercenaryDto" resultType="MercenaryDto">
-			<!-- select * from mercenary where user_key=(
-			select user_key from User
-			where user_key=#{ user_key }
-			) order by mercenary_key desc limit #{start}, #{pageSize} -->
-			
 			select * from (
 		 		select
 					A.mercenary_key

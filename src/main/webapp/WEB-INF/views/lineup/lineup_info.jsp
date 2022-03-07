@@ -24,6 +24,11 @@
 		
 		<%
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
+		Map<Integer, LineupDto> lineupDic = new HashMap<Integer, LineupDto>();
+		for(int i = 0; i < lineups.size(); i++)
+		{
+			lineupDic.put(Integer.valueOf(lineups.get(i).getLineup_index()), lineups.get(i));	
+		}
 		%>
 			  
 	    <form name="myform"> 	
@@ -53,12 +58,14 @@
 							String name = "";
 							String position = "";
 							String player_key = "";
-							if(curRowNum < lineups.size())
+							
+							if(lineupDic.containsKey(curRowNum))
 							{
-								id = lineups.get(curRowNum).getPlayerDto().getUser_id();
-								name = lineups.get(curRowNum).getPlayerDto().getUser_name();
-								position = lineups.get(curRowNum).getCode_key();
-								player_key = lineups.get(curRowNum).getUser_key();
+								
+								id = lineupDic.get(curRowNum).getPlayerDto().getUser_id();
+								name = lineupDic.get(curRowNum).getPlayerDto().getUser_name();
+								position = lineupDic.get(curRowNum).getCode_key();
+								player_key = lineupDic.get(curRowNum).getUser_key();
 							}
 						%>
 							<tr>
@@ -86,12 +93,12 @@
 							String name = "";
 							String position = "";
 							String player_key = "";
-							if(curRowNum < lineups.size())
+							if(lineupDic.containsKey(curRowNum))
 							{
-								id = lineups.get(curRowNum).getPlayerDto().getUser_id();
-								name = lineups.get(curRowNum).getPlayerDto().getUser_name();
-								position = lineups.get(curRowNum).getCode_key();
-								player_key = lineups.get(curRowNum).getUser_key();
+								id = lineupDic.get(curRowNum).getPlayerDto().getUser_id();
+								name = lineupDic.get(curRowNum).getPlayerDto().getUser_name();
+								position = lineupDic.get(curRowNum).getCode_key();
+								player_key = lineupDic.get(curRowNum).getUser_key();
 							}
 						%>
 							<tr>
@@ -135,8 +142,6 @@ function goPlayerInfo(id)
 function goModify()
 {
 	let frm = document.myform;
-// 	frm.game_key.value= $("#game_key").val();
-// 	frm.team_key.value= $("#team_key").val();
 	frm.method="get";
  	frm.action="${pageContext.request.contextPath}/lineup/modify";
 	frm.submit();

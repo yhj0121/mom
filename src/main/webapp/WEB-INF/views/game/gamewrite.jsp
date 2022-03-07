@@ -95,9 +95,7 @@ margin:auto;
 									           <input type="datetime-local"  id="game_fdate" name="game_fdate">
 									</div>
 									
-									<!-- 	<div class="col-6 col-12-xsmall">
-									           <input type="text"  id="team_name" name="team_name" value="<%=dao.getTeam_name()%>">
-									</div> -->
+						
 									
 									
 									<div class="col-12">

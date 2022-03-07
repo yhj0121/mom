@@ -3,6 +3,7 @@
     pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.mom.momhome.lineup.*" %>
+<%@page import="com.mom.momhome.common.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,9 +99,9 @@
 				</table>
 			</div>
 			
-			<div class="container mt-3" style="text-align:right;">
-            	<button  type="button" class="btn btn-secondary" onclick="test()">테스트</a>
-          	</div>
+<!-- 			<div class="container mt-3" style="text-align:right;"> -->
+<!--             	<button  type="button" class="btn btn-secondary" onclick="test()">테스트</a> -->
+<!--           	</div> -->
           	
 			<div class="container mt-3" style="text-align:right;">
             	<a href="<%=request.getContextPath()%>/lineup/modify" class="btn btn-secondary">저장</a>
@@ -124,6 +125,7 @@ let team_side = <%=(String)request.getAttribute("team_side")%>;
 // let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
 // let maxColumn = Math.ceil((tab_td.length-1) / tr_length); 
 
+let positionSelectList;
 let playerSelectList;
 let playerDictionary = {};
 
@@ -143,10 +145,10 @@ function positionSelectListInit(){
 		type: "POST"
 	})
 	.done( (result) => {
-	    let selects = document.getElementsByName("positionList")
+		positionSelectList = document.getElementsByName("positionList")
 // 	    console.log(selects.length);
 	    
-		for(select of selects)
+		for(select of positionSelectList)
     	{
 	    	for(item of result)
 	    		select.options[select.options.length] = new Option(item.position, item.position);
@@ -221,6 +223,7 @@ function onPlayerSelectChanged(id)
 				{
 					select.value = select.options[0].value;
 					$("#playerName"+i).text("");
+					positionSelectList[i].value = positionSelectList[i].options[0].value; 
 				}
 			}
  			i++;
@@ -236,6 +239,7 @@ function loadLineup(){
 	<%
 	for(int i =0; i <lineups.size(); i++)
 	{
+		int idx = Integer.valueOf(lineups.get(i).getLineup_index());
 		String id = lineups.get(i).getPlayerDto().getUser_id();
 		if(id == "")
 			id = "원하는 선수를 선택해주세요.";
@@ -244,12 +248,10 @@ function loadLineup(){
 		if(position == "")
 			position = "원하는 포지션을 선택해주세요.";
 	%> 
-<%-- 		console.log("<%=name%>"); --%>
-		$("select[name=positionList]").eq(<%=i%>).val("<%=position%>").prop("selected", true);
-		$("select[name=playerList]").eq(<%=i%>).val("<%=id%>").prop("selected", true);
-		$("[name=playerName]").eq(<%=i%>).text("<%=name%>");
-<%-- 		console.log($("[name=playerName]").eq(<%=i%>).text()); --%>
-		
+<%--  		console.log("<%=position%>"); --%>
+		$("select[name=positionList]").eq(<%=idx%>).val("<%=position%>").prop("selected", true);
+		$("select[name=playerList]").eq(<%=idx%>).val("<%=id%>").prop("selected", true);
+		$("[name=playerName]").eq(<%=idx%>).text("<%=name%>");
 	<%
 	}
 	%>

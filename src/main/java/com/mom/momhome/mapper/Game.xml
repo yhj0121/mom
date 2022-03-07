@@ -14,8 +14,8 @@ GAME_DATE,
 GAME_LOCATION,
 GAME_TITLE,
 GAME_CONTENTS,
-GAME_FDATE,
-TEAM_NAME)
+GAME_FDATE
+)
 VALUES
 (
 #{team_key},
@@ -23,8 +23,8 @@ now(),
 #{game_location},
 #{game_title},
 #{game_contents},
-#{game_fdate},
-#{team_name}
+#{game_fdate}
+
 );
 	</insert>
 	

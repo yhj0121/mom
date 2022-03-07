@@ -8,6 +8,7 @@ public class LineupDto {
 	String game_key	= "";
 	String code_key	= "";
 	String team_side = "";
+	String lineup_index = "";
 	
 	LineupPlayerDto playerDto = new LineupPlayerDto(); 
 	
@@ -65,6 +66,14 @@ public class LineupDto {
 
 	public void setPlayerDto(LineupPlayerDto playerDto) {
 		this.playerDto = playerDto;
+	}
+
+	public String getLineup_index() {
+		return lineup_index;
+	}
+
+	public void setLineup_index(String lineup_index) {
+		this.lineup_index = lineup_index;
 	}
 
 	

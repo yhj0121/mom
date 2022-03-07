@@ -171,17 +171,9 @@ public class LineupController {
 //            System.out.println("LineupKey: " + tempDto.getLineup_key());
 //            System.out.println("UserKey: " + tempDto.getUser_key());
 //            System.out.println("UserID: " + tempDto.getPlayerDto().getUser_id());
+            //System.out.println("Lineup_index: " + tempDto.getLineup_index());
         }
         
-		int length = list.size();
-		if(length < maxLineupCount)
-		{
-			for(int i =0; i < maxLineupCount-length; i++)
-			{
-				list.add(new LineupDto());
-			}
-		}
-		
 		model.addAttribute("game_key", game_key);
 		model.addAttribute("team_key", team_key);
 		model.addAttribute("team_side", team_side);

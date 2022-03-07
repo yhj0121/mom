@@ -29,8 +29,8 @@ margin:auto;
 		 		<article class="post">
 		 			<header>
 						<div class="title">
-							<h2><a href="#">용병 구인 게시판</a></h2>
-							<p>감독 권한으로 용병 구인글 작성하는 페이지</p>
+							<h2><a href="#">용병 구인글 작성</a></h2>
+							<p>감독 권한으로 용병을 구하는 글을 작성하여 용병구인 게시판에 올리는 화면</p>
 						</div>
 						<div class="meta">
 						<a href="#" class="logo"><img src="${pageContext.request.contextPath}/resources/images/icon_mercenary.png" alt="" /></a>
@@ -38,7 +38,7 @@ margin:auto;
 					</header>
 					
 		 			<section>
-						<h3>용병구인작성</h3>
+						<!-- <h3>용병구인작성</h3> -->
 							<form name="myform" >
 								<input type="hidden" name="user_key" value="<%=user_key%>"/>
 								<input type="hidden" name="game_key" value="1"/>

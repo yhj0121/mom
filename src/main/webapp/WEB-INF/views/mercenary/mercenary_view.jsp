@@ -36,8 +36,8 @@ margin:auto;
 	 		<article class="post">
 	 			<header>
 					<div class="title">
-						<h2><a href="#">용병 구인 게시판</a></h2>
-						<p>용병 구인 상세보기 화면</p>
+						<h2><a href="#">용병 구인 상세보기</a></h2>
+						<p>감독이 올린 용병 구인의 상세정보를 확인하는 화면</p>
 					</div>
 					<div class="meta">
 						<a href="#" class="logo"><img src="${pageContext.request.contextPath}/resources/images/icon_mercenary.png" alt="" /></a>
@@ -45,7 +45,7 @@ margin:auto;
 				</header>
 				
 	 			<section>
-					<h3 style="text-align: center">용병 구인 상세보기</h3>	
+					<!-- <h3 style="text-align: center">용병 구인 상세보기</h3>	 -->
 						<form name="myform">
 							<input type="hidden" name="pg"      value="<%=pg%>" />
 					     	<input type="hidden" name="key"     value="<%=key%>" />
@@ -54,8 +54,9 @@ margin:auto;
 					        <input type="hidden" name="user_key" value="${userkey}" />
 							<input type="hidden" name="game_key" value="<%=mdto.getGame_key()%>"/>
 							<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>" />
-							<input type="text" name="mercenary_proc" value="<%=mdto.getMercenary_complete()%>" />
-							<input type="text" name="membership_role" value="<%=membership_role %>" /> 
+							<%-- <input type="text" name="mercenary_complete" value="<%=mdto.getMercenary_complete()%>" /> --%>
+							<input type="text" name="mercenary_proc"  id="mercenary_proc" value=""  readonly/>
+							<input type="text" name="membership_role" value="<%=membership_role %>" readonly/> 
 					   
 					      	
 							<div class="row gtr-uniform">
@@ -71,10 +72,10 @@ margin:auto;
 								<div class="col-12">
 									<ul class="actions">
 										<li><input type="button" value="목록" onclick="goList()" /></li>
-								<%if(membership_role.equals("p")) {%>
-										<li><input type="button" value="용병신청" onclick="goApply()" /></li>
-								<%} else{ %>
+								<%if(user_key.equals(mdto.getUser_key()) && membership_role.equals("d")) {%>
 										<li><input type="button" value="용병신청리스트" onclick="goViewApplicants()" /></li>
+								<%} if(membership_role.equals("p")){ %>
+										<li><input type="button" value="용병신청" onclick="goApply()" /></li>
 								<%}%>
 								<%if(user_key.equals(mdto.getUser_key())) {%>
 										<li><input type="button" value="수정" onclick="goModify()" /></li>
@@ -90,7 +91,7 @@ margin:auto;
 							              <col width="8%">
 							              <col width="12%">
 							              <col width="12%">
-							              <col width="12%">
+							              <col width="20%">
 							              <col width="*">
 							           </colgroup>
 							            <thead class="table-secondary">
@@ -129,6 +130,7 @@ function goList()
 
 function goApply()
 {
+	$("#mercenary_proc").val("1");
 	var frmData = document.myform; 
 	var queryString = $("form[name=myform]").serialize();
 	$.ajax({
@@ -165,10 +167,12 @@ function goDelete()
 function goViewApplicants()
 {
 	var frmData = new FormData(document.myform); 
+	var queryString = $("form[name=myform]").serialize();
 	$.ajax({
 		url:"${commonURL}/mercenary/viewApplicants",
-		type:"GET",
-		dataType:"JSON"
+		data:queryString,
+		processData:false,
+		type:"POST"
 	})
 	.done((result)=>{
 		for(i=$("#tbl_applicants tr").length-2;i>=0;i--)
@@ -180,9 +184,17 @@ function goViewApplicants()
 				data += "<td>"+ i+"</td>";
 				data += "<td>"+item.user_name+"</td>";
 				data += "<td>"+item.user_position+"</td>";
-				data += "<td>"+item.appDate+"</td>";
-				data += "<td>"+item.mercenary_proc+"</td>";
-				data += "&nbsp<button type='button' onclick=goApprove('"+item.mercenaryjoin_key+"')>고용</button>"
+				data += "<td>"+item.app_date+"</td>";
+				
+				if(item.mercenary_proc == "1")
+					data += "<td>"+"승인대기중";
+				else if(item.mercenary_proc == "2")
+					data += "<td>"+"용병신청 수락됨";
+				else
+					data += "<td>"+"용병신청 거절됨";
+				
+				data += "&nbsp&nbsp<button type='button' onclick=goApprove('"+item.mercenaryjoin_key+"')>고용</button>" 
+					 + "&nbsp&nbsp<button type='button' onclick=goDecline('"+item.mercenaryjoin_key+"')>거절</button>" +"</td>";
 				data += "</tr>";
 				i++;
 			$("#tbl_applicants > tbody:last").append(data);
@@ -196,6 +208,10 @@ function goViewApplicants()
 function goApprove()
 {
 //approve 누르면 join.xml에 update 쿼리문으로 proc를 2로 바꿔줌
+}
+function goDecline()
+{
+//decline 누르면 mercenary_proc를 3으로 바꿔줌
 }
 </script>
 

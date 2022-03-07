@@ -51,12 +51,12 @@ public class MercenaryServiceImpl implements MercenaryService {
 
 	@Override
 	public void insertJoin(MercenaryjoinDto dto) {
-		mercenaryjoinDao.insertJoin(null);
+		mercenaryjoinDao.insertJoin(dto);
 		
 	}
 
 	@Override
 	public List<MercenaryjoinDto> getApplicantsList(MercenaryjoinDto dto) {
-		return mercenaryjoinDao.getApplicantsList(null);
+		return mercenaryjoinDao.getApplicantsList(dto);
 	}
 }

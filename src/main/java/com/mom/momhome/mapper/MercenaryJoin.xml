@@ -4,9 +4,9 @@
 	 
 	<insert id="MercenaryJoin_insert" parameterType="MercenaryjoinDto">
 		insert into mercenaryjoin
-		(mercenary_key, user_key, mercenary_proc)
+		(mercenary_key, user_key, mercenary_proc,app_date)
 		values
-		(#{mercenary_key}, #{user_key}, #{mercenary_proc})
+		(#{mercenary_key}, #{user_key}, #{mercenary_proc},now())
 	</insert>
 	
 	<select id="Mercenary_getApplicantsList" parameterType="MercenaryjoinDto"	resultType="MercenaryjoinDto">
@@ -14,6 +14,7 @@
  			mercenaryjoin_key
  			,mercenary_key
  			,(select user_name from user B where B.user_key=A.user_key) as user_name
+ 			,(select user_position from user B where B.user_key=A.user_key) as user_position
  			,user_key
  			,mercenary_proc
  			,app_date
@@ -27,7 +28,8 @@
 			,A.mercenary_proc
 			,A.app_date
 			,@rownum := @rownum+1 AS rnum
-			from mercenary A, (select @rownum:=0) B
+			from mercenaryjoin A, (select @rownum:=0) B
+			where A.mercenary_key = #{mercenary_key}
 			order by mercenaryjoin_key desc
 			) A
 

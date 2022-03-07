@@ -37,7 +37,7 @@ img {
 				<header>
 					<div class="title">
 						<h2>
-							<a href="#">용병 구인 게시판</a>
+							<a href="#">용병 구인 게시판(${totalCnt}건)</a>
 						</h2>
 						<p>감독 권한으로 올린 용병 구인 게시글을 확인하는 페이지</p>
 					</div>
@@ -49,7 +49,7 @@ img {
 				</header>
 
 				<section>
-					<h3 style="text-align: center">용병구인리스트 (${totalCnt}건)</h3>
+					<%-- <h3 style="text-align: center">용병구인리스트 (${totalCnt}건)</h3> --%>
 					<form name="myform">
 						<%-- <input type="hidden" name="user_key" id="user_key" value="<%=user_key%>"/> --%>
 						<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> <input

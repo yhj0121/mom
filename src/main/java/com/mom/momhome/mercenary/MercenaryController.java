@@ -22,15 +22,19 @@ public class MercenaryController {
 	@RequestMapping(value="/mercenary/list", method=RequestMethod.GET)
 	String mercenary_list(Model model, MercenaryDto dto)
 	{
-		System.out.println("선택: " + dto.getKey());
-		System.out.println("선택: " + dto.getKeyword());
+		/*
+		 * System.out.println("선택: " + dto.getKey()); System.out.println("선택: " +
+		 * dto.getKeyword());
+		 */
 		
 		dto.setStart(dto.getPg()*10);
 		
 		List<MercenaryDto> list = service.getList(dto);
 		
-		for(MercenaryDto tempdto: list)
-			System.out.println(tempdto.getMercenary_title());
+		/*
+		 * for(MercenaryDto tempdto: list)
+		 * System.out.println(tempdto.getMercenary_title());
+		 */
 		
 		model.addAttribute("mercenaryList",list);
 		model.addAttribute("totalCnt",service.getTotal(dto));
@@ -61,7 +65,7 @@ public class MercenaryController {
 	{
 		if(dto.getMercenary_key().equals(""))
 		{
-			dto.setMercenary_complete("0");
+			/* dto.setMercenary_complete("0"); */
 			service.insert(dto);
 		}
 			

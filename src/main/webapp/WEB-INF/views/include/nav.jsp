@@ -36,7 +36,7 @@ int maxLineupCount = maxRegularCount + maxBenchCount;
 			}
 			%>
 			<li><a href="${commonURL}/team/main">Team</a></li>
-			<li><a href="${commonURL}/game">Game</a></li>
+			<li><a href="${commonURL}/game/list">Game</a></li>
 			<li><a href="${commonURL}/mercenary/list">Mercenary</a></li>
 			<li><a href="#">고객센터</a></li>
 		</ul>
@@ -77,7 +77,7 @@ int maxLineupCount = maxRegularCount + maxBenchCount;
 					<h3>Team</h3>
 					<p>함께 경기할 수 있는 상대 팀 내역을 볼 수 있습니다.</p>
 			</a></li>
-			<li><a href="${commonURL}/game">
+			<li><a href="${commonURL}/game/list">
 					<h3>Game</h3>
 					<p>함께 경기할 상대 팀을 찾습니다.</p>
 			</a></li>

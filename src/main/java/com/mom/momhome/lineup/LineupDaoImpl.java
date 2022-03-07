@@ -19,8 +19,8 @@ public class LineupDaoImpl implements LineupDao{
 	}
 
 	@Override
-	public List<LineupPlayerDto> getPlayerList(LineupDto dto) {
-		return sm.selectList("Lineup_getPlayersList", dto);
+	public List<LineupPlayerDto> getPlayerList(String teamkey) {
+		return sm.selectList("Lineup_getPlayerList", teamkey);
 	}
     
     @Override

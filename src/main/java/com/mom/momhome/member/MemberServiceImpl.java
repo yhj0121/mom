@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.mercenary.MercenaryDto;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
@@ -36,5 +37,25 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void update(MemberDto dto) {
 		memberDao.update(dto);
+	}
+
+	@Override
+	public List<MercenaryDto> getMercenaryList( String userkey ) {
+		return memberDao.getMercenaryList(userkey);
+	}
+
+	@Override
+	public int getTotal(String userkey) {
+		return memberDao.getTotal(userkey);
+	}
+
+	@Override
+	public MemberDto findId(MemberDto dto) {
+		return memberDao.findId(dto);
+	}
+
+	@Override
+	public MemberDto findPassword(MemberDto dto) {
+		return memberDao.findPassword(dto);
 	}
 }

@@ -56,6 +56,11 @@ table td {
 					<div class="table-wrapper">
 						<table>
 							<colgroup>
+								<col width="5%" />
+								<col width="5%" />
+								<col width="13%" />
+								<col width="*" />
+								<col width="13%" />
 							</colgroup>
 							<thead>
 								<tr>

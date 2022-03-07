@@ -68,7 +68,12 @@ margin:auto;
 				</div>
 		</div>
 </body>
-</html>
+<!-- Scripts -->
+<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
  function goWrite()
 {
@@ -112,3 +117,4 @@ function goCancle()
 		location.href="<%=request.getContextPath()%>/mercenary/list";
 } 
 </script>
+</html>

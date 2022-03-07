@@ -3,6 +3,7 @@
 	pageEncoding="utf-8"%>
 <%@page import="java.util.List"%>
 <%@page import="com.mom.momhome.member.*"%>
+<%@page import="com.mom.momhome.mercenary.*"%>
 <%@page import="com.mom.momhome.common.*"%>
 <html>
 <head>
@@ -21,6 +22,17 @@ textarea {
 	text-align: left !important;
 	resize: none;
 }
+
+table th {
+	text-align: center !important;
+}
+
+table td {
+	padding: .4rem .75em;
+}
+table td:not(.introduction) {
+	text-align: center;
+}
 </style>
 </head>
 <body class="is-preload">
@@ -30,88 +42,68 @@ textarea {
 
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
-
-
-
+		<%
+		String key = StringUtil.nullToValue(request.getParameter("key"), "");
+		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
+		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+		int totalCnt = (Integer) request.getAttribute("totalCnt");
+		%>
 		<!-- Main -->
 		<div id="main">
-
-			<!-- Intro -->
-			<section id="intro">
-				<a href="#" class="logo"><img
-					src="${pageContext.request.contextPath}/resources/images/logo.jpg"
-					alt="" /></a>
-				<header>
-					<h2>Man of the match</h2>
-					<p>쉬운 경기 매칭 서비스 및 팀 관리 서비스를 제공합니다.</p>
-				</header>
-			</section>
-
 			<!-- Post -->
 			<article class="post">
 				<header>
 					<div class="title">
-						<h2>My Page</h2>
-						<p>내 정보 수정이나 팀 신청 내역, 경기 매칭 내역 등을 확인할 수 있습니다.</p>
+						<h2>용병 구인 내역(${totalCnt} 건)</h2>
+						<p>용병 구인 내역을 보여줍니다.</p>
 					</div>
 				</header>
 
-				<!-- Posts List -->
 				<section>
-					<ul class="posts">
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="${ commonURL }/member/myinfo">내 정보 수정</a>
-									</h3>
-									<p class="published">내 정보를 수정합니다. </p>
-								</header>
-								<a href="single.html" class="image"><img
-									src="${pageContext.request.contextPath}/resources/images/icon_account.png"
-									alt="" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">팀 가입/탈퇴 신청 내역</a>
-									</h3>
-									<p class="published">팀에 가입 신청을 한 내역을 확인합니다.</p>
-								</header>
-								<a href="single.html" class="image"><img
-									src="${pageContext.request.contextPath}/resources/images/icon_list.png"
-									alt="" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">매칭 신청 내역</a>
-									</h3>
-									<p class="published">우리 팀과 경기를 원하는 신청 내역을 확인합니다.</p>
-								</header>
-								<a href="single.html" class="image"><img
-									src="${pageContext.request.contextPath}/resources/images/icon_calendar.png"
-									alt="" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">미정</a>
-									</h3>
-									<p class="published">미정</p>
-								</header>
-								<a href="single.html" class="image"><img
-									src="${pageContext.request.contextPath}/resources/images/icon_list.png"
-									alt="" /></a>
-							</article>
-						</li>
-					</ul>
+					<div class="table-wrapper">
+					<form name="myform">
+						<input type="hidden" name="pg" id="pg" value="<%=pg%>" />
+						<input
+							type="hidden" name="mercenary_key" id="mercenary_key" value="" />
+						<table>
+							<colgroup>
+								<col width="5%" />
+								<col width="5%" />
+								<col width="*" />
+								<col width="15%" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>상태</th>
+									<th>제목</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+								List<MercenaryDto> list = (List<MercenaryDto>) request.getAttribute("mercenaryList");
+								for (MercenaryDto tempDto : list) {
+								%>
+								<tr>
+									<td><%=totalCnt - tempDto.getRnum() + 1%></td>
+										<td><%=tempDto.getMercenary_complete()%></td>
+										<td class="introduction"><a href="#none"
+											onclick="goView('<%=tempDto.getMercenary_key()%>')">
+											<%=tempDto.getMercenary_title()%></a></td>
+										<td><%=tempDto.getReg_date()%></td>
+								</tr>
+								<%} %>
+							</tbody>
+						</table>
+						</form>
+					</div>
+			<!-- Pagination  -->
+			<div class="container"
+				style="display: flex; justify-content: center;">
+				<%=Pager.makeTag(request, 10, totalCnt)%>
+			</div>
+			<!-- /Pagination  -->
 				</section>
 			</article>
 			<!-- Footer -->
@@ -132,110 +124,12 @@ textarea {
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 	<script>
-	$(()=>{
-		getPositionList();
-		
-		$("#btnDuplicate").click(function(){
-			$.ajax({
-				url: "${ commonURL }/member/isDuplicate",
-				data:{ user_id: $("#userid").val()},
-				dataType: "json",
-				type: "POST"
-			})
-			.done( (data)=>{
-				console.log(data);
-				if( data.result == "true" ) {
-					alert("이미 사용중인 아이디입니다.");
-				} else {
-					alert("사용 가능한 아이디입니다.");
-					$("#idcheck").val("Y");
-					$("#userid").prop("readonly", true); //사용중인 아이디라고 판명되면 읽기전용으로 입력창이 막힘 
-				}
-			})
-			.fail( (error) => {
-				console.log(error);
-			})
-		});
-	});
-	
-	$("#goSignup").click(function(){
-		// input이 비어있는지 확인
-		if( $("#username").val() == "" ) {
-			alert("이름을 입력해주세요.");
-			 $("#username").focus();
-			 return;
-		} else if( $("#password").val() == "" ) {
-			alert("비밀번호를 입력해주세요.");
-			 $("#password").focus();
-			 return;
-		} else if( $("#userid").val() == "") {
-			alert("아이디를 입력해주세요.");
-			 $("#userid").focus();
-			 return;
-		} else if( $("#email").val() == "" ) {
-			alert("이메일을 입력해주세요.");
-			 $("#email").focus();
-			 return;
-		} else if( $("#address1").val() == "" ) {
-			alert("주소를 입력해주세요.");
-			 $("#address1").focus();
-			 return;
-		} else if( $("#phone").val() == "" ) {
-			alert("전화번호를 입력해주세요.");
-			 $("#phone").focus();
-			 return;
-		}
-		
-		//비밀번호 확인 
-		if( $("#password").val() != $("#checkPassword").val() ) {
-			alert("비밀번호가 일치하지 않습니다.");
-			 return;
-		}
-		
-		//회원가입 진행 
-		 var frmData = new FormData(document.myform);
-		$.ajax({
-			url: "${commonURL}/member/insert",
-			data: frmData,
-			contentType: false,
-			processData: false,
-			type: "POST"
-		})
-		.done( (result) => {
-			location.href="${ commonURL }/login"; //로그인 페이지로 이동 
-		})
-		.fail( (error) => {
-			alert("회원가입 실패, 다시 시도해주세요.");
-		});
-	});
-
-	//포지션 리스트 db에서 받아오기
-	function getPositionList(){
-		$.ajax({
-			url: "${commonURL}/member/selectPosition",
-			contentType: false,
-			processData: false,
-			type: "POST"
-		})
-		.done( (result) => {
-			var i=1;
-		
-		  result.forEach( (item)=>{
-		    	var data = "<option "+"value='"+item.position+"'>";
-		    	    data +=  item.position ;
-		    	    data += "</option>";
-		    	i++;
-		      	$("#opt1").after(data);
-		})
-		})
-		.fail( (error) => {
-			alert("정보 가져오기 실패");
-		})
-	}
-	
-	//리셋 버튼
-	function formReset(){
-		$("#myform")[0].reset();
+	function goView(id) {
+		frm = document.myform;
+		frm.mercenary_key.value = id;
+		frm.method = "get";
+		frm.action = "${pageContext.request.contextPath}/mercenary/view";
+		frm.submit();
 	}
 	</script>
 

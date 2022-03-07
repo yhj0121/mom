@@ -31,7 +31,8 @@ String user_key = StringUtil.nullToValue(session.getAttribute("userkey"), "");
 			}
 			%>
 			<li><a href="${commonURL}/team/main">Team</a></li>
-			<li><a href="#">Match</a></li>
+			<li><a href="${commonURL}/game">Game</a></li>
+			<li><a href="${commonURL}/mercenary/list">Mercenary</a></li>
 			<li><a href="#">고객센터</a></li>
 		</ul>
 	</nav>
@@ -71,13 +72,17 @@ String user_key = StringUtil.nullToValue(session.getAttribute("userkey"), "");
 					<h3>Team</h3>
 					<p>함께 경기할 수 있는 상대 팀 내역을 볼 수 있습니다.</p>
 			</a></li>
-			<li><a href="#">
-					<h3>Match</h3>
+			<li><a href="${commonURL}/game">
+					<h3>Game</h3>
 					<p>함께 경기할 상대 팀을 찾습니다.</p>
 			</a></li>
+			<li><a href="${commonURL}/mercenary/list">
+					<h3>Mercenary</h3>
+					<p>감독은 용병을 구하고, 일반 회원은 용병을 신청합니다.</p>
+			</a></li>
 			<li><a href="#">
-					<h3>마이페이지</h3>
-					<p>경기 및 팀에 대한 상세 정보를 볼 수 있습니다.</p>
+					<h3>고객센터</h3>
+					<p>홈페이지 사용시 궁금한 점을 해결합니다.</p>
 			</a></li>
 		</ul>
 	</section>

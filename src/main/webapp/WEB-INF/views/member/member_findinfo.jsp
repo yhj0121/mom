@@ -30,43 +30,32 @@
 			<section id="intro">
 				<a href="#" class="logo"><img src="${pageContext.request.contextPath}/resources/images/logo.jpg"
 					alt="" /></a>
-				<header>
+				<header style="margin-bottom: 150px;">
 					<h2>Man of the match</h2>
 					<p>쉬운 경기 매칭 서비스 및 팀 관리 서비스를 제공합니다.</p>
 				</header>
 			</section>
 
 			<!-- Post -->
-			<article class="mt-5">
+			<article class="mt-5" style="margin-bottom: 200px; ">
 				<header>
 					<div class="title">
-						<h2>로그인</h2>
+						<h2 style="text-align: center;">아이디/비밀번호 찾기</h2>
 						<p></p>
 					</div>
 				</header>
 
 				<section>
-					<form id="myform" name="myform" >
 						<div class="row d-flex flex-row justify-content-between gtr-uniform">
-							<div class=" col-12 col-12-xsmall">
-								<input type="text" name="user_id" id="userid" value="" 
-									placeholder="아이디" />
-							</div>
-							<div class=" col-12 col-12-xsmall">
-								<input type="password" name="user_password" id="password" value=""
-									placeholder="비밀번호" />
-							</div>
 							<div class=" col-12 mt-5">
-									<ul class="column actions fit d-flex flex-column justify-content-between">
-										<li><a href="javascript:void(0)" class="button fit" onclick="login()" >로그인</a></li>
-										<li><a href="${commonURL}/" class="button fit">취소</a></li>
+									<ul class="actions stacked ">
+										<li><a href="${commonURL}/member/findid" class="button fit" onclick="login()" >아이디 찾기</a></li>
+										<li><a href="${commonURL}/member/findpw" class="button fit" onclick="login()" >비밀번호 찾기 찾기</a></li>
+										<li><a href="${commonURL}/member/login" class="button fit">취소</a></li>
 								</ul>
 							</div>
 						</div>
-					</form>
 				</section>
-				<p id="findInfo"><a href="#">아이디나 비밀번호를 잊어버리셨나요?</a></p>
-				<p id="findInfo"><a href="${commonURL}/signup">아직 회원이 아니라면?</a></p>
 			</article>
 			<!-- Footer -->
 			<%@include file="../include/footer.jsp"%>
@@ -79,31 +68,5 @@
 	<script src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-	<script>
-		function login() {
-			var frmData = new FormData( document.myform );
-			var queryString = $("form[name='myform']").serialize();
-			
-			 $.ajax({
-			      url: "${commonURL}/member/login_proc",
-			      data: queryString,
-			      type: "POST",
-			      dataType: "json"
-			   })
-			   .done( (result)=>{
-				   console.log( result.flag );
-			      	if(result.flag=="1") {
-			      		location.href="${commonURL}/member/mypage";
-					} else if(result.flag=="2") {
-			      		alert("아이디를 찾을 수 없습니다.");
-			      	} else {
-			      		alert("패스워드가 일치하지 않습니다.");	
-			      	}
-			   })
-			   .fail( (error)=>{
-			      console.log(error);
-			   })
-		}
-	</script>
 </body>
 </html>

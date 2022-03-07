@@ -113,7 +113,12 @@ margin:auto;
 		</div>
 	</div>
 </body>
-</html>
+<!-- Scripts -->
+<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
 function goList()
 {
@@ -157,6 +162,7 @@ function goDelete()
 	      frm.submit();
 	   }
 }
+<<<<<<< HEAD
 function goViewApplicants()
 {
 	var frmData = new FormData(document.myform); 
@@ -193,3 +199,5 @@ function goApprove()
 //approve 누르면 join.xml에 update 쿼리문으로 proc를 2로 바꿔줌
 }
 </script>
+
+

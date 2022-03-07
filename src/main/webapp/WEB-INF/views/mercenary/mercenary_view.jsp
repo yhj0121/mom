@@ -162,12 +162,11 @@ function goDelete()
 	      frm.submit();
 	   }
 }
-<<<<<<< HEAD
 function goViewApplicants()
 {
 	var frmData = new FormData(document.myform); 
 	$.ajax({
-		url:"${commonURL}/mercenary/viewApplicants,
+		url:"${commonURL}/mercenary/viewApplicants",
 		type:"GET",
 		dataType:"JSON"
 	})

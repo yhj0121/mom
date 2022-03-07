@@ -3,6 +3,7 @@
     pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.mom.momhome.lineup.*" %>
+<%@page import="com.mom.momhome.common.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -98,9 +99,9 @@
 				</table>
 			</div>
 			
-			<div class="container mt-3" style="text-align:right;">
-            	<button  type="button" class="btn btn-secondary" onclick="test()">테스트</a>
-          	</div>
+<!-- 			<div class="container mt-3" style="text-align:right;"> -->
+<!--             	<button  type="button" class="btn btn-secondary" onclick="test()">테스트</a> -->
+<!--           	</div> -->
           	
 			<div class="container mt-3" style="text-align:right;">
             	<a href="<%=request.getContextPath()%>/lineup/modify" class="btn btn-secondary">저장</a>
@@ -236,6 +237,7 @@ function loadLineup(){
 	<%
 	for(int i =0; i <lineups.size(); i++)
 	{
+		int idx = Integer.valueOf(lineups.get(i).getLineup_index());
 		String id = lineups.get(i).getPlayerDto().getUser_id();
 		if(id == "")
 			id = "원하는 선수를 선택해주세요.";
@@ -244,12 +246,10 @@ function loadLineup(){
 		if(position == "")
 			position = "원하는 포지션을 선택해주세요.";
 	%> 
-<%-- 		console.log("<%=name%>"); --%>
-		$("select[name=positionList]").eq(<%=i%>).val("<%=position%>").prop("selected", true);
-		$("select[name=playerList]").eq(<%=i%>).val("<%=id%>").prop("selected", true);
-		$("[name=playerName]").eq(<%=i%>).text("<%=name%>");
-<%-- 		console.log($("[name=playerName]").eq(<%=i%>).text()); --%>
-		
+<%--  		console.log("<%=position%>"); --%>
+		$("select[name=positionList]").eq(<%=idx%>).val("<%=position%>").prop("selected", true);
+		$("select[name=playerList]").eq(<%=idx%>).val("<%=id%>").prop("selected", true);
+		$("[name=playerName]").eq(<%=idx%>).text("<%=name%>");
 	<%
 	}
 	%>

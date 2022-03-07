@@ -5,10 +5,12 @@
 
 	<!-- 원래 클래스명은 패키지까지 포함하기때문에 너무 길어서 짧은 별명을 만들어서 접근하기 위해 기술한다 -->
 <typeAliases>
-     	<typeAlias alias="GameDto"   type="com.mom.momhome.game.GameDto"/>
-	<typeAlias alias="MercenaryDto"
+     	<typeAlias alias="GameDto"   
+     		type="com.mom.momhome.game.GameDto"/>
+		<typeAlias alias="MercenaryDto"
 			type="com.mom.momhome.mercenary.MercenaryDto" />
-				
+		<typeAlias alias="MercenaryjoinDto"
+			type="com.mom.momhome.mercenaryjoin.MercenaryjoinDto" />		
 		<typeAlias alias="MemberDto"
 			type="com.mom.momhome.member.MemberDto" />
 		<typeAlias alias="BaseDto"
@@ -31,9 +33,9 @@
 	</typeAliases>
 
 	<mappers>
-	 	  <mapper resource=	"/com/mom/momhome/mapper/Game.xml"/>
-	 	  <mapper resource=	"/com/mom/momhome/mapper/Mercenary.xml"/>
-
+	 	<mapper resource="/com/mom/momhome/mapper/Game.xml"/>
+	 	<mapper resource="/com/mom/momhome/mapper/Mercenary.xml"/>
+	 	<mapper resource="/com/mom/momhome/mapper/MercenaryJoin.xml"/>
 		<mapper resource="/com/mom/momhome/mapper/Member.xml" />
 		<mapper resource="/com/mom/momhome/mapper/Team.xml" />
 		<mapper resource="/com/mom/momhome/mapper/Lineup.xml" />

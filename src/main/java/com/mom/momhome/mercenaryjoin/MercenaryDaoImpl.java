@@ -14,7 +14,7 @@ public class MercenaryDaoImpl implements MercenaryjoinDao{
 	SqlSessionTemplate sm;
 	
 	@Override
-	public void insertJoin(MercenaryDto dto) {
+	public void insertJoin(MercenaryjoinDto dto) {
 		sm.insert("MercenaryJoin_insert",dto);
 	}
 

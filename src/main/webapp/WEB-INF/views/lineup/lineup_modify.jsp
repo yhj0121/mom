@@ -120,16 +120,14 @@ let game_key = <%=(String)request.getAttribute("game_key")%>;
 let team_key = <%=(String)request.getAttribute("team_key")%>;
 let team_side = <%=(String)request.getAttribute("team_side")%>;
 
-let tr_length = $('#tb tr').length-1;//맨위 테이블 행은 빼줘야한다.
-let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
-let maxColumn;
+// let tr_length = $('#tb tr').length-1;//맨위 테이블 행은 빼줘야한다.
+// let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
+// let maxColumn = Math.ceil((tab_td.length-1) / tr_length); 
 
 let playerSelectList;
 let playerDictionary = {};
 
 $(()=>{
-	maxColumn = tab_td.length / tr_length;
-	
 	positionSelectListInit();
 	playerDictionaryInit(loadLineup);
 })
@@ -205,33 +203,32 @@ function playerSelectListInit(callback)
 function onPlayerSelectChanged(id)
 {
  	//console.log("onPlayerSelectChanged.id: " + id);
+ 	
+ 	let selectedUserId = playerSelectList[parseInt(id)].value;
 
-	let selectedUserId = playerSelectList[parseInt(id)].value;
-	let nameTdIdx = id * maxColumn + (maxColumn - 1);
-	
-	if(playerDictionary.hasOwnProperty(selectedUserId))
-	{
-		//새롭게 선택한곳에 유저 아이디 넣기.
-	    tab_td.eq(nameTdIdx).text(playerDictionary[selectedUserId].user_name);
-			    
-		for(select of playerSelectList)
-		{
-			if(select.id != id)
+ 	if(playerDictionary.hasOwnProperty(selectedUserId))
+ 	{
+ 		//새롭게 선택한곳에 유저 아이디 넣기.
+ 		$("#playerName"+id).text(playerDictionary[selectedUserId].user_name);
+ 		
+ 		//기존에 있던 유저아이디, 유저이름 제거
+ 		let i = 0;
+ 		for(select of playerSelectList)
+ 		{
+ 			if(select.id != id)
 			{
-				//기존에 있던 유저아이디, 유저이름 제거
 				if(select.value ==  selectedUserId)
 				{
 					select.value = select.options[0].value;
-				    nameTdIdx = select.id * maxColumn + (maxColumn - 1);
-				    tab_td.eq(nameTdIdx).text("");
-				    break;
+					$("#playerName"+i).text("");
 				}
 			}
-		}
-	}
+ 			i++;
+ 		}
+ 	}
 	else
 	{
-		tab_td.eq(nameTdIdx).text("");
+		$("#playerName"+id).text("");
 	}
 }
 

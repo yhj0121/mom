@@ -125,6 +125,7 @@ let team_side = <%=(String)request.getAttribute("team_side")%>;
 // let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
 // let maxColumn = Math.ceil((tab_td.length-1) / tr_length); 
 
+let positionSelectList;
 let playerSelectList;
 let playerDictionary = {};
 
@@ -144,10 +145,10 @@ function positionSelectListInit(){
 		type: "POST"
 	})
 	.done( (result) => {
-	    let selects = document.getElementsByName("positionList")
+		positionSelectList = document.getElementsByName("positionList")
 // 	    console.log(selects.length);
 	    
-		for(select of selects)
+		for(select of positionSelectList)
     	{
 	    	for(item of result)
 	    		select.options[select.options.length] = new Option(item.position, item.position);
@@ -222,6 +223,7 @@ function onPlayerSelectChanged(id)
 				{
 					select.value = select.options[0].value;
 					$("#playerName"+i).text("");
+					positionSelectList[i].value = positionSelectList[i].options[0].value; 
 				}
 			}
  			i++;

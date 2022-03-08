@@ -8,15 +8,20 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.mom.momhome.gamejoin.GameJoinDao;
+import com.mom.momhome.gamejoin.GameJoinDto;
+
 
 
 @Service("gameService")
 public class GameServiceImp implements GameService {
 	@Resource(name="gameDao")
 	GameDao dao;
+	
+	@Resource(name="gamejoinDao")
+	GameJoinDao gamejoindao;
 //
-//	@Resource(name="matchingJoin")
-//	MatchingJoinDao matchingJoinDao;
+
 	
 	@Override
 	public void insert(GameDto dto) {
@@ -50,6 +55,23 @@ public class GameServiceImp implements GameService {
 	public int getTotal(GameDto dto) {
 		// TODO Auto-generated method stub
 		return dao.getTotal(dto);
+	}
+
+	@Override
+	public void insertJoin(GameJoinDto dto) {
+		gamejoindao.insertJoin(dto);
+		
+	}
+
+	@Override
+	public void update(GameJoinDto dto) {
+		gamejoindao.update(dto);
+		
+	}
+
+	@Override
+	public List<GameJoinDto> getList(GameJoinDto dto) {
+		return gamejoindao.getList(dto);
 	}
 
 

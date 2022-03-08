@@ -2,6 +2,8 @@ package com.mom.momhome.game;
 
 import java.util.List;
 
+import com.mom.momhome.gamejoin.GameJoinDto;
+
 
 public interface GameService {
     void insert(GameDto dto);
@@ -10,9 +12,11 @@ public interface GameService {
 	void update(GameDto dto);
 	List<GameDto> getList(GameDto dto);
 	int getTotal(GameDto dto);
-//	Character joinornot(MatchingJoinDto dto);
-//	void insert(MatchingJoinDto dto);
 
+	
+	void insertJoin(GameJoinDto dto);
+	void update(GameJoinDto dto);
+	List<GameJoinDto> getList(GameJoinDto dto);//gamejoin테이블 정보
 
 
 }

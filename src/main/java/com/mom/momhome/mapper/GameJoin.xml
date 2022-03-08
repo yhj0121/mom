@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="GameJoin">
+	 
+		<insert id="GameJoin_insert" parameterType="GameJoinDto">
+		insert into matchingjoin
+		(game_key, team_key, result_proc,matching_date)
+		values
+		(#{game_key}, #{team_key}, #{result_proc},now())
+	</insert>
+	
+		<select id="GameJoin_getList" parameterType="GameJoinDto"	resultType="GameJoinDto">
+ 		select 
+ 			matchingjoin_key
+ 			,game_key
+ 			,(select team_name from team B where B.team_key=A.team_key) as team_name
+ 			,team_key
+ 			,result_proc
+ 			,matching_date
+ 			,rnum	
+ 		from
+ 		(
+ 		select
+			A.matchingjoin_key
+			,A.game_key
+			,A.user_key
+			,A.result_proc
+			,A.matching_date
+			,@rownum := @rownum+1 AS rnum
+			from matchingjoin A, (select @rownum:=0) B
+			where A.game_key = #{game_key}
+			order by matchingjoin_key desc
+			) A
+
+	</select>
+	
+	<update id="Mercenaryjoin_update" parameterType="MercenaryjoinDto">
+		<if test='result_proc == 2'>
+			update result_proc set result_proc = '2' where result_proc=#{result_proc}	
+		</if>
+		<if test='result_proc == 3'>
+			update result_proc set result_proc = '3' where result_proc=#{result_proc}	
+		</if>
+		
+	</update>
+</mapper>

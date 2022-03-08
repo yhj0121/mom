@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mom.momhome.gamejoin.GameJoinDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 
 
@@ -98,5 +99,23 @@ public class GameController {
 		
 		return "game/gamewrite";
 	}
+	
+	@RequestMapping(value="/game/apply")
+	@ResponseBody
+	String gamejoin_insert(GameJoinDto dto)
+	{
+		service.insertJoin(dto);
+		return "redirect:/game/list";  
+		
+	}
+	
+	@RequestMapping(value="/game/applyview")
+	List<GameJoinDto>  gamejoin_list(GameJoinDto dto)
+	{
+		List<GameJoinDto> getlist = service.getList(dto);
+		return getlist;
+	}
+	
+	
 	
 }

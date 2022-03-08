@@ -3,6 +3,7 @@ package com.mom.momhome.member;
 import java.util.List;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 
 public interface MemberService {
@@ -23,4 +24,6 @@ public interface MemberService {
 	MemberDto findId(MemberDto dto);
 	//비밀번호 찾기 
 	MemberDto findPassword(MemberDto dto);
+	
+	MembershipDto getMembership(String user_key);
 }

@@ -7,4 +7,14 @@
 	<select id="Membership_getInfo" parameterType="MembershipDto" resultType="MembershipDto">
 			select * from membership
 		</select>
+		
+	<select id="Membership_getMembership" parameterType="String" resultType="MembershipDto">
+		select 
+			membership_key
+			,user_key
+			,team_key
+			,membership_role
+			,team_joindate
+		from membership
+	</select>
 </mapper>

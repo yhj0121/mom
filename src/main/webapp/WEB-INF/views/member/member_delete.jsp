@@ -93,7 +93,7 @@
 				.done( (data)=>{
 					console.log(data);
 					alert("그동안 이용해주셔서 감사합니다. 탈퇴가 완료되었습니다.");
-					//location.href="${ commonURL }/member/logout";
+					location.href="${ commonURL }/member/logout";
 				})
 				.fail( (error) => {
 					alert("회원 탈퇴 실패, 관리자에게 문의해주세요.");

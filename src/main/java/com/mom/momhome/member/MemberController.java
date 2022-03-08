@@ -68,7 +68,7 @@ public class MemberController {
 	//로그인 실행 
 	@RequestMapping(value="/member/login_proc")
 	@ResponseBody
-	public HashMap<String, String> member_login_proc(MemberDto dto, MembershipDto mbsdto, HttpServletRequest request)
+	public HashMap<String, String> member_login_proc(MemberDto dto, HttpServletRequest request)
 	{
 		//각 페이지별로 정보 공유가 안된다. 
 		//예외(쿠키 또는 세션- 세션을 사용한다.)
@@ -76,11 +76,15 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		
 		MemberDto resultDto = memberService.getInfo(dto);
+		System.out.println("resultDto: "+ resultDto);
 		HashMap<String, String> map = new HashMap<String, String>();
 		if(resultDto==null) {
 			map.put("flag", "2");	
+			System.out.println("resultDtoNull이면 "+ resultDto);
 		} else {
+			System.out.println("resultDtoNull이 아니면 "+ resultDto);
 			if(resultDto.getUser_password().equals(dto.getUser_password())) {
+				System.out.println("resultDtoNull이 아니면 패스워드는? "+ dto.getUser_password());
 				map.put("flag", "1"); //로그온 성공시 세션에 정보를 저장한다 
 				session.setMaxInactiveInterval(1800); //30분 세션 유지 
 				session.setAttribute("userid", resultDto.getUser_id());

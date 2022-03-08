@@ -36,6 +36,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public MemberDto getInfo(MemberDto dto) {
+		System.out.println("daoImpl dto:: "+dto.getUser_id()+dto.getUser_delete());
 		return sm.selectOne("Member_getInfo", dto);
 	}
 

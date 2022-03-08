@@ -32,10 +32,24 @@ public class TeamController {
 		return "team/team_main";
 	}
 	
-	@RequestMapping(value = "/team/list", method = RequestMethod.GET)
-	public String teamList() {
-		return "team/team_list";
-	}
+	//팀 조회 
+		@RequestMapping(value = "/team/list", method = RequestMethod.GET)
+		String get_TeamList(Model model, TeamDto dto)
+		{
+			System.out.println("선택: " + dto.getKey());
+			System.out.println("선택: " + dto.getKeyword());
+			
+			dto.setStart(dto.getPg()*10);
+			
+			List<TeamDto> list = teamService.getTeamList(dto);
+			
+			for(TeamDto teamdto: list)
+				System.out.println(teamdto.getTeam_name());
+			
+			model.addAttribute("getTeamList",list);
+			model.addAttribute("totalCnt",teamService.getTeamList(dto));
+			return "team/list"; 
+		}
 	
 	
 	//팀 생성 화면 연결
@@ -80,7 +94,7 @@ public class TeamController {
 		  
 	      dto.setTeam_emblem(fileNameList.get(0)); 
 	      
-	      teamService.insert(dto, mdto);
+	      teamService.insert(dto, mdto, req);
 	      
 	      return "redirect:/team/list";
 	   }

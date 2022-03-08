@@ -3,6 +3,8 @@ package com.mom.momhome.team;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,8 @@ public class TeamServiceImpl implements TeamService{
 	MembershipDao membershipDao;
 
 	@Override //insert 변경 *수정함*
-	public void insert(TeamDto dto, MembershipDto mdto) {
-		String team_key =    teamDao.insert(dto);
+	public void insert(TeamDto dto, MembershipDto mdto, HttpServletRequest request) {
+		String team_key = teamDao.insert(dto);
 		System.out.println("dto: " +dto.toString());
 		  
 		 
@@ -31,6 +33,10 @@ public class TeamServiceImpl implements TeamService{
 		System.out.println("userkey: "+mdto.getUser_key());
 		System.out.println("getTeam_key: "+dto.getTeam_key());
 		membershipDao.insertMembership(mdto);
+		
+		HttpSession session = request.getSession();
+		 session.setAttribute("membership_role", mdto.getMembership_role());
+		
 	}
 
 	@Override
@@ -55,5 +61,11 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public void membershipInsert(MembershipDto dto) {
 		teamDao.membershipInsert(dto);
+	}
+
+	@Override
+	public List<TeamDto> getTeamList(TeamDto dto) {
+		
+		return teamDao.getTeamList(dto);
 	}
 }

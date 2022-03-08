@@ -31,6 +31,8 @@
 			type="com.mom.momhome.lineup.LineupMembershipDto" />
 		<typeAlias alias="LineupGameDto"
 			type="com.mom.momhome.lineup.LineupGameDto" />
+		<typeAlias alias="CSCenterDto"
+			type="com.mom.momhome.cscenter.CSCenterDto" />
 
 	</typeAliases>
 
@@ -43,6 +45,7 @@
 		<mapper resource="/com/mom/momhome/mapper/Team.xml" />
 		<mapper resource="/com/mom/momhome/mapper/Lineup.xml" />
 		<mapper resource="/com/mom/momhome/mapper/Main.xml" />
+		<mapper resource="/com/mom/momhome/mapper/CSCenter.xml"/>
 	</mappers>
 
 </configuration>

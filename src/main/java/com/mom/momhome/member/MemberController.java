@@ -76,7 +76,6 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		
 		MemberDto resultDto = memberService.getInfo(dto);
-		System.out.println("resultDto: "+ resultDto);
 		HashMap<String, String> map = new HashMap<String, String>();
 		if(resultDto==null) {
 			map.put("flag", "2");	

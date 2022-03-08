@@ -91,7 +91,11 @@ public class MemberController {
 				session.setAttribute("phone", resultDto.getUser_phone());
 				
 				MembershipDto membershipDto = memberService.getMembership(resultDto.getUser_key());
-		        session.setAttribute("membership_role", membershipDto.getMembership_role());
+		        if( membershipDto == null ) {
+		        	 session.setAttribute("membership_role", "");
+		        } else {
+		        	session.setAttribute("membership_role", membershipDto.getMembership_role());
+		        }
 			} else {
 				map.put("flag", "3");
 			}

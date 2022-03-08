@@ -6,6 +6,13 @@ public class GameJoinDto {
 	private String result_proc="1"; //수락은 1 거절은 2
 	private String game_key="";
 	private String matching_date=""; //matchingjoin 테이블 사용
+	private String team_name="";
+	public String getTeam_name() {
+		return team_name;
+	}
+	public void setTeam_name(String team_name) {
+		this.team_name = team_name;
+	}
 	public String getMatchingjoin_key() {
 		return matchingjoin_key;
 	}

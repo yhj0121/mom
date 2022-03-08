@@ -112,10 +112,16 @@ public class GameController {
 	@RequestMapping(value="/game/applyview")
 	List<GameJoinDto>  gamejoin_list(GameJoinDto dto)
 	{
-		List<GameJoinDto> getlist = service.getList(dto);
-		return getlist;
+		List<GameJoinDto> getlistJoin = service.getListJoin(dto);
+		return getlistJoin;
 	}
 	
-	
+	@RequestMapping(value="/game/proc")
+	@ResponseBody
+	String game_apply(GameJoinDto dto)
+	{
+		service.updateJoin(dto);
+		return "/game/view";
+	}
 	
 }

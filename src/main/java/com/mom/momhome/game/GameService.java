@@ -15,8 +15,8 @@ public interface GameService {
 
 	
 	void insertJoin(GameJoinDto dto);
-	void update(GameJoinDto dto);
-	List<GameJoinDto> getList(GameJoinDto dto);//gamejoin테이블 정보
+	void updateJoin(GameJoinDto dto);
+	List<GameJoinDto> getListJoin(GameJoinDto dto);//gamejoin테이블 정보
 
 
 }

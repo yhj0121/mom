@@ -22,6 +22,7 @@
 		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
 		String team_key="1";
+		String membership_role="1";
 	%>
 	<%
 	GameDto daoo = (GameDto)request.getAttribute("GameDto");
@@ -54,6 +55,10 @@
 					<input type="hidden" name="team_key" id="team_key" value="${team_key}">
 				    <input type="hidden" name="user_key" value="${userkey}" >
 				    <input type="hidden" name="team_side" value="" >
+				    <input type="hidden" name="team_name" value="fc원주">
+				  
+					<input type="text" name="membership_role" value="<%=membership_role %>" readonly/> 
+				    
 	
 			   	<input type="hidden" name="game_key" value="<%=daoo.getGame_key()%>">
 				        
@@ -83,15 +88,39 @@
 										<li><input type="button" value="수정" onclick="goupdate()" /></li>
 										<li><input type="button" value="삭제" onclick="goDelete()" /></li>
 										<%}%>
-											<%if(team_key.equals(daoo.getTeam_key())) {%>
-										<li><input type="button" value="홈팀라인업짜기" onclick="homelineup()" /></li>
+											<%if(team_key.equals(daoo.getTeam_key()) &&  membership_role.equals("1")) {%>
+										<li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>
+								<%} if(membership_role.equals("p")){ %>
+										<li><input type="button" value="신청" onclick="goapply()" /></li>
+								<%}%>
 										
-										<%} else {%>
-										<li><input type="button" value="어웨이 라인업 짜기" onclick="awaylineup()" /></li>
-									<%}%>
+									
 									</ul>
 								</div>
 							</div>
+								<br/>
+							<br/>
+							<div class="table-wrapper" id ="tbl_app" style="display:none;">
+									<table id ="tbl_applicants">
+										<colgroup>
+							              <col width="8%">
+							              <col width="12%">
+							              <col width="12%">
+							              <col width="20%">
+							              <col width="*">
+							           </colgroup>
+							            <thead class="table-secondary">
+							              <tr>
+							                <th>번호</th>
+							                <th>팀이름</th>
+							                <th>신청일</th>
+							                <th>신청상태</th>
+							              </tr>
+							            </thead>
+							            <tbody>
+							            </tbody>
+									</table>
+								</div>
 						</form>
 					</section>
 				</article>
@@ -129,32 +158,117 @@ function goDelete()
 	   }
 }
 
-function awaylineup()
+function goapply()
 {
-	var frm = document.myform;
-	frm.team_side.value=2; //어웨이라서 2로 가져옴
-	frm.game_key.value=game_key;
-	frm.team_key.value=team_key;
-	frm.method="get";
-    frm.action="<%=request.getContextPath()%>/lineup/info";
-
+	$("#result_proc").val("1");
+	var frmData = document.myform; 
+	var queryString = $("form[name=myform]").serialize();
 	
+	$ajax({
+		url:"<%=request.getContextPath()%>"/game/apply,
+		data:queryString,
+		processData:false,
+		type:'POST'
 	
+	}).done(function(data){
+		console.log(result);
+		alert("신청이 완료되었습니다.");
+		location.href="<%=request.getContextPath()%>/game/list";
+		}).
+		fail(function(err){
+			console.log(err);
+		})
 }
 
-function homelineup()
+
+
+function goviewlist()
 {
-	var frm = document.myform;
-	frm.team_side.value=1; //홈이라서 그대로 값 가져오기
-	frm.game_key.value=game_key;
-	frm.team_key.value=team_key;
-	frm.method="get";
-    frm.action="<%=request.getContextPath()%>/lineup/info";
+	   var frmData = new FormData(document.myform);
+	   var queryString = $("form[name=myform]").serialize();
 
-	
-	
+	       
+	   $.ajax({
+	     	url:"${commonURL}/game/applyview",
+		data:queryString,
+		processData:false,
+		type:"POST"
+	 
+	   })
+	   .done( (result)=>{
+	     
+	     
+		   $("#tbl_app").show();
+			for(i=$("#tbl_applicants tr").length-2;i>=0;i--)
+				$("#tbl_applicants tr:last").remove(); 
+			
+	      var i=1;
+	     result.forEach( (item)=>{
+	       var data = "<tr>";
+	           data += "<td>"+ i +"</td>";
+	           data += "<td>"+item.team_name+"</td>";
+	           data += "<td>"+item.matching_date+"</td>";
+	       	if(item.result_proc == "1")
+						data += "<td>"+"승인대기중";
+					else if(item.result_proc == "2")
+						data += "<td>"+"매칭신청 수락됨";
+					else
+						data += "<td>"+"매칭신청 거절됨";
+					
+					data += "&nbsp&nbsp<button type='button' onclick=goApprove('"+item.matchingjoin_key+"')>고용</button>" 
+						 + "&nbsp&nbsp<button type='button' onclick=goDecline('"+item.matchingjoin_key+")>거절</button>" +"</td>";
+					data += "</tr>";
+					i++;   
+	         $("#tbl_applicants > tbody:last").append(data);
+	         
+	      })
+	   })
+	   .fail( (error)=>{
+	      console.log(error);
+	   })
+	}
+function goApprove(gamejoin_key)
+{
+	$("#matchingjoin_key").val(matchingjoin_key);
+	$("#result_proc").val("2");
+	var frmData = document.myform; 
+	var queryString = $("form[name=myform]").serialize();
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/proc",
+		data:queryString,
+		processData:false,
+		type:"POST"
+	})
+	.done((result)=>{
+		console.log(result);
+		alert("승인처리 완료되었습니다.");
+		goviewlist();
+	})
+	.fail((error)=>{
+		console.log(error);
+	})
 }
-
+function goDecline(matchingjoin_key)
+{
+	$("#matchingjoin_key").val(matchingjoin_key);
+	$("#result_proc").val("3");
+	var frmData = document.myform; 
+	var queryString = $("form[name=myform]").serialize();
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/proc",
+		data:queryString,
+		processData:false,
+		type:"POST"
+	})
+	.done((result)=>{
+		console.log(result);
+		alert("거절처리 완료되었습니다.");
+		goviewlist();
+	})
+	.fail((error)=>{
+		console.log(error);
+	})
+}
 </script>
 </html>
 

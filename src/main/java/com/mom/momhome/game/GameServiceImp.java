@@ -64,14 +64,14 @@ public class GameServiceImp implements GameService {
 	}
 
 	@Override
-	public void update(GameJoinDto dto) {
-		gamejoindao.update(dto);
+	public void updateJoin(GameJoinDto dto) {
+		gamejoindao.updateJoin(dto);
 		
 	}
 
 	@Override
-	public List<GameJoinDto> getList(GameJoinDto dto) {
-		return gamejoindao.getList(dto);
+	public List<GameJoinDto> getListJoin(GameJoinDto dto) {
+		return gamejoindao.getListJoin(dto);
 	}
 
 

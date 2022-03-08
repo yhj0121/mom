@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.membership.MembershipDao;
 import com.mom.momhome.membership.MembershipDto;
 
 @Service("teamService")
@@ -14,10 +15,22 @@ public class TeamServiceImpl implements TeamService{
 	
 	@Resource(name="teamDao")
 	TeamDao teamDao;
+	
+	@Resource(name="membershipDao")//membershipDao 사용 추가 및 import
+	MembershipDao membershipDao;
 
-	@Override
-	public String insert(TeamDto dto) {
-		return teamDao.insert(dto);
+	@Override //insert 변경 *수정함*
+	public void insert(TeamDto dto, MembershipDto mdto) {
+		String team_key =    teamDao.insert(dto);
+		System.out.println("dto: " +dto.toString());
+		  
+		 
+		mdto.setUser_key(dto.getUser_key());
+		mdto.setTeam_key( team_key );
+		mdto.setMembership_role("1");
+		System.out.println("userkey: "+mdto.getUser_key());
+		System.out.println("getTeam_key: "+dto.getTeam_key());
+		membershipDao.insertMembership(mdto);
 	}
 
 	@Override
@@ -34,7 +47,7 @@ public class TeamServiceImpl implements TeamService{
 
 	
 	@Override
-	public void team_InsertMembership(TeamMembershipDto dto) {
+	public void team_InsertMembership(MembershipDto dto) {
 		teamDao.team_InsertMembership(dto);
 		
 	}

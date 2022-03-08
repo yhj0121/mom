@@ -10,7 +10,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class CSCenterController {
 	@RequestMapping(value = "/cscenter", method = RequestMethod.GET)
-	public String home() {
-		return "cscenter/CSCenterPage";
+	public String csCenterMain() {
+		return "cscenter/csCenterPage";
+	}
+	
+	@RequestMapping(value = "/cscenter/write", method = RequestMethod.GET)
+	public String csCenterWrite() {
+		return "cscenter/csWritePage";
+	}
+	
+	@RequestMapping(value = "/cscenter/detail", method = RequestMethod.GET)
+	public String csCenterDetail() {
+		return "cscenter/csDetailPage";
 	}
 }

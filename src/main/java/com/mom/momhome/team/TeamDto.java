@@ -14,9 +14,16 @@ public class TeamDto extends BaseDto{
 	private String team_notice = ""; 
 	private String team_num = ""; 
 	private String team_recruit_yn = "1"; //모집여부 상태 표시 , 1 yes, 2 no
+	private String user_key = ""; //user_key 추가 및 getter, setter 추가 *수정함*
 	
 
 	
+	public String getUser_key() {
+		return user_key;
+	}
+	public void setUser_key(String user_key) {
+		this.user_key = user_key;
+	}
 	public String getTeam_key() {
 		return team_key;
 	}

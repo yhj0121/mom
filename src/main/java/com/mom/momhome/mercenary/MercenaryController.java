@@ -60,21 +60,31 @@ public class MercenaryController {
 	}
 	
 	//용병 구인글 저장
-	@RequestMapping(value="/mercenary/save")
+	@RequestMapping(value="/mercenary/save", produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	String mercenary_save(MercenaryDto dto)
 	{
-		if(dto.getMercenary_key().equals(""))
-		{
-			/* dto.setMercenary_complete("0"); */
-			service.insert(dto);
+		//game_key가 있는지 확인해서 존재하면 해당 게임에 대한 새로운 구인글 작성 제한
+		int result = service.checkDuplicate(dto);
+		String res = null;
+		//mercenary 테이블에 game_key가 있고 mercenary_key가 없어야 하나의 게임에 대한 중복글 작성 가능.
+		if(result != 0 && dto.getMercenary_key().equals("")){
+			res = "해당 게임에 대한 구인글이 이미 존재합니다.";
+		}else {
+			if(dto.getMercenary_key().equals(""))
+			{
+				service.insert(dto);
+				res = "게시글 작성 완료";
+			}else {
+				 service.update(dto); 
+				 res = "게시글 수정 완료"; 
+			}
 		}
-			
-		else
-			service.update(dto);
-		return "redirect:/mercenary/list";
+		
+		return res;
 	}
 	
+
 	//용병 구인글 삭제
 	@RequestMapping(value="/mercenary/delete")
 	String mercenary_delete(String mercenary_key)

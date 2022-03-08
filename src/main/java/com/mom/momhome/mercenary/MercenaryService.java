@@ -15,4 +15,5 @@ public interface MercenaryService {
 	void insertJoin(MercenaryjoinDto dto);
 	List<MercenaryjoinDto> getApplicantsList(MercenaryjoinDto dto);
 	void update(MercenaryjoinDto dto);
+	int checkDuplicate(MercenaryDto dto);
 }

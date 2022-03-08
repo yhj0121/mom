@@ -85,9 +85,10 @@ margin:auto;
 									</ul>
 								</div>
 							</div>
-							
-							<div class="table-wrapper">
-									<table id="tbl_applicants">
+							<br/>
+							<br/>
+							<div class="table-wrapper" id ="tbl_app" style="display:none;">
+									<table id ="tbl_applicants">
 										<colgroup>
 							              <col width="8%">
 							              <col width="12%">
@@ -122,6 +123,7 @@ margin:auto;
 <script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 <script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
+
 function goList()
 {
 	var frm = document.myform;
@@ -176,6 +178,7 @@ function goViewApplicants()
 		type:"POST"
 	})
 	.done((result)=>{
+		$("#tbl_app").show();
 		for(i=$("#tbl_applicants tr").length-2;i>=0;i--)
 			$("#tbl_applicants tr:last").remove(); 
 		

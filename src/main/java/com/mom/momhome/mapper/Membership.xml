@@ -15,6 +15,6 @@
 			,team_key
 			,membership_role
 			,team_joindate
-		from membership
+		from membership where user_key=#{ user_key }
 	</select>
 </mapper>

@@ -70,4 +70,9 @@ public class MemberServiceImpl implements MemberService {
 		return membershipDao.getMembership(user_key);
 	}
 
+	@Override
+	public void delete(MemberDto dto) {
+		memberDao.delete( dto );
+	}
+
 }

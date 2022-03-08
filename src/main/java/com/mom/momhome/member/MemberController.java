@@ -89,7 +89,7 @@ public class MemberController {
 				session.setAttribute("username", resultDto.getUser_name());
 				session.setAttribute("email", resultDto.getUser_mail());
 				session.setAttribute("phone", resultDto.getUser_phone());
-
+				
 				MembershipDto membershipDto = memberService.getMembership(resultDto.getUser_key());
 		        session.setAttribute("membership_role", membershipDto.getMembership_role());
 			} else {
@@ -144,8 +144,7 @@ public class MemberController {
 	//비밀번호 찾기 실행 
 	@RequestMapping(value="/member/findpw_proc")
 	@ResponseBody
-	public HashMap<String, String> member_findpw_proc(MemberDto dto)
-	{	
+	public HashMap<String, String> member_findpw_proc(MemberDto dto){	
 		MemberDto findDto = memberService.findPassword(dto);
 		HashMap map = new HashMap<String, String>();
 		if (findDto==null)
@@ -159,6 +158,23 @@ public class MemberController {
 		return map;
 	}
 	
+	//회원 탈퇴
+	@RequestMapping("member/delete")
+	String member_delete() {
+		return "member/member_delete";
+	}
+	
+	//회원탈퇴 진행
+	@RequestMapping(value="/member/delete_proc")
+	@ResponseBody
+	public HashMap<String, String> member_delete_proc( String user_key, MemberDto dto ){	
+		dto.setUser_id(user_key);
+		memberService.delete(dto);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+
 	//마이페이지로 이동
 	@RequestMapping("member/mypage")
 	String member_mypage() {

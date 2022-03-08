@@ -35,7 +35,6 @@
 			<input type="hidden" name="game_key" id="game_key" value="1"/> <!-- 로그인세션에서 팀키가져오자 -->
 			<input type="hidden" name="team_key" id="team_key" value="1"/>
 			<input type="hidden" name="team_side" id="team_side" value="1"/> 
-          
 	          <section>
 				<h1>라인업</h1>
 				<div class="table-wrapper">

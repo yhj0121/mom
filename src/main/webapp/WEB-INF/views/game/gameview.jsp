@@ -34,14 +34,19 @@
 	 		<article class="post">
 	 			<header>
 					<div class="title">
-						<h2><a href="#">경기 테이블</a></h2>
-						<p>게시판 상세보기</p>
+						<h2>
+							<a href="#">게임 매칭 게시판</a>
+						</h2>
+						<p>감독님만 게임 매칭을 만들수 있어요</p>
 					</div>
-					
+					<div class="meta">
+						<a href="#" class="logo"><i class="fas fa-futbol fa-8x" style="display: flex; justify-content: center;"></i></a>
+					</div>
 				</header>
+
 				
 	 			<section>
-					<h3 style="text-align: center">경기 테이블</h3>	
+					<h3 style="text-align: center">매칭 정보</h3>	
 						<form name="myform">
 					<input type="hidden" name="pg"      value="<%=pg%>" >
 					<input type="hidden" name="key"     value="<%=key%>" >
@@ -53,7 +58,7 @@
 			   	<input type="hidden" name="game_key" value="<%=daoo.getGame_key()%>">
 				        
 					
-					<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_date()%>" readonly /> 
+					<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_fdate()%>" readonly /> 
 					      	
 							<div class="row gtr-uniform">
 								<div class="col-12">

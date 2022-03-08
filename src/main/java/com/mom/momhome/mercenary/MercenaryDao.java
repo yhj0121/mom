@@ -10,4 +10,6 @@ public interface MercenaryDao {
 	MercenaryDto getView(String mercenary_key);
 	int getTotal(MercenaryDto dto);
 	int checkDuplicate(MercenaryDto dto);
+	
+	List<MercenaryDto> getGameList(MercenaryDto dto);
 }

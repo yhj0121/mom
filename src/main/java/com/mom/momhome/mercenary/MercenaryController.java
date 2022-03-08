@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.mercenaryjoin.MercenaryjoinDto;
 
 @Controller
@@ -127,7 +128,16 @@ public class MercenaryController {
 		service.update(dto);
 		return "/mercenary/view";
 	}
-		
+	
+	//게임 정보 가져오기
+	@RequestMapping("/mercenary/selectGame")
+	@ResponseBody
+	List<MercenaryDto> getGameList(MercenaryDto dto, Model model)
+	{
+		List<MercenaryDto> list = service.getGameList(dto);
+		model.addAttribute("gameList", list);
+		return list;
+	}
 	
 
 }

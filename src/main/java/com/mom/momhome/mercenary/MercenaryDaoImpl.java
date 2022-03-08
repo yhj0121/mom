@@ -46,5 +46,10 @@ public class MercenaryDaoImpl implements MercenaryDao {
 		return sm.selectOne("Mercenary_duplicate", dto);
 	}
 
+	@Override
+	public List<MercenaryDto> getGameList(MercenaryDto dto) {
+		return sm.selectList("Mercenary_getGameList", dto);
+	}
+
 
 }

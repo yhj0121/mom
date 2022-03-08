@@ -96,5 +96,13 @@
 		select count(*) from mercenary where game_key = #{game_key}  
 	</select>
 	
-	
+	<select id="Mercenary_getGameList" parameterType="MercenaryDto"	resultType="MercenaryDto">
+ 		select 
+ 			game_key
+ 			,game_date
+ 			,game_location
+ 		from game
+ 		where team_key = (select team_key from membership where user_key = #{user_key} )
+
+	</select>
 </mapper>

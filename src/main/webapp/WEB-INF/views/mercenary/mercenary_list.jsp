@@ -73,6 +73,7 @@ img {
 									onclick="goSearch()" />
 							</div>
 						</div>
+						<br/>
 						<div class="table-wrapper">
 							<table>
 								<colgroup>

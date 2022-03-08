@@ -11,8 +11,26 @@ public class MercenaryDto extends BaseDto {
 	private String reg_user = ""; 
 	private String chg_date = "";
 	private String chg_user = ""; 
-	public String user_name = "";
 	
+	public String user_name = "";
+	private String game_date = "";
+	private String game_location = "";
+
+	public String getGame_date() {
+		return game_date;
+	}
+
+	public void setGame_date(String game_date) {
+		this.game_date = game_date;
+	}
+
+	public String getGame_location() {
+		return game_location;
+	}
+
+	public void setGame_location(String game_location) {
+		this.game_location = game_location;
+	}
 
 	public String getMercenary_key() {
 		return mercenary_key;

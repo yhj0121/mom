@@ -1,6 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import="com.mom.momhome.cscenter.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.mom.momhome.common.*" %>
 <html>
 	<head>
 		<title>Man of the match</title>
@@ -9,6 +12,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
 	</head>
+	
 	<body class="is-preload"
 	style="
 	display: flex;
@@ -53,30 +57,25 @@
 						<table class="table table-hover">
 						  <thead>
 						    <tr>
-						      <th scope="col">#</th>
+						      <th scope="col">번호</th>
 						      <th scope="col">제목</th>
 						      <th scope="col">작성자</th>
 						      <th scope="col">작성일</th>
 						    </tr>
 						  </thead>
 						  <tbody>
+						    
+							<%List<CSCenterDto> list = (List<CSCenterDto>)request.getAttribute("csCenterList"); 
+								for(int i = 0; i < list.size(); i++) {
+									CSCenterDto csCenterDto = list.get(i);
+							%>
 						    <tr  style="cursor: pointer">
-						      <th scope="row">1</th>
-						      <td>Mark</td>
-						      <td>Otto</td>
-						      <td>@mdo</td>
+						      <td><%=csCenterDto.getCscenter_key()%></td>
+						      <td><%=csCenterDto.getCscenter_title()%></td>
+						      <td><%=csCenterDto.getUser_name()%></td>
+						      <td><%=csCenterDto.getCscenter_date()%></td>
 						    </tr>
-						    <tr  style="cursor: pointer">
-						      <th scope="row">2</th>
-						      <td>Jacob</td>
-						      <td>Thornton</td>
-						      <td>@fat</td>
-						    </tr>
-						    <tr  style="cursor: pointer">
-						      <th scope="row">3</th>
-						      <td colspan="2">Larry the Bird</td>
-						      <td>@twitter</td>
-						    </tr>
+								<%}%>
 						  </tbody>
 						</table>
 						
@@ -136,6 +135,17 @@
 			<script src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+<<<<<<< HEAD
 			<script src="${pageContext.request.contextPath}/resources/assets/js/csCenterPage.js"></script>
+=======
+			
+			<script>
+				const btn = document.querySelector('.btn-outline-secondary');
+				
+				btn.addEventListener('click', ()=> {
+					location.href="http://localhost:8080/mom/cscenter/write";
+				});
+			</script>
+>>>>>>> 53467ef (페이지 기능 구현 중..)
 	</body>
 </html>

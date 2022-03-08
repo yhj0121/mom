@@ -1,4 +1,7 @@
 package com.mom.momhome.cscenter;
+
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -16,6 +19,7 @@ import org.springframework.stereotype.Repository;
  * 즉, 사용자의 제어권을 다른 주체에게 넘기는 것을 IOC(제어의 역전)라고 한다.
 */
 
+
 @Repository("csCenterDao") 
 // 화면에 보여주기 위해 Service에서 불러오기 위한 태그?
 // Service에서 여기에서 구현한 인터페이스를 가져올 때, 사용한다.
@@ -25,8 +29,12 @@ public class CSCenterDaoImp implements CSCenterDao{
 		// sm은 root-context.xml의 bean의 id이다.
 		
 		@Override
-		public void insert(CSCenterDto dto) {
-			sm.insert("insert", dto); // sm.insert 무엇?
+		public List<CSCenterDto> getList() {
+			return sm.selectList("csList"); // selectList, selectOne
 		}
 
+		@Override
+		public void writeData(CSCenterDto dto) {
+			sm.insert("csInsert", dto);
+		}
 }

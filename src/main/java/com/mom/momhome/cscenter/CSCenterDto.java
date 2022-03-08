@@ -5,8 +5,16 @@ public class CSCenterDto {
 	String user_key="";
 	String cscenter_title="";
 	String cscenter_contents="";
+	String user_name="";
 	String cscenter_date="";
 	
+
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 	public String getCscenter_key() {
 		return cscenter_key;
 	}

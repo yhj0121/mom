@@ -15,37 +15,37 @@ public class GameDaoImp implements GameDao {
 	
 	@Override
 	public void insert(GameDto dto) {
-		sm.insert("insert", dto);
+		sm.insert("game_insert", dto);
 	}
 
 	@Override
 	public GameDto getView(String game_key) {
 		// TODO Auto-generated method stub
-		return sm.selectOne("view",game_key);
+		return sm.selectOne("game_view",game_key);
 	}
 
 
 	@Override
 	public void update(GameDto dto) {
-		sm.update("update", dto);
+		sm.update("game_update", dto);
 		
 	}
 
 	@Override
 	public List<GameDto> getList(GameDto dto) {
 		// TODO Auto-generated method stub
-		return sm.selectList("list", dto);
+		return sm.selectList("game_list", dto);
 	}
 
 	@Override
 	public int getTotal(GameDto dto) {
 		// TODO Auto-generated method stub
-		return sm.selectOne("getTotal",dto);
+		return sm.selectOne("game_getTotal",dto);
 	}
 
 	@Override
 	public void delete(String game_key) {
-			sm.delete("delete",game_key);
+			sm.delete("game_delete",game_key);
 		
 	}
 

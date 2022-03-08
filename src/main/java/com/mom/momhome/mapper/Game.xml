@@ -6,7 +6,7 @@
 <mapper namespace="Game">
 
 	
-	<insert id="insert" parameterType="GameDto">
+	<insert id="game_insert" parameterType="GameDto">
 	INSERT INTO game
 (
 TEAM_KEY,
@@ -28,7 +28,7 @@ now(),
 );
 	</insert>
 	
-<select id="list" parameterType="GameDto"  resultType="GameDto">
+<select id="game_list" parameterType="GameDto"  resultType="GameDto">
 
     
          select GAME_KEY
@@ -70,7 +70,7 @@ now(),
  		
 </select>
 	
-	<select id="view" parameterType="String"  resultType="GameDto">
+	<select id="game_view" parameterType="String"  resultType="GameDto">
 select
  		A.GAME_KEY
  		,A.TEAM_KEY
@@ -86,7 +86,7 @@ where GAME_KEY = #{game_key};
 	</select>
 	
 	
-	<update id="update" parameterType="GameDto">
+	<update id="game_update" parameterType="GameDto">
 update game 
 set GAME_TITLE = #{game_title}
 	,GAME_DATE = now()
@@ -96,11 +96,11 @@ set GAME_TITLE = #{game_title}
 where GAME_KEY = #{game_key};
 	</update>
 	
-	<delete id="delete" parameterType="String">
+	<delete id="game_delete" parameterType="String">
 		delete from game where GAME_KEY=#{game_key};
 	</delete>
 	
-		<select id="getTotal" parameterType="GameDto" resultType="Integer">
+		<select id="game_getTotal" parameterType="GameDto" resultType="Integer">
 		select count(*) from game 
 		 <if test='key!=null and keyword!=null'>
 				<if test='key=="1"'>

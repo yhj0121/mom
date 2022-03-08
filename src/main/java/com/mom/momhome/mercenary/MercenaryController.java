@@ -132,11 +132,14 @@ public class MercenaryController {
 	//게임 정보 가져오기
 	@RequestMapping("/mercenary/selectGame")
 	@ResponseBody
-	List<MercenaryDto> getGameList(MercenaryDto dto, Model model)
+	List<MercenaryDto> getGameList(MercenaryDto dto)
 	{
-		List<MercenaryDto> list = service.getGameList(dto);
-		model.addAttribute("gameList", list);
-		return list;
+		System.out.println("여기로 들어왔니?");
+		List<MercenaryDto> gameList = service.getGameList(dto);
+		
+		 for(MercenaryDto temp: gameList)
+			 System.out.println(temp.getGame_key());
+		return gameList;
 	}
 	
 

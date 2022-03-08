@@ -43,7 +43,7 @@ margin:auto;
 								<input type="hidden" name="user_key" value="<%=user_key%>"/>
 								<input type="hidden" name="game_key" value="4"/>
 								<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>"/>
-								<input type="hidden" name="mercenary_complete" value="<%=mdto.getMercenary_complete()%>"/>
+								<input type="hidden" name="mercenary_complete" id="mercenary_complete" value="<%=mdto.getMercenary_complete()%>"/>
 								
 								<div class="row gtr-uniform">
 									<div class="col-12">
@@ -53,8 +53,7 @@ margin:auto;
 										<input type="text" name="user_name" id="user_name" value="<%=username%>" placeholder="작성자" readonly/>
 									</div>
 									<div class="col-6 col-12-xsmall">
-										<select name="status" id="status">
-											<option value="">- 모집 상태를 선택하세요 -</option>
+										<select name="mStatus" id="mStatus">
 											<option value="0">모집중</option>
 											<option value="1">모집완료</option>
 										</select>
@@ -82,9 +81,14 @@ margin:auto;
 <script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 <script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
+window.onload=function(){
+	   document.getElementById("mStatus").value= <%=mdto.getMercenary_complete()%>;
+	}
+
  function goWrite()
 {
 	var frmData = document.myform; 
+	frmData.mercenary_complete.value = $("#mStatus").val();
 	var queryString = $("form[name=myform]").serialize();
 	if(frmData.mercenary_title.value.trim().length<10)
 	{

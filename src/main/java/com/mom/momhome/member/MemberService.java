@@ -24,6 +24,6 @@ public interface MemberService {
 	MemberDto findId(MemberDto dto);
 	//비밀번호 찾기 
 	MemberDto findPassword(MemberDto dto);
-	
+	//멤버십에 유저키 넘기기
 	MembershipDto getMembership(String user_key);
 }

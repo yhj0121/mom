@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.common.BaseDto;
-import com.mom.momhome.membership.*;
+import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 
 @Controller
@@ -89,6 +89,9 @@ public class MemberController {
 				session.setAttribute("username", resultDto.getUser_name());
 				session.setAttribute("email", resultDto.getUser_mail());
 				session.setAttribute("phone", resultDto.getUser_phone());
+
+				MembershipDto membershipDto = memberService.getMembership(resultDto.getUser_key());
+		        session.setAttribute("membership_role", membershipDto.getMembership_role());
 			} else {
 				map.put("flag", "3");
 			}

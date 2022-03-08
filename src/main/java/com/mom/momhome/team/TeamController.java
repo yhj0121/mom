@@ -96,7 +96,7 @@ public class TeamController {
 	      
 	      teamService.insert(dto, mdto, req);
 	      
-	      return "redirect:/team/list";
+	      return "redirect:/team/main";
 	   }
 }
 

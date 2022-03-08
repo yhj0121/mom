@@ -23,4 +23,6 @@ public class CSCenterController {
 	public String csCenterDetail() {
 		return "cscenter/csDetailPage";
 	}
+	
+	
 }

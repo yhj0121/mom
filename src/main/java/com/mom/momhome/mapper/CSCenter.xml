@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="CSCenter">
+	
+	<!-- 
+		#{}은 한 번 쿼리한 것을 캐시해두기 때문에 쿼리를 날릴 때마다 DB가 컴파일 하지 않아도 된다.
+		${}은 한 번 쿼리 했어도 캐싱하지 않기 때문에 쿼리를 날릴 때마다 매 번 DB가 컴파일 해야 한다.
+		#[]이 더 효율적이다.
+	 -->
+	
+<select id="csList" parameterType="hashmap"  resultType="CSCenterDto">
+	SELECT * 
+	FROM cscenter c ;
+</select>
+	
+	<select id="view" parameterType="String"  resultType="GameDto">
+select
+ 		A.GAME_KEY
+ 		,A.TEAM_KEY
+ 		,A.GAME_DATE
+ 		 ,A.GAME_LOCATION
+		 ,A.GAME_TITLE
+		 ,A.GAME_CONTENTS
+		 ,A.GAME_FDATE
+    
+FROM game A
+where GAME_KEY = #{game_key};
+
+	</select>
+	
+	
+	<update id="update" parameterType="GameDto">
+update game 
+set GAME_TITLE = #{game_title}
+	,GAME_DATE = now()
+  ,GAME_CONTENTS= #{game_contents}
+  ,GAME_FDATE = #{game_fdate}
+  ,GAME_LOCATION = #{game_location}
+where GAME_KEY = #{game_key};
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from game where GAME_KEY=#{game_key};
+	</delete>
+	
+		<select id="getTotal" parameterType="GameDto" resultType="Integer">
+		select count(*) from game 
+		 <if test='key!=null and keyword!=null'>
+				<if test='key=="1"'>
+				 	where GAME_TITLE like concat('%',#{keyword}, '%')
+				</if>
+				<if test='key=="2"'>
+				 	where GAME_CONTENTS like concat('%',#{keyword}, '%')	  
+				</if>
+				<if test='key=="3"'>
+					 where GAME_TITLE like concat('%',#{keyword}, '%') or
+				 	  	   GAME_CONTENTS like concat('%',#{keyword}, '%') 
+				</if>
+			</if>
+	</select>
+		
+</mapper>

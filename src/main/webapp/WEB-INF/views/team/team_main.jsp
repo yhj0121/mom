@@ -100,7 +100,7 @@
 <script>
 	function team_check()
 	{
-		var membership_role = '<%=session.getAttribute("membership_role")%>';
+		var membership_role = `${membership_role}`;
 		
 		if(membership_role == ""){
 			location.href='/momhome/team/write'

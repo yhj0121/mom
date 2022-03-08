@@ -45,6 +45,7 @@
 		<mapper resource="/com/mom/momhome/mapper/Membership.xml" />
 		<mapper resource="/com/mom/momhome/mapper/Team.xml" />
 		<mapper resource="/com/mom/momhome/mapper/Lineup.xml" />
+		<mapper resource="/com/mom/momhome/mapper/Main.xml" />
 	</mappers>
 
 </configuration>

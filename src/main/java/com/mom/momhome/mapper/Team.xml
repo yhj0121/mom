@@ -57,7 +57,9 @@
 
 	<select id="lastid"  resultType="String">
 			SELECT LAST_INSERT_ID() 
-		</select>
+	</select>
+	
+	
 
 
 

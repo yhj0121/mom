@@ -52,6 +52,12 @@ public class TeamDaoImpl implements TeamDao {
 		sm.selectOne("Membership_insert", dto);
 	}
 
+	@Override
+	public List<TeamDto> getTeamList(TeamDto dto) {
+		
+		return sm.selectList("getTeamList", dto);
+	}
+
 	
 	
 

@@ -2,7 +2,10 @@ package com.mom.momhome;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +14,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mom.momhome.game.GameDto;
+import com.mom.momhome.main.MainService;
+import com.mom.momhome.mercenary.MercenaryDto;
+
 /**
  * Handles requests for the application home page.
  */
 @Controller
 public class HomeController {
+	
+	@Resource(name="mainService")
+	MainService mainService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -23,7 +33,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, Model model,  MercenaryDto mdto, GameDto gdto ) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		Date date = new Date();
@@ -32,6 +42,13 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
+		
+
+		List<MercenaryDto> mercenarylist = mainService.getMercenaryList(mdto);
+		model.addAttribute("mercenarylist",mercenarylist);
+		
+		List<GameDto> gamelist = mainService.getGameList(gdto);
+		model.addAttribute("gamelist",gamelist);
 		
 		return "home";
 	}

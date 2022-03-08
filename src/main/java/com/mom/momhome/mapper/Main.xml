@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Main">
+	<select id="Main_getGameList" parameterType="GameDto"
+		resultType="GameDto">
+		select * from game order by game_fdate desc limit 0, 5
+	</select>
+
+	<select id="Main_getTeamList" parameterType="TeamDto"
+		resultType="TeamDto">
+		select * from team order by team_fdate desc limit 0, 5
+	</select>
+
+	<select id="Main_getMercenaryList" parameterType="MercenaryDto"
+		resultType="MercenaryDto">
+		select * from mercenary order by reg_date desc limit 0, 5
+	</select>
+
+</mapper>

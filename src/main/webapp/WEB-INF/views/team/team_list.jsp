@@ -15,7 +15,12 @@
 
 				<!-- Header -->
 				<%@include file="../include/nav.jsp"%>
-
+				<%
+				String key = StringUtil.nullToValue(request.getParameter("key"), "");
+				String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
+				String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+				int totalCnt = (Integer) request.getAttribute("totalCnt");
+				%>
 				
 
 				<!-- Main -->
@@ -35,8 +40,8 @@
 					<!-- 게시판 작성 -->
 					<form name="myform">
 						<%-- <input type="hidden" name="user_key" id="user_key" value="<%=user_key%>"/> --%>
-						<input type="hidden" name="pg" id="pg" value="" /> <input
-							type="hidden" name="mercenary_key" id="mercenary_key" value="" />
+						<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> 
+						<input type="hidden" name="team_key" id="team_key" value="" />
 						
 						<div class="row gtr-uniform">
 							<div class="col-3 col-6-xsmall">
@@ -79,7 +84,19 @@
 									</tr>
 								</thead>
 								<tbody>
-								
+									<%
+									List<TeamDto> list = (List<TeamDto>) request.getAttribute("getTeamList");
+									for (TeamDto tempDto : list) {
+									%>
+									<tr>
+										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
+										<td><%=tempDto.getMercenary_complete()%></td>
+										<td><a href="#none"
+											onclick="goView('<%=tempDto.getMercenary_key()%>')"><%=tempDto.getMercenary_title()%></a></td>
+										<td><%=tempDto.getUser_name()%></td>
+										<td><%=tempDto.getReg_date()%></td>
+									</tr>
+									<%}%>
 								</tbody>
 							</table>
 
@@ -176,11 +193,11 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="resources/assets/js/jquery.min.js"></script>
-			<script src="resources/assets/js/browser.min.js"></script>
-			<script src="resources/assets/js/breakpoints.min.js"></script>
-			<script src="resources/assets/js/util.js"></script>
-			<script src="resources/assets/js/main.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+			<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 	</body>
 </html>

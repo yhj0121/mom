@@ -1,7 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-	<%
+<%@page import="java.util.*"%>
+<%@page import="com.mom.momhome.*"%>
+<%@page import="com.mom.momhome.mercenary.*"%>
+<%@page import="com.mom.momhome.game.*"%>
+<%
 request.setAttribute("commonURL", request.getContextPath()); 
 %>
 <html>
@@ -19,12 +23,12 @@ section {
 }
 
 .swiper-button-prev::after {
-	content: '' !importnant;
+	content: ''!importnant;
 	display: none !important;
 }
 
 .swiper-button-next:after {
-	content: '' !importnant;
+	content: ''!importnant;
 	display: none !important;
 }
 </style>
@@ -38,27 +42,24 @@ section {
 				style="display: flex; flex-direction: column; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('resources/images/main_slide1.jpg')"
 				data-hash="slide1">
 				<h2>팀을 만들고 싶으시다면</h2>
-				<a href="${commonURL}/team/main" class="button" style="color: #fafafa !important;">팀
-					생성하기</a>
+				<a href="${commonURL}/team/main" class="button"
+					style="color: #fafafa !important;">팀 생성하기</a>
 			</div>
 			<div class="swiper-slide slider-bg-position"
 				style="display: flex; flex-direction: column; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('resources/images/main_slide3.jpg')"
 				data-hash="slide1">
 				<h2>경기 매칭을 원하신다면</h2>
-				<a href="${commonURL}/game" class="button" style="color: #fafafa !important;">경기
-					매칭하기</a>
+				<a href="${commonURL}/game" class="button"
+					style="color: #fafafa !important;">경기 매칭하기</a>
 			</div>
 			<div class="swiper-slide slider-bg-position"
 				style="display: flex; flex-direction: column; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('resources/images/main_slide2.jpg')"
 				data-hash="slide1">
 				<h2>용병을 찾고 계시다면</h2>
-				<a href="${commonURL}/game" class="button" style="color: #fafafa !important;">용병
-					찾기</a>
+				<a href="${commonURL}/game" class="button"
+					style="color: #fafafa !important;">용병 찾기</a>
 			</div>
 		</div>
-		<!-- Add Pagination -->
-		<!-- <div class="swiper-pagination"></div> -->
-		<!-- Add Navigation -->
 		<div class="swiper-button-prev">
 			<i class="fa fa-chevron-left"></i>
 		</div>
@@ -94,56 +95,8 @@ section {
 			<!-- About -->
 			<section class="blurb">
 				<h2>About US</h2>
-				<p>
-					저희는 경기 매칭과 팀 관리를 원활하게 할 수 있는 플랫폼을 제공하고 있습니다. 
-				</p>
+				<p>저희는 경기 매칭과 팀 관리를 원활하게 할 수 있는 플랫폼을 제공하고 있습니다.</p>
 			</section>
-		
-			<!-- <section>
-				<h3>Image</h3>
-				<h4>Fit</h4>
-				<div class="box alt">
-					<div class="row gtr-uniform">
-						<div class="col-4">
-							<span class="image fit"><img
-								src="resources/images/pic04.jpg" alt="" /></span>
-						</div>
-						<div class="col-4">
-							<span class="image fit"><img
-								src="resources/images/pic05.jpg" alt="" /></span>
-						</div>
-						<div class="col-4">
-							<span class="image fit"><img
-								src="resources/images/pic06.jpg" alt="" /></span>
-						</div>
-						<div class="col-4">
-							<span class="image fit"><img
-								src="resources/images/pic06.jpg" alt="" /></span>
-						</div>
-						<div class="col-4">
-							<span class="image fit"><img
-								src="resources/images/pic04.jpg" alt="" /></span>
-						</div>
-						<div class="col-4">
-							<span class="image fit"><img
-								src="resources/images/pic05.jpg" alt="" /></span>
-						</div>
-						<div class="col-4">
-							<span class="image fit"><img
-								src="resources/images/pic05.jpg" alt="" /></span>
-						</div>
-						<div class="col-4">
-							<span class="image fit"><img
-								src="resources/images/pic06.jpg" alt="" /></span>
-						</div>
-						<div class="col-4">
-							<span class="image fit"><img
-								src="resources/images/pic04.jpg" alt="" /></span>
-						</div>
-					</div>
-				</div>
-			</section> -->
-
 
 			<div class="d-flex row" style="justify-content: space-between;">
 
@@ -229,75 +182,32 @@ section {
 				<section>
 					<h2>MATCH</h2>
 					<ul class="posts">
+					<%
+						List<GameDto> glist = (List<GameDto>) request.getAttribute("gameList");
+						if( glist != null ) {
+						for (GameDto tempDto : glist) {
+						%>
 						<li>
 							<article>
 								<header>
 									<h3>
-										<a href="single.html">Lorem ipsum fermentum ut nisl vitae</a>
+										<a href="single.html"><%=tempDto.getGame_title()%></a>
 									</h3>
-									<time class="published" datetime="2015-10-20">October
-										20, 2015</time>
+									<time class="published"><%=tempDto.getGame_fdate()%></time>
 								</header>
 								<a href="single.html" class="image"><img
-									src="resources/images/icon_soccerball.png" alt="축구공 아이콘" /></a>
+									src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
 							</article>
 						</li>
+						<%} } else {%>
 						<li>
-							<article>
-								<header>
+							<article style="height: 100%;">
 									<h3>
-										<a href="single.html">Convallis maximus nisl mattis nunc
-											id lorem</a>
+										아직 게시글이 없습니다.
 									</h3>
-									<time class="published" datetime="2015-10-15">October
-										15, 2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_soccerball.png" alt="축구공 아이콘" /></a>
 							</article>
 						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Euismod amet placerat vivamus
-											porttitor</a>
-									</h3>
-									<time class="published" datetime="2015-10-10">October
-										10, 2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_soccerball.png" alt="축구공 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Magna enim accumsan tortor cursus
-											ultricies</a>
-									</h3>
-									<time class="published" datetime="2015-10-08">October 8,
-										2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_soccerball.png" alt="축구공 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Congue ullam corper lorem ipsum
-											dolor</a>
-									</h3>
-									<time class="published" datetime="2015-10-06">October 7,
-										2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_soccerball.png" alt="축구공 아이콘" /></a>
-							</article>
-						</li>
+						<%} %>
 					</ul>
 				</section>
 
@@ -305,75 +215,32 @@ section {
 				<section>
 					<h2>MERCENARY</h2>
 					<ul class="posts">
+						<%
+						List<MercenaryDto> mlist = (List<MercenaryDto>) request.getAttribute("mercenaryList");
+						if( mlist != null ) {
+						for (MercenaryDto tempDto : mlist) {
+						%>
 						<li>
 							<article>
 								<header>
 									<h3>
-										<a href="single.html">Lorem ipsum fermentum ut nisl vitae</a>
+										<a href="single.html"><%=tempDto.getMercenary_title()%></a>
 									</h3>
-									<time class="published" datetime="2015-10-20">October
-										20, 2015</time>
+									<time class="published"><%=tempDto.getReg_date()%></time>
 								</header>
 								<a href="single.html" class="image"><img
 									src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
 							</article>
 						</li>
+						<%} } else {%>
 						<li>
-							<article>
-								<header>
+							<article style="height: 100%;">
 									<h3>
-										<a href="single.html">Convallis maximus nisl mattis nunc
-											id lorem</a>
+										아직 게시글이 없습니다.
 									</h3>
-									<time class="published" datetime="2015-10-15">October
-										15, 2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
 							</article>
 						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Euismod amet placerat vivamus
-											porttitor</a>
-									</h3>
-									<time class="published" datetime="2015-10-10">October
-										10, 2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Magna enim accumsan tortor cursus
-											ultricies</a>
-									</h3>
-									<time class="published" datetime="2015-10-08">October 8,
-										2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Congue ullam corper lorem ipsum
-											dolor</a>
-									</h3>
-									<time class="published" datetime="2015-10-06">October 7,
-										2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
-							</article>
-						</li>
+						<%} %>
 					</ul>
 				</section>
 
@@ -452,8 +319,8 @@ section {
 					</ul>
 				</section>
 
-		</div>
 			</div>
+		</div>
 
 	</div>
 	<!-- Footer -->
@@ -467,25 +334,27 @@ section {
 	<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 	<script src="resources/assets/js/main.js"></script>
 	<script>
-	//메인 슬라이드
+		//메인 슬라이드
 		const swiper = new Swiper('#myCarousel', {
-			  // Optional parameters
-			  loop: true,
-			    speed: 1500, 
+			// Optional parameters
+			loop : true,
+			speed : 1500,
 
-			  // If we need pagination
-			  pagination: {
-			    el: '.swiper-pagination',
-			  },
-			    autoplay:{disableOnInteraction: false},
-				speed : 1500,
+			// If we need pagination
+			pagination : {
+				el : '.swiper-pagination',
+			},
+			autoplay : {
+				disableOnInteraction : false
+			},
+			speed : 1500,
 
-			  // Navigation arrows
-			  navigation: {
-			    nextEl: '.swiper-button-next',
-			    prevEl: '.swiper-button-prev',
-			  },
-			});
+			// Navigation arrows
+			navigation : {
+				nextEl : '.swiper-button-next',
+				prevEl : '.swiper-button-prev',
+			},
+		});
 	</script>
 
 </body>

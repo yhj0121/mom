@@ -13,6 +13,8 @@ public interface TeamDao {
 	
 	List<BaseDto> getCityList(BaseDto dto); //지역 리스트 
 	
+	List<TeamDto> getTeamList(TeamDto dto); //팀 조회 리스트
+	
 	void team_InsertMembership(MembershipDto dto); //멤버쉽
 	
 	void membershipInsert( MembershipDto dto ); //멤버십 생성

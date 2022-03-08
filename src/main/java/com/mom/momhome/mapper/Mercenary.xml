@@ -91,4 +91,8 @@
 				where mercenary_key = #{mercenary_key}
 	</update>
 	
+	<select id="Mercenary_duplicate" parameterType="MercenaryDto" resultType="Integer">
+		select count(*) from mercenary where game_key = #{game_key}  
+	</select>
+	
 </mapper>

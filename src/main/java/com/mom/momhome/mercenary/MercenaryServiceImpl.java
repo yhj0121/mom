@@ -64,4 +64,9 @@ public class MercenaryServiceImpl implements MercenaryService {
 		mercenaryjoinDao.update(dto);
 	}
 
+	@Override
+	public int checkDuplicate(MercenaryDto dto) {
+		return mercenaryDao.checkDuplicate(dto);
+	}
+
 }

@@ -41,4 +41,10 @@ public class MercenaryDaoImpl implements MercenaryDao {
 		return sm.selectOne("Mercenary_getTotal",dto);
 	}
 
+	@Override
+	public int checkDuplicate(MercenaryDto dto) {
+		return sm.selectOne("Mercenary_duplicate", dto);
+	}
+
+
 }

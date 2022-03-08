@@ -111,6 +111,19 @@ textarea {
 									alt="" /></a>
 							</article>
 						</li>
+						<li>
+							<article>
+								<header>
+									<h3>
+										<a href="${pageContext.request.contextPath}/member/delete" onclick="userDelete()">회원 탈퇴</a>
+									</h3>
+									<p class="published">MAN OF THE MATCH 회원 탈퇴를 진행합니다.</p>
+								</header>
+								<a href="${pageContext.request.contextPath}/member/delete" class="image"><img
+									src="${pageContext.request.contextPath}/resources/images/icon_accountRemove.png"
+									alt="" /></a>
+							</article>
+						</li>
 					</ul>
 				</section>
 			</article>
@@ -131,113 +144,6 @@ textarea {
 		src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-	<script>
-	$(()=>{
-		getPositionList();
-		
-		$("#btnDuplicate").click(function(){
-			$.ajax({
-				url: "${ commonURL }/member/isDuplicate",
-				data:{ user_id: $("#userid").val()},
-				dataType: "json",
-				type: "POST"
-			})
-			.done( (data)=>{
-				console.log(data);
-				if( data.result == "true" ) {
-					alert("이미 사용중인 아이디입니다.");
-				} else {
-					alert("사용 가능한 아이디입니다.");
-					$("#idcheck").val("Y");
-					$("#userid").prop("readonly", true); //사용중인 아이디라고 판명되면 읽기전용으로 입력창이 막힘 
-				}
-			})
-			.fail( (error) => {
-				console.log(error);
-			})
-		});
-	});
-	
-	$("#goSignup").click(function(){
-		// input이 비어있는지 확인
-		if( $("#username").val() == "" ) {
-			alert("이름을 입력해주세요.");
-			 $("#username").focus();
-			 return;
-		} else if( $("#password").val() == "" ) {
-			alert("비밀번호를 입력해주세요.");
-			 $("#password").focus();
-			 return;
-		} else if( $("#userid").val() == "") {
-			alert("아이디를 입력해주세요.");
-			 $("#userid").focus();
-			 return;
-		} else if( $("#email").val() == "" ) {
-			alert("이메일을 입력해주세요.");
-			 $("#email").focus();
-			 return;
-		} else if( $("#address1").val() == "" ) {
-			alert("주소를 입력해주세요.");
-			 $("#address1").focus();
-			 return;
-		} else if( $("#phone").val() == "" ) {
-			alert("전화번호를 입력해주세요.");
-			 $("#phone").focus();
-			 return;
-		}
-		
-		//비밀번호 확인 
-		if( $("#password").val() != $("#checkPassword").val() ) {
-			alert("비밀번호가 일치하지 않습니다.");
-			 return;
-		}
-		
-		//회원가입 진행 
-		 var frmData = new FormData(document.myform);
-		$.ajax({
-			url: "${commonURL}/member/insert",
-			data: frmData,
-			contentType: false,
-			processData: false,
-			type: "POST"
-		})
-		.done( (result) => {
-			location.href="${ commonURL }/login"; //로그인 페이지로 이동 
-		})
-		.fail( (error) => {
-			alert("회원가입 실패, 다시 시도해주세요.");
-		});
-	});
-
-	//포지션 리스트 db에서 받아오기
-	function getPositionList(){
-		$.ajax({
-			url: "${commonURL}/member/selectPosition",
-			contentType: false,
-			processData: false,
-			type: "POST"
-		})
-		.done( (result) => {
-			var i=1;
-		
-		  result.forEach( (item)=>{
-		    	var data = "<option "+"value='"+item.position+"'>";
-		    	    data +=  item.position ;
-		    	    data += "</option>";
-		    	i++;
-		      	$("#opt1").after(data);
-		})
-		})
-		.fail( (error) => {
-			alert("정보 가져오기 실패");
-		})
-	}
-	
-	//리셋 버튼
-	function formReset(){
-		$("#myform")[0].reset();
-	}
-	</script>
 
 </body>
 </html>

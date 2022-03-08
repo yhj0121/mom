@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.common.BaseDto;
-import com.mom.momhome.membership.*;
+import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 
 @Controller
@@ -68,7 +68,7 @@ public class MemberController {
 	//로그인 실행 
 	@RequestMapping(value="/member/login_proc")
 	@ResponseBody
-	public HashMap<String, String> member_login_proc(MemberDto dto, MembershipDto mbsdto, HttpServletRequest request)
+	public HashMap<String, String> member_login_proc(MemberDto dto, HttpServletRequest request)
 	{
 		//각 페이지별로 정보 공유가 안된다. 
 		//예외(쿠키 또는 세션- 세션을 사용한다.)
@@ -89,6 +89,13 @@ public class MemberController {
 				session.setAttribute("username", resultDto.getUser_name());
 				session.setAttribute("email", resultDto.getUser_mail());
 				session.setAttribute("phone", resultDto.getUser_phone());
+				
+				MembershipDto membershipDto = memberService.getMembership(resultDto.getUser_key());
+		        if( membershipDto == null ) {
+		        	 session.setAttribute("membership_role", "");
+		        } else {
+		        	session.setAttribute("membership_role", membershipDto.getMembership_role());
+		        }
 			} else {
 				map.put("flag", "3");
 			}
@@ -141,8 +148,7 @@ public class MemberController {
 	//비밀번호 찾기 실행 
 	@RequestMapping(value="/member/findpw_proc")
 	@ResponseBody
-	public HashMap<String, String> member_findpw_proc(MemberDto dto)
-	{	
+	public HashMap<String, String> member_findpw_proc(MemberDto dto){	
 		MemberDto findDto = memberService.findPassword(dto);
 		HashMap map = new HashMap<String, String>();
 		if (findDto==null)
@@ -156,6 +162,23 @@ public class MemberController {
 		return map;
 	}
 	
+	//회원 탈퇴
+	@RequestMapping("member/delete")
+	String member_delete() {
+		return "member/member_delete";
+	}
+	
+	//회원탈퇴 진행
+	@RequestMapping(value="/member/delete_proc")
+	@ResponseBody
+	public HashMap<String, String> member_delete_proc( String user_key, MemberDto dto ){	
+		dto.setUser_id(user_key);
+		memberService.delete(dto);
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+
 	//마이페이지로 이동
 	@RequestMapping("member/mypage")
 	String member_mypage() {

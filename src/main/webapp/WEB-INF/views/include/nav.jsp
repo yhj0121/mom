@@ -38,7 +38,7 @@ int maxLineupCount = maxRegularCount + maxBenchCount;
 			<li><a href="${commonURL}/team/main">Team</a></li>
 			<li><a href="${commonURL}/game/list">Game</a></li>
 			<li><a href="${commonURL}/mercenary/list">Mercenary</a></li>
-			<li><a href="#">고객센터</a></li>
+			<li><a href="${commonURL}/cscenter">고객센터</a></li>
 		</ul>
 	</nav>
 	<nav class="main" style="overflow: hidden;">
@@ -85,7 +85,7 @@ int maxLineupCount = maxRegularCount + maxBenchCount;
 					<h3>Mercenary</h3>
 					<p>감독은 용병을 구하고, 일반 회원은 용병을 신청합니다.</p>
 			</a></li>
-			<li><a href="#">
+			<li><a href="${commonURL}/cscenter">
 					<h3>고객센터</h3>
 					<p>홈페이지 사용시 궁금한 점을 해결합니다.</p>
 			</a></li>

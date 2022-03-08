@@ -4,8 +4,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mom.momhome.membership.MembershipDto;
-
 @Repository("membershipDao")
 public class MembershipDaoImpl implements MembershipDao{
 
@@ -15,6 +13,11 @@ public class MembershipDaoImpl implements MembershipDao{
 	@Override
 	public void insertMembership(MembershipDto dto) {
 		sm.insert("Membership_insert", dto);
+	}
+
+	@Override
+	public MembershipDto getMembership(String user_key) {
+		return sm.selectOne("Membership_getMembership", user_key);
 	}
 
 }

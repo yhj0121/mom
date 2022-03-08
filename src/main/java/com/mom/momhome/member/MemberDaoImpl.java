@@ -64,4 +64,9 @@ public class MemberDaoImpl implements MemberDao {
 		return sm.selectOne("Member_findpassword", dto);
 	}
 
+	@Override
+	public void delete(MemberDto dto) {
+		sm.delete("Member_delete", dto);
+	}
+
 }

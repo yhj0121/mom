@@ -23,4 +23,6 @@ public interface MemberDao {
 	MemberDto findId(MemberDto dto);
 	//비밀번호 찾기 
 	MemberDto findPassword(MemberDto dto);
+	//회원 탈퇴 진행
+	void delete( MemberDto dto );
 }

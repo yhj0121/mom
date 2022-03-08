@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.membership.MembershipDao;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 
@@ -14,6 +15,9 @@ import com.mom.momhome.mercenary.MercenaryDto;
 public class MemberServiceImpl implements MemberService {
 	@Resource(name="memberDao")
 	MemberDao memberDao;
+	
+	@Resource(name="membershipDao")
+	MembershipDao membershipDao;
 	
 	@Override
 	public boolean isDuplicate(MemberDto dto) {
@@ -58,6 +62,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberDto findPassword(MemberDto dto) {
 		return memberDao.findPassword(dto);
+	}
+	
+	@Override
+	public MembershipDto getMembership(String user_key){
+		return membershipDao.getMembership(user_key);
+	}
+
+	@Override
+	public void delete(MemberDto dto) {
+		memberDao.delete( dto );
 	}
 
 }

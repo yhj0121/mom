@@ -21,8 +21,8 @@
 			type="com.mom.momhome.common.BaseDto" />
 		<typeAlias alias="teamDto"
 			type="com.mom.momhome.team.TeamDto" />
-			<typeAlias alias="teamMembershipDto"
-			type="com.mom.momhome.team.TeamMembershipDto" />
+			<typeAlias alias="MembershipDto"
+			type="com.mom.momhome.membership.MembershipDto" />
 		<typeAlias alias="LineupDto"
 			type="com.mom.momhome.lineup.LineupDto" />
 		<typeAlias alias="LineupPlayerDto"

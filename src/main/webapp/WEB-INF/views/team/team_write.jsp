@@ -33,7 +33,7 @@ textarea {
 		<%
 			TeamDto tdto = (TeamDto)request.getAttribute("teamDto");
 			BaseDto bdto = (BaseDto)request.getAttribute("baseDto");
-			TeamMembershipDto tmDto = (TeamMembershipDto)request.getAttribute("tmDto");
+			
 		%>
 		<!-- Main -->
 		<div id="main">

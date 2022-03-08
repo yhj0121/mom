@@ -8,13 +8,13 @@ import com.mom.momhome.membership.MembershipDto;
 
 public interface TeamService {
 	
-	String insert(TeamDto dto); //팀 생성 
+	public void insert(TeamDto dto, MembershipDto mdto); //팀 생성 *수정함*
 	
 	boolean isDuplicate(TeamDto dto); //팀 이름 중복확인
 	
 	List<BaseDto> getCityList(BaseDto dto); //지역 리스트 
 	
-	void team_InsertMembership(TeamMembershipDto dto);//멤버쉽
+	void team_InsertMembership(MembershipDto dto);//멤버쉽
 	
 	void membershipInsert( MembershipDto dto ); //멤버십 생성
 }

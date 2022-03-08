@@ -42,7 +42,7 @@ public class TeamDaoImpl implements TeamDao {
 	
 
 	@Override
-	public void team_InsertMembership(TeamMembershipDto dto) {
+	public void team_InsertMembership(MembershipDto dto) {
 		sm.insert("Team_insertMembership", dto);
 		
 	}
@@ -51,6 +51,8 @@ public class TeamDaoImpl implements TeamDao {
 	public void membershipInsert(MembershipDto dto) {
 		sm.selectOne("Membership_insert", dto);
 	}
+
+	
 	
 
 	

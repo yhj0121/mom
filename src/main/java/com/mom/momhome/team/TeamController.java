@@ -66,8 +66,8 @@ public class TeamController {
 		return map;
 	}
 	
-	//팀 insert 및 앰블럼(사진)저장하기
-	 @RequestMapping("/team/save")
+	//팀 insert 및 앰블럼(사진)저장하기 *수정함*
+	@RequestMapping("/team/save")
 	   String team_save( TeamDto dto, MembershipDto mdto, HttpServletRequest req, MultipartHttpServletRequest multi )
 	   {
 		  List<MultipartFile> multiList = new ArrayList<MultipartFile>();
@@ -78,21 +78,9 @@ public class TeamController {
 		  System.out.println("물리적 위치값:" + path);
 		  FileUploadUtil.upload(path, multiList, fileNameList);
 		  
-	      dto.setTeam_emblem(fileNameList.get(0)); //Team_emblem 에 파일 저장
+	      dto.setTeam_emblem(fileNameList.get(0)); 
 	      
-	      String team_key =    teamService.insert(dto);
-	      System.out.println("dto: " +dto.toString());
-	      System.out.println("팀 키: "+dto.getTeam_key());
-	      
-	      //멤버십 테이블에 삽입하기 전 로그인 한 유저 정보(user_key)로 세팅 
-			 HttpSession session = req.getSession();
-			 String userkey = (String)session.getAttribute("userkey");
-			mdto.setUser_key(userkey);
-		    mdto.setTeam_key( team_key );
-			mdto.setMembership_role("1");
-			System.out.println("userkey: "+mdto.getUser_key());
-			System.out.println("getTeam_key: "+dto.getTeam_key());
-		    teamService.membershipInsert(mdto);
+	      teamService.insert(dto, mdto);
 	      
 	      return "redirect:/team/list";
 	   }

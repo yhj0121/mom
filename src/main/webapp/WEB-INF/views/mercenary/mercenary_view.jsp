@@ -27,7 +27,7 @@ margin:auto;
 	 	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 	 	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 	 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	 	String membership_role = "d";
+	 	String membership_role = "1";
 	 %>
 	 <%
 	   MercenaryDto mdto = (MercenaryDto)request.getAttribute("mercenaryDto");
@@ -53,11 +53,11 @@ margin:auto;
 					        <%-- <input type="text" name="test" value="<%=user_key%>" > --%>
 					        <input type="hidden" name="user_key" value="${userkey}" />
 							<input type="hidden" name="game_key" value="<%=mdto.getGame_key()%>"/>
-							<input type="text" name="mercenary_key" value="<%=mdto.getMercenary_key()%>" readonly/>
+							<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>"/>
 							<%-- <input type="text" name="mercenary_complete" value="<%=mdto.getMercenary_complete()%>" /> --%>
-							<input type="hidden" name="mercenary_proc"  id="mercenary_proc" value=""  readonly/>
-							<input type="hidden" name="mercenaryjoin_key"  id="mercenaryjoin_key" value=""  readonly/>
-							<input type="text" name="membership_role" value="<%=membership_role %>" readonly/> 
+							<input type="hidden" name="mercenary_proc"  id="mercenary_proc" value="" />
+							<input type="hidden" name="mercenaryjoin_key"  id="mercenaryjoin_key" value="" />
+							<input type="hidden" name="membership_role" value="1" /> 
 					   
 					      	
 							<div class="row gtr-uniform">
@@ -73,9 +73,9 @@ margin:auto;
 								<div class="col-12">
 									<ul class="actions">
 										<li><input type="button" value="목록" onclick="goList()" /></li>
-								<%if(user_key.equals(mdto.getUser_key()) && membership_role.equals("d")) {%>
+								<%if(user_key.equals(mdto.getUser_key()) && membership_role.equals("1")) {%>
 										<li><input type="button" value="용병신청리스트" onclick="goViewApplicants()" /></li>
-								<%} if(membership_role.equals("p")){ %>
+								<%} if(membership_role.equals("2")){ %>
 										<li><input type="button" value="용병신청" onclick="goApply()" /></li>
 								<%}%>
 								<%if(user_key.equals(mdto.getUser_key())) {%>

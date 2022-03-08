@@ -11,6 +11,14 @@ public class MemberDto {
 	String user_address2="";
 	String user_position="";
 	String user_intro="";
+	int user_delete=1;
+	
+	public int getUser_delete() {
+		return user_delete;
+	}
+	public void setUser_delete(int user_delete) {
+		this.user_delete = user_delete;
+	}
 	public String getUser_key() {
 		return user_key;
 	}

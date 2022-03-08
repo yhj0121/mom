@@ -46,8 +46,19 @@ public class MercenaryServiceImpl implements MercenaryService {
 	public int getTotal(MercenaryDto dto) {
 		return mercenaryDao.getTotal(dto);
 	}
+	
+	@Override
+	public int checkDuplicate(MercenaryDto dto) {
+		return mercenaryDao.checkDuplicate(dto);
+	}
 
+	@Override
+	public List<MercenaryDto> getGameList(MercenaryDto dto) {
+		return mercenaryDao.getGameList(dto);
+	}
 
+	
+	
 	@Override
 	public void insertJoin(MercenaryjoinDto dto) {
 		mercenaryjoinDao.insertJoin(dto);
@@ -64,9 +75,6 @@ public class MercenaryServiceImpl implements MercenaryService {
 		mercenaryjoinDao.update(dto);
 	}
 
-	@Override
-	public int checkDuplicate(MercenaryDto dto) {
-		return mercenaryDao.checkDuplicate(dto);
-	}
+	
 
 }

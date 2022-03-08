@@ -73,11 +73,12 @@ img {
 									onclick="goSearch()" />
 							</div>
 						</div>
+						<br/>
 						<div class="table-wrapper">
 							<table>
 								<colgroup>
 									<col width="8%">
-									<col width="8%">
+									<col width="10%">
 									<col width="*">
 									<col width="12%">
 									<col width="12%">
@@ -85,7 +86,7 @@ img {
 								<thead class="table-secondary">
 									<tr>
 										<th>번호</th>
-										<th>상태</th>
+										<th>모집여부</th>
 										<th>제목</th>
 										<th>작성자</th>
 										<th>작성일</th>
@@ -98,7 +99,12 @@ img {
 									%>
 									<tr>
 										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
-										<td><%=tempDto.getMercenary_complete()%></td>
+										<%
+										if(tempDto.getMercenary_complete().equals("0")){%>
+											<td>모집중</td>
+										<%}else{%>
+											<td>모집 완료</td>
+										<%}%>
 										<td><a href="#none"
 											onclick="goView('<%=tempDto.getMercenary_key()%>')"><%=tempDto.getMercenary_title()%></a></td>
 										<td><%=tempDto.getUser_name()%></td>

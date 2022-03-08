@@ -46,7 +46,9 @@ public class HomeController {
 		return "demo";
 	}
 	
-	
-	
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	public String error() {
+		return "error";
+	}
 	
 }

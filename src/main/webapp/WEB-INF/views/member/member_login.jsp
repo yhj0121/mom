@@ -95,7 +95,7 @@
 			      	if(result.flag=="1") {
 			      		location.href="${commonURL}/member/mypage";
 					} else if(result.flag=="2") {
-			      		alert("아이디를 찾을 수 없습니다.");
+			      		alert("이미 탈퇴한 회원이거나 존재하는 아이디를 찾을 수 없습니다.");
 			      	} else {
 			      		alert("패스워드가 일치하지 않습니다.");	
 			      	}

@@ -1,4 +1,4 @@
-package com.mom.momhome.team;
+package com.mom.momhome.membership;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;

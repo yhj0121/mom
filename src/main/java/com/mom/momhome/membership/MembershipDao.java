@@ -1,4 +1,4 @@
-package com.mom.momhome.team;
+package com.mom.momhome.membership;
 
 import com.mom.momhome.membership.MembershipDto;
 

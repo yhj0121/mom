@@ -19,6 +19,7 @@ resultType : 받아오는값
  			,code_key
  			,team_side
  			,lineup_index
+ 			,mercenary_state
  		from lineup
  		where game_key = #{game_key} AND team_side = #{team_side}
             
@@ -62,22 +63,44 @@ resultType : 받아오는값
     where user_key = #{user_key}
     </select>
 	
-	<insert id="Lineup_insert" parameterType="LineupDto">
-	insert into lineup(
-	    user_key
-		,team_key
-		,game_key
-		,code_key
-		,team_side
-	)
-	value(
-		#{user_key},
-		#{team_key},
-		#{game_key},
-		#{code_key},
-		#{team_side}
-	);
+	<insert id="Lineup_insert" parameterType="java.util.HashMap">
+<!-- 		<if test="resendMapList.size != 0"> -->
+			insert into lineup(
+			    user_key
+				,team_key
+				,game_key
+				,code_key
+				,team_side
+				,lineup_index
+				,mercenary_state
+			)
+			values
+			<foreach collection="resendMapList" item="item" separator=",">
+			(
+				<choose>
+					<when test = "item.user_key == ''">
+						NULL
+					</when>
+					<otherwise>
+						#{item.user_key}
+					</otherwise>
+				</choose>
+						,#{item.team_key}
+						,#{item.game_key}
+						,#{item.code_key}
+						,#{item.team_side}
+						,#{item.lineup_index}
+						,#{item.mercenary_state}
+			)
+			</foreach>
+<!-- 		</if> -->
 	</insert>
+	
+	<delete id= "Lineup_delete" parameterType="LineupDto">
+		delete 
+		from lineup 
+		where game_key=#{game_key} AND team_side=#{team_side}
+	</delete>
 	
 	<insert id="Lineup_insertUserData" parameterType="LineupPlayerDto">
 	insert into user(

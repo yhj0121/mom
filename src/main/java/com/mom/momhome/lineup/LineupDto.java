@@ -9,8 +9,17 @@ public class LineupDto {
 	String code_key	= "";
 	String team_side = "";
 	String lineup_index = "";
+	String mercenary_state = "";
+
+	LineupPlayerDto playerDto = new LineupPlayerDto();
 	
-	LineupPlayerDto playerDto = new LineupPlayerDto(); 
+	public String getMercenary_state() {
+		return mercenary_state;
+	}
+
+	public void setMercenary_state(String mercenary_state) {
+		this.mercenary_state = mercenary_state;
+	}
 	
 	public String getLineup_key() {
 		return lineup_key;

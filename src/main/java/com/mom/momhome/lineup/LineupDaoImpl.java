@@ -1,6 +1,7 @@
 package com.mom.momhome.lineup;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,13 @@ public class LineupDaoImpl implements LineupDao{
     }
 
 	@Override
-	public void insert(LineupDto dto) {
-		sm.insert("Lineup_insert", dto);
+	public void insert(Map<String, Object> paramMap) {
+		sm.insert("Lineup_insert", paramMap);
 	}
 
 	@Override
-	public void delete(String key) {
-		sm.delete("Lineup_delete", key);
+	public void delete(LineupDto dto) {
+		sm.delete("Lineup_delete", dto);
 	}
 
 	@Override

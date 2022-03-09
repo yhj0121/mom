@@ -39,6 +39,12 @@
 				<h1>라인업</h1>
 				<div class="table-wrapper">
 					<table class="alt">
+						<colgroup>
+							<col width="5%">
+							<col width="10%">
+							<col width="*">
+							<col width="30%">
+						</colgroup>
 						<thead>
 							<tr>
 								<th>번호</th>

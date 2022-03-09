@@ -74,16 +74,16 @@
 							<table>
 								<colgroup>
 									<col width="8%">
-									<col width="8%">
-									<col width="*">
-									<col width="12%">
-									<col width="12%">
+									<col width="15%">
+									<col width="9%">
+									<col width="">
+									<col width="15%">
 								</colgroup>
 								<thead class="table-secondary">
 									<tr>
 										<th>번호</th>
-										<th>지역</th>
 										<th>팀이름</th>
+										<th>지역</th>
 										<th>작성자</th>
 										<th>작성일</th>
 									</tr>

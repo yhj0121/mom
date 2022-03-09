@@ -6,7 +6,7 @@
 <%@page import="com.mom.momhome.mercenary.*"%>
 <%@page import="com.mom.momhome.game.*"%>
 <%
-request.setAttribute("commonURL", request.getContextPath()); 
+request.setAttribute("commonURL", request.getContextPath());
 %>
 <html>
 <head>
@@ -77,249 +77,141 @@ section {
 
 		<!-- Main -->
 		<div id="main">
-
-
-			<!-- Intro -->
-			<section id="intro">
-				<a href="#" class="logo"><img src="resources/images/logo.jpg"
-					alt="" /></a>
-				<header>
-					<h2>Man of the match</h2>
-					<p>쉬운 경기 매칭 서비스 및 팀 관리 서비스를 제공합니다.</p>
-				</header>
-			</section>
-
-			<hr>
-
-
-			<!-- About -->
-			<section class="blurb">
-				<h2>About US</h2>
-				<p>저희는 경기 매칭과 팀 관리를 원활하게 할 수 있는 플랫폼을 제공하고 있습니다.</p>
-			</section>
-
-			<div class="d-flex row" style="justify-content: space-between;">
-
-
-				<!-- Posts List -->
-				<section class="col-6 col-12-medium" style="flex-grow: 1;">
-					<h2>TEAM</h2>
-					<ul class="posts">
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Lorem ipsum fermentum ut nisl vitae</a>
-									</h3>
-									<time class="published" datetime="2015-10-20">October
-										20, 2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_team.png" alt="팀 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Convallis maximus nisl mattis nunc
-											id lorem</a>
-									</h3>
-									<time class="published" datetime="2015-10-15">October
-										15, 2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_team.png" alt="팀 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Euismod amet placerat vivamus
-											porttitor</a>
-									</h3>
-									<time class="published" datetime="2015-10-10">October
-										10, 2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_team.png" alt="팀 아이콘"></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Magna enim accumsan tortor cursus
-											ultricies</a>
-									</h3>
-									<time class="published" datetime="2015-10-08">October 8,
-										2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_team.png" alt="팀 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Congue ullam corper lorem ipsum
-											dolor</a>
-									</h3>
-									<time class="published" datetime="2015-10-06">October 7,
-										2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_team.png" alt="팀 아이콘" /></a>
-							</article>
-						</li>
-					</ul>
+			<form name="myform">
+				<input type="hidden" name="mercenary_key" id="mercenary_key" 	value="" />
+				<input type="hidden" name="game_key" id="game_key" 	value="" />
+				<!-- Intro -->
+				<section id="intro">
+					<a href="#" class="logo"><img src="resources/images/logo.jpg"
+						alt="" /></a>
+					<header>
+						<h2>Man of the match</h2>
+						<p>쉬운 경기 매칭 서비스 및 팀 관리 서비스를 제공합니다.</p>
+					</header>
 				</section>
 
+				<hr>
 
-				<!-- Posts List -->
-				<section class="col-6 col-12-medium" style="flex-grow: 1;">
-					<h2>MATCH</h2>
-					<ul class="posts">
-					<%
-						List<GameDto> gamelist = (List<GameDto>) request.getAttribute("gamelist");
-						if( gamelist != null ) {
-						for (GameDto tempDto : gamelist) {
-						%>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html"><%=tempDto.getGame_title()%></a>
-									</h3>
-									<time class="published"><%=tempDto.getGame_fdate()%></time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
-							</article>
-						</li>
-						<%} } else {%>
-						<li>
-							<article style="height: 100%;">
-									<h3>
-										아직 게시글이 없습니다.
-									</h3>
-							</article>
-						</li>
-						<%} %>
-					</ul>
+
+				<!-- About -->
+				<section class="blurb">
+					<h2>About US</h2>
+					<p>저희는 경기 매칭과 팀 관리를 원활하게 할 수 있는 플랫폼을 제공하고 있습니다.</p>
 				</section>
 
+				<div class="d-flex row" style="justify-content: space-between;">
 
-				<section class="col-6 col-12-medium" style="flex-grow: 1;">
-					<h2>MERCENARY</h2>
-					<ul class="posts">
-						<%
-						List<MercenaryDto> mercenarylist = (List<MercenaryDto>) request.getAttribute("mercenarylist");
-						if( mercenarylist != null ) {
-						for (MercenaryDto tempDto : mercenarylist) {
-						%>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html"><%=tempDto.getMercenary_title()%></a>
-									</h3>
-									<time class="published"><%=tempDto.getReg_date()%></time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
-							</article>
-						</li>
-						<%} } else {%>
-						<li>
-							<article style="height: 100%;">
-									<h3>
-										아직 게시글이 없습니다.
-									</h3>
-							</article>
-						</li>
-						<%} %>
-					</ul>
-				</section>
 
-				<section class="col-6 col-12-medium" style="flex-grow: 1;">
-					<h2>CUSTOMER SERVICE</h2>
-					<ul class="posts">
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Lorem ipsum fermentum ut nisl vitae</a>
-									</h3>
-									<time class="published" datetime="2015-10-20">October
-										20, 2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_customerservice.png" alt="고객센터 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Convallis maximus nisl mattis nunc
-											id lorem</a>
-									</h3>
-									<time class="published" datetime="2015-10-15">October
-										15, 2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_customerservice.png" alt="고객센터 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Euismod amet placerat vivamus
-											porttitor</a>
-									</h3>
-									<time class="published" datetime="2015-10-10">October
-										10, 2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_customerservice.png" alt="고객센터 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Magna enim accumsan tortor cursus
-											ultricies</a>
-									</h3>
-									<time class="published" datetime="2015-10-08">October 8,
-										2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_customerservice.png" alt="고객센터 아이콘" /></a>
-							</article>
-						</li>
-						<li>
-							<article>
-								<header>
-									<h3>
-										<a href="single.html">Congue ullam corper lorem ipsum
-											dolor</a>
-									</h3>
-									<time class="published" datetime="2015-10-06">October 7,
-										2015</time>
-								</header>
-								<a href="single.html" class="image"><img
-									src="resources/images/icon_customerservice.png" alt="고객센터 아이콘" /></a>
-							</article>
-						</li>
-					</ul>
-				</section>
+					<!-- Posts List -->
+					<section class="col-6 col-12-medium" style="flex-grow: 1;">
+						<h2>TEAM</h2>
+						<ul class="posts">
+							<li>
+								<article>
+									<header>
+										<h3>
+											<a href="single.html">Lorem ipsum fermentum ut nisl vitae</a>
+										</h3>
+										<time class="published" datetime="2015-10-20">October
+											20, 2015</time>
+									</header>
+									<a href="single.html" class="image"><img
+										src="resources/images/icon_team.png" alt="팀 아이콘" /></a>
+								</article>
+							</li>
+						</ul>
+					</section>
 
-			</div>
+
+					<!-- Posts List -->
+					<section class="col-6 col-12-medium" style="flex-grow: 1;">
+						<h2>MATCH</h2>
+						<ul class="posts">
+							<%
+							List<GameDto> gamelist = (List<GameDto>) request.getAttribute("gamelist");
+							if (gamelist != null) {
+								for (GameDto tempDto : gamelist) {
+							%>
+							<li>
+								<article>
+									<header>
+										<h3>
+											<a href="#none"
+												onclick="goGameView('<%=tempDto.getGame_key()%>')"><%=tempDto.getGame_title()%></a>
+										</h3>
+										<time class="published">장소: <%=tempDto.getGame_location()%> / 시간: <%=tempDto.getGame_date()%></time>
+									</header>
+									<a href="#none"
+										onclick="goGameView('<%=tempDto.getGame_key()%>')"
+										class="image"><img
+										src="resources/images/icon_soccerball.png" alt="게임 아이콘" /></a>
+								</article>
+							</li>
+							<% }	} else { %>
+							<li>
+								<article style="height: 100%;">
+									<h3>아직 게시글이 없습니다.</h3>
+								</article>
+							</li>
+							<% } %>
+						</ul>
+					</section>
+
+
+					<section class="col-6 col-12-medium" style="flex-grow: 1;">
+						<h2>MERCENARY</h2>
+						<ul class="posts">
+							<%
+							List<MercenaryDto> mercenarylist = (List<MercenaryDto>) request.getAttribute("mercenarylist");
+							if ( !mercenarylist.isEmpty()) {
+								System.out.println( "Aaa" );
+								for (MercenaryDto tempDto : mercenarylist) {
+							%>
+							<li>
+								<article>
+									<header>
+										<h3>
+											<a href="#none"
+												onclick="goMercenaryView('<%=tempDto.getMercenary_key()%>')"><%=tempDto.getMercenary_title()%></a>
+										</h3>
+										<time class="published"><%=tempDto.getReg_date()%></time>
+									</header>
+									<a href="#none"
+										onclick="goMercenaryView('<%=tempDto.getMercenary_key()%>')"
+										class="image"><img
+										src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
+								</article>
+							</li>
+							<% }	} else { %>
+							<li style="text-align: center;">
+								<h3 style=" margin: 100px 0;">아직 게시글이 없습니다.</h3>
+								<button  class="button small ">글 쓰러 가기</button>
+							</li>
+							<% } %>
+						</ul>
+					</section>
+
+					<section class="col-6 col-12-medium" style="flex-grow: 1;">
+						<h2>CUSTOMER SERVICE</h2>
+						<ul class="posts">
+							<li>
+								<article>
+									<header>
+										<h3>
+											<a href="single.html">Lorem ipsum fermentum ut nisl vitae</a>
+										</h3>
+										<time class="published" datetime="2015-10-20">October
+											20, 2015</time>
+									</header>
+									<a href="single.html" class="image"><img
+										src="resources/images/icon_customerservice.png" alt="고객센터 아이콘" /></a>
+								</article>
+							</li>
+						</ul>
+					</section>
+
+				</div>
+			</form>
 		</div>
 
 	</div>
@@ -355,7 +247,20 @@ section {
 				prevEl : '.swiper-button-prev',
 			},
 		});
+		function goMercenaryView(id) {
+			frm = document.myform;
+			frm.mercenary_key.value = id;
+			frm.method = "get";
+			frm.action = "${pageContext.request.contextPath}/game/view";
+			frm.submit();
+		}
+		function goGameView(id) {
+			frm = document.myform;
+			frm.game_key.value = id;
+			frm.method = "get";
+			frm.action = "${pageContext.request.contextPath}/game/view";
+			frm.submit();
+		}
 	</script>
-
 </body>
 </html>

@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@page import="java.util.*"%>
-<%@page import="com.mom.momhome.*"%>
+<%@page import="com.mom.momhome.HomeController"%>
 <%@page import="com.mom.momhome.mercenary.*"%>
 <%@page import="com.mom.momhome.game.*"%>
 <%
@@ -102,7 +102,7 @@ section {
 
 
 				<!-- Posts List -->
-				<section>
+				<section class="col-6 col-12-medium" style="flex-grow: 1;">
 					<h2>TEAM</h2>
 					<ul class="posts">
 						<li>
@@ -179,13 +179,13 @@ section {
 
 
 				<!-- Posts List -->
-				<section>
+				<section class="col-6 col-12-medium" style="flex-grow: 1;">
 					<h2>MATCH</h2>
 					<ul class="posts">
 					<%
-						List<GameDto> glist = (List<GameDto>) request.getAttribute("gameList");
-						if( glist != null ) {
-						for (GameDto tempDto : glist) {
+						List<GameDto> gamelist = (List<GameDto>) request.getAttribute("gamelist");
+						if( gamelist != null ) {
+						for (GameDto tempDto : gamelist) {
 						%>
 						<li>
 							<article>
@@ -212,13 +212,13 @@ section {
 				</section>
 
 
-				<section>
+				<section class="col-6 col-12-medium" style="flex-grow: 1;">
 					<h2>MERCENARY</h2>
 					<ul class="posts">
 						<%
-						List<MercenaryDto> mlist = (List<MercenaryDto>) request.getAttribute("mercenaryList");
-						if( mlist != null ) {
-						for (MercenaryDto tempDto : mlist) {
+						List<MercenaryDto> mercenarylist = (List<MercenaryDto>) request.getAttribute("mercenarylist");
+						if( mercenarylist != null ) {
+						for (MercenaryDto tempDto : mercenarylist) {
 						%>
 						<li>
 							<article>
@@ -244,7 +244,7 @@ section {
 					</ul>
 				</section>
 
-				<section>
+				<section class="col-6 col-12-medium" style="flex-grow: 1;">
 					<h2>CUSTOMER SERVICE</h2>
 					<ul class="posts">
 						<li>

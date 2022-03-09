@@ -336,8 +336,7 @@ function saveLineup()
 	.done((result)=>{
 		console.log(result);
 		alert("성공적으로 저장되었습니다.");
-		<%-- alert('<%=request.getAttribute("msg")%>'); --%> 
-		<%-- 		location.href="<%=request.getContextPath()%>/lineup/info";--%>
+		location.href="${commonURL}/lineup/info";
 	})
 	.fail((error)=>{
 		console.log(error);

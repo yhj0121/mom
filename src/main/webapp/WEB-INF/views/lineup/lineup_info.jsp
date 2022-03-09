@@ -63,14 +63,22 @@
 							String name = "";
 							String position = "";
 							String player_key = "";
+							String mercenary_state = "";
 							
 							if(lineupDic.containsKey(curRowNum))
 							{
+								LineupDto lineup = lineupDic.get(curRowNum);
+								player_key = lineup.getUser_key();
+								position = lineup.getCode_key();
+								mercenary_state = lineup.getMercenary_state();
 								
-								id = lineupDic.get(curRowNum).getPlayerDto().getUser_id();
-								name = lineupDic.get(curRowNum).getPlayerDto().getUser_name();
-								position = lineupDic.get(curRowNum).getCode_key();
-								player_key = lineupDic.get(curRowNum).getUser_key();
+								if(mercenary_state.equals("1"))
+								{
+									id = lineup.getPlayerDto().getUser_id();
+									name = lineup.getPlayerDto().getUser_name();
+								}
+								else if(mercenary_state.equals("2"))
+									id = "용병";
 							}
 						%>
 							<tr>
@@ -98,12 +106,22 @@
 							String name = "";
 							String position = "";
 							String player_key = "";
+							String mercenary_state = "";
+							
 							if(lineupDic.containsKey(curRowNum))
 							{
-								id = lineupDic.get(curRowNum).getPlayerDto().getUser_id();
-								name = lineupDic.get(curRowNum).getPlayerDto().getUser_name();
-								position = lineupDic.get(curRowNum).getCode_key();
-								player_key = lineupDic.get(curRowNum).getUser_key();
+								LineupDto lineup = lineupDic.get(curRowNum);
+								player_key = lineup.getUser_key();
+								position = lineup.getCode_key();
+								mercenary_state = lineup.getMercenary_state();
+								
+								if(mercenary_state.equals("1"))
+								{
+									id = lineup.getPlayerDto().getUser_id();
+									name = lineup.getPlayerDto().getUser_name();
+								}
+								else if(mercenary_state.equals("2"))
+									id = "용병";
 							}
 						%>
 							<tr>

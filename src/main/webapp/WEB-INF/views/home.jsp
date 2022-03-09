@@ -164,7 +164,6 @@ section {
 							<%
 							List<MercenaryDto> mercenarylist = (List<MercenaryDto>) request.getAttribute("mercenarylist");
 							if ( !mercenarylist.isEmpty()) {
-								System.out.println( "Aaa" );
 								for (MercenaryDto tempDto : mercenarylist) {
 							%>
 							<li>

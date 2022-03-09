@@ -3,6 +3,7 @@ package com.mom.momhome.member;
 import java.util.List;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.game.GameDto;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 
@@ -20,6 +21,9 @@ public interface MemberService {
 	//용병 리스트 가져오기
 	List<MercenaryDto> getMercenaryList ( MercenaryDto dto );
 	int getTotal(MercenaryDto dto); //페이지네이션
+	//게임 리스트 가져오기
+	List<GameDto> getGameList( GameDto dto );
+	int getGameTotal( GameDto dto );
 	//아이디 찾기
 	MemberDto findId(MemberDto dto);
 	//비밀번호 찾기 

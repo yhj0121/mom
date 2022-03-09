@@ -33,7 +33,7 @@ public class TeamDaoImpl implements TeamDao {
 			return true;
 	}
 
-	@Override //지역 정보
+	@Override //지역 정보 가져오기
 	public List<BaseDto> getCityList(BaseDto dto) {
 		
 		return sm.selectList("getCityList", dto);
@@ -56,6 +56,12 @@ public class TeamDaoImpl implements TeamDao {
 	public List<TeamDto> getTeamList(TeamDto dto) {
 		
 		return sm.selectList("getTeamList", dto);
+	}
+
+	@Override
+	public int getTeamTotal(TeamDto dto) {
+		
+		return sm.selectOne("getTeamTotal", dto);
 	}
 
 	

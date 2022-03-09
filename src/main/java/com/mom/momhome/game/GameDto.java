@@ -12,8 +12,14 @@ public class GameDto extends BaseDto {
 	private String game_fdate="";
 	private String team_name="";
 	public String user_name="";
+	public String user_key="";
 	
-	
+	public String getUser_key() {
+		return user_key;
+	}
+	public void setUser_key(String user_key) {
+		this.user_key = user_key;
+	}
 	public String getUser_name() {
 		return user_name;
 	}

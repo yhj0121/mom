@@ -1,6 +1,7 @@
 package com.mom.momhome.lineup;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LineupDao {
 	
@@ -12,8 +13,8 @@ public interface LineupDao {
 	
     LineupPlayerDto getPlayer(String userkey);
     
-	void insert(LineupDto dto);
-	void delete(String key);
+	void insert(Map<String, Object> paramMap);
+	void delete(LineupDto dto);
 	void update(LineupDto dto);
 	
 	

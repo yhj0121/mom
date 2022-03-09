@@ -93,7 +93,7 @@
 		) limit #{start}, #{pageSize}
 	</select>
 
-	<select id="Memger_mercenaryGetTotal"
+	<select id="Member_mercenaryGetTotal"
 		parameterType="MercenaryDto" resultType="Integer">
 		select count(*) from mercenary where user_key =(select user_key from
 		User
@@ -108,6 +108,52 @@
 			<if test='key=="3"'>
 				and mercenary_title like concat('%',#{keyword}, '%') or
 				mercenary_contents like concat('%',#{keyword}, '%')
+			</if>
+		</if>
+	</select>
+	
+	<select id="Member_gameList" parameterType="GameDto"
+		resultType="GameDto">
+		select GAME_KEY
+         ,(select TEAM_key from team B where B.TEAM_KEY =A.TEAM_KEY) as TEAM_key
+         ,(select TEAM_NAME from team B where B.TEAM_KEY =A.TEAM_KEY) as TEAM_NAME
+		 ,GAME_DATE
+		 ,GAME_LOCATION
+		 ,GAME_TITLE
+		 ,GAME_CONTENTS
+		 ,GAME_FDATE
+		 ,rnum
+		 from(select
+ 		A.GAME_KEY
+ 		,A.TEAM_KEY
+ 		,A.GAME_DATE
+ 		 ,A.GAME_LOCATION
+		 ,A.GAME_TITLE
+		 ,A.GAME_CONTENTS
+		 ,A.GAME_FDATE
+		,@rownum := @rownum+1 AS rnum
+		from game A, (select @rownum:=0) B
+		order by game_key desc
+		) A where team_key=(
+		select team_key from membership
+		where user_key=#{user_key}) limit #{start}, #{pageSize}
+	</select>
+
+	<select id="Member_gameGetTotal"
+		parameterType="GameDto" resultType="Integer">
+		select count(*) from game  where team_key=(
+		select team_key from membership
+		where user_key=#{user_key})
+		<if test='key!=null and keyword!=null'>
+			<if test='key=="1"'>
+				and game_title like concat('%',#{keyword}, '%')
+			</if>
+			<if test='key=="2"'>
+				and game_contents like concat('%',#{keyword}, '%')
+			</if>
+			<if test='key=="3"'>
+				and game_title like concat('%',#{keyword}, '%') or
+				game_contents like concat('%',#{keyword}, '%')
 			</if>
 		</if>
 	</select>

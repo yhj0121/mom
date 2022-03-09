@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.game.GameDto;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 
@@ -172,6 +173,7 @@ public class MemberController {
 	@RequestMapping(value="/member/delete_proc")
 	@ResponseBody
 	public HashMap<String, String> member_delete_proc( String user_key, MemberDto dto ){	
+		System.out.println("유저키: "+user_key);
 		dto.setUser_id(user_key);
 		memberService.delete(dto);
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -221,16 +223,23 @@ public class MemberController {
 	
 	//마이페이지 - 팀 매칭신청내역으로 이동 
 	@RequestMapping("member/matchinglist")
-	String member_matchingdetail() {
+	String member_matchingdetail( HttpServletRequest request, GameDto dto, Model model ) {
+		HttpSession session = request.getSession();
+		String user_key = (String)session.getAttribute("userkey");
+		dto.setUser_key(user_key);
+		dto.setStart(dto.getPg()*10);
+		List<GameDto> list = memberService.getGameList(dto);
+		model.addAttribute("gameList",list);
+		model.addAttribute("totalCnt",memberService.getGameTotal(dto));
 		return "member/member_matchingdetail";
 	}
 	
 	//마이페이지 - 용병구인내역으로 이동 
 	@RequestMapping("member/mercenarylist")
-	String member_mercenarydetail( MercenaryDto dto, Model model, HttpServletRequest request ) {
+	String member_mercenarydetail( HttpServletRequest request, MercenaryDto dto, Model model ) {
 		HttpSession session = request.getSession();
-		String userkey = (String)session.getAttribute("userkey");
-		dto.setUser_key(userkey);
+		String user_key = (String)session.getAttribute("userkey");
+		dto.setUser_key(user_key);
 		dto.setStart(dto.getPg()*10);
 		List<MercenaryDto> list = memberService.getMercenaryList(dto);
 		model.addAttribute("mercenaryList", list);

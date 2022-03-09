@@ -59,6 +59,75 @@
 			SELECT LAST_INSERT_ID() 
 	</select>
 	
+	<select id="getTeamList"  parameterType="TeamDto"  resultType="TeamDto">
+	 	select * from 
+	       (
+	          select
+	            A.team_name
+	            ,A.team_fdate
+	            ,A.team_fee
+	            ,A.team_city 
+	            ,A.team_intro
+	            ,A.team_emblem
+	            ,A.team_notice
+	            ,A.team_num
+	            ,A.team_recruit_yn
+	            
+	             ,@rownum := @rownum+1 AS rnum
+	            from team A, (select @rownum:=0) B
+	            
+	            
+	         <if test='key!=null and keyword!=null'>
+	   
+	            <if test='key=="1"'>
+	            where team_name like concat('%', #{keyword} , '%') or
+	                  team_fdate like concat('%', #{keyword} , '%') or 
+	                  team_city like concat('%', #{keyword} , '%') or 
+	                  team_intro like concat('%', #{keyword} , '%') or 
+	                  team_notice like concat('%', #{keyword} , '%') or
+	                  team_num like concat('%', #{keyword} , '%') or  
+	                  team_recruit_yn like concat('%', #{keyword} , '%') 
+	            </if>
+	            
+	            <if test='key=="2"'>
+	            where team_name like concat('%', #{keyword} , '%')
+	            </if>
+	            
+	            <if test='key=="3"'>
+	            where team_city like concat('%', #{keyword} , '%')
+	            </if>
+	            
+	            <if test='key=="4"'>
+	            where team_name like concat('%', #{keyword} , '%') or
+	                  team_city like concat('%', #{keyword} , '%') 
+	            </if>
+	            
+	         </if> 
+	         
+	         order by team_name desc
+	      ) A
+	      limit #{start}, #{pageSize}    
+	</select>
+	
+	 <select id="getTeamTotal" parameterType="TeamDto" resultType="Integer">
+	 	select count(*) from team
+	 	<if test='key!=null and keyword!=null'>
+		
+			<if test='key=="1"'>
+	         where team_name like concat('%', #{keyword} , '%')   
+	        </if>
+	         
+	        <if test='key=="2"'>
+	         where team_city like concat('%', #{keyword} , '%') 
+	        </if>
+	         
+	        <if test='key=="3"'>
+	         where team_name like concat('%', #{keyword} , '%') or
+					team_city like concat('%', #{keyword} , '%') 
+	        </if>
+
+		</if>
+	 </select>
 	
 
 

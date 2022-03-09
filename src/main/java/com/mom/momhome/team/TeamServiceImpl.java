@@ -26,16 +26,16 @@ public class TeamServiceImpl implements TeamService{
 		String team_key = teamDao.insert(dto);
 		System.out.println("dto: " +dto.toString());
 		  
-		 
+		//팀 생성과 함께 membership정보 DB에 입력하기
 		mdto.setUser_key(dto.getUser_key());
 		mdto.setTeam_key( team_key );
-		mdto.setMembership_role("1");
+		mdto.setMembership_role("1"); //팀 생성시 membership db에 membership_role 1입력. 1)감독, 2)선수 권한부여
 		System.out.println("userkey: "+mdto.getUser_key());
 		System.out.println("getTeam_key: "+dto.getTeam_key());
 		membershipDao.insertMembership(mdto);
 		
-		HttpSession session = request.getSession();
-		 session.setAttribute("membership_role", mdto.getMembership_role());
+		HttpSession session = request.getSession(); //팀 중복 생성 막기 위해서 membership_role 세션에 저장하기
+		session.setAttribute("membership_role", mdto.getMembership_role());
 		
 	}
 
@@ -67,5 +67,11 @@ public class TeamServiceImpl implements TeamService{
 	public List<TeamDto> getTeamList(TeamDto dto) {
 		
 		return teamDao.getTeamList(dto);
+	}
+
+	@Override
+	public int getTeamTotal(TeamDto dto) {
+		
+		return teamDao.getTeamTotal(dto);
 	}
 }

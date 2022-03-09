@@ -2,9 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-   
-
-    
 <!DOCTYPE html>
 <html>
 	<head>
@@ -98,6 +95,8 @@
 	</body>
 </html>
 <script>
+
+	//membership_role 세션 체크 해서 팀 중복 생성 막기
 	function team_check()
 	{
 		var membership_role = `${membership_role}`;

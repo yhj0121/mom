@@ -33,23 +33,23 @@ public class TeamController {
 	}
 	
 	//팀 조회 
-		@RequestMapping(value = "/team/list", method = RequestMethod.GET)
-		String get_TeamList(Model model, TeamDto dto)
-		{
-			System.out.println("선택: " + dto.getKey());
-			System.out.println("선택: " + dto.getKeyword());
+	@RequestMapping(value = "/team/list", method = RequestMethod.GET)
+	String team_List(Model model, TeamDto dto)
+	{
+		System.out.println("선택: " + dto.getKey());
+		System.out.println("선택: " + dto.getKeyword());
 			
-			dto.setStart(dto.getPg()*10);
+		dto.setStart(dto.getPg()*10);
 			
-			List<TeamDto> list = teamService.getTeamList(dto);
+		List<TeamDto> list = teamService.getTeamList(dto);
 			
-			for(TeamDto teamdto: list)
-				System.out.println(teamdto.getTeam_name());
+		for(TeamDto teamdto: list)
+			System.out.println(teamdto.getTeam_name());
 			
-			model.addAttribute("getTeamList",list);
-			model.addAttribute("totalCnt",teamService.getTeamList(dto));
-			return "team/list"; 
-		}
+		model.addAttribute("getTeamList",list);
+		model.addAttribute("totalCnt",teamService.getTeamTotal(dto));
+		return "team/team_list"; 
+	}
 	
 	
 	//팀 생성 화면 연결
@@ -61,7 +61,7 @@ public class TeamController {
 	}
 	
 
-	//지역 정보 리스트 (팀생성 화면에서 보여주기)
+	//지역 정보 리스트 (팀생성 화면에서 지역 선택 보여주기)
 	@RequestMapping("/team/selectCity")
 	@ResponseBody
 	List<BaseDto> team_getCityList(BaseDto dto, Model model)
@@ -96,7 +96,7 @@ public class TeamController {
 	      
 	      teamService.insert(dto, mdto, req);
 	      
-	      return "redirect:/team/main";
+	      return "redirect:/team/main"; //팀 생성 후 이동하기 list이동 수정함
 	   }
 }
 

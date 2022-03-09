@@ -1,12 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@page import="java.util.*"%>
+<%@page import="com.mom.momhome.team.*"%>
+<%@page import="com.mom.momhome.common.*"%>
 <html>
 	<head>
 		<title>Man of the match</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	</head>
 	<body class="is-preload">
 
@@ -15,6 +19,7 @@
 
 				<!-- Header -->
 				<%@include file="../include/nav.jsp"%>
+				
 				<%
 				String key = StringUtil.nullToValue(request.getParameter("key"), "");
 				String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
@@ -90,22 +95,15 @@
 									%>
 									<tr>
 										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
-										<td><%=tempDto.getMercenary_complete()%></td>
+										
 										<td><a href="#none"
-											onclick="goView('<%=tempDto.getMercenary_key()%>')"><%=tempDto.getMercenary_title()%></a></td>
-										<td><%=tempDto.getUser_name()%></td>
-										<td><%=tempDto.getReg_date()%></td>
+											onclick="goView('<%=tempDto.getTeam_key()%>')"><%=tempDto.getTeam_name()%></a></td>
+										<td><%=tempDto.getTeam_city()%></td>
+										<td><%=tempDto.getTeam_fdate()%></td>
 									</tr>
 									<%}%>
 								</tbody>
 							</table>
-
-							<div class="col-12" style="text-align: right;">
-								<ul class="actions">
-									<li style="margin-left: auto"><input type="button"
-										value="글쓰기" onclick="goWrite()" /></li>
-								</ul>
-							</div>
 						</div>
 					</form>
 				</section>
@@ -201,3 +199,30 @@
 
 	</body>
 </html>
+
+<script>
+function goSearch(){
+	   let frm = document.myform;
+	   frm.pg.value=0; 
+	   frm.action = "<%=request.getContextPath()%>/team/list";
+		frm.method = "get";
+		frm.submit();
+		consol.log( frm.pg.value );
+	}
+
+	function goPage(pg) {
+		frm = document.myform;
+		frm.pg.value = pg;
+		frm.method = "get";
+		frm.action = "${pageContext.request.contextPath}/team/list";
+		frm.submit();
+	}
+	function goView(id) {
+		frm = document.myform;
+		frm.mercenary_key.value = id;
+		frm.method = "get";
+		frm.action = "${pageContext.request.contextPath}/mercenary/view";
+		frm.submit();
+	}
+	
+</script>

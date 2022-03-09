@@ -76,16 +76,16 @@
 									<col width="8%">
 									<col width="15%">
 									<col width="9%">
-									<col width="">
-									<col width="15%">
+									<col width="20%">
+									<col width="10%">
 								</colgroup>
 								<thead class="table-secondary">
 									<tr>
 										<th>번호</th>
 										<th>팀이름</th>
 										<th>지역</th>
-										<th>작성자</th>
-										<th>작성일</th>
+										<th>팀 생성일</th>
+										<th>감독</th>
 									</tr>
 								</thead>
 								<tbody>

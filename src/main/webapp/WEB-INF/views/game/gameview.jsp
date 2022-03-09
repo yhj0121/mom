@@ -9,11 +9,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Man of the match</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	
-		<link rel="stylesheet" href="../resources/assets/css/main.css" /></head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="../resources/assets/css/main.css" /></head>
 <body class="is-preload">
 
 			<%@include file="../include/nav.jsp"%>
@@ -21,8 +20,8 @@
 		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+		String membership_role="d";
 		String team_key="1";
-		String membership_role="1";
 	%>
 	<%
 	GameDto daoo = (GameDto)request.getAttribute("GameDto");
@@ -52,17 +51,14 @@
 					<input type="hidden" name="pg"      value="<%=pg%>" >
 					<input type="hidden" name="key"     value="<%=key%>" >
 					<input type="hidden" name="keyword" value="<%=keyword%>" >
+					
 					<input type="hidden" name="team_key" id="team_key" value="${team_key}">
 				    <input type="hidden" name="user_key" value="${userkey}" >
 				    <input type="hidden" name="team_side" value="" >
-				    <input type="hidden" name="team_name" value="fc원주">
-				  
+				    <input type="hidden" name="team_name" id="team_name" value="fc원주">
 					<input type="text" name="membership_role" value="<%=membership_role %>" readonly/> 
-				    
-	
-			   	<input type="hidden" name="game_key" value="<%=daoo.getGame_key()%>">
-				        
-					
+			   	    <input type="hidden" name="result_proc"  id="result_proc" value="" />
+				   	<input type="hidden" name="game_key" id="game_key" value="<%=daoo.getGame_key()%>">
 					<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_fdate()%>" readonly /> 
 					      	
 							<div class="row gtr-uniform">
@@ -84,13 +80,13 @@
 									<ul class="actions">
 									
 										<li><input type="button" value="목록" onclick="goList()" /></li>
-									<%if(team_key.equals(daoo.getTeam_key())) {%>
+										<%if(team_key.equals(daoo.getTeam_key())) {%>
 										<li><input type="button" value="수정" onclick="goupdate()" /></li>
 										<li><input type="button" value="삭제" onclick="goDelete()" /></li>
 										<%}%>
-											<%if(team_key.equals(daoo.getTeam_key()) &&  membership_role.equals("1")) {%>
+										<%if(team_key.equals(daoo.getTeam_key()) &&  membership_role.equals("1")) {%>
 										<li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>
-								<%} if(membership_role.equals("p")){ %>
+								<%} if(membership_role.equals("d")){ %>
 										<li><input type="button" value="신청" onclick="goapply()" /></li>
 								<%}%>
 										
@@ -163,9 +159,8 @@ function goapply()
 	$("#result_proc").val("1");
 	var frmData = document.myform; 
 	var queryString = $("form[name=myform]").serialize();
-	
-	$ajax({
-		url:"<%=request.getContextPath()%>"/game/apply,
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/apply",
 		data:queryString,
 		processData:false,
 		type:'POST'
@@ -185,9 +180,7 @@ function goapply()
 function goviewlist()
 {
 	   var frmData = new FormData(document.myform);
-	   var queryString = $("form[name=myform]").serialize();
-
-	       
+	   var queryString = $("form[name=myform]").serialize();    
 	   $.ajax({
 	     	url:"${commonURL}/game/applyview",
 		data:queryString,

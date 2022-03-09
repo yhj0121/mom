@@ -14,7 +14,7 @@ public class GameJoinDaoImp implements GameJoinDao {
 	SqlSessionTemplate sm;
 
 	@Override
-	public void insertJoin(GameJoinDto dto) {
+	public void gameinsertJoin(GameJoinDto dto) {
 				sm.insert("GameJoin_insert", dto);
 	}
 

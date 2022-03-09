@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public interface GameJoinDao {
-		void insertJoin(GameJoinDto dto);
+		void gameinsertJoin(GameJoinDto dto);
 		void updateJoin(GameJoinDto dto);
 		List<GameJoinDto> getListJoin(GameJoinDto dto);
 }

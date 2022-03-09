@@ -104,7 +104,9 @@ public class GameController {
 	@ResponseBody
 	String gamejoin_insert(GameJoinDto dto)
 	{
-		service.insertJoin(dto);
+		System.out.println("insert 시작부분");
+		service.gameinsertJoin(dto);
+		System.out.println(dto.getGame_key()+"+++++++++++++++++++++++++");
 		return "redirect:/game/list";  
 		
 	}
@@ -121,7 +123,7 @@ public class GameController {
 	String game_apply(GameJoinDto dto)
 	{
 		service.updateJoin(dto);
-		return "/game/view";
+		return "/game/gameview";
 	}
 	
 }

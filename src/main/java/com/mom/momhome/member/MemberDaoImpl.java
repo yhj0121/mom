@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mom.momhome.common.BaseDto;
-import com.mom.momhome.membership.MembershipDto;
+import com.mom.momhome.game.GameDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 
 @Repository("memberDao")
@@ -51,7 +51,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public int getTotal(MercenaryDto dto) {
-		return sm.selectOne("Memger_mercenaryGetTotal",dto);
+		return sm.selectOne("Member_mercenaryGetTotal",dto);
 	}
 
 	@Override
@@ -67,6 +67,16 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public void delete(MemberDto dto) {
 		sm.delete("Member_delete", dto);
+	}
+
+	@Override
+	public List<GameDto> getGameList(GameDto dto) {
+		return sm.selectList( "Member_gameList", dto );
+	}
+
+	@Override
+	public int getGameTotal(GameDto dto) {
+		return sm.selectOne("Member_gameGetTotal",dto);
 	}
 
 }

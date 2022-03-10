@@ -110,7 +110,7 @@ section {
 						<ul class="posts">
 						<%
 							List<TeamDto> teamlist = (List<TeamDto>) request.getAttribute("teamlist");
-							if (teamlist != null) {
+							if (!teamlist.isEmpty()) {
 								for (TeamDto tempDto : teamlist) {
 							%>
 							<li>
@@ -143,7 +143,7 @@ section {
 						<ul class="posts">
 							<%
 							List<GameDto> gamelist = (List<GameDto>) request.getAttribute("gamelist");
-							if (gamelist != null) {
+							if (!gamelist.isEmpty()) {
 								for (GameDto tempDto : gamelist) {
 							%>
 							<li>
@@ -209,7 +209,8 @@ section {
 						
 						<%
 							List<CSCenterDto> cscenterlist = (List<CSCenterDto>) request.getAttribute("cscenterlist");
-							if (cscenterlist != null) {
+							System.out.println("cscenterlist: "+cscenterlist.size());
+							if (!cscenterlist.isEmpty()) {
 								for (CSCenterDto tempDto : cscenterlist) {
 							%>
 							<li>

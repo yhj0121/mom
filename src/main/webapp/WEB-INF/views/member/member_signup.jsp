@@ -73,7 +73,7 @@ textarea {
 									value="" placeholder="비밀번호 확인" />
 							</div>
 							<div class="col-6 col-12-medium">
-								<input type="email" name="user_mail" id="email" value="" class="not-kor" pattern="^\w+((\.\w+)?)+@\w+.?\w+\.\w+$"
+								<input type="email" name="user_mail" id="email" value="" pattern="^\w+((\.\w+)?)+@\w+.?\w+\.\w+$"
 									placeholder="이메일" />
 							</div>
 							<div class="col-6 col-12-medium">

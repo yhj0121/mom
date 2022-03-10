@@ -49,11 +49,10 @@ img {
 				</header>
 
 				<section>
-					<%-- <h3 style="text-align: center">용병구인리스트 (${totalCnt}건)</h3> --%>
 					<form name="myform">
 						<%-- <input type="hidden" name="user_key" id="user_key" value="<%=user_key%>"/> --%>
-						<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> <input
-							type="hidden" name="mercenary_key" id="mercenary_key" value="" />
+						<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> 
+						<input type="hidden" name="mercenary_key" id="mercenary_key" value="" />
 
 						<div class="row gtr-uniform">
 							<div class="col-3 col-6-xsmall">
@@ -69,8 +68,7 @@ img {
 									name="keyword" id="keyword" value="<%=keyword%>">
 							</div>
 							<div class="col-2 col-4-xsmall">
-								<input type="button" style="width: 100%" value="검색"
-									onclick="goSearch()" />
+								<input type="button" style="width: 100%" value="검색" onclick="goSearch()" />
 							</div>
 						</div>
 						<br/>
@@ -140,32 +138,36 @@ img {
 <script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 <script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
-function goSearch(){
-	   let frm = document.myform;
-	   frm.pg.value=0; 
-	   frm.action = "<%=request.getContextPath()%>/mercenary/list";
-		frm.method = "get";
-		frm.submit();
-		consol.log( frm.pg.value );
-	}
+function goSearch()
+{
+	let frm = document.myform;
+  	frm.pg.value=0; 
+    frm.action = "<%=request.getContextPath()%>/mercenary/list";
+	frm.method = "get";
+	frm.submit();
+	consol.log( frm.pg.value );
+}
 
-	function goPage(pg) {
-		frm = document.myform;
-		frm.pg.value = pg;
-		frm.method = "get";
-		frm.action = "${pageContext.request.contextPath}/mercenary/list";
-		frm.submit();
-	}
-	function goView(id) {
-		frm = document.myform;
-		frm.mercenary_key.value = id;
-		frm.method = "get";
-		frm.action = "${pageContext.request.contextPath}/mercenary/view";
-		frm.submit();
-	}
-	function goWrite() {
-		var frm = document.myform;
-		frm.action = "${pageContext.request.contextPath}/mercenary/write";
-		frm.submit();
-	}
+function goPage(pg) 
+{
+	frm = document.myform;
+	frm.pg.value = pg;
+	frm.method = "get";
+	frm.action = "${pageContext.request.contextPath}/mercenary/list";
+	frm.submit();
+}
+function goView(id) 
+{
+	frm = document.myform;
+	frm.mercenary_key.value = id;
+	frm.method = "get";
+	frm.action = "${pageContext.request.contextPath}/mercenary/view";
+	frm.submit();
+}
+function goWrite() 
+{
+	var frm = document.myform;
+	frm.action = "${pageContext.request.contextPath}/mercenary/write";
+	frm.submit();
+}
 </script>

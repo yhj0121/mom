@@ -41,7 +41,7 @@ margin:auto;
 						<!-- <h3>용병구인작성</h3> -->
 							<form name="myform" >
 								<input type="hidden" name="user_key" id="user_key" value="${userkey}"/>
-								<input type="hidden" name="game_key" value=""/>
+								<input type=hidden name="game_key" id="game_key" value=""/>
 								<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>"/>
 								<input type="hidden" name="mercenary_complete" id="mercenary_complete" value="<%=mdto.getMercenary_complete()%>"/>
 								
@@ -94,10 +94,7 @@ $(document).ready(function(){
 
 //game정보 가져오기
 function getGameList(){
-	/* var frmData = document.myform; 
-	var queryString = $("form[name=myform]").serialize(); */
 	var user_key = document.getElementById("user_key").value;
-	alert(user_key);
 	$.ajax({
 		url: "${commonURL}/mercenary/selectGame",
 		dataType:'json',
@@ -113,9 +110,11 @@ function getGameList(){
 	    	    data += "</option>";
 	    	i++;
 	      	$("#gameOption").after(data);
+	      	var k = item.game_key;
+	      	$("#game_key").val(k);
 	      	
-	})
-	 alert($("game_key").val(item.game_key));
+		})
+	 
 	})
 	.fail( (error) => {
 		alert("정보 가져오기 실패");
@@ -123,9 +122,9 @@ function getGameList(){
 } 
  function goWrite()
 {
+	
 	var frmData = document.myform; 
 	frmData.mercenary_complete.value = $("#mStatus").val();
-	<%-- frmData.game_key.value = <%=mdto.getGame_key()%>; --%>
 	var queryString = $("form[name=myform]").serialize();
 	if(frmData.mercenary_title.value.trim().length<10)
 	{
@@ -150,7 +149,6 @@ function getGameList(){
 	.done((result)=>{
 		console.log(result);
 		alert(result);
-		<%-- alert('<%=request.getAttribute("msg")%>'); --%>
 		location.href="<%=request.getContextPath()%>/mercenary/list";
 	})
 	.fail((error)=>{

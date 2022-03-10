@@ -27,7 +27,7 @@ margin:auto;
 	 	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 	 	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 	 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	 	String membership_role = "1";
+	 	String membership_role = (String)session.getAttribute("membership_role");
 	 %>
 	 <%
 	   MercenaryDto mdto = (MercenaryDto)request.getAttribute("mercenaryDto");
@@ -57,30 +57,31 @@ margin:auto;
 							<%-- <input type="text" name="mercenary_complete" value="<%=mdto.getMercenary_complete()%>" /> --%>
 							<input type="hidden" name="mercenary_proc"  id="mercenary_proc" value="" />
 							<input type="hidden" name="mercenaryjoin_key"  id="mercenaryjoin_key" value="" />
-							<input type="hidden" name="membership_role" value="1" /> 
+							<input type="text" name="membership_role" value="${membership_role}" /> 
 					      	
 							<div class="row gtr-uniform">
 								<div class="col-12">
-									<input type="text" name="mercenary_title" id="mercenary_title" value="<%=mdto.getMercenary_title()%>" readonly />
+									<input type="text" name="mercenary_title" id="mercenary_title" value="<%=mdto.getMercenary_title()%>"  />
 								</div>
 								<div class="col-6 col-12-xsmall">
-									<input type="text" name="user_name" id="user_name" value="<%=mdto.getUser_name()%>" readonly/>
+									<input type="text" name="user_name" id="user_name" value="<%=mdto.getUser_name()%>" />
 								</div>
 								<div class="col-12">
-									<textarea name="mercenary_contents" id="mercenary_contents" rows="6" readonly><%=mdto.getMercenary_contents()%></textarea>
+									<textarea name="mercenary_contents" id="mercenary_contents" rows="6" ><%=mdto.getMercenary_contents()%></textarea>
 								</div>
 								<div class="col-12">
 									<ul class="actions">
+									<% if(membership_role.equals("1") && (user_key.equals(mdto.getUser_key()))) {%>
 										<li><input type="button" value="목록" onclick="goList()" /></li>
-								<%if(user_key.equals(mdto.getUser_key()) && membership_role.equals("1")) {%>
-										<li><input type="button" value="용병신청리스트" onclick="goViewApplicants()" /></li>
-								<%} if(membership_role.equals("2")){ %>
-										<li><input type="button" value="용병신청" onclick="goApply()" /></li>
-								<%}%>
-								<%if(user_key.equals(mdto.getUser_key())) {%>
 										<li><input type="button" value="수정" onclick="goModify()" /></li>
 										<li><input type="button" value="삭제" onclick="goDelete()" /></li>
-								<%}%> 
+										<li><input type="button" value="용병신청리스트" onclick="goViewApplicants()" /></li>
+									<%} else if(membership_role.equals("1")){%>
+										<li><input type="button" value="목록" onclick="goList()" /></li>
+									<%} else {%>
+										<li><input type="button" value="목록" onclick="goList()" /></li>
+										<li><input type="button" value="용병신청" onclick="goApply()" /></li>
+									<%}%>
 									</ul>
 								</div>
 							</div>
@@ -126,6 +127,7 @@ $(document).ready(function(){
 	getCount();
 })
 var count;
+var i;
 function getCount()
 {
    	var frmData = document.myform; 
@@ -139,6 +141,7 @@ function getCount()
 	.done((result)=>{
 		console.log(result);
 		count = result;
+		i = count;
 	})
 	.fail((error)=>{
 		console.log(error);
@@ -258,25 +261,55 @@ function goApprove(mercenaryjoin_key)
 }
 function goDecline(mercenaryjoin_key)
 {
-	$("#mercenaryjoin_key").val(mercenaryjoin_key);
-	$("#mercenary_proc").val("3");
-	var frmData = document.myform; 
-	var queryString = $("form[name=myform]").serialize();
-	$.ajax({
-		url:"<%=request.getContextPath()%>/mercenary/proc",
-		data:queryString,
-		processData:false,
-		type:"POST"
-	})
-	.done((result)=>{
-		console.log(result);
-		alert("거절처리 완료되었습니다.");
-		goViewApplicants();
-		count++;
-	})
-	.fail((error)=>{
-		console.log(error);
-	})
+	alert("count :"+count);
+	alert("i : "+i);
+ 	if(count>i){
+ 		alert("count :"+count);
+ 		alert("i : "+i);
+		alert("거절 가능 횟수 초과"); 
+ 	}else if(count == i){
+ 		//고용했다가 거절누르면 count가 원래 count인 i와 같아지는 경우로 만들때는 거절이 가능해야함
+ 		//위의 if문처럼 거절가능횟수가 초과한게 아님. 
+ 		//return;
+ 		$("#mercenaryjoin_key").val(mercenaryjoin_key);
+		$("#mercenary_proc").val("3");
+		var frmData = document.myform; 
+		var queryString = $("form[name=myform]").serialize();
+		$.ajax({
+			url:"<%=request.getContextPath()%>/mercenary/proc",
+			data:queryString,
+			processData:false,
+			type:"POST"
+		})
+		.done((result)=>{
+			console.log(result);
+			alert("거절처리 완료되었습니다.");
+			goViewApplicants();
+		})
+		.fail((error)=>{
+			console.log(error);
+		})
+ 	}else {
+		$("#mercenaryjoin_key").val(mercenaryjoin_key);
+		$("#mercenary_proc").val("3");
+		var frmData = document.myform; 
+		var queryString = $("form[name=myform]").serialize();
+		$.ajax({
+			url:"<%=request.getContextPath()%>/mercenary/proc",
+			data:queryString,
+			processData:false,
+			type:"POST"
+		})
+		.done((result)=>{
+			console.log(result);
+			alert("거절처리 완료되었습니다.");
+			goViewApplicants();
+			count++;
+		})
+		.fail((error)=>{
+			console.log(error);
+		})
+ 	}
 }
 </script>
 

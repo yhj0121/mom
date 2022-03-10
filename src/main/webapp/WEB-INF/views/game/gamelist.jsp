@@ -16,7 +16,8 @@
 <link rel="stylesheet" href="../resources/assets/css/main.css" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
 </head>
 
@@ -43,20 +44,24 @@
 	width: 80px;
 	line-height: 30px;
 	background-color: #222;
-	
 	color: #fff;
 }
+table {
+	margin-top: 40px !important;
+}
+
 </style>
 <body class="is-preload">
-	<%@include file="../include/nav.jsp"%>
+	<div id="wrapper">
+		<%@include file="../include/nav.jsp"%>
 
-	<%
-	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
-	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
-	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	int totalCnt = (Integer) request.getAttribute("totalCnt");
-	%>
-<div id="main">
+		<%
+		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
+		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
+		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+		int totalCnt = (Integer) request.getAttribute("totalCnt");
+		%>
+		<div id="main">
 			<article class="post">
 				<header>
 					<div class="title">
@@ -66,17 +71,18 @@
 						<p>감독님만 게임 매칭을 만들수 있어요</p>
 					</div>
 					<div class="meta">
-						<a href="#" class="logo"><i class="fas fa-futbol fa-8x" style="display: flex; justify-content: center;"></i></a>
+						<a href="#" class="logo"><i class="fas fa-futbol fa-8x"
+							style="display: flex; justify-content: center;"></i></a>
 					</div>
 				</header>
 
 				<section>
 					<h3 style="text-align: center">게임매칭게시판 (${totalCnt}건)</h3>
-			<form name="myform" method="get">
-				<input type="hidden" name="team_key" id="team_key" value="" /> 
-				<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> 
-					<input type="hidden" name="key" id="key" value="<%=key%>" />
-					 <input type="hidden" name="game_key" id="game_key" value="" />
+					<form name="myform" method="get">
+						<input type="hidden" name="team_key" id="team_key" value="" /> <input
+							type="hidden" name="pg" id="pg" value="<%=pg%>" /> <input
+							type="hidden" name="key" id="key" value="<%=key%>" /> <input
+							type="hidden" name="game_key" id="game_key" value="" />
 
 
 						<div class="row gtr-uniform">
@@ -98,65 +104,73 @@
 							</div>
 						</div>
 						<div class="table-wrapper">
-					<table>
-						<thead>
-							<tr>
-								<th>번호</th>	
-								<th>제목</th>
-								<th>지역</th>
-								<th>날짜</th>
-								<th>팀이름</th>
-								
-							</tr>
-						</thead>
-						<tbody>
-							<%
-							List<GameDto> list = (List<GameDto>) request.getAttribute("boardList");
-							for (GameDto tempDto : list) {
-							%>
-							<tr>
-							<td><%=totalCnt - tempDto.getRnum() + 1%></td>
-							<td><a href="#none"
-							onclick="goView('<%=tempDto.getGame_key()%>')"><%=tempDto.getGame_title()%></a></td>						
-							<td><%=tempDto.getGame_location()%></td>
-							<td><%=tempDto.getGame_date()%></td>
-							<td><%=tempDto.getTeam_name()%></td>							
-							</tr>							
-							<%}%>
-							
-						
-						</tbody>
-					</table>
-				</div>
+							<table>
+								<thead>
+									<tr>
+										<th>번호</th>
+										<th>제목</th>
+										<th>지역</th>
+										<th>날짜</th>
+										<th>팀이름</th>
 
-							<div class="col-12" style="text-align: right;">
-								<ul class="actions">
-									<li style="margin-left: auto"><input type="button"
-										value="글쓰기" onclick="goWrite()"></li>
-								</ul>
-							</div>
-					
+									</tr>
+								</thead>
+								<tbody>
+									<%
+									List<GameDto> list = (List<GameDto>) request.getAttribute("boardList");
+									for (GameDto tempDto : list) {
+									%>
+									<tr>
+										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
+										<td><a href="#none"
+											onclick="goView('<%=tempDto.getGame_key()%>')"><%=tempDto.getGame_title()%></a></td>
+										<td><%=tempDto.getGame_location()%></td>
+										<td><%=tempDto.getGame_date()%></td>
+										<td><%=tempDto.getTeam_name()%></td>
+									</tr>
+									<%}%>
+
+
+								</tbody>
+							</table>
+						</div>
+
+						<div class="col-12" style="text-align: right;">
+							<ul class="actions">
+								<li style="margin-left: auto"><input type="button"
+									value="글쓰기" onclick="goWrite()"></li>
+							</ul>
+						</div>
+
 					</form>
-		 	     	</section>
-			   </article>
-			   	</div>
+				</section>
+			</article>
+
 			<!-- Pagination  -->
 			<div class="container"
 				style="display: flex; justify-content: center;">
 				<%=Pager.makeTag(request, 10, totalCnt)%>
-			</div>	
+			</div>
+		</div>
+	</div>
 </body>
 <!-- Scripts -->
-<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
 function goSearch(){
 	   let frm = document.myform;
 	   frm.pg.value=0; 
-	   frm.action = "<%=request.getContextPath()%>/game/list";
+	   frm.action = "<%=request.getContextPath()%>
+	/game/list";
 		frm.method = "get";
 		frm.submit();
 	}

@@ -22,6 +22,21 @@
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
 		
+		<article class="post">
+				<header>
+					<div class="title">
+						<h2>
+							<a href="#">라인업</a>
+						</h2>
+						<p>해당 게임에서 쓰일 라인업을 볼 수 있는 페이지</p>
+					</div>
+					<div class="meta">
+						<a href="#" class="logo"><img
+							src="${pageContext.request.contextPath}/resources/images/lineup_icon.png"
+							alt="" /></a>
+					</div>
+				</header>
+				
 		<%
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
 		Map<Integer, LineupDto> lineupDic = new HashMap<Integer, LineupDto>();
@@ -144,6 +159,7 @@
 	          	</div>
 	          	
 			</section>
+			</article>
 		</form>
 	</div>
 </body>

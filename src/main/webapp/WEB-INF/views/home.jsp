@@ -153,7 +153,7 @@ section.mypost:nth-child(odd) {
 								</article>
 							</li>
 							<li style="text-align: center;">
-								<button class="button small " onclick="location.href='${pageContext.request.contextPath}/team/list'">모든 글 보러 가기</button>
+								<button type="button" class="button small " onclick="location.href='${commonURL}/team/list'">모든 글 보러 가기</button>
 							</li>
 							<% }	} else { %>
 							<li>
@@ -191,7 +191,7 @@ section.mypost:nth-child(odd) {
 								</article>
 							</li>
 							<li style="text-align: center;">
-								<button class="button small " onclick="location.href='${pageContext.request.contextPath}/game/list'">모든 글 보러 가기</button>
+								<button type="button"  class="button small " onclick="location.href='${commonURL}/game/list'">모든 글 보러 가기</button>
 							</li>
 							<% }	} else { %>
 							<li>
@@ -227,7 +227,7 @@ section.mypost:nth-child(odd) {
 								</article>
 							</li>
 							<li style="text-align: center;">
-								<button class="button small " onclick="location.href='${pageContext.request.contextPath}/mercenary/list'">모든 글 보러 가기</button>
+								<button type="button"  class="button small " onclick="location.href='${commonURL}/mercenary/list'">모든 글 보러 가기</button>
 							</li>
 							<% }} else { %>
 							<li style="text-align: center;">
@@ -260,13 +260,10 @@ section.mypost:nth-child(odd) {
 										src="resources/images/icon_customerservice.png" alt="고객센터 아이콘" /></a>
 								</article>
 							</li>
-							<li style="text-align: center;">
-								<button class="button small " onclick="location.href='${pageContext.request.contextPath}/cscenter/list'">모든 글 보러 가기</button>
-							</li>
 							<% }	} else { %>
 							<li style="text-align: center;">
 								<h3 style=" margin: 100px 0;">아직 게시글이 없습니다.</h3>
-								<button  class="button small ">글 쓰러 가기</button>
+								<button type="button"   class="button small ">글 쓰러 가기</button>
 							</li>
 							<% } %>
 						</ul>

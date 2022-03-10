@@ -45,7 +45,7 @@
 
 	<select id="Member_getInfo" parameterType="MemberDto"
 		resultType="MemberDto">
-		select * from User
+		select * from user
 		where user_id=#{ user_id } and USER_PASSWORD=#{ user_password } and user_delete=1
 	</select>
 

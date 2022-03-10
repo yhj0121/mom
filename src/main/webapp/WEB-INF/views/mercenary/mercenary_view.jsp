@@ -57,20 +57,23 @@ margin:auto;
 							<%-- <input type="text" name="mercenary_complete" value="<%=mdto.getMercenary_complete()%>" /> --%>
 							<input type="hidden" name="mercenary_proc"  id="mercenary_proc" value="" />
 							<input type="hidden" name="mercenaryjoin_key"  id="mercenaryjoin_key" value="" />
-							<input type="text" name="membership_role" value="${membership_role}" /> 
+							<input type="hidden" name="membership_role" value="${membership_role}" /> 
 					      	
 							<div class="row gtr-uniform">
 								<div class="col-12">
-									<input type="text" name="mercenary_title" id="mercenary_title" value="<%=mdto.getMercenary_title()%>"  />
+									<input type="text" name="mercenary_title" id="mercenary_title" style="color:black;"
+									value="<%=mdto.getMercenary_title()%>" readonly />
 								</div>
 								<div class="col-6 col-12-xsmall">
-									<input type="text" name="user_name" id="user_name" value="<%=mdto.getUser_name()%>" />
+									<input type="text" name="user_name" id="user_name" style="color:black;" 
+									value="<%=mdto.getUser_name()%>" readonly />
 								</div>
 								<div class="col-12">
-									<textarea name="mercenary_contents" id="mercenary_contents" rows="6" ><%=mdto.getMercenary_contents()%></textarea>
+									<textarea name="mercenary_contents" style="color:black;" id="mercenary_contents" rows="6" readonly ><%=mdto.getMercenary_contents()%></textarea>
 								</div>
 								<div class="col-12">
 									<ul class="actions">
+							<% if(!user_key.isEmpty()) {%>
 									<% if(membership_role.equals("1") && (user_key.equals(mdto.getUser_key()))) {%>
 										<li><input type="button" value="목록" onclick="goList()" /></li>
 										<li><input type="button" value="수정" onclick="goModify()" /></li>
@@ -82,6 +85,9 @@ margin:auto;
 										<li><input type="button" value="목록" onclick="goList()" /></li>
 										<li><input type="button" value="용병신청" onclick="goApply()" /></li>
 									<%}%>
+							<%}else{%>		
+										<li><input type="button" value="목록" onclick="goList()" /></li>
+									<%} %>
 									</ul>
 								</div>
 							</div>

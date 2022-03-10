@@ -1,8 +1,5 @@
 package com.mom.momhome.cscenter;
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -22,28 +19,25 @@ import org.springframework.stereotype.Repository;
  * 즉, 사용자의 제어권을 다른 주체에게 넘기는 것을 IOC(제어의 역전)라고 한다.
 */
 
-<<<<<<< Updated upstream
-
-@Repository("csCenterDao") 
 // 화면에 보여주기 위해 Service에서 불러오기 위한 태그?
 // Service에서 여기에서 구현한 인터페이스를 가져올 때, 사용한다.
-=======
-@Repository("cscenterDao") 
+
 // 화면에 보여주기 위해 Service에서 불러오기 위한 
 // Service에 여기에서 구현한 인터페이스를 가져올 때, 이 키를 사용해서 CSCenterDao를 불러온다.
->>>>>>> Stashed changes
+@Repository("csCenterDao")
 public class CSCenterDaoImp implements CSCenterDao{
-		@Autowired
-		SqlSessionTemplate sm; 
-		// sm은 root-context.xml의 bean의 id이다.
 		
-		@Override
-		public List<CSCenterDto> getList() {
-			return sm.selectList("csList"); // selectList, selectOne
-		}
+	@Autowired
+	SqlSessionTemplate sm; 
+	// sm은 root-context.xml의 bean의 id이다.
+		
+	@Override
+	public List<CSCenterDto> getList() {
+		return sm.selectList("csList"); // selectList, selectOne
+	}
 
-		@Override
-		public void writeData(CSCenterDto dto) {
-			sm.insert("csInsert", dto);
-		}
+	@Override
+	public void writeData(CSCenterDto dto) {
+		sm.insert("csInsert", dto);
+	}
 }

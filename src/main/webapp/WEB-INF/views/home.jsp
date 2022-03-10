@@ -33,6 +33,32 @@ section {
 	content: ''!importnant;
 	display: none !important;
 }
+
+section.mypost {
+	margin-top: 0 !important;
+	padding: 3rem !important;
+}
+
+section.mypost:not(:last-child) {
+	border-bottom: solid 1px rgba(160, 160, 160, 0.3);
+}
+
+section.mypost:nth-child(odd) {
+	border-right: solid 1px rgba(160, 160, 160, 0.3);
+}
+
+@media(max-width: 980px) {
+	section.mypost:nth-child(odd) {
+		border-right: 0;
+	}
+}
+
+@media(min-width: 981px) {
+	section.mypost:nth-child(3), 
+	section.mypost:nth-child(4) {
+		border-bottom: 0;
+	}
+}
 </style>
 </head>
 <body class="is-preload" style="overflow-x: hidden;">
@@ -105,7 +131,7 @@ section {
 
 
 					<!-- Posts List -->
-					<section class="col-6 col-12-medium" style="flex-grow: 1;">
+					<section class="mypost col-6 col-12-medium" style="flex-grow: 1; ">
 						<h2>TEAM</h2>
 						<ul class="posts">
 						<%
@@ -126,6 +152,9 @@ section {
 										src="resources/images/icon_team.png" alt="팀 아이콘" /></a>
 								</article>
 							</li>
+							<li style="text-align: center;">
+								<button class="button small " onclick="location.href='${pageContext.request.contextPath}/team/list'">모든 글 보러 가기</button>
+							</li>
 							<% }	} else { %>
 							<li>
 								<article style="height: 100%;">
@@ -138,7 +167,7 @@ section {
 
 
 					<!-- Posts List -->
-					<section class="col-6 col-12-medium" style="flex-grow: 1;">
+					<section class="mypost col-6 col-12-medium" style="flex-grow: 1;">
 						<h2>MATCH</h2>
 						<ul class="posts">
 							<%
@@ -161,6 +190,9 @@ section {
 										src="resources/images/icon_soccerball.png" alt="게임 아이콘" /></a>
 								</article>
 							</li>
+							<li style="text-align: center;">
+								<button class="button small " onclick="location.href='${pageContext.request.contextPath}/game/list'">모든 글 보러 가기</button>
+							</li>
 							<% }	} else { %>
 							<li>
 								<article style="height: 100%;">
@@ -172,7 +204,7 @@ section {
 					</section>
 
 
-					<section class="col-6 col-12-medium" style="flex-grow: 1;">
+					<section class="mypost col-6 col-12-medium" style="flex-grow: 1;">
 						<h2>MERCENARY</h2>
 						<ul class="posts">
 							<%
@@ -194,6 +226,9 @@ section {
 										class="image"><img src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
 								</article>
 							</li>
+							<li style="text-align: center;">
+								<button class="button small " onclick="location.href='${pageContext.request.contextPath}/mercenary/list'">모든 글 보러 가기</button>
+							</li>
 							<% }} else { %>
 							<li style="text-align: center;">
 								<h3 style=" margin: 100px 0;">아직 게시글이 없습니다.</h3>
@@ -203,7 +238,7 @@ section {
 						</ul>
 					</section>
 
-					<section class="col-6 col-12-medium" style="flex-grow: 1;">
+					<section class="mypost col-6 col-12-medium" style="flex-grow: 1;">
 						<h2>CUSTOMER SERVICE</h2>
 						<ul class="posts">
 						
@@ -224,6 +259,9 @@ section {
 									<a href="single.html" class="image"><img
 										src="resources/images/icon_customerservice.png" alt="고객센터 아이콘" /></a>
 								</article>
+							</li>
+							<li style="text-align: center;">
+								<button class="button small " onclick="location.href='${pageContext.request.contextPath}/cscenter/list'">모든 글 보러 가기</button>
 							</li>
 							<% }	} else { %>
 							<li style="text-align: center;">

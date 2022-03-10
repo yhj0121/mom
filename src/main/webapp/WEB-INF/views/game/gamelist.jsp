@@ -46,6 +46,10 @@
 	background-color: #222;
 	color: #fff;
 }
+table {
+	margin-top: 40px !important;
+}
+
 </style>
 <body class="is-preload">
 	<div id="wrapper">

@@ -16,9 +16,15 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<style>
+	
+	.mini-post header {
+		padding: 1.25em 1.25em 0.1em 1.25em !important;
+	}
 img {
 	display: block;
 	margin: auto;
+	width: 100%;
+	height: 100%;
 }
 
 table {
@@ -170,8 +176,7 @@ table td {
 							<time class="published" datetime="2022-03-02">2022/03/02</time>
 							<div>
 								<img
-									src="${pageContext.request.contextPath}/resources/images/ground.jpg"
-									width="370" height="150" /> <br>
+									src="${pageContext.request.contextPath}/resources/images/ground.jpg"/> <br>
 								<br>
 								<p>3월 3주차 경기 뛰실 팀 클릭하세요</p>
 							</div>
@@ -189,8 +194,7 @@ table td {
 							<time class="published" datetime="2022-03-01">2022/03/01</time>
 							<div>
 								<img
-									src="${pageContext.request.contextPath}/resources/images/jogi.jpg"
-									width="370" height="150" /> <br>
+									src="${pageContext.request.contextPath}/resources/images/jogi.jpg"/> <br>
 								<br>
 								<p>레프트백 포지션 구합니다(강제회식X)</p>
 							</div>
@@ -208,8 +212,7 @@ table td {
 							<time class="published" datetime="2022-02-25">2022/02/25</time>
 							<div>
 								<img
-									src="${pageContext.request.contextPath}/resources/images/hanyang.jpg"
-									width="370" height="150" /> <br>
+									src="${pageContext.request.contextPath}/resources/images/hanyang.jpg"/> <br>
 								<br>
 								<p>한양체육사 축구용품 40% 할인중!</p>
 								<p>man of the match 할인 코드 제시!</p>

@@ -209,7 +209,6 @@ section {
 						
 						<%
 							List<CSCenterDto> cscenterlist = (List<CSCenterDto>) request.getAttribute("cscenterlist");
-							System.out.println("cscenterlist: "+cscenterlist.size());
 							if (!cscenterlist.isEmpty()) {
 								for (CSCenterDto tempDto : cscenterlist) {
 							%>

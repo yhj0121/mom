@@ -1,11 +1,21 @@
 package com.mom.momhome.membership;
 
+import com.mom.momhome.team.TeamDto;
+
 public class MembershipDto {
 	String membership_key ="";
 	String user_key ="";
+	String user_name=""; //추가
 	String team_key ="";
 	String membership_role ="";
 	String team_joindate ="";
+	
+	public String getUser_name() {//추가
+		return user_name;
+	}
+	public void setUser_name(String user_name) {//추가
+		this.user_name = user_name;
+	}
 	
 	public String getMembership_key() {
 		return membership_key;

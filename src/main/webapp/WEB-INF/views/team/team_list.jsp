@@ -4,6 +4,7 @@
 <%@page import="java.util.*"%>
 <%@page import="com.mom.momhome.team.*"%>
 <%@page import="com.mom.momhome.common.*"%>
+<%@page import="com.mom.momhome.membership.*"%>
 <html>
 	<head>
 		<title>Man of the match</title>
@@ -20,6 +21,10 @@
 				<!-- Header -->
 				<%@include file="../include/nav.jsp"%>
 				
+				<%
+					TeamDto tdto = (TeamDto)request.getAttribute("teamDto");
+					MemberDto mdto = (MemberDto)request.getAttribute("memberDto");
+				%>
 				<%
 				String key = StringUtil.nullToValue(request.getParameter("key"), "");
 				String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
@@ -74,9 +79,10 @@
 							<table>
 								<colgroup>
 									<col width="8%">
-									<col width="15%">
+									<col width="20%">
 									<col width="9%">
 									<col width="20%">
+									<col width="10%">
 									<col width="10%">
 								</colgroup>
 								<thead class="table-secondary">
@@ -86,6 +92,7 @@
 										<th>지역</th>
 										<th>팀 생성일</th>
 										<th>감독</th>
+										<th>모집여부<th>
 									</tr>
 								</thead>
 								<tbody>
@@ -96,10 +103,12 @@
 									<tr>
 										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
 										
-										<td><a href="#none"
+										<td><a href="${pageContext.request.contextPath}/team/view"
 											onclick="goView('<%=tempDto.getTeam_key()%>')"><%=tempDto.getTeam_name()%></a></td>
 										<td><%=tempDto.getTeam_city()%></td>
 										<td><%=tempDto.getTeam_fdate()%></td>
+										<td>감독이름</td>
+										<td><%if(tempDto.getTeam_recruit_yn().equals("1")){%> 모집중<%}else{%>모집종료<%} %></td>
 									</tr>
 									<%}%>
 								</tbody>
@@ -221,7 +230,7 @@ function goSearch(){
 		frm = document.myform;
 		frm.mercenary_key.value = id;
 		frm.method = "get";
-		frm.action = "${pageContext.request.contextPath}/mercenary/view";
+		frm.action = "${pageContext.request.contextPath}/team/view";
 		frm.submit();
 	}
 	

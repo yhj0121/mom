@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.common.FileUploadUtil;
+import com.mom.momhome.member.MemberDto;
 import com.mom.momhome.membership.MembershipDto;
 
 @Controller
@@ -34,7 +35,7 @@ public class TeamController {
 	
 	//팀 조회 
 	@RequestMapping(value = "/team/list", method = RequestMethod.GET)
-	String team_List(Model model, TeamDto dto)
+	String team_List(Model model, TeamDto dto, MemberDto mdto)
 	{
 		System.out.println("선택: " + dto.getKey());
 		System.out.println("선택: " + dto.getKeyword());
@@ -42,11 +43,12 @@ public class TeamController {
 		dto.setStart(dto.getPg()*10);
 			
 		List<TeamDto> list = teamService.getTeamList(dto);
-			
+
 		for(TeamDto teamdto: list)
 			System.out.println(teamdto.getTeam_name());
-			
+		
 		model.addAttribute("getTeamList",list);
+		
 		model.addAttribute("totalCnt",teamService.getTeamTotal(dto));
 		return "team/team_list"; 
 	}

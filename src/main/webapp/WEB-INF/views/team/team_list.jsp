@@ -246,8 +246,7 @@ table td {
 function goSearch(){
 	   let frm = document.myform;
 	   frm.pg.value=0; 
-	   frm.action = "<%=request.getContextPath()%>
-	/team/list";
+	   frm.action = "<%=request.getContextPath()%>/team/list";
 		frm.method = "get";
 		frm.submit();
 		consol.log(frm.pg.value);

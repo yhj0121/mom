@@ -13,6 +13,12 @@
 	<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
 	
 	<title>Insert title here</title>
+	
+<style>
+	th, td {
+  		text-align: center;
+	}
+</style>
 </head>
 <body class="is-preload">
 
@@ -51,22 +57,20 @@
 			<input type="hidden" name="team_key" id="team_key" value="1"/>
 			<input type="hidden" name="team_side" id="team_side" value="1"/> 
 	          <section>
-				<h1>라인업</h1>
-				<div class="table-wrapper">
-					<table class="alt">
+				<div class="table-wrapper"> 
+					<table class="alt" style="width:40%; margin-left:auto; margin-right:auto;">
 						<colgroup>
-							<col width="5%">
 							<col width="10%">
-							<col width="*">
+							<col width="15%">
+							<col width="*">      
 							<col width="30%">
 						</colgroup>
 						<thead>
 							<tr>
-								<th>번호</th>
-								<th>포지션</th>
-								<th>아이디</th>
-								<th>이름</th>
-								
+								<th style="text-align:center;">번호</th>
+								<th style="text-align:center;">포지션</th>
+								<th style="text-align:center;">아이디</th>
+								<th style="text-align:center;">이름</th>
 							</tr>
 						</thead>
 						<tbody>

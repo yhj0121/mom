@@ -14,6 +14,13 @@
 	<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
 	
 	<title>Insert title here</title>
+	
+<style>
+	th, td {
+ 		text-align: center;
+	}
+	
+</style>
 </head>
 <body class="is-preload">
 
@@ -44,21 +51,20 @@
 				
       	<form name="myform"> 	
           <section>
-			<h1>라인업 수정</h1>
 			<div class="table-wrapper">
-				<table id="tb" class="alt">
-					<colgroup>
-						<col width="5%">
-						<col width="10%">
-						<col width="*">
-						<col width="30%">
-					</colgroup>
+				<table class="alt" style="width:40%; margin-left:auto; margin-right:auto;">
+						<colgroup>
+							<col width="10%">
+							<col width="18%">
+							<col width="*">      
+							<col width="27%">
+						</colgroup>
 					<thead>
 						<tr>
-							<th>번호</th>
-							<th>포지션</th>
-							<th>아이디</th>
-							<th>이름</th>
+							<th style="text-align:center;">번호</th>
+							<th style="text-align:center;">포지션</th>
+							<th style="text-align:center;">아이디</th>
+							<th style="text-align:center;">이름</th>
 							
 						</tr>
 					</thead>

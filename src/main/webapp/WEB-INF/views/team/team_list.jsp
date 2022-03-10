@@ -35,6 +35,12 @@ table td {
 	padding: .4rem .75em;
 }
 
+@media(max-width: 1280px) {
+	#sidebar {
+	display: none;
+	}
+}
+
 </style>
 </head>
 <body class="is-preload">

@@ -13,7 +13,16 @@ public class GameDto extends BaseDto {
 	private String team_name="";
 	public String user_name="";
 	public String user_key="";
+	public String team_city = "";
+
+
 	
+	public String getTeam_city() {
+		return team_city;
+	}
+	public void setTeam_city(String team_city) {
+		this.team_city = team_city;
+	}
 	public String getUser_key() {
 		return user_key;
 	}

@@ -2,8 +2,6 @@ package com.mom.momhome.game;
 
 import java.util.List;
 
-
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -73,6 +71,14 @@ public class GameServiceImp implements GameService {
 	public List<GameJoinDto> getListJoin(GameJoinDto dto) {
 		return gamejoindao.getListJoin(dto);
 	}
+
+	@Override
+	public String getCityList(String team_key) {
+		// TODO Auto-generated method stub
+		return dao.getCityList(team_key);
+	}
+
+
 
 
 }

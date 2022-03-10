@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mom.momhome.common.BaseDto;
+
 @Repository("gameDao")
 public class GameDaoImp implements GameDao {
 
@@ -48,6 +50,14 @@ public class GameDaoImp implements GameDao {
 			sm.delete("game_delete",game_key);
 		
 	}
+
+	@Override
+	public String getCityList(String team_key) {
+		// TODO Auto-generated method stub
+		return sm.selectOne("game_cityList", team_key);
+	}
+
+	
 
 
 

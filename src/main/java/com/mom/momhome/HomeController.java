@@ -14,9 +14,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.mom.momhome.cscenter.CSCenterDto;
 import com.mom.momhome.game.GameDto;
-import com.mom.momhome.main.*;
+import com.mom.momhome.main.MainService;
 import com.mom.momhome.mercenary.MercenaryDto;
+import com.mom.momhome.team.TeamDto;
 
 /**
  * Handles requests for the application home page.
@@ -33,7 +35,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model,  MercenaryDto mdto, GameDto gdto ) {
+	public String home(Locale locale, Model model,  MercenaryDto mdto, GameDto gdto, TeamDto tdto, CSCenterDto cdto ) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
@@ -47,6 +49,14 @@ public class HomeController {
 		//메인 페이지에 게임리스트 5개 뿌리기 
 		List<GameDto> gamelist = mainService.getGameList(gdto);
 		model.addAttribute("gamelist",gamelist);
+		
+		//메인 페이지에 팀 리스트 5개 뿌리기
+		List<TeamDto> teamlist = mainService.getTeamList(tdto);
+		model.addAttribute("teamlist",teamlist);
+		
+		//메인 페이지에 고객센터 리스트 5개 뿌리기
+		List<CSCenterDto> cscenterlist = mainService.getCScenterList(cdto);
+		model.addAttribute("cscenterlist",cscenterlist);
 		
 		return "home";
 	}

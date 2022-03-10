@@ -5,6 +5,8 @@
 <%@page import="com.mom.momhome.HomeController"%>
 <%@page import="com.mom.momhome.mercenary.*"%>
 <%@page import="com.mom.momhome.game.*"%>
+<%@page import="com.mom.momhome.team.*"%>
+<%@page import="com.mom.momhome.cscenter.*"%>
 <%
 request.setAttribute("commonURL", request.getContextPath());
 %>
@@ -106,19 +108,31 @@ section {
 					<section class="col-6 col-12-medium" style="flex-grow: 1;">
 						<h2>TEAM</h2>
 						<ul class="posts">
+						<%
+							List<TeamDto> teamlist = (List<TeamDto>) request.getAttribute("teamlist");
+							if (teamlist != null) {
+								for (TeamDto tempDto : teamlist) {
+							%>
 							<li>
 								<article>
 									<header>
 										<h3>
-											<a href="single.html">Lorem ipsum fermentum ut nisl vitae</a>
+											<a href="#none"
+												onclick="goMercenaryView('<%=tempDto.getTeam_key()%>')"><%=tempDto.getTeam_name()%></a>
 										</h3>
-										<time class="published" datetime="2015-10-20">October
-											20, 2015</time>
+										<time class="published"><%=tempDto.getTeam_city()%></time>
 									</header>
 									<a href="single.html" class="image"><img
 										src="resources/images/icon_team.png" alt="팀 아이콘" /></a>
 								</article>
 							</li>
+							<% }	} else { %>
+							<li>
+								<article style="height: 100%;">
+									<h3>아직 게시글이 없습니다.</h3>
+								</article>
+							</li>
+							<% } %>
 						</ul>
 					</section>
 
@@ -177,11 +191,10 @@ section {
 									</header>
 									<a href="#none"
 										onclick="goMercenaryView('<%=tempDto.getMercenary_key()%>')"
-										class="image"><img
-										src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
+										class="image"><img src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
 								</article>
 							</li>
-							<% }	} else { %>
+							<% }} else { %>
 							<li style="text-align: center;">
 								<h3 style=" margin: 100px 0;">아직 게시글이 없습니다.</h3>
 								<button  class="button small ">글 쓰러 가기</button>
@@ -193,19 +206,31 @@ section {
 					<section class="col-6 col-12-medium" style="flex-grow: 1;">
 						<h2>CUSTOMER SERVICE</h2>
 						<ul class="posts">
+						
+						<%
+							List<CSCenterDto> cscenterlist = (List<CSCenterDto>) request.getAttribute("cscenterlist");
+							if (cscenterlist != null) {
+								for (CSCenterDto tempDto : cscenterlist) {
+							%>
 							<li>
 								<article>
 									<header>
 										<h3>
-											<a href="single.html">Lorem ipsum fermentum ut nisl vitae</a>
+											<a href="#none"
+												onclick="goMercenaryView('<%=tempDto.getCscenter_key()%>')"><%=tempDto.getCscenter_title()%></a>
 										</h3>
-										<time class="published" datetime="2015-10-20">October
-											20, 2015</time>
+										<time class="published"><%=tempDto.getCscenter_date()%></time>
 									</header>
 									<a href="single.html" class="image"><img
 										src="resources/images/icon_customerservice.png" alt="고객센터 아이콘" /></a>
 								</article>
 							</li>
+							<% }	} else { %>
+							<li style="text-align: center;">
+								<h3 style=" margin: 100px 0;">아직 게시글이 없습니다.</h3>
+								<button  class="button small ">글 쓰러 가기</button>
+							</li>
+							<% } %>
 						</ul>
 					</section>
 

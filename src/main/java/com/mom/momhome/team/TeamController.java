@@ -60,6 +60,12 @@ public class TeamController {
 		return "team/team_write";
 	}
 	
+	//팀 상세보기 화면 연결
+		@RequestMapping("/team/view")
+		String team_view() {
+			return "team/team_view";
+		}
+	
 
 	//지역 정보 리스트 (팀생성 화면에서 지역 선택 보여주기)
 	@RequestMapping("/team/selectCity")

@@ -1,9 +1,12 @@
 package com.mom.momhome.team;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.member.MemberDto;
+import com.mom.momhome.membership.MembershipDto;
 
 public class TeamDto extends BaseDto{
 
+	
 	private String team_key = "";
 	private String team_name = ""; 
 	private String team_fdate = ""; 
@@ -16,10 +19,17 @@ public class TeamDto extends BaseDto{
 	private String team_recruit_yn = "1"; //모집여부 상태 표시 , 1 yes, 2 no
 	private String user_key = ""; //user_key 추가 및 getter, setter 추가 *수정함*
 	String membership_role ="";
+	String user_name = "";
 	
 
 	
-	public String getMembership_role() {
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+	public String getMembership_role(MembershipDto mdto) {
 		return membership_role;
 	}
 	public void setMembership_role(String membership_role) {

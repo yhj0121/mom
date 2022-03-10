@@ -32,7 +32,7 @@
 			<value>root</value>
 		</property>
 		<property name="password">
-			<value>asdfzxcv12!</value>
+			<value>1234</value>
 		</property>
 	</bean>
 

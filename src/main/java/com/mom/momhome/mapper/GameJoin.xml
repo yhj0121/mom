@@ -7,7 +7,7 @@
 		(game_key, team_key, result_proc,matching_date)
 		values
 		(#{game_key}, #{team_key}, #{result_proc},now())
-	</insert>
+	    </insert>
 	
 		<select id="GameJoin_getList" parameterType="GameJoinDto"	resultType="GameJoinDto">
  		select 
@@ -23,7 +23,6 @@
  		select
 			A.matchingjoin_key
 			,A.game_key
-			,A.user_key
 			,A.result_proc
 			,A.matching_date
 			,@rownum := @rownum+1 AS rnum

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.game.GameDto;
 import com.mom.momhome.membership.MembershipDao;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
@@ -72,6 +73,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void delete(MemberDto dto) {
 		memberDao.delete( dto );
+	}
+
+	@Override
+	public List<GameDto> getGameList(GameDto dto) {
+		return memberDao.getGameList(dto);
+	}
+
+	@Override
+	public int getGameTotal(GameDto dto) {
+		return memberDao.getGameTotal(dto);
 	}
 
 }

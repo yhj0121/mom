@@ -26,11 +26,17 @@
 		<%
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
 		%>
-			      
+      	<form name="myform"> 	
           <section>
 			<h1>라인업 수정</h1>
 			<div class="table-wrapper">
 				<table id="tb" class="alt">
+					<colgroup>
+						<col width="5%">
+						<col width="10%">
+						<col width="*">
+						<col width="30%">
+					</colgroup>
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -49,7 +55,7 @@
 						<tr>
 							<td><%=curRowNum+1%></td>
 							<td>
-								<select id="positionList" name="positionList">
+								<select id="positionList<%=curRowNum%>" name="positionList">
 									<option id="positionList_opt">원하는 포지션을 선택해주세요.</option>
 								</select>
 							</td>
@@ -79,7 +85,7 @@
 						<tr>
 							<td>후보</td>
 							<td>
-								<select id="positionList" name="positionList">
+								<select id="positionList<%=curRowNum%>" name="positionList">
 									<option id="positionList_opt">원하는 포지션을 선택해주세요.</option>
 								</select>
 							</td>
@@ -99,16 +105,17 @@
 				</table>
 			</div>
 			
-<!-- 			<div class="container mt-3" style="text-align:right;"> -->
-<!--             	<button  type="button" class="btn btn-secondary" onclick="test()">테스트</a> -->
-<!--           	</div> -->
-          	
 			<div class="container mt-3" style="text-align:right;">
-            	<a href="<%=request.getContextPath()%>/lineup/modify" class="btn btn-secondary">저장</a>
+            	<button  type="button" class="btn btn-secondary" onclick="saveLineup()">저장</button>
           	</div>
+          	
+<!-- 			<div class="container mt-3" style="text-align:right;"> -->
+<%--             	<a href="<%=request.getContextPath()%>/lineup/modify" class="btn btn-secondary">저장</a> --%>
+<!--           	</div> -->
           
+           
 		</section>
-          
+       </form>
 	</div>
 </body>
 </html>
@@ -239,23 +246,103 @@ function loadLineup(){
 	<%
 	for(int i =0; i <lineups.size(); i++)
 	{
-		int idx = Integer.valueOf(lineups.get(i).getLineup_index());
-		String id = lineups.get(i).getPlayerDto().getUser_id();
-		if(id == "")
-			id = "원하는 선수를 선택해주세요.";
-		String name = lineups.get(i).getPlayerDto().getUser_name();
-		String position = lineups.get(i).getCode_key();
-		if(position == "")
-			position = "원하는 포지션을 선택해주세요.";
+		LineupDto lineup = lineups.get(i);
+		int idx = Integer.valueOf(lineup.getLineup_index());
+		String name = lineup.getPlayerDto().getUser_name();
 	%> 
-<%--  		console.log("<%=position%>"); --%>
-		$("select[name=positionList]").eq(<%=idx%>).val("<%=position%>").prop("selected", true);
-		$("select[name=playerList]").eq(<%=idx%>).val("<%=id%>").prop("selected", true);
+	
+		position = "<%=lineup.getCode_key()%>";
+		if(position == "")
+			$("#positionList<%=i%> option:eq(0)").attr("selected", "selected");
+		else
+			$("#positionList<%=i%>").val(position).attr("selected", "selected");
+
+		playerId = "<%=lineup.getPlayerDto().getUser_id()%>";
+		mercenary_state = "<%=lineup.getMercenary_state()%>";	//1.팀원 2.용병 3.빈칸
+		if(mercenary_state == "1") 
+			$("#<%=i%>").val(playerId).attr("selected", "selected");
+		else if(mercenary_state == "2")
+			$("#<%=i%>").val("용병").attr("selected", "selected");
+		else
+			$("#<%=i%> option:eq(0)").attr("selected", "selected");	
+			
+<%-- 		$("select[name=playerList]").eq(<%=idx%>).val("<%=id%>").prop("selected", true); --%>
 		$("[name=playerName]").eq(<%=idx%>).text("<%=name%>");
+		
 	<%
 	}
 	%>
 }
+
+function saveLineup()
+{
+	//LINEUP_KEY 오토인크리먼트라 필요없음.	
+// 	USER_KEY 	// playerSelectList에서 선택된 아이디 값 으로 playerDictionary에서 LineupPlayerDto.user_key 가져오기
+// 	TEAM_KEY	// request.getAttributre 한것 있음.
+// 	GAME_KEY	// request.getAttributre 한것 있음.
+// 	CODE_KEY	//positionSelectList에서 선택된 값들 가져오기.
+// 	TEAM_SIDE	// request.getAttributre 한것 있음.
+// 	MERCENARY_STATE	// 직접 넣어줄것	
+
+	let newLineupList = [];
+	
+ 	let i = 0;
+ 	for(playerSelect of playerSelectList)
+ 	{
+ 		let lineup = {};
+ 		
+ 		let id = playerSelect.value;
+ 		lineup.user_key = "";
+ 		lineup.mercenary_state = "3"; 	//1.팀원 2.용병 3.빈칸
+ 		
+		if(playerDictionary.hasOwnProperty(id))
+		{
+			lineup.user_key = playerDictionary[id].user_key;
+			lineup.mercenary_state = "1";	
+		}
+		
+		if(playerSelect.value == "용병")
+			lineup.mercenary_state = "2";	
+		
+		lineup.code_key = "";
+ 		//console.log( i + ".positionSelectList[i].selectedIndex : " + positionSelectList[i].selectedIndex);
+ 		if(positionSelectList[i].selectedIndex > 0)
+ 			lineup.code_key = positionSelectList[i].value;
+ 		
+ 		lineup.team_key = team_key;
+ 		lineup.game_key = game_key; 		
+ 		lineup.team_side = team_side;
+ 		lineup.lineup_index = i;
+ 		
+		newLineupList.push(lineup);
+ 		i++;
+ 	}
+	
+	console.table(newLineupList);
+	//console.log(JSON.stringify(newLineupList));
+	$.ajax({
+		url:"${commonURL}/lineup/modify/save",
+		data: {"newLineupList": JSON.stringify(newLineupList)},
+		type:"POST",
+		dataType:"json",
+		success : function(data){
+			console.log("ajax. send success : " + data);
+		},
+		error : function(request, status, error){ 
+			console.log("code : " + request.status + "\n" + "message : " + request.responseText + "\n" + "error : " + error); 
+		}
+
+	})
+	.done((result)=>{
+		console.log(result);
+		alert("성공적으로 저장되었습니다.");
+		location.href="${commonURL}/lineup/info";
+	})
+	.fail((error)=>{
+		console.log(error);
+	})
+}
+
 
 function goPlayerInfo(id)
 {
@@ -266,13 +353,4 @@ function goPlayerInfo(id)
 	frm.submit();
 }
 
-function goSave()
-{
-	//저장하면 info페이지로 이동
-	let frm = document.myform;
-	frm.id.value=id;
-	frm.method="get";
-    frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
-	frm.submit();
-}
 </script>

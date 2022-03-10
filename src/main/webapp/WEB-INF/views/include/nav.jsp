@@ -4,8 +4,6 @@
 <%@page import="com.mom.momhome.common.*"%>
 <%
 request.setAttribute("commonURL", request.getContextPath()); //commonURL을 변수로 저장 
-MemberDto dto = (MemberDto) request.getAttribute("MemberDto");
-
 String userid = StringUtil.nullToValue(session.getAttribute("userid"), "");
 String username = StringUtil.nullToValue(session.getAttribute("username"), "");
 String email = StringUtil.nullToValue(session.getAttribute("email"), "");

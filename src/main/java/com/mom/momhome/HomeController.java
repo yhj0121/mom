@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.mom.momhome.game.GameDto;
-import com.mom.momhome.main.MainService;
+import com.mom.momhome.main.*;
 import com.mom.momhome.mercenary.MercenaryDto;
 
 /**
@@ -35,18 +35,16 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,  MercenaryDto mdto, GameDto gdto ) {
 		logger.info("Welcome home! The client locale is {}.", locale);
-		
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
 		String formattedDate = dateFormat.format(date);
-		
 		model.addAttribute("serverTime", formattedDate );
 		
-
+		//메인 페이지에 용병리스트 5개 뿌리기 
 		List<MercenaryDto> mercenarylist = mainService.getMercenaryList(mdto);
 		model.addAttribute("mercenarylist",mercenarylist);
 		
+		//메인 페이지에 게임리스트 5개 뿌리기 
 		List<GameDto> gamelist = mainService.getGameList(gdto);
 		model.addAttribute("gamelist",gamelist);
 		

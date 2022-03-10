@@ -58,8 +58,8 @@ public class GameServiceImp implements GameService {
 	}
 
 	@Override
-	public void insertJoin(GameJoinDto dto) {
-		gamejoindao.insertJoin(dto);
+	public void gameinsertJoin(GameJoinDto dto) {
+		gamejoindao.gameinsertJoin(dto);
 		
 	}
 

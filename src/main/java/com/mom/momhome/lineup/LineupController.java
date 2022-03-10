@@ -1,6 +1,8 @@
 package com.mom.momhome.lineup;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -42,12 +45,12 @@ public class LineupController {
 		return "lineup/lineup_info";
 	}
 	
-	@RequestMapping(value="/lineup/insert", method = RequestMethod.GET)
-	public void insert(LineupDto dto)
-	{
-		System.out.println("LineupController.insert");
-		service.insert(dto);
-	}
+//	@RequestMapping(value="/lineup/insert", method = RequestMethod.GET)
+//	public void insert(LineupDto dto)
+//	{
+//		System.out.println("LineupController.insert");
+//		service.insert(dto);
+//	}
 	
 	@RequestMapping(value="/lineup/insert_lineupDummy", method = RequestMethod.GET)
 	public void insert_lineupDummy()
@@ -63,7 +66,7 @@ public class LineupController {
 			tempDto.setCode_key("GK");
 			tempDto.setTeam_side("1");
 			
-			service.insert(tempDto);
+//			service.insert(tempDto);
 		}
 	}
 	
@@ -165,13 +168,19 @@ public class LineupController {
         
         for(LineupDto tempDto : list)
         {
-            tempDto.getPlayerDto().setUser_key(tempDto.getUser_key());
-            tempDto.setPlayerDto(service.getPlayer(tempDto.getUser_key())); 
-            
-//            System.out.println("LineupKey: " + tempDto.getLineup_key());
+//        	System.out.println("LineupKey: " + tempDto.getLineup_key());
 //            System.out.println("UserKey: " + tempDto.getUser_key());
 //            System.out.println("UserID: " + tempDto.getPlayerDto().getUser_id());
-            //System.out.println("Lineup_index: " + tempDto.getLineup_index());
+//            System.out.println("Lineup_index: " + tempDto.getLineup_index());
+//            System.out.println("code_key: " + tempDto.getCode_key());
+//            System.out.println("mercenary_state: " + tempDto.getMercenary_state());
+            
+        	String user_key = tempDto.getUser_key();
+        	if(user_key != "")
+        	{
+        		tempDto.getPlayerDto().setUser_key(user_key);
+        		tempDto.setPlayerDto(service.getPlayer(user_key));
+        	}
         }
         
 		model.addAttribute("game_key", game_key);
@@ -189,6 +198,17 @@ public class LineupController {
 		List<LineupPlayerDto> list = service.getPlayerList(team_key);
 		//model.addAttribute("lineupPlayerList", list);
 		return list; 
+	}
+	
+	@RequestMapping(value="/lineup/modify/save")
+	@ResponseBody
+	public HashMap<String, String> modify_saveLineup(@RequestParam Map<String, Object> jsonDatas) 
+	{
+		service.saveLineups(jsonDatas);
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
 	}
 }
 

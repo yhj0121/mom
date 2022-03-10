@@ -3,8 +3,6 @@
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
-<mapper namespace="CSCenter">
-	
 	<!-- 
 		#{}은 한 번 쿼리한 것을 캐시해두기 때문에 쿼리를 날릴 때마다 DB가 컴파일 하지 않아도 된다.
 		${}은 한 번 쿼리 했어도 캐싱하지 않기 때문에 쿼리를 날릴 때마다 매 번 DB가 컴파일 해야 한다.
@@ -29,3 +27,6 @@ SELECT cscenter_key,
 	
 		
 </mapper>
+
+
+

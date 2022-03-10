@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service("cscenterService") // Controller에서 여기에 접근하기 위한 키
 public class CSCenterServiceImpl implements CSCenterService {
-	@Resource(name="cscenterDao") // CSCenterDao
+	@Resource(name="csCenterDao") // CSCenterDao
 	CSCenterDao cscenterDao;
 	
 	@Override

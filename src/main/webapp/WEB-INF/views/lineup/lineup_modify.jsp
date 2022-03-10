@@ -3,7 +3,7 @@
     pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.mom.momhome.lineup.*" %>
-<%@page import="com.mom.momhome.common.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +26,22 @@
 		<%
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
 		%>
+		
+		<article class="post">
+				<header>
+					<div class="title">
+						<h2>
+							<a href="#">라인업 수정</a>
+						</h2>
+						<p>감독 권한으로 출전 라인업을 수정/저장 하는 페이지</p>
+					</div>
+					<div class="meta">
+						<a href="#" class="logo"><img
+							src="${pageContext.request.contextPath}/resources/images/lineup_icon.png"
+							alt="" /></a>
+					</div>
+				</header>
+				
       	<form name="myform"> 	
           <section>
 			<h1>라인업 수정</h1>
@@ -116,6 +132,7 @@
            
 		</section>
        </form>
+       </article>
 	</div>
 </body>
 </html>
@@ -137,11 +154,14 @@ let playerSelectList;
 let playerDictionary = {};
 
 $(()=>{
-	positionSelectListInit();
-	playerDictionaryInit(loadLineup);
+	positionSelectListInit(()=>{
+		playerDictionaryInit(()=>{
+			loadLineup();
+		});		
+	});
 })
 
-function positionSelectListInit(){
+function positionSelectListInit(callback){
 	
 // 	console.log("getPositionList()");
 	
@@ -164,6 +184,8 @@ function positionSelectListInit(){
 	.fail( (error) => {
 		alert("정보 가져오기 실패");
 	})
+	
+	callback();
 }
 
 function playerDictionaryInit(callback)

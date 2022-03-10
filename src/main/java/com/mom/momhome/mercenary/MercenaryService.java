@@ -12,10 +12,11 @@ public interface MercenaryService {
 	MercenaryDto getView(String mercenary_key);
 	int getTotal(MercenaryDto dto);
 	int checkDuplicate(MercenaryDto dto);
-	List<MercenaryDto> getGameList(MercenaryDto dto);
+	List<MercenaryDto> getGameList(String user_key);
 	
 	void insertJoin(MercenaryjoinDto dto);
 	List<MercenaryjoinDto> getApplicantsList(MercenaryjoinDto dto);
-	void update(MercenaryjoinDto dto);
+	void updateJoin(MercenaryjoinDto dto);
+	int getMsCount(String game_key);
 	
 }

@@ -47,8 +47,13 @@ public class MercenaryDaoImpl implements MercenaryDao {
 	}
 
 	@Override
-	public List<MercenaryDto> getGameList(MercenaryDto dto) {
-		return sm.selectList("Mercenary_getGameList", dto);
+	public List<MercenaryDto> getGameList(String user_key) {
+		return sm.selectList("Mercenary_getGameList", user_key);
+	}
+
+	@Override
+	public int getMsCount(String game_key) {
+		return sm.selectOne("Mercenary_getMsCount",game_key);
 	}
 
 

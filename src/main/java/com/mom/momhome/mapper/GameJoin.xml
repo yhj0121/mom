@@ -33,7 +33,7 @@
 
 	</select>
 	
-	<update id="Mercenaryjoin_update" parameterType="MercenaryjoinDto">
+	<!-- <update id="Mercenaryjoin_update" parameterType="MercenaryjoinDto">
 		<if test='result_proc == 2'>
 			update matchingjoin set result_proc = '2' where result_proc=#{result_proc}	
 		</if>
@@ -41,5 +41,5 @@
 			update matchingjoin set result_proc = '3' where result_proc=#{result_proc}	
 		</if>
 		
-	</update>
+	</update> -->
 </mapper>

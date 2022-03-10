@@ -6,8 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mom.momhome.mercenary.MercenaryDto;
-
 @Repository("mercenaryjoinDao")
 public class MercenaryDaoImpl implements MercenaryjoinDao{
 	@Autowired
@@ -24,7 +22,7 @@ public class MercenaryDaoImpl implements MercenaryjoinDao{
 	}
 
 	@Override
-	public void update(MercenaryjoinDto dto) {
+	public void updateJoin(MercenaryjoinDto dto) {
 		sm.update("Mercenaryjoin_update", dto);
 	}
 

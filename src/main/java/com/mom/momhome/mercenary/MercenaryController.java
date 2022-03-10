@@ -1,6 +1,5 @@
 package com.mom.momhome.mercenary;
 
-import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.mercenaryjoin.MercenaryjoinDto;
 
 @Controller
@@ -125,22 +123,30 @@ public class MercenaryController {
 	@ResponseBody
 	String mercenary_proc(MercenaryjoinDto dto)
 	{
-		service.update(dto);
+		service.updateJoin(dto);
 		return "/mercenary/view";
 	}
 	
 	//게임 정보 가져오기
 	@RequestMapping("/mercenary/selectGame")
 	@ResponseBody
-	List<MercenaryDto> getGameList(MercenaryDto dto)
+	List<MercenaryDto> getGameList(String user_key)
 	{
 		System.out.println("여기로 들어왔니?");
-		List<MercenaryDto> gameList = service.getGameList(dto);
+		List<MercenaryDto> gameList = service.getGameList(user_key);
 		
 		 for(MercenaryDto temp: gameList)
 			 System.out.println(temp.getGame_key());
 		return gameList;
 	}
 	
+	//라인업 테이블에서 용병수 가져오기
+	@RequestMapping(value="/mercenary/count")
+	@ResponseBody
+	Integer mercenary_count(String game_key, Model model)
+	{
+		int count = service.getMsCount(game_key);
+		return count;
+	}
 
 }

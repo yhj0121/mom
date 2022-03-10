@@ -53,8 +53,8 @@ public class MercenaryServiceImpl implements MercenaryService {
 	}
 
 	@Override
-	public List<MercenaryDto> getGameList(MercenaryDto dto) {
-		return mercenaryDao.getGameList(dto);
+	public List<MercenaryDto> getGameList(String user_key) {
+		return mercenaryDao.getGameList(user_key);
 	}
 
 	
@@ -71,8 +71,13 @@ public class MercenaryServiceImpl implements MercenaryService {
 	}
 
 	@Override
-	public void update(MercenaryjoinDto dto) {
-		mercenaryjoinDao.update(dto);
+	public void updateJoin(MercenaryjoinDto dto) {
+		mercenaryjoinDao.updateJoin(dto);
+	}
+
+	@Override
+	public int getMsCount(String game_key) {
+		return mercenaryDao.getMsCount(game_key);
 	}
 
 	

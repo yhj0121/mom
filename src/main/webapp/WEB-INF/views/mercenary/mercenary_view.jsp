@@ -49,7 +49,7 @@ margin:auto;
 						<form name="myform">
 							<input type="hidden" name="pg"      value="<%=pg%>" />
 					     	<input type="hidden" name="key"     value="<%=key%>" />
-					        <input type="hidden" name="keyword" value="<%=keyword%>"/ >
+					        <input type="hidden" name="keyword" value="<%=keyword%>"/>
 					        <%-- <input type="text" name="test" value="<%=user_key%>" > --%>
 					        <input type="hidden" name="user_key" value="${userkey}" />
 							<input type="hidden" name="game_key" value="<%=mdto.getGame_key()%>"/>
@@ -58,7 +58,6 @@ margin:auto;
 							<input type="hidden" name="mercenary_proc"  id="mercenary_proc" value="" />
 							<input type="hidden" name="mercenaryjoin_key"  id="mercenaryjoin_key" value="" />
 							<input type="hidden" name="membership_role" value="1" /> 
-					   
 					      	
 							<div class="row gtr-uniform">
 								<div class="col-12">
@@ -123,6 +122,28 @@ margin:auto;
 <script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 <script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
+$(document).ready(function(){
+	getCount();
+})
+var count;
+function getCount()
+{
+   	var frmData = document.myform; 
+	var queryString = $("form[name=myform]").serialize();
+	$.ajax({
+		url:"<%=request.getContextPath()%>/mercenary/count",
+		data:queryString,
+		processData:false,
+		type:"POST"
+	})
+	.done((result)=>{
+		console.log(result);
+		count = result;
+	})
+	.fail((error)=>{
+		console.log(error);
+	})
+}
 
 function goList()
 {
@@ -211,24 +232,29 @@ function goViewApplicants()
 }
 function goApprove(mercenaryjoin_key)
 {
-	$("#mercenaryjoin_key").val(mercenaryjoin_key);
-	$("#mercenary_proc").val("2");
-	var frmData = document.myform; 
-	var queryString = $("form[name=myform]").serialize();
-	$.ajax({
-		url:"<%=request.getContextPath()%>/mercenary/proc",
-		data:queryString,
-		processData:false,
-		type:"POST"
-	})
-	.done((result)=>{
-		console.log(result);
-		alert("승인처리 완료되었습니다.");
-		goViewApplicants();
-	})
-	.fail((error)=>{
-		console.log(error);
-	})
+	if(count<=0){
+		alert("용병 자리가 다 찼습니다.")
+	}else{
+		$("#mercenaryjoin_key").val(mercenaryjoin_key);
+		$("#mercenary_proc").val("2");
+		var frmData = document.myform; 
+		var queryString = $("form[name=myform]").serialize();
+		$.ajax({
+			url:"<%=request.getContextPath()%>/mercenary/proc",
+			data:queryString,
+			processData:false,
+			type:"POST"
+		})
+		.done((result)=>{
+			console.log(result);
+			alert("승인처리 완료되었습니다.");
+			goViewApplicants();
+			count--;
+		})
+		.fail((error)=>{
+			console.log(error);
+		})
+	}
 }
 function goDecline(mercenaryjoin_key)
 {
@@ -246,6 +272,7 @@ function goDecline(mercenaryjoin_key)
 		console.log(result);
 		alert("거절처리 완료되었습니다.");
 		goViewApplicants();
+		count++;
 	})
 	.fail((error)=>{
 		console.log(error);

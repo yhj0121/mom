@@ -60,23 +60,28 @@
 	</select>
 	
 	<select id="getTeamList"  parameterType="TeamDto"  resultType="TeamDto">
-	 	select * from 
-	       (
-	          select
-	            A.team_name
-	            ,A.team_fdate
-	            ,A.team_fee
-	            ,A.team_city 
-	            ,A.team_intro
-	            ,A.team_emblem
-	            ,A.team_notice
-	            ,A.team_num
-	            ,A.team_recruit_yn
-	            ,(select user_name  from user where user_name ) as user_name
-	            ,@rownum := @rownum+1 AS rnum
-	            from team A, (select @rownum:=0) B
-	            
-	            
+		select
+   A.team_name
+   ,A.team_fdate
+   ,A.team_fee
+   ,A.team_city 
+   ,A.team_intro
+   ,A.team_emblem
+   ,A.team_notice
+   ,A.team_num
+   ,A.team_recruit_yn
+   , (
+   select
+   user_name
+   from user
+   where user_key IN(
+   select
+   user_key
+   from  membership where team_key=A.team_key AND membership_role = '1')
+   ) as user_name
+   ,@rownum := @rownum+1 AS rnum
+   from team A, (select @rownum:=0) B
+	         
 	         <if test='key!=null and keyword!=null'>
 	   
 	            <if test='key=="1"'>
@@ -103,10 +108,8 @@
 	            </if>
 	            
 	         </if> 
-	         
 	         order by team_name desc
-	      ) A
-	      limit #{start}, #{pageSize}    
+			limit #{start}, #{pageSize};  
 	</select>
 	
 	 <select id="getTeamTotal" parameterType="TeamDto" resultType="Integer">

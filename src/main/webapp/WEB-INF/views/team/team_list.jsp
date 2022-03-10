@@ -129,7 +129,7 @@ table td {
 											onclick="goView('<%=tempDto.getTeam_key()%>')"><%=tempDto.getTeam_name()%></a></td>
 										<td><%=tempDto.getTeam_city()%></td>
 										<td><%=tempDto.getTeam_fdate()%></td>
-										<td>감독이름</td>
+										<td><%=tempDto.getUser_name()%></td>
 										<td>
 											<%
 											if (tempDto.getTeam_recruit_yn().equals("1")) {

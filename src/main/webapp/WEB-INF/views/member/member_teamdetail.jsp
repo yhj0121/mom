@@ -3,6 +3,7 @@
 	pageEncoding="utf-8"%>
 <%@page import="java.util.List"%>
 <%@page import="com.mom.momhome.member.*"%>
+<%@page import="com.mom.momhome.team.*"%>
 <%@page import="com.mom.momhome.common.*"%>
 <html>
 <head>
@@ -33,6 +34,12 @@ table td {
 table td:not(.introduction) {
 	text-align: center;
 }
+
+a.link{
+	margin-left: 20px; 
+	font-size: .9rem;
+	color: rgb(46, 174, 173);
+}
 </style>
 </head>
 <body class="is-preload">
@@ -43,20 +50,75 @@ table td:not(.introduction) {
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
 
-
-
+		<%
+		String key = StringUtil.nullToValue(request.getParameter("key"), "");
+		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
+		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+		int totalCnt = (Integer) request.getAttribute("totalCnt");
+		%>
 		<!-- Main -->
 		<div id="main">
+		<form name="myform">
+			<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> 
+			<input type="hidden" name="team_key" id="team_key" value="" />
 			<!-- Post -->
 			<article class="post">
 				<header>
 					<div class="title">
-						<h2>팀 가입/탈퇴 신청내역</h2>
-						<p>우리 팀에 가입을 신청하거나 탈퇴를 신청한 회원 내역을 보여줍니다.</p>
+						<h2>팀 상세 내역</h2>
+						<p>감독에게는 우리 팀에 가입을 신청하거나 탈퇴를 신청한 회원 내역을 보여주고, 일반 회원에게는 나의 팀 내역을 보여줍니다.</p>
 					</div>
 				</header>
 
 				<section>
+				<h3>나의 팀</h3>
+					<div class="table-wrapper">
+						<table>
+							<%-- <colgroup>
+								<col width="5%" />
+								<col width="7%" />
+								<col width="5%" />
+								<col width="*" />
+								<col width="15%" />
+							</colgroup> --%>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>팀이름</th>
+									<th>지역</th>
+									<th>모집여부</th>
+									<th>나의 역할</th>
+									<th>팀 생성일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+								List<TeamDto> teamList = (List<TeamDto>) request.getAttribute("teamList");
+								if( !teamList.isEmpty()) {
+								for (TeamDto tempDto : teamList) {
+								%>
+								<tr>
+									<td><%=totalCnt - tempDto.getRnum() + 1%></td>
+									<td><a href="#none"
+											onclick="goView('<%=tempDto.getTeam_key()%>')"><%=tempDto.getTeam_name()%></a></td>
+									<td><%=tempDto.getTeam_city()%></td>
+									<td><%if(tempDto.getTeam_recruit_yn().equals("1")){ %>모집중<%} else {%>모집마감<%} %></td>
+									<td><%if(tempDto.getMembership_role().equals("1")){ %>감독<%} else {%>팀원<%} %></td>
+									<td><%=tempDto.getTeam_fdate()%></td>
+								</tr>
+								<%}} else { %>
+								<tr>
+									<td colspan="6"><div class="title" >아직 팀을 생성하지 않으셨네요. <a href="${pageContext.request.contextPath}/team/main" class="link"> >> 팀 생성하러 가기 << </a></div></td>
+								</tr>
+								<%} %>
+							</tbody>
+						</table>
+					</div>
+					<%
+					for (TeamDto tempDto : teamList) {
+					if( tempDto.getMembership_role().equals("1")) { %>
+					<hr />
+					
 					<h3>가입 신청내역</h3>
 					<div class="table-wrapper">
 						<table>
@@ -126,13 +188,14 @@ table td:not(.introduction) {
 							</tbody>
 						</table>
 					</div>
+					<%} }%>
 				</section>
 			</article>
+			</form>
 			<!-- Footer -->
 			<%@include file="../include/footer.jsp"%>
 		</div>
-
-	</div>
+</div>
 
 	<!-- Scripts -->
 	<script
@@ -146,110 +209,12 @@ table td:not(.introduction) {
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 	<script>
-	$(()=>{
-		getPositionList();
-		
-		$("#btnDuplicate").click(function(){
-			$.ajax({
-				url: "${ commonURL }/member/isDuplicate",
-				data:{ user_id: $("#userid").val()},
-				dataType: "json",
-				type: "POST"
-			})
-			.done( (data)=>{
-				console.log(data);
-				if( data.result == "true" ) {
-					alert("이미 사용중인 아이디입니다.");
-				} else {
-					alert("사용 가능한 아이디입니다.");
-					$("#idcheck").val("Y");
-					$("#userid").prop("readonly", true); //사용중인 아이디라고 판명되면 읽기전용으로 입력창이 막힘 
-				}
-			})
-			.fail( (error) => {
-				console.log(error);
-			})
-		});
-	});
-	
-	$("#goSignup").click(function(){
-		// input이 비어있는지 확인
-		if( $("#username").val() == "" ) {
-			alert("이름을 입력해주세요.");
-			 $("#username").focus();
-			 return;
-		} else if( $("#password").val() == "" ) {
-			alert("비밀번호를 입력해주세요.");
-			 $("#password").focus();
-			 return;
-		} else if( $("#userid").val() == "") {
-			alert("아이디를 입력해주세요.");
-			 $("#userid").focus();
-			 return;
-		} else if( $("#email").val() == "" ) {
-			alert("이메일을 입력해주세요.");
-			 $("#email").focus();
-			 return;
-		} else if( $("#address1").val() == "" ) {
-			alert("주소를 입력해주세요.");
-			 $("#address1").focus();
-			 return;
-		} else if( $("#phone").val() == "" ) {
-			alert("전화번호를 입력해주세요.");
-			 $("#phone").focus();
-			 return;
-		}
-		
-		//비밀번호 확인 
-		if( $("#password").val() != $("#checkPassword").val() ) {
-			alert("비밀번호가 일치하지 않습니다.");
-			 return;
-		}
-		
-		//회원가입 진행 
-		 var frmData = new FormData(document.myform);
-		$.ajax({
-			url: "${commonURL}/member/insert",
-			data: frmData,
-			contentType: false,
-			processData: false,
-			type: "POST"
-		})
-		.done( (result) => {
-			location.href="${ commonURL }/login"; //로그인 페이지로 이동 
-		})
-		.fail( (error) => {
-			alert("회원가입 실패, 다시 시도해주세요.");
-		});
-	});
-
-	//포지션 리스트 db에서 받아오기
-	function getPositionList(){
-		$.ajax({
-			url: "${commonURL}/member/selectPosition",
-			contentType: false,
-			processData: false,
-			type: "POST"
-		})
-		.done( (result) => {
-			var i=1;
-		
-		  result.forEach( (item)=>{
-		    	var data = "<option "+"value='"+item.position+"'>";
-		    	    data +=  item.position ;
-		    	    data += "</option>";
-		    	i++;
-		      	$("#opt1").after(data);
-		})
-		})
-		.fail( (error) => {
-			alert("정보 가져오기 실패");
-		})
-	}
-	
-	//리셋 버튼
-	function formReset(){
-		$("#myform")[0].reset();
+	function goView(id) {
+		frm = document.myform;
+		frm.team_key.value = id;
+		frm.method = "get";
+		frm.action = "${pageContext.request.contextPath}/team/view";
+		frm.submit();
 	}
 	</script>
 

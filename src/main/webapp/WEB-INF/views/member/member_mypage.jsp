@@ -76,9 +76,9 @@ textarea {
 							<article>
 								<header>
 									<h3>
-										<a href="${ commonURL }/member/teamdetail">팀 가입/탈퇴 신청 내역</a>
+										<a href="${ commonURL }/member/teamdetail">나의 팀</a>
 									</h3>
-									<p class="published">팀에 가입 신청을 한 내역을 확인합니다.</p>
+									<p class="published">내가 가입한 팀이나 생성한 팀에 관한 정보를 볼 수 있습니다.</p>
 								</header>
 								<a href="${ commonURL }/member/teamdetail" class="image"><img
 									src="${pageContext.request.contextPath}/resources/images/icon_list.png"

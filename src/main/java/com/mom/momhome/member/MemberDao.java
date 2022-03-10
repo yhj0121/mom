@@ -5,6 +5,7 @@ import java.util.List;
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.mercenary.MercenaryDto;
+import com.mom.momhome.team.TeamDto;
 
 public interface MemberDao {
 	//아이디 중복확인 
@@ -23,6 +24,9 @@ public interface MemberDao {
 	//게임 리스트 가져오기
 	List<GameDto> getGameList( GameDto dto );
 	int getGameTotal( GameDto dto );
+	//팀 리스트 가져오기
+	List<TeamDto> getTeamList ( TeamDto dto );
+	int getTeamTotal(TeamDto dto); //페이지네이션
 	//아이디 찾기
 	MemberDto findId(MemberDto dto);
 	//비밀번호 찾기 

@@ -11,6 +11,7 @@ import com.mom.momhome.game.GameDto;
 import com.mom.momhome.membership.MembershipDao;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
+import com.mom.momhome.team.TeamDto;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
@@ -83,6 +84,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int getGameTotal(GameDto dto) {
 		return memberDao.getGameTotal(dto);
+	}
+
+	@Override
+	public List<TeamDto> getTeamList(TeamDto dto) {
+		return memberDao.getTeamList(dto);
+	}
+
+	@Override
+	public int getTeamTotal(TeamDto dto) {
+		return memberDao.getTeamTotal(dto);
 	}
 
 }

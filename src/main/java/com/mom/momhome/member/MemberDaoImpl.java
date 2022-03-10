@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.mercenary.MercenaryDto;
+import com.mom.momhome.team.TeamDto;
 
 @Repository("memberDao")
 public class MemberDaoImpl implements MemberDao {
@@ -77,6 +78,16 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int getGameTotal(GameDto dto) {
 		return sm.selectOne("Member_gameGetTotal",dto);
+	}
+
+	@Override
+	public List<TeamDto> getTeamList(TeamDto dto) {
+		return sm.selectList("Member_teamList", dto);
+	}
+
+	@Override
+	public int getTeamTotal(TeamDto dto) {
+		return sm.selectOne("Member_teamGetTotal", dto);
 	}
 
 }

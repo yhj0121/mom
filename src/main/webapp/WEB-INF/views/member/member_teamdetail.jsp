@@ -74,13 +74,14 @@ a.link{
 				<h3>나의 팀</h3>
 					<div class="table-wrapper">
 						<table>
-							<%-- <colgroup>
-								<col width="5%" />
-								<col width="7%" />
-								<col width="5%" />
+							 <colgroup>
+								<col width="10%" />
 								<col width="*" />
-								<col width="15%" />
-							</colgroup> --%>
+								<col width="12%" />
+								<col width="12%" />
+								<col width="12%" />
+								<col width="17%" />
+							</colgroup> 
 							<thead>
 								<tr>
 									<th>번호</th>

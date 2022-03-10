@@ -1,9 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="UTF-8"%>
- <%@page import="java.util.List" %>   
- <%@page import="com.mom.momhome.game.*" %>
+<%@page import="java.util.List" %>   
+<%@page import="com.mom.momhome.game.*" %>
 <%@page import="com.mom.momhome.common.*" %>
+<%@page import="com.mom.momhome.gamejoin.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,15 +52,15 @@
 					<input type="hidden" name="pg"      value="<%=pg%>" >
 					<input type="hidden" name="key"     value="<%=key%>" >
 					<input type="hidden" name="keyword" value="<%=keyword%>" >
-					
-					<input type="hidden" name="team_key" id="team_key" value="${team_key}">
-				    <input type="hidden" name="user_key" value="${userkey}" >
+					<input type="hidden" name="membership_role" value="1" >			
+					<input type="hidden" name="team_key" id="team_key" value="1">
+				    <input type="hidden" name="user_key" value="${userkey}">
+				    <input type="hidden" name="matchingjoin_key" id="matchingjoin_key" value="">
 				    <input type="hidden" name="team_side" value="" >
 				    <input type="hidden" name="team_name" id="team_name" value="fc원주">
-					<input type="text" name="membership_role" value="<%=membership_role %>" readonly/> 
 			   	    <input type="hidden" name="result_proc"  id="result_proc" value="" />
-				   	<input type="hidden" name="game_key" id="game_key" value="<%=daoo.getGame_key()%>">
-					<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_fdate()%>" readonly /> 
+			      	<input type="text" name="game_key" id="game_key" value="<%=daoo.getGame_key()%>">
+					<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_fdate()%>"> 
 					      	
 							<div class="row gtr-uniform">
 								<div class="col-12">
@@ -83,11 +84,12 @@
 										<%if(team_key.equals(daoo.getTeam_key())) {%>
 										<li><input type="button" value="수정" onclick="goupdate()" /></li>
 										<li><input type="button" value="삭제" onclick="goDelete()" /></li>
+										<li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										
 										<%}%>
 										<%if(team_key.equals(daoo.getTeam_key()) &&  membership_role.equals("1")) {%>
 										<li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>
 								<%} if(membership_role.equals("d")){ %>
-										<li><input type="button" value="신청" onclick="goapply()" /></li>
+										<!-- <li><input type="button" value="신청" onclick="goapply()" /></li> -->
 								<%}%>
 										
 									
@@ -163,14 +165,13 @@ function goapply()
 		url:"<%=request.getContextPath()%>/game/apply",
 		data:queryString,
 		processData:false,
-		type:'POST'
-	
+		type:"POST"
 	}).done(function(data){
-		console.log(result);
+		console.log(data);
 		alert("신청이 완료되었습니다.");
 		location.href="<%=request.getContextPath()%>/game/list";
-		}).
-		fail(function(err){
+		})
+		.fail(function(err){
 			console.log(err);
 		})
 }
@@ -179,48 +180,44 @@ function goapply()
 
 function goviewlist()
 {
-	   var frmData = new FormData(document.myform);
-	   var queryString = $("form[name=myform]").serialize();    
-	   $.ajax({
-	     	url:"${commonURL}/game/applyview",
+   var frmData = new FormData(document.myform);
+   var queryString = $("form[name=myform]").serialize();    
+   $.ajax({
+	  	url:"${commonURL}/game/applyview",
 		data:queryString,
 		processData:false,
 		type:"POST"
-	 
 	   })
 	   .done( (result)=>{
-	     
-	     
 		   $("#tbl_app").show();
-			for(i=$("#tbl_applicants tr").length-2;i>=0;i--)
+		  for(i=$("#tbl_applicants tr").length-2;i>=0;i--)
 				$("#tbl_applicants tr:last").remove(); 
-			
 	      var i=1;
-	     result.forEach( (item)=>{
+	      result.forEach((item)=>{
 	       var data = "<tr>";
 	           data += "<td>"+ i +"</td>";
 	           data += "<td>"+item.team_name+"</td>";
 	           data += "<td>"+item.matching_date+"</td>";
-	       	if(item.result_proc == "1")
+	     	   if(item.result_proc == "1")
 						data += "<td>"+"승인대기중";
 					else if(item.result_proc == "2")
 						data += "<td>"+"매칭신청 수락됨";
 					else
 						data += "<td>"+"매칭신청 거절됨";
 					
-					data += "&nbsp&nbsp<button type='button' onclick=goApprove('"+item.matchingjoin_key+"')>고용</button>" 
-						 + "&nbsp&nbsp<button type='button' onclick=goDecline('"+item.matchingjoin_key+")>거절</button>" +"</td>";
+					data += "&nbsp&nbsp<button type='button' onclick=goApprove('"+item.matchingjoin_key+"')>수락</button>" 
+						 + "&nbsp&nbsp<button type='button' onclick=goDecline('"+item.matchingjoin_key+"')>거절</button>" +"</td>"
 					data += "</tr>";
 					i++;   
 	         $("#tbl_applicants > tbody:last").append(data);
 	         
-	      })
+	      });
 	   })
 	   .fail( (error)=>{
 	      console.log(error);
 	   })
 	}
-function goApprove(gamejoin_key)
+function goApprove(matchingjoin_key)
 {
 	$("#matchingjoin_key").val(matchingjoin_key);
 	$("#result_proc").val("2");
@@ -243,8 +240,10 @@ function goApprove(gamejoin_key)
 }
 function goDecline(matchingjoin_key)
 {
+	alert("도입");
 	$("#matchingjoin_key").val(matchingjoin_key);
 	$("#result_proc").val("3");
+	alert($("#matchingjoin_key").val());
 	var frmData = document.myform; 
 	var queryString = $("form[name=myform]").serialize();
 	$.ajax({
@@ -255,7 +254,7 @@ function goDecline(matchingjoin_key)
 	})
 	.done((result)=>{
 		console.log(result);
-		alert("거절처리 완료되었습니다.");
+		alert("승인처리 완료되었습니다.");
 		goviewlist();
 	})
 	.fail((error)=>{

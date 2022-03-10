@@ -4,6 +4,7 @@
 <%@page import="java.util.*"%>
 <%@page import="com.mom.momhome.game.*"%>
 <%@page import="com.mom.momhome.common.*"%>
+<%@page import="com.mom.momhome.team.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -72,7 +73,7 @@
 				<section>
 					<h3 style="text-align: center">게임매칭게시판 (${totalCnt}건)</h3>
 			<form name="myform" method="get">
-				<input type="hidden" name="team_key" id="team_key" value="1" /> 
+				<input type="hidden" name="team_key" id="team_key" value="" /> 
 				<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> 
 					<input type="hidden" name="key" id="key" value="<%=key%>" />
 					 <input type="hidden" name="game_key" id="game_key" value="" />
@@ -102,9 +103,9 @@
 							<tr>
 								<th>번호</th>	
 								<th>제목</th>
-								<th>내용</th>
 								<th>지역</th>
 								<th>날짜</th>
+								<th>팀이름</th>
 								
 							</tr>
 						</thead>
@@ -116,13 +117,14 @@
 							<tr>
 							<td><%=totalCnt - tempDto.getRnum() + 1%></td>
 							<td><a href="#none"
-							onclick="goView('<%=tempDto.getGame_key()%>')"><%=tempDto.getGame_title()%></a></td>
-							<td><%=tempDto.getGame_contents()%></td>
+							onclick="goView('<%=tempDto.getGame_key()%>')"><%=tempDto.getGame_title()%></a></td>						
 							<td><%=tempDto.getGame_location()%></td>
 							<td><%=tempDto.getGame_date()%></td>
+							<td><%=tempDto.getTeam_name()%></td>							
 							</tr>							
 							<%}%>
-		
+							
+						
 						</tbody>
 					</table>
 				</div>

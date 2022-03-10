@@ -6,8 +6,10 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.mom.momhome.cscenter.CSCenterDto;
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.mercenary.MercenaryDto;
+import com.mom.momhome.team.TeamDto;
 
 @Service("mainService")
 public class MainServiceImpl implements MainService {
@@ -22,6 +24,16 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public List<GameDto> getGameList(GameDto dto) {
 		return mainDao.getGameList(dto);
+	}
+
+	@Override
+	public List<CSCenterDto> getCScenterList(CSCenterDto dto) {
+		return mainDao.getCScenterList(dto);
+	}
+
+	@Override
+	public List<TeamDto> getTeamList(TeamDto dto) {
+		return mainDao.getTeamList(dto);
 	}
 	
 }

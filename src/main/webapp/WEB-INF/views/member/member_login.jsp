@@ -93,7 +93,7 @@
 			   .done( (result)=>{
 				   console.log( result.flag );
 			      	if(result.flag=="1") {
-			      		location.href="${commonURL}/member/mypage";
+			      		location.href="${commonURL}/";
 					} else if(result.flag=="2") {
 			      		alert("이미 탈퇴한 회원이거나 존재하는 아이디를 찾을 수 없습니다.");
 			      	} else {

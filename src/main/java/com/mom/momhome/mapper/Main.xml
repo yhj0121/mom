@@ -18,5 +18,10 @@
 		resultType="MercenaryDto">
 		select * from mercenary order by reg_date desc limit 0, 5
 	</select>
+	
+	<select id="Main_getCScenterList" parameterType="CSCenterDto"
+		resultType="CSCenterDto">
+		select * from cscenter order by cscenter_date desc limit 0, 5
+	</select>
 
 </mapper>

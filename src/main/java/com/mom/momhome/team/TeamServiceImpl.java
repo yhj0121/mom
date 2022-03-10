@@ -11,9 +11,13 @@ import org.springframework.stereotype.Service;
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.membership.MembershipDao;
 import com.mom.momhome.membership.MembershipDto;
+import com.mom.momhome.member.MemberDto;
+import com.mom.momhome.member.MemberDao;
 
 @Service("teamService")
 public class TeamServiceImpl implements TeamService{
+	
+
 	
 	@Resource(name="teamDao")
 	TeamDao teamDao;
@@ -37,6 +41,12 @@ public class TeamServiceImpl implements TeamService{
 		HttpSession session = request.getSession(); //팀 중복 생성 막기 위해서 membership_role 세션에 저장하기
 		session.setAttribute("membership_role", mdto.getMembership_role());
 		
+	}
+	
+	@Override
+	public List<TeamDto> getTeamList(TeamDto dto) {
+		
+		return teamDao.getTeamList(dto);
 	}
 
 	@Override
@@ -63,15 +73,12 @@ public class TeamServiceImpl implements TeamService{
 		teamDao.membershipInsert(dto);
 	}
 
-	@Override
-	public List<TeamDto> getTeamList(TeamDto dto) {
-		
-		return teamDao.getTeamList(dto);
-	}
 
 	@Override
 	public int getTeamTotal(TeamDto dto) {
 		
 		return teamDao.getTeamTotal(dto);
 	}
+
+
 }

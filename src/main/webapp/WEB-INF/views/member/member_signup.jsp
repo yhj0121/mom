@@ -30,8 +30,6 @@ textarea {
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
 
-
-
 		<!-- Main -->
 		<div id="main">
 
@@ -62,25 +60,25 @@ textarea {
 									placeholder="이름" />
 							</div>
 							<div class="col-6 col-12-medium" style="display: flex;">
-								<input type="text" name="user_id" id="userid" value="" 
+								<input type="text" name="user_id" id="userid" value="" class="not-kor"
 									placeholder="아이디" />
 								<button class="btn btn-success" type="button" id="btnDuplicate">중복체크</button>
 							</div>
 							<div class="col-6 col-12-medium">
-								<input type="password" name="user_password" id="password" value=""
+								<input type="password" name="user_password" id="password" value="" class="not-kor"
 									placeholder="비밀번호" />
 							</div>
 							<div class="col-6 col-12-medium">
-								<input type="password" name="checkPassword" id="checkPassword"
+								<input type="password" name="checkPassword" id="checkPassword" class="not-kor"
 									value="" placeholder="비밀번호 확인" />
 							</div>
 							<div class="col-6 col-12-medium">
-								<input type="email" name="user_mail" id="email" value=""
+								<input type="email" name="user_mail" id="email" value="" pattern="^\w+((\.\w+)?)+@\w+.?\w+\.\w+$"
 									placeholder="이메일" />
 							</div>
 							<div class="col-6 col-12-medium">
-								<input type="text" name="user_phone" id="phone" value=""
-									placeholder="전화번호" />
+								<input type="tel" name="user_phone" id="phone" value="" class="not-kor"  style="height: 2.75em;"
+									placeholder="전화번호" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" />
 							</div>
 							<div class="col-6 col-12-medium">
 								<input type="text" name="user_address1" id="address1" value=""
@@ -227,6 +225,14 @@ textarea {
 	function formReset(){
 		$("#myform")[0].reset();
 	}
+	
+	//회원가입시 한글 입력 막기
+$(".not-kor").keyup(function(e) { 
+	if (!(e.keyCode >=37 && e.keyCode<=40)) {
+		var v = $(this).val();
+		$(this).val(v.replace(/[^a-z0-9]/gi,''));
+	}
+});
 	</script>
 
 </body>

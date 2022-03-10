@@ -72,8 +72,8 @@
 	            ,A.team_notice
 	            ,A.team_num
 	            ,A.team_recruit_yn
-	            
-	             ,@rownum := @rownum+1 AS rnum
+	            ,(select user_name  from user where user_name ) as user_name
+	            ,@rownum := @rownum+1 AS rnum
 	            from team A, (select @rownum:=0) B
 	            
 	            

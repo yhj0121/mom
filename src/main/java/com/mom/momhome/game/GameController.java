@@ -8,12 +8,13 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.gamejoin.GameJoinDto;
-import com.mom.momhome.mercenary.MercenaryDto;
 
 
 @Controller
@@ -112,6 +113,7 @@ public class GameController {
 	}
 	
 	@RequestMapping(value="/game/applyview")
+	@ResponseBody
 	List<GameJoinDto>  gamejoin_list(GameJoinDto dto)
 	{
 		List<GameJoinDto> getlistJoin = service.getListJoin(dto);
@@ -123,7 +125,21 @@ public class GameController {
 	String game_apply(GameJoinDto dto)
 	{
 		service.updateJoin(dto);
+		System.out.println("처리됨");
+		System.out.println(dto.getResult_proc());
 		return "/game/gameview";
 	}
 	
+	@RequestMapping("/game/selectCity")
+	@ResponseBody
+	String game_getCityList(String team_key)
+	{
+		
+		System.out.println("도입전");
+		String citylist = service.getCityList(team_key);
+		System.out.println("도입후");
+		System.out.println(citylist);
+		
+		return citylist;
+	}
 }

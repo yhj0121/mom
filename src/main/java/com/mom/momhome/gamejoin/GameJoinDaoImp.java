@@ -20,7 +20,7 @@ public class GameJoinDaoImp implements GameJoinDao {
 
 	@Override
 	public void updateJoin(GameJoinDto dto) {
-			sm.update("GameJoin_update",dto);
+			sm.update("Gamejoin_update",dto);
 	}
 
 	@Override

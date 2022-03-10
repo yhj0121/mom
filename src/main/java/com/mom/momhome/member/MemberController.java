@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.cscenter.CSCenterDto;
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
+import com.mom.momhome.team.TeamDto;
 
 @Controller
 public class MemberController {
@@ -173,7 +175,6 @@ public class MemberController {
 	@RequestMapping(value="/member/delete_proc")
 	@ResponseBody
 	public HashMap<String, String> member_delete_proc( String user_key, MemberDto dto ){	
-		System.out.println("유저키: "+user_key);
 		dto.setUser_id(user_key);
 		memberService.delete(dto);
 		HashMap<String, String> map = new HashMap<String, String>();
@@ -217,7 +218,14 @@ public class MemberController {
 	
 	//마이페이지 - 팀 가입/탈퇴내역으로 이동 
 	@RequestMapping("member/teamdetail")
-	String member_teamdetail() {
+	String member_teamdetail( HttpServletRequest request, TeamDto dto, Model model ) {
+		HttpSession session = request.getSession();
+		String user_key = (String)session.getAttribute("userkey");
+		dto.setUser_key(user_key);
+		dto.setStart(dto.getPg()*10);
+		List<TeamDto> list = memberService.getTeamList(dto);
+		model.addAttribute("teamList",list);
+		model.addAttribute("totalCnt",memberService.getTeamTotal(dto));
 		return "member/member_teamdetail";
 	}
 	
@@ -245,5 +253,18 @@ public class MemberController {
 		model.addAttribute("mercenaryList", list);
 		model.addAttribute("totalCnt",memberService.getTotal(dto));
 		return "member/member_mercenarydetail";
+	}
+	
+	//마이페이지 - 나의 문의내역으로 이동 
+	@RequestMapping("member/cscenterlist")
+	String member_cscenterdetail( HttpServletRequest request, CSCenterDto dto, Model model ) {
+		HttpSession session = request.getSession();
+		String user_key = (String)session.getAttribute("userkey");
+		dto.setUser_key(user_key);
+		//dto.setStart(dto.getPg()*10);
+//		List<CSCenterDto> list = memberService.getCscenterList(dto);
+//		model.addAttribute("cscenterList", list);
+//		model.addAttribute("totalCnt",memberService.getCscenterTotal(dto));
+		return "member/member_cscenterlist";
 	}
 }

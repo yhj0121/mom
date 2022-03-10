@@ -14,7 +14,9 @@
 		GAME_LOCATION,
 		GAME_TITLE,
 		GAME_CONTENTS,
-		GAME_FDATE
+		GAME_FDATE,
+		TEAM_NAME,
+		
 		)
 		VALUES
 		(
@@ -23,8 +25,8 @@
 		#{game_location},
 		#{game_title},
 		#{game_contents},
-		#{game_fdate}
-
+		#{game_fdate},
+		#{team_name},	
 		);
 	</insert>
 	
@@ -32,25 +34,27 @@
 
     
          select GAME_KEY
-         ,(select TEAM_NAME from team B where B.TEAM_KEY =A.TEAM_KEY) as TEAM_NAME
-		 ,GAME_DATE
-		 ,GAME_LOCATION
-		 ,GAME_TITLE
-		 ,GAME_CONTENTS
-		 ,GAME_FDATE
-		 ,rnum
-		 from
- 		 (
- 		 select
- 		  A.GAME_KEY
- 		 ,A.TEAM_KEY
- 		 ,A.GAME_DATE
- 		 ,A.GAME_LOCATION
-		 ,A.GAME_TITLE
-		 ,A.GAME_CONTENTS
-		 ,A.GAME_FDATE
-		,@rownum := @rownum+1 AS rnum
-		from game A, (select @rownum:=0) B
+	         ,(select TEAM_NAME from team B where B.TEAM_KEY =A.TEAM_KEY) as TEAM_NAME
+			 ,GAME_DATE
+			 ,GAME_LOCATION
+			 ,GAME_TITLE
+			 ,GAME_CONTENTS
+			 ,GAME_FDATE
+			 
+			 ,rnum
+			 from
+	 		 (
+	 	 select
+	 		  A.GAME_KEY
+	 		 ,A.TEAM_KEY
+	 		 ,A.GAME_DATE
+	 		 ,A.GAME_LOCATION
+			 ,A.GAME_TITLE
+			 ,A.GAME_CONTENTS
+			 ,A.GAME_FDATE
+			 
+			,@rownum := @rownum+1 AS rnum
+			from game A, (select @rownum:=0) B
 			<if test='key!=null and keyword!=null'>
 				<if test='key=="1"'>
 				 	   where GAME_TITLE like concat('%',#{keyword}, '%')
@@ -68,7 +72,7 @@
 		limit #{start}, #{pageSize}
 		 
  		
-</select>
+	</select>
 	
 	<select id="game_view" parameterType="String"  resultType="GameDto">
 		  select
@@ -111,9 +115,14 @@
 			</if>
 			<if test='key=="3"'>
 				where GAME_TITLE like concat('%',#{keyword}, '%') or
-    		 	  	GAME_CONTENTS like concat('%',#{keyword}, '%') 
+    		 	GAME_CONTENTS like concat('%',#{keyword}, '%') 
 			</if>
 		</if>
+	</select>
+	
+	<select id="game_cityList" parameterType="GameDto"
+		resultType="String">
+		select team_city from team where TEAM_KEY=#{team_key};
 	</select>
 		
 </mapper>

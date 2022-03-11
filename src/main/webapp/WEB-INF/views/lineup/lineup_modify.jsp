@@ -3,7 +3,7 @@
     pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.mom.momhome.lineup.*" %>
-<%@page import="com.mom.momhome.common.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +14,32 @@
 	<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
 	
 	<title>Insert title here</title>
+	
+<style>
+	@media(min-width:700px)
+	{
+		table{
+			width:700px !important;
+		}
+	}
+	
+	table{
+		margin-bottom:0 !important;
+	}
+	
+	table thead tr th{
+		text-align: center;
+	}
+	td {
+ 		text-align: center;
+ 		padding:0 !important;
+	}
+	hr{
+		padding:0 !important;
+		margin-top:5px !important;
+		margin-bottom:5px !important;
+	}
+</style>
 </head>
 <body class="is-preload">
 
@@ -26,24 +52,44 @@
 		<%
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
 		%>
+		
+		<article class="post" style="overflow:unset">
+				<header>
+					<div class="title">
+						<h2>
+							<a href="#">라인업 수정</a>
+						</h2>
+						<p>감독 권한으로 출전 라인업을 수정/저장 하는 페이지</p>
+					</div>
+					<div class="meta">
+						<a href="#" class="logo"><img
+							src="${pageContext.request.contextPath}/resources/images/lineup_icon.png"
+							alt="" /></a>
+					</div>
+				</header>
+				
       	<form name="myform"> 	
           <section>
-			<h1>라인업 수정</h1>
 			<div class="table-wrapper">
-				<table id="tb" class="alt">
-					<colgroup>
-						<col width="5%">
-						<col width="10%">
-						<col width="*">
-						<col width="30%">
-					</colgroup>
+				
+<!-- 				<select id="formation" name="formation" style="width:250px; margin-left:31%;">  -->
+<!-- 					<option id="formation_opt">원하는 포메이션을 선택하세요.</option> -->
+<!-- 				</select> -->
+<!-- 				<br/> -->
+
+				<table class="alt" style="width:700px; margin-left:auto; margin-right:auto;">
+						<colgroup>
+							<col width="10%">
+							<col width="16%">
+							<col width="*">      
+							<col width="30%">
+						</colgroup>
 					<thead>
 						<tr>
 							<th>번호</th>
 							<th>포지션</th>
 							<th>아이디</th>
 							<th>이름</th>
-							
 						</tr>
 					</thead>
 					<tbody>
@@ -71,13 +117,23 @@
 						curRowNum++;
 					}
 					%>
+					</tbody>
+				</table>
 					
-					<tr> 
-						<td colspan="999" class="text-center">
-							<hr style="border: dashed 1px;">
-						</td>
-					</tr>
+<!-- 					<tr>  -->
+<!-- 						<td colspan="999" class="text-center"> -->
+							<hr style="border: dashed 1px; width:700px; margin-left:auto; margin-right:auto;">
+<!-- 						</td> -->
+<!-- 					</tr> -->
 					
+					<table class="alt" style="width:700px; margin-left:auto; margin-right:auto;">
+						<colgroup>
+							<col width="10%">
+							<col width="16%">
+							<col width="*">      
+							<col width="30%">
+						</colgroup>
+						<tbody>
 					<%
 					for(int i =0; i<maxBenchCount; i++)
 					{
@@ -116,6 +172,7 @@
            
 		</section>
        </form>
+      </article>
 	</div>
 </body>
 </html>
@@ -137,11 +194,14 @@ let playerSelectList;
 let playerDictionary = {};
 
 $(()=>{
-	positionSelectListInit();
-	playerDictionaryInit(loadLineup);
+	positionSelectListInit(()=>{
+		playerDictionaryInit(()=>{
+			loadLineup();
+		});		
+	});
 })
 
-function positionSelectListInit(){
+function positionSelectListInit(callback){
 	
 // 	console.log("getPositionList()");
 	
@@ -164,6 +224,8 @@ function positionSelectListInit(){
 	.fail( (error) => {
 		alert("정보 가져오기 실패");
 	})
+	
+	callback();
 }
 
 function playerDictionaryInit(callback)

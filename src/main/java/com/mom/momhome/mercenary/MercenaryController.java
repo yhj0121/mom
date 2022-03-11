@@ -19,7 +19,7 @@ public class MercenaryController {
 	MercenaryService service;
 	
 	//용병구인글 목록
-	@RequestMapping(value="/mercenary/list", method=RequestMethod.GET)
+	@RequestMapping(value="/mercenary/list", method = {RequestMethod.GET, RequestMethod.POST})
 	String mercenary_list(Model model, MercenaryDto dto)
 	{
 		/*
@@ -30,11 +30,6 @@ public class MercenaryController {
 		dto.setStart(dto.getPg()*10);
 		
 		List<MercenaryDto> list = service.getList(dto);
-		
-		/*
-		 * for(MercenaryDto tempdto: list)
-		 * System.out.println(tempdto.getMercenary_title());
-		 */
 		
 		model.addAttribute("mercenaryList",list);
 		model.addAttribute("totalCnt",service.getTotal(dto));
@@ -132,18 +127,22 @@ public class MercenaryController {
 	@ResponseBody
 	List<MercenaryDto> getGameList(String user_key)
 	{
-		System.out.println("여기로 들어왔니?");
 		List<MercenaryDto> gameList = service.getGameList(user_key);
 		
-		 for(MercenaryDto temp: gameList)
-			 System.out.println(temp.getGame_key());
+		for(MercenaryDto temp: gameList) 
+		{
+			System.out.println(temp.getGame_key());
+			System.out.println(temp.getGame_date());
+			System.out.println(temp.getGame_location());
+		}
+		
 		return gameList;
 	}
 	
 	//라인업 테이블에서 용병수 가져오기
 	@RequestMapping(value="/mercenary/count")
 	@ResponseBody
-	Integer mercenary_count(String game_key, Model model)
+	Integer mercenary_count(String game_key)
 	{
 		int count = service.getMsCount(game_key);
 		return count;

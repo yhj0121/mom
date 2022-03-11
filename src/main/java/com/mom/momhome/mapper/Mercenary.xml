@@ -5,14 +5,15 @@
  		select 
  			mercenary_key
  			,(select user_name from user B where B.user_key=A.user_key) as user_name
- 			,(select game_key from game C where C.game_key=A.game_key)
+ 			,game_key
  			,user_key
  			,mercenary_title
  			,mercenary_contents
  			,mercenary_complete
  			,reg_date
+ 			,game_date
  			,rnum
- 			
+ 			,TO_DAYS(game_date) - TO_DAYS(now()) as cha
  		from
  		(
  		select
@@ -23,8 +24,11 @@
 			,A.mercenary_contents 
 			,mercenary_complete
 			,reg_date
+			,game_date
 			,@rownum := @rownum+1 AS rnum
-			from mercenary A, (select @rownum:=0) B
+			from mercenary A,(select @rownum:=0) B , game C 	
+            where A.game_key=C.game_key
+ 
 			<if test='key!=null and keyword!=null'>
 				<if test='key=="1"'>
 				 	where mercenary_title like concat('%',#{keyword}, '%')
@@ -37,6 +41,7 @@
 				 	  	   mercenary_contents like concat('%',#{keyword}, '%') 
 				</if>
 			</if>
+
 			order by mercenary_key desc
 			) A
 			limit #{start}, #{pageSize}
@@ -74,7 +79,10 @@
 				A.game_key,
 				A.mercenary_contents,
 				A.mercenary_complete,
-				(select user_name from user B where B.user_key=A.user_key) as user_name
+				A.reg_date,
+				(select user_name from user B where B.user_key=A.user_key) as user_name,
+				(select game_date from game B where B.game_key=A.game_key) as game_date,
+                (select game_location from game B where B.game_key=A.game_key) as game_location
 		 from mercenary A 
 		where mercenary_key=#{mercenary_key}
 	</select>
@@ -112,4 +120,6 @@
 		 where mercenary_state = "2"
 		   and game_key = #{game_key}
 	</select>
+	
+	
 </mapper>

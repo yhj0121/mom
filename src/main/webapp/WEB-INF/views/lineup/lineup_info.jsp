@@ -13,6 +13,33 @@
 	<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
 	
 	<title>Insert title here</title>
+	
+<style>
+	@media(min-width:700px)
+	{
+		table{
+			width:700px !important;
+		}
+	}
+	
+	table{
+		margin-bottom:0 !important;
+	}
+	
+	table thead tr th{
+		text-align: center;
+	}
+	td {
+ 		text-align: center;
+ 		padding:0 !important;
+	}
+	hr{
+		padding:0 !important;
+		margin-top:5px !important;
+		margin-bottom:5px !important;
+	}
+</style>
+
 </head>
 <body class="is-preload">
 
@@ -22,6 +49,21 @@
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
 		
+		<article class="post">
+				<header>
+					<div class="title">
+						<h2>
+							<a href="#">라인업</a>
+						</h2>
+						<p>게임에서 쓰일 라인업을 볼 수 있는 페이지</p>
+					</div>
+					<div class="meta">
+						<a href="#" class="logo"><img
+							src="${pageContext.request.contextPath}/resources/images/lineup_icon.png"
+							alt="" /></a>
+					</div>
+				</header>
+				
 		<%
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
 		Map<Integer, LineupDto> lineupDic = new HashMap<Integer, LineupDto>();
@@ -36,13 +78,12 @@
 			<input type="hidden" name="team_key" id="team_key" value="1"/>
 			<input type="hidden" name="team_side" id="team_side" value="1"/> 
 	          <section>
-				<h1>라인업</h1>
-				<div class="table-wrapper">
-					<table class="alt">
+				<div class="table-wrapper"> 
+					<table class="alt" style="width:700px; margin-left:auto; margin-right:auto;"> 
 						<colgroup>
-							<col width="5%">
 							<col width="10%">
-							<col width="*">
+							<col width="16%">
+							<col width="*">      
 							<col width="30%">
 						</colgroup>
 						<thead>
@@ -51,7 +92,6 @@
 								<th>포지션</th>
 								<th>아이디</th>
 								<th>이름</th>
-								
 							</tr>
 						</thead>
 						<tbody>
@@ -91,14 +131,23 @@
 							curRowNum++;
 						}
 						%>
+						</tbody>
+				</table>
 						
-					
-					<tr> 
-						<td colspan="999" class="text-center">
-							<hr style="border: dashed 1px;">
-						</td>
-					</tr>
-					
+						<!-- 					<tr>  -->
+<!-- 						<td colspan="999" class="text-center"> -->
+							<hr style="border: dashed 1px; width:700px; margin-left:auto; margin-right:auto;">
+<!-- 						</td> -->
+<!-- 					</tr> -->
+
+				<table class="alt" style="width:700px; margin-left:auto; margin-right:auto;"> 
+						<colgroup>
+							<col width="10%">
+							<col width="16%">
+							<col width="*">      
+							<col width="30%">
+						</colgroup>
+					<tbody>
 					<%
 						for(int i =0; i<maxBenchCount; i++)
 						{
@@ -144,6 +193,7 @@
 	          	</div>
 	          	
 			</section>
+			</article>
 		</form>
 	</div>
 </body>

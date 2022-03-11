@@ -15,6 +15,16 @@ public class MercenaryDto extends BaseDto {
 	public String user_name = "";
 	private String game_date = "";
 	private String game_location = "";
+	private int cha = 0;
+	
+	
+	public int getCha() {
+		return cha;
+	}
+
+	public void setCha(int cha) {
+		this.cha = cha;
+	}
 
 	public String getGame_date() {
 		return game_date;

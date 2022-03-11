@@ -3,6 +3,7 @@ package com.mom.momhome.member;
 import java.util.List;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.cscenter.CSCenterDto;
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 import com.mom.momhome.team.TeamDto;
@@ -27,6 +28,9 @@ public interface MemberDao {
 	//팀 리스트 가져오기
 	List<TeamDto> getTeamList ( TeamDto dto );
 	int getTeamTotal(TeamDto dto); //페이지네이션
+	//고객센터 리스트 가져오기
+	List<CSCenterDto> getCscenterList ( CSCenterDto dto );
+	int getCscenterTotal(CSCenterDto dto); //페이지네이션
 	//아이디 찾기
 	MemberDto findId(MemberDto dto);
 	//비밀번호 찾기 

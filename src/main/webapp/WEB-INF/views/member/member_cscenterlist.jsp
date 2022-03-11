@@ -48,10 +48,10 @@ table td:not(.introduction) {
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
 		<%
-		/* String key = StringUtil.nullToValue(request.getParameter("key"), "");
+		String key = StringUtil.nullToValue(request.getParameter("key"), "");
 		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-		int totalCnt = (Integer) request.getAttribute("totalCnt"); */
+		int totalCnt = (Integer) request.getAttribute("totalCnt"); 
 		%>
 		<!-- Main -->
 		<div id="main">
@@ -59,17 +59,16 @@ table td:not(.introduction) {
 			<article class="post">
 				<header>
 					<div class="title">
-						<%-- <h2>용병 구인 내역(${totalCnt} 건)</h2> --%>
-						<h2>나의 문의 내역</h2>
-						<p>용병 구인 내역을 보여줍니다.</p>
+						<h2>나의 문의 내역(${totalCnt} 건)</h2>
+						<p>나의 문의 내역을 보여줍니다.</p>
 					</div>
 				</header>
 
 				<section>
 					<div class="table-wrapper">
 						<form name="myform">
-							<%-- <input type="hidden" name="pg" id="pg" value="<%=pg%>" />
-							 <input type="hidden" name="cscenter_key" id="cscenter_key" value="" /> --%>
+						<input type="hidden" name="pg" id="pg" value="<%=pg%>" />
+							 <input type="hidden" name="cscenter_key" id="cscenter_key" value="" /> 
 							<div class="row gtr-uniform mb-5">
 								<div class="col-3 col-6-xsmall">
 									<select name="key" id="key">
@@ -80,9 +79,9 @@ table td:not(.introduction) {
 									</select>
 								</div>
 								<div class="col-7 col-12-xsmall">
-									<%-- <input type="text" class="form-control"
+									<input type="text" class="form-control"
 										placeholder="검색어를 입력하세요" name="keyword" id="keyword"
-										value="<%=keyword%>"> --%>
+										value="<%=keyword%>">
 								</div>
 								<div class="col-2 col-4-xsmall">
 									<input type="button" style="width: 100%" value="검색"
@@ -103,7 +102,7 @@ table td:not(.introduction) {
 									</tr>
 								</thead>
 								<tbody>
-								<%-- 	<%
+								<%
 									List<CSCenterDto> list = (List<CSCenterDto>) request.getAttribute("cscenterList");
 									for (CSCenterDto tempDto : list) {
 									%>
@@ -113,18 +112,16 @@ table td:not(.introduction) {
 											onclick="goView('<%=tempDto.getCscenter_key()%>')"> <%=tempDto.getCscenter_title()%></a></td>
 										<td><%=tempDto.getCscenter_date()%></td>
 									</tr>
-									<%
-									}
-									%> --%>
+									<%}%> 
 								</tbody>
 							</table>
 						</form>
 					</div>
 					<!-- Pagination  -->
-					<%-- <div class="container"
+					 <div class="container"
 						style="display: flex; justify-content: center;">
 						<%=Pager.makeTag(request, 10, totalCnt)%>
-					</div> --%>
+					</div>
 					<!-- /Pagination  -->
 				</section>
 			</article>
@@ -149,22 +146,15 @@ table td:not(.introduction) {
 		function goSearch() {
 			let frm = document.myform;
 			frm.pg.value = 0;
-			frm.action = "${pageContext.request.contextPath}/member/mercenarylist";
+			frm.action = "${pageContext.request.contextPath}/member/cscenterlist";
 			frm.method = "get";
 			frm.submit();
 		}
 		function goView(id) {
 			frm = document.myform;
-			frm.mercenary_key.value = id;
+			frm.cscenter_key.value = id;
 			frm.method = "get";
-			frm.action = "${pageContext.request.contextPath}/mercenary/view";
-			frm.submit();
-		}
-		function goPage(pg) {
-			frm = document.myform;
-			frm.pg.value = pg;
-			frm.method = "get";
-			frm.action = "${pageContext.request.contextPath}/member/mercenarylist";
+			frm.action = "${pageContext.request.contextPath}/cscenter/view";
 			frm.submit();
 		}
 	</script>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.cscenter.CSCenterDto;
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 import com.mom.momhome.team.TeamDto;
@@ -89,5 +90,16 @@ public class MemberDaoImpl implements MemberDao {
 	public int getTeamTotal(TeamDto dto) {
 		return sm.selectOne("Member_teamGetTotal", dto);
 	}
+
+	@Override
+	public List<CSCenterDto> getCscenterList(CSCenterDto dto) {
+		return sm.selectList("Member_cscenterList", dto);
+	}
+
+	@Override
+	public int getCscenterTotal(CSCenterDto dto) {
+		return sm.selectOne("Member_cscenterGetTotal", dto);
+	}
+
 
 }

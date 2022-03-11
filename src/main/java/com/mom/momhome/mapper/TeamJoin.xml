@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="TeamJoin">
+	<select id="Teamjoin_teamjoinList" parameterType="TeamjoinDto"
+		resultType="TeamjoinDto">
+		select 
+		TEAMJOIN_KEY 
+		,TEAM_KEY 
+		,USER_KEY 
+		,(select team_name from team where team_key=t.team_key) as team_name
+		,(select user_name from user where user_key=t.user_key)as user_name
+		,(select user_position from user where user_key=t.user_key) as user_position
+		,(select user_intro from user where user_key=t.user_key) as user_intro
+		,teamjoin_proc
+		 from teamjoin t where team_key=#{team_key}
+	</select>
+
+	<select id="Teamjoin_teamjoinGetTotal"
+		parameterType="TeamjoinDto" resultType="Integer">
+		select count(*) from teamjoin where team_key=#{team_key}
+	</select>
+	
+	<update id="Teamjoin_teamjoinAccept" parameterType="String">
+		update teamjoin set
+		teamjoin_proc = 2 where user_key=#{ user_key } and  team_key=#{ team_key } and teamjoin_proc='1'
+	</update>
+</mapper>

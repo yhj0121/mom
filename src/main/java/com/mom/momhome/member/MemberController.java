@@ -19,6 +19,7 @@ import com.mom.momhome.game.GameDto;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 import com.mom.momhome.team.TeamDto;
+import com.mom.momhome.teamjoin.TeamjoinDto;
 
 @Controller
 public class MemberController {
@@ -218,15 +219,34 @@ public class MemberController {
 	
 	//마이페이지 - 팀 가입/탈퇴내역으로 이동 
 	@RequestMapping("member/teamdetail")
-	String member_teamdetail( HttpServletRequest request, TeamDto dto, Model model ) {
+	String member_teamdetail( HttpServletRequest request, TeamDto dto, TeamjoinDto jdto, Model model ) {
 		HttpSession session = request.getSession();
 		String user_key = (String)session.getAttribute("userkey");
 		dto.setUser_key(user_key);
 		dto.setStart(dto.getPg()*10);
+		
 		List<TeamDto> list = memberService.getTeamList(dto);
 		model.addAttribute("teamList",list);
+		System.out.println(list);
 		model.addAttribute("totalCnt",memberService.getTeamTotal(dto));
+		
+		jdto.setTeam_key(list.get(0).getTeam_key());
+		List<TeamjoinDto>teamjoinlist = memberService.getTeamjoinList(jdto);
+		model.addAttribute("teamjoinlist",teamjoinlist);
 		return "member/member_teamdetail";
+	}
+	
+	@RequestMapping("member/teamAccept")
+	@ResponseBody
+	public HashMap<String, String> member_teamAccept(String team_key, String user_key, TeamjoinDto jdto, Model model){
+		System.out.println("user_key"+user_key);
+		System.out.println("team_key"+team_key);
+		jdto.setTeam_key(team_key);
+		jdto.setUser_key(user_key);
+		memberService.teamAccept( jdto );
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
 	}
 	
 	//마이페이지 - 팀 매칭신청내역으로 이동 
@@ -261,10 +281,10 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		String user_key = (String)session.getAttribute("userkey");
 		dto.setUser_key(user_key);
-		//dto.setStart(dto.getPg()*10);
-//		List<CSCenterDto> list = memberService.getCscenterList(dto);
-//		model.addAttribute("cscenterList", list);
-//		model.addAttribute("totalCnt",memberService.getCscenterTotal(dto));
+		dto.setStart(dto.getPg()*10);
+		List<CSCenterDto> list = memberService.getCscenterList(dto);
+		model.addAttribute("cscenterList", list);
+		model.addAttribute("totalCnt",memberService.getCscenterTotal(dto));
 		return "member/member_cscenterlist";
 	}
 }

@@ -3,6 +3,7 @@ package com.mom.momhome.game;
 import java.util.List;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.membership.MembershipDto;
 
 public interface GameDao {
     void insert(GameDto dto);
@@ -12,5 +13,9 @@ public interface GameDao {
 	List<GameDto> getList(GameDto dto);
 	int getTotal(GameDto dto);
 	
-	String getCityList(String team_key);
+	GameDto getCityList(String user_key);
+	GameDto teamkeySelect(String user_key);
+	/*
+	 * GameDto getteam_key(String user_key);
+	 */
 }

@@ -15,8 +15,7 @@
 		GAME_TITLE,
 		GAME_CONTENTS,
 		GAME_FDATE,
-		TEAM_NAME,
-		
+		GAME_COMPLETE
 		)
 		VALUES
 		(
@@ -26,7 +25,7 @@
 		#{game_title},
 		#{game_contents},
 		#{game_fdate},
-		#{team_name},	
+		0
 		);
 	</insert>
 	
@@ -34,14 +33,15 @@
 
     
          select GAME_KEY
-	         ,(select TEAM_NAME from team B where B.TEAM_KEY =A.TEAM_KEY) as TEAM_NAME
+         	 ,TEAM_KEY
 			 ,GAME_DATE
 			 ,GAME_LOCATION
 			 ,GAME_TITLE
 			 ,GAME_CONTENTS
 			 ,GAME_FDATE
-			 
+			 ,GAME_COMPLETE
 			 ,rnum
+			 ,(select TEAM_NAME from team B where B.TEAM_KEY =A.TEAM_KEY) as TEAM_NAME
 			 from
 	 		 (
 	 	 select
@@ -52,6 +52,7 @@
 			 ,A.GAME_TITLE
 			 ,A.GAME_CONTENTS
 			 ,A.GAME_FDATE
+			 ,A.GAME_COMPLETE
 			 
 			,@rownum := @rownum+1 AS rnum
 			from game A, (select @rownum:=0) B
@@ -83,6 +84,7 @@
 		 ,A.GAME_TITLE
 		 ,A.GAME_CONTENTS
 		 ,A.GAME_FDATE
+		 ,A.GAME_COMPLETE
     
 		 FROM game A
          where GAME_KEY = #{game_key};
@@ -97,6 +99,7 @@
    	    ,GAME_CONTENTS= #{game_contents}
   	   	,GAME_FDATE = #{game_fdate}
  		,GAME_LOCATION = #{game_location}
+ 		,GAME_COMPLETE = #{game_complete}
 		where GAME_KEY = #{game_key};
 	</update>
 	
@@ -121,8 +124,19 @@
 	</select>
 	
 	<select id="game_cityList" parameterType="GameDto"
-		resultType="String">
-		select team_city from team where TEAM_KEY=#{team_key};
+		resultType="GameDto">
+		select team_city,team_key,team_name from team where team_key = (select team_key from membership where user_key = #{user_key})
 	</select>
 		
+	<select id="game_getMembershipUserkey" parameterType="GameDto" resultType="GameDto">
+		 select A.user_key from membership A where A.team_key = #{team_key}
+	</select>	
+<!-- 	<select id="game_getTeamkey" parameterType="GameDto"
+		resultType="String">
+		select 
+			team_key,
+			team_name 
+		from team 
+		where team_key = (select team_key from membership where user_key = #{user_key})
+	</select> -->
 </mapper>

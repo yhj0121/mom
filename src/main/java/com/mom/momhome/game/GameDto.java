@@ -14,9 +14,17 @@ public class GameDto extends BaseDto {
 	public String user_name="";
 	public String user_key="";
 	public String team_city = "";
-
+	public String game_complete ="0";  //게임 모집중 or 완료 
+	
+	
 
 	
+	public String getGame_complete() {
+		return game_complete;
+	}
+	public void setGame_complete(String game_complete) {
+		this.game_complete = game_complete;
+	}
 	public String getTeam_city() {
 		return team_city;
 	}

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mom.momhome.gamejoin.GameJoinDao;
 import com.mom.momhome.gamejoin.GameJoinDto;
+import com.mom.momhome.membership.MembershipDto;
 
 
 
@@ -73,10 +74,23 @@ public class GameServiceImp implements GameService {
 	}
 
 	@Override
-	public String getCityList(String team_key) {
+	public GameDto getCityList(String user_key) {
 		// TODO Auto-generated method stub
-		return dao.getCityList(team_key);
+		return dao.getCityList(user_key);
 	}
+
+	@Override
+	public GameDto teamkeySelect(String user_key) {
+		// TODO Auto-generated method stub
+		return dao.teamkeySelect(user_key);
+	}
+
+	@Override
+	public int Gamejoinduplicate(String team_key) {
+		// TODO Auto-generated method stub
+		return gamejoindao.Gamejoinduplicate(team_key);
+	}
+
 
 
 

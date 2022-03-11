@@ -101,7 +101,6 @@ a.link{
 								List<TeamDto> teamList = (List<TeamDto>) request.getAttribute("teamList");
 								if( !teamList.isEmpty()) {
 								for (TeamDto tempDto : teamList) {
-									if( tempDto.getMembership_role().equals("1")) {
 								%>
 								<tr>
 									<td><a href="#none"
@@ -113,18 +112,7 @@ a.link{
 									<td><%if(tempDto.getMembership_role().equals("1")){ %>감독<%} else {%>팀원<%} %></td>
 									<td><%=tempDto.getTeam_fdate()%></td>
 								</tr>
-								<%} else { %>
-								<tr>
-									<td><a href="#none"
-											onclick="goView('<%=tempDto.getTeam_key()%>')"><%=tempDto.getTeam_name()%></a></td>
-									<td><%=tempDto.getTeam_city()%></td>
-									<td><%=tempDto.getTeam_num()%></td>
-									<td><%=tempDto.getTeam_fee()%></td>
-									<td><%if(tempDto.getTeam_recruit_yn().equals("1")){ %>모집중<%} else {%>모집마감<%} %></td>
-									<td><%if(tempDto.getMembership_role().equals("1")){ %>감독<%} else {%>팀원<%} %></td>
-									<td><%=tempDto.getTeam_fdate()%></td>
-								</tr>
-									<% }}} else { %>
+									<% }} else { %>
 								<tr>
 									<td colspan="7"><div class="title" >아직 소속된 팀이 없습니다. <a href="${pageContext.request.contextPath}/team/main" class="link"> >> 팀 구경하러 가기 << </a></div></td>
 								</tr>
@@ -373,6 +361,7 @@ a.link{
 								<col width="13%" />
 								<col width="13%" />
 								<col width="*" />
+								<col width="13%" />
 							</colgroup>
 							<thead>
 								<tr>
@@ -386,17 +375,21 @@ a.link{
 							<tbody>
 							<%
 								List<TeamjoinDto> teamjoinlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
-								if( !teamjoinlist.isEmpty()) {
+							if( !teamjoinlist.isEmpty()) {
 								for (TeamjoinDto joinDto : teamjoinlist) {
-									if( joinDto.getTeamjoin_proc().equals("2")) {
 								%>
 								<tr>
 									<td><%=joinDto.getTeamjoin_key()%></td>
 									<td><%=joinDto.getUser_name()%></td>
 									<td><%=joinDto.getUser_position()%></td>
 									<td class="introduction"><%=joinDto.getUser_intro()%></td>
+									<%if( joinDto.getTeamjoin_proc().equals("1")) { %>
+									<td>가입 대기중</td>
+									<%} else if(joinDto.getTeamjoin_proc().equals("2")) {%>
+									<td>가입 완료</td>
+									<%} %>
 								</tr>
-								<%} }%>
+								<%} } else {%>
 								
 								<tr>
 									<td colspan="6"><div class="title" >아직 가입을 신청한 팀이 없습니다. </div></td>

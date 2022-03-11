@@ -32,12 +32,25 @@ public class CSCenterDaoImp implements CSCenterDao{
 	// sm은 root-context.xml의 bean의 id이다.
 		
 	@Override
-	public List<CSCenterDto> getList() {
-		return sm.selectList("csList"); // selectList, selectOne
+	public List<CSCenterDto> getList(CSCenterDto dto) {
+		return sm.selectList("csList", dto); // selectList, selectOne
 	}
 
 	@Override
 	public void writeData(CSCenterDto dto) {
 		sm.insert("csInsert", dto);
 	}
+
+	@Override
+	public CSCenterDto getDetail(String cscenter_key) {
+		return sm.selectOne("csGetDetail", cscenter_key);
+	}
+
+	@Override
+	public int getTotal(CSCenterDto dto) {
+		
+		return sm.selectOne("csGetTotal", dto);
+	}
+	
+	
 }

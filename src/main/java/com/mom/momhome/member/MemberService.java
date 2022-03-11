@@ -3,10 +3,12 @@ package com.mom.momhome.member;
 import java.util.List;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.cscenter.CSCenterDto;
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 import com.mom.momhome.team.TeamDto;
+import com.mom.momhome.teamjoin.TeamjoinDto;
 
 public interface MemberService {
 	//아이디 중복확인 
@@ -28,6 +30,14 @@ public interface MemberService {
 	//팀 리스트 가져오기
 	List<TeamDto> getTeamList ( TeamDto dto );
 	int getTeamTotal(TeamDto dto); //페이지네이션
+	//팀 조인 리스트 가져오기
+	List<TeamjoinDto> getTeamjoinList ( TeamjoinDto jdto );
+	int getTeamjoinTotal(TeamjoinDto jdto); //페이지네이션
+	//팀 조인 승인
+	TeamjoinDto teamAccept( TeamjoinDto jdto );
+	//고객센터 리스트 가져오기
+	List<CSCenterDto> getCscenterList ( CSCenterDto dto );
+	int getCscenterTotal(CSCenterDto dto); //페이지네이션
 	//아이디 찾기
 	MemberDto findId(MemberDto dto);
 	//비밀번호 찾기 

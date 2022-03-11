@@ -52,7 +52,15 @@ public class TeamController {
 		model.addAttribute("totalCnt",teamService.getTeamTotal(dto));
 		return "team/team_list"; 
 	}
-	
+	//팀 상세보기
+	@RequestMapping("/team/view")
+	String team_view(TeamDto dto, Model model)
+	{
+		TeamDto resultDto = teamService.getTeamView(dto);
+		model.addAttribute("teamDto", resultDto);
+		
+		return "team/team_view";
+	}
 	
 	//팀 생성 화면 연결
 	@RequestMapping("/team/write")
@@ -61,12 +69,7 @@ public class TeamController {
 		model.addAttribute("teamDto", dto);
 		return "team/team_write";
 	}
-	
-	//팀 상세보기 화면 연결
-		@RequestMapping("/team/view")
-		String team_view() {
-			return "team/team_view";
-		}
+
 	
 
 	//지역 정보 리스트 (팀생성 화면에서 지역 선택 보여주기)

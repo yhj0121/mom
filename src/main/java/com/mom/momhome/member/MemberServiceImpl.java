@@ -7,16 +7,22 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.cscenter.CSCenterDto;
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.membership.MembershipDao;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 import com.mom.momhome.team.TeamDto;
+import com.mom.momhome.teamjoin.TeamjoinDao;
+import com.mom.momhome.teamjoin.TeamjoinDto;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
 	@Resource(name="memberDao")
 	MemberDao memberDao;
+	
+	@Resource(name="teamjoinDao")
+	TeamjoinDao teamjoinDao;
 	
 	@Resource(name="membershipDao")
 	MembershipDao membershipDao;
@@ -94,6 +100,31 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int getTeamTotal(TeamDto dto) {
 		return memberDao.getTeamTotal(dto);
+	}
+
+	@Override
+	public List<CSCenterDto> getCscenterList(CSCenterDto dto) {
+		return memberDao.getCscenterList(dto);
+	}
+
+	@Override
+	public int getCscenterTotal(CSCenterDto dto) {
+		return memberDao.getCscenterTotal(dto);
+	}
+
+	@Override
+	public List<TeamjoinDto> getTeamjoinList(TeamjoinDto jdto) {
+		return teamjoinDao.getTeamjoinList(jdto);
+	}
+
+	@Override
+	public int getTeamjoinTotal(TeamjoinDto dto) {
+		return teamjoinDao.getTeamjoinTotal(dto);
+	}
+
+	@Override
+	public TeamjoinDto teamAccept( TeamjoinDto jdto ) {
+		return teamjoinDao.teamAccept(jdto);
 	}
 
 }

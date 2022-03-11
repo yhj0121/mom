@@ -61,6 +61,28 @@
 		where user_id=#{ user_id }
 	</update>
 
+	<select id="Member_findid" parameterType="MemberDto"
+		resultType="MemberDto">
+		select
+		user_id
+		from User
+		where user_name=#{user_name} and user_phone=#{user_phone}
+	</select>
+
+	<select id="Member_findpassword" parameterType="MemberDto"
+		resultType="MemberDto">
+		select
+		user_password
+		from User
+		where user_id=#{user_id} and user_name=#{user_name} and
+		user_phone=#{user_phone}
+	</select>
+
+	<update id="Member_delete" parameterType="MemberDto">
+		update user set
+		user_delete=2 where user_key=#{ user_key }
+	</update>
+
 	<select id="Member_mercenaryList" parameterType="MercenaryDto"
 		resultType="MercenaryDto">
 		select * from (
@@ -160,28 +182,43 @@
 	
 	<select id="Member_teamList" parameterType="TeamDto"
 		resultType="TeamDto">
-		select * from 
-	       (select
-	            A.team_name
-	            ,A.team_key
-	            ,A.team_fdate
-	            ,A.team_fee
-	            ,A.team_city 
-	            ,A.team_intro
-	            ,A.team_emblem
-	            ,A.team_notice
-	            ,A.team_num
-	            ,A.team_recruit_yn
-	            ,(select membership_role  from membership where team_key = 1 ) as membership_role
-	             ,@rownum := @rownum+1 AS rnum
-	            from team A, (select @rownum:=0) B
-	            order by team_key desc
-		) A where team_key=(	select team_key from membership where user_key=#{user_key}) limit #{start}, #{pageSize}
+		select 
+		team_key
+         ,(select user_key from membership B where B.TEAM_KEY =A.TEAM_KEY) as USER_KEY
+         ,(select user_name from user where user_key=(select user_key from membership where user_key=#{user_key})) as user_name
+		 ,(select membership_role  from membership where team_key = 1 ) as membership_role
+		 ,A.team_name
+		   ,A.team_fdate
+		   ,A.team_fee
+		   ,A.team_city 
+		   ,A.team_intro
+		   ,A.team_emblem
+		   ,A.team_notice
+		   ,A.team_num
+		   ,A.team_recruit_yn
+		 ,rnum
+		 from(select
+ 		A.team_KEY
+ 		,A.team_name
+ 		 ,A.team_fdate
+		   ,A.team_fee
+		   ,A.team_city 
+		   ,A.team_intro
+		   ,A.team_emblem
+		   ,A.team_notice
+		   ,A.team_num
+		   ,A.team_recruit_yn
+		,@rownum := @rownum+1 AS rnum
+		from team A, (select @rownum:=0) B
+		order by team_key desc
+		) A where team_key=(
+		select team_key from membership
+		where user_key=#{user_key});
 	</select>
 
 	<select id="Member_teamGetTotal"
 		parameterType="TeamDto" resultType="Integer">
-		select count(*) from game  where team_key=(
+		select count(*) from team  where team_key=(
 		select team_key from membership
 		where user_key=#{user_key})
 		<if test='key!=null and keyword!=null'>
@@ -197,26 +234,50 @@
 			</if>
 		</if>
 	</select>
-
-	<select id="Member_findid" parameterType="MemberDto"
-		resultType="MemberDto">
-		select
-		user_id
-		from User
-		where user_name=#{user_name} and user_phone=#{user_phone}
+	
+	<select id="Member_cscenterList" parameterType="CSCenterDto"
+		resultType="CSCenterDto">
+		select * from (
+	select
+		A.cscenter_key
+		,A.cscenter_title
+		,A.user_key
+		,A.cscenter_contents
+		,A.cscenter_date
+		,@rownum := @rownum+1 AS rnum
+		from cscenter A, (select @rownum:=0) B
+		<if test='key!=null and keyword!=null'>
+			<if test='key=="1"'>
+				where mercenary_title like concat('%',#{keyword}, '%')
+			</if>
+			<if test='key=="2"'>
+				where mercenary_contents like concat('%',#{keyword}, '%')
+			</if>
+			<if test='key=="3"'>
+				where mercenary_title like concat('%',#{keyword}, '%') or
+				mercenary_contents like concat('%',#{keyword}, '%')
+			</if>
+		</if>
+		order by cscenter_key desc
+		) A where user_key=#{ user_key }
+		 limit #{start}, #{pageSize}
 	</select>
 
-	<select id="Member_findpassword" parameterType="MemberDto"
-		resultType="MemberDto">
-		select
-		user_password
-		from User
-		where user_id=#{user_id} and user_name=#{user_name} and
-		user_phone=#{user_phone}
+	<select id="Member_cscenterGetTotal"
+		parameterType="CSCenterDto" resultType="Integer">
+		select count(*) from cscenter where user_key =(select user_key from
+		User where user_key=#{ user_key })
+		<if test='key!=null and keyword!=null'>
+			<if test='key=="1"'>
+				and mercenary_title like concat('%',#{keyword}, '%')
+			</if>
+			<if test='key=="2"'>
+				and mercenary_contents like concat('%',#{keyword}, '%')
+			</if>
+			<if test='key=="3"'>
+				and mercenary_title like concat('%',#{keyword}, '%') or
+				mercenary_contents like concat('%',#{keyword}, '%')
+			</if>
+		</if>
 	</select>
-
-	<update id="Member_delete" parameterType="MemberDto">
-		update user set
-		user_delete=2 where user_key=#{ user_key }
-	</update>
 </mapper>

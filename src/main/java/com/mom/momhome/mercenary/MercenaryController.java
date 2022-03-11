@@ -19,7 +19,7 @@ public class MercenaryController {
 	MercenaryService service;
 	
 	//용병구인글 목록
-	@RequestMapping(value="/mercenary/list", method=RequestMethod.GET)
+	@RequestMapping(value="/mercenary/list", method = {RequestMethod.GET, RequestMethod.POST})
 	String mercenary_list(Model model, MercenaryDto dto)
 	{
 		/*
@@ -30,11 +30,6 @@ public class MercenaryController {
 		dto.setStart(dto.getPg()*10);
 		
 		List<MercenaryDto> list = service.getList(dto);
-		
-		/*
-		 * for(MercenaryDto tempdto: list)
-		 * System.out.println(tempdto.getMercenary_title());
-		 */
 		
 		model.addAttribute("mercenaryList",list);
 		model.addAttribute("totalCnt",service.getTotal(dto));
@@ -133,9 +128,14 @@ public class MercenaryController {
 	List<MercenaryDto> getGameList(String user_key)
 	{
 		List<MercenaryDto> gameList = service.getGameList(user_key);
-		/*
-		 * for(MercenaryDto temp: gameList) System.out.println(temp.getGame_key());
-		 */
+		
+		for(MercenaryDto temp: gameList) 
+		{
+			System.out.println(temp.getGame_key());
+			System.out.println(temp.getGame_date());
+			System.out.println(temp.getGame_location());
+		}
+		
 		return gameList;
 	}
 	

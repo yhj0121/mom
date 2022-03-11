@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.gamejoin.GameJoinDto;
+import com.mom.momhome.membership.MembershipDto;
 
 
 public interface GameService {
@@ -18,7 +19,12 @@ public interface GameService {
 	void gameinsertJoin(GameJoinDto dto);
 	void updateJoin(GameJoinDto dto);
 	List<GameJoinDto> getListJoin(GameJoinDto dto);//gamejoin테이블 정보
-	String getCityList(String team_key);
+	GameDto getCityList(String user_key);
+	GameDto teamkeySelect(String user_key);
+	int Gamejoinduplicate(String team_key); //중복 신청 방지
+
+
+
 
 
 

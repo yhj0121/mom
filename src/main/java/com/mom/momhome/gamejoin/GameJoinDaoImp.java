@@ -29,4 +29,10 @@ public class GameJoinDaoImp implements GameJoinDao {
 		return sm.selectList("GameJoin_getList", dto);
 	}
 
+	@Override
+	public int Gamejoinduplicate(String game_key) {
+		// TODO Auto-generated method stub
+		return sm.selectOne("Gamejoin_duplicate", game_key);
+	}
+
 }

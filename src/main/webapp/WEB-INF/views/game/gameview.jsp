@@ -5,6 +5,8 @@
 <%@page import="com.mom.momhome.game.*" %>
 <%@page import="com.mom.momhome.common.*" %>
 <%@page import="com.mom.momhome.gamejoin.*" %>
+<%@page import="com.mom.momhome.membership.*" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,11 +23,14 @@
 		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-		String membership_role="d";
-		String team_key="1";
+		String membership_role=(String)session.getAttribute("membership_role");
+	
 	%>
 	<%
+	
 	GameDto daoo = (GameDto)request.getAttribute("GameDto");
+	GameDto tdaoo = (GameDto)request.getAttribute("teamdto");
+
 	%>
 	
 
@@ -52,46 +57,49 @@
 					<input type="hidden" name="pg"      value="<%=pg%>" >
 					<input type="hidden" name="key"     value="<%=key%>" >
 					<input type="hidden" name="keyword" value="<%=keyword%>" >
-					<input type="hidden" name="membership_role" value="1" >			
-					<input type="hidden" name="team_key" id="team_key" value="1">
+					<input type="hidden" name="membership_role" value="${membership_role}">			
+					<input type="hidden" name="team_key" id="team_key" value="<%=daoo.getTeam_key()%>">
+					<%-- <input type="hidden" name="team_key2" id="team_key2" value="<%=tdaoo.getTeam_key()%>"> --%>
 				    <input type="hidden" name="user_key" value="${userkey}">
 				    <input type="hidden" name="matchingjoin_key" id="matchingjoin_key" value="">
-				    <input type="hidden" name="team_side" value="" >
-				    <input type="hidden" name="team_name" id="team_name" value="fc원주">
+				    <input type="hidden" name="team_side" id="team_side" value="" >
+				    <input type="hidden" name="team_name" id="team_name" value="<%=daoo.getTeam_name()%>">
 			   	    <input type="hidden" name="result_proc"  id="result_proc" value="" />
-			      	<input type="text" name="game_key" id="game_key" value="<%=daoo.getGame_key()%>">
+			      	<input type="hidden" name="game_key" id="game_key" value="<%=daoo.getGame_key()%>">
 					<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_fdate()%>"> 
 					      	
 							<div class="row gtr-uniform">
 								<div class="col-12">
-								<input type="text" name="game_title"   name="game_title"  value="<%=daoo.getGame_title()%>"  readonly />
+								<input type="text" name="game_title"   name="game_title"  value="<%=daoo.getGame_title()%>"  style="color:black;" readonly  />
 								</div>
 							
 							
 										<div class="col-6 col-12-xsmall">
-									<input type="text" name="game_fdate" id="game_fdate" value="<%=daoo.getGame_fdate()%>" readonly />
+									<input type="text" name="game_fdate" id="game_fdate" value="<%=daoo.getGame_fdate()%>"  style="color:black;" readonly />
 								</div>
 								<div class="col-12">
-									<input type="text" name="game_location" id="game_location" value="<%=daoo.getGame_location()%>" readonly />
+									<input type="text" name="game_location" id="game_location" value="<%=daoo.getGame_location()%>" style="color:black;" readonly />
 								</div>
 								<div class="col-12">
-									<textarea name="game_contents" id="game_contents" rows="6" readonly><%=daoo.getGame_contents()%></textarea>
+									<textarea name="game_contents" id="game_contents" rows="6" style="color:black;" readonly><%=daoo.getGame_contents()%></textarea>
 								</div>
 								<div class="col-12">
 									<ul class="actions">
 									
 										<li><input type="button" value="목록" onclick="goList()" /></li>
-										<%if(team_key.equals(daoo.getTeam_key())) {%>
-										<li><input type="button" value="수정" onclick="goupdate()" /></li>
-										<li><input type="button" value="삭제" onclick="goDelete()" /></li>
-										<li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										
+										<%if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key())) {%>
+												<li><input type="button" value="수정" onclick="goupdate()" /></li>
+												<li><input type="button" value="삭제" onclick="goDelete()" /></li>
+												<li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										
+												<li><input type="button" value="홈리스트" onclick="gohome()" /></li>
+										<%}
+										if(membership_role.equals("1")) 
+										{%>																
+										 <li><input type="button" value="신청" onclick="goapply()" /></li>
+									
 										<%}%>
-										<%if(team_key.equals(daoo.getTeam_key()) &&  membership_role.equals("1")) {%>
-										<li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>
-								<%} if(membership_role.equals("d")){ %>
-										<!-- <li><input type="button" value="신청" onclick="goapply()" /></li> -->
-								<%}%>
-										
+								 
+							
 									
 									</ul>
 								</div>
@@ -233,6 +241,7 @@ function goApprove(matchingjoin_key)
 		console.log(result);
 		alert("승인처리 완료되었습니다.");
 		goviewlist();
+	
 	})
 	.fail((error)=>{
 		console.log(error);

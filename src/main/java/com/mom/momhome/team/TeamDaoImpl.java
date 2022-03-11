@@ -65,6 +65,12 @@ public class TeamDaoImpl implements TeamDao {
 		return sm.selectOne("getTeamTotal", dto);
 	}
 
+	@Override
+	public TeamDto getTeamView(TeamDto dto) {
+		
+		return sm.selectOne("getTeamView", dto);
+	}
+
 
 	
 	

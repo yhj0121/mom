@@ -63,25 +63,29 @@ margin:auto;
 						<h3>게임게시글 작성</h3>
 							<form name="myform" >
 							<input type="hidden" name="team_key" id="team_key" value="1"/>	
-							<input type="hidden" name="user_key" value="<%=user_key%>"/>					
+							<input type="text" name="user_key" id="user_key" value="<%=user_key%>"/>					
 							<input type="hidden" name="game_key" value="<%=dao.getGame_key()%>"/>
+							<input type="hidden" name="game_complete" id="game_complete" value="<%=dao.getGame_complete()%>"/>	
 								
 								<div class="row gtr-uniform">
 									<div class="col-12">
 										<input type="text" name="game_title" id="game_title" value="<%=dao.getGame_title()%>" placeholder="제목" />
 									</div>
 									
-										<div class="col-12">
-									 	<input type="text" name="game_location" id="game_location" value="<%=dao.getGame_location()%>" placeholder="위치">
-										</div>
+								<div class="col-12">
+							 	<input type="text" name="game_location" id="game_location" value="<%=dao.getGame_location()%>" placeholder="지역">
+								</div>
 										
 								    <div class="col-12">
-								 	<input type="text" name="team_city" id="team_city" value="" placeholder="위치">
+								 	<input type="text" name="team_city" id="team_city" value="" placeholder="경기장 위치">
 											
 								   </div>
 									
-									<div class="col-6 col-12-xsmall">
-										<input type="text" name="team_name" id="team_name" value="<%=dao.getTeam_name()%>" readonly/>
+								<div class="col-6 col-12-xsmall">
+								<select name="mStatus" id="mStatus">
+									<option value="0">모집중</option>
+									<option value="1">모집완료</option>
+								</select>
 									</div>
 									<div class="col-6 col-12-xsmall">
 									           <input type="datetime-local"  id="game_fdate" name="game_fdate" id="dateTimeLocal"  onchange="setMinValue()">
@@ -116,6 +120,7 @@ margin:auto;
 			
 <script>
  $(document).ready(function(){
+		document.getElementById("mStatus").value= <%=dao.getGame_complete()%>;
 		getCityList();
  }) 
 function goWrite()
@@ -166,24 +171,29 @@ function setMinValue() {
 
 
 
-
 function getCityList(){
-	alert("시작");
-	var team_key = document.getElementById("team_key").value;
+	var user_key = document.getElementById("user_key").value;
+	var frmData = document.myform;
+	frmData.game_complete.value = $("#mStatus").val();
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/selectCity",
-		data:{"team_key":team_key},	
-		dataType:"JSON",
+		data:{"user_key":user_key},	
 		type:"POST"
 	})
 	.done((result)=>{
 		console.log(result);
-		alert("성공");
 		$("#team_city").val(result.team_city);
+		$("#team_key").val(result.team_key);
+		$("#team_name").val(result.team_name);
+
 	})
 	.fail((error)=>{
 		console.log(error);
 	})
+}
+function getTeamkey()
+{
+	
 }
 
 

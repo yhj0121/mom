@@ -81,9 +81,10 @@ table {
 					<form name="myform" method="get">
 						<input type="hidden" name="team_key" id="team_key" value="" /> <input
 							type="hidden" name="pg" id="pg" value="<%=pg%>" /> <input
-							type="hidden" name="key" id="key" value="<%=key%>" /> <input
-							type="hidden" name="game_key" id="game_key" value="" />
-
+							type="hidden" name="key" id="key" value="<%=key%>" /> 
+							<input type="hidden" name="game_key" id="game_key" value="" />
+				   			<input type="hidden" name="user_key" id="user_key" value="${userkey}" />
+							
 
 						<div class="row gtr-uniform">
 							<div class="col-3 col-6-xsmall">
@@ -109,9 +110,10 @@ table {
 									<tr>
 										<th>번호</th>
 										<th>제목</th>
-										<th>지역</th>
+										<th>매칭 장소</th>
 										<th>날짜</th>
 										<th>팀이름</th>
+										<th>모집</th>
 
 									</tr>
 								</thead>
@@ -123,10 +125,16 @@ table {
 									<tr>
 										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
 										<td><a href="#none"
-											onclick="goView('<%=tempDto.getGame_key()%>')"><%=tempDto.getGame_title()%></a></td>
+											onclick="goView('<%=tempDto.getGame_key()%>','<%=tempDto.getTeam_key()%>')"><%=tempDto.getGame_title()%></a></td>
 										<td><%=tempDto.getGame_location()%></td>
 										<td><%=tempDto.getGame_date()%></td>
 										<td><%=tempDto.getTeam_name()%></td>
+										<%
+										if(tempDto.getGame_complete().equals("0")){%>
+										<td>모집중</td>
+										<%}else{%>
+											<td>모집 완료</td>
+										<%}%>
 									</tr>
 									<%}%>
 
@@ -135,12 +143,12 @@ table {
 							</table>
 						</div>
 
-						<div class="col-12" style="text-align: right;">
-							<ul class="actions">
-								<li style="margin-left: auto"><input type="button"
-									value="글쓰기" onclick="goWrite()"></li>
-							</ul>
-						</div>
+							<div class="col-12" style="text-align: right;">
+								<ul class="actions">
+									<li style="margin-left: auto"><input type="button"
+										value="글쓰기" onclick="goWrite()"/></li>
+								</ul>
+							</div>
 
 					</form>
 				</section>
@@ -166,14 +174,13 @@ table {
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
-function goSearch(){
-	   let frm = document.myform;
-	   frm.pg.value=0; 
-	   frm.action = "<%=request.getContextPath()%>
-	/game/list";
-		frm.method = "get";
-		frm.submit();
-	}
+	function goSearch(){
+		   let frm = document.myform;
+		   frm.pg.value=0; 
+		   frm.action = "<%=request.getContextPath()%>/game/list";
+		   frm.method = "get";
+		   frm.submit();
+		}
 
 	function goPage(pg) {
 		frm = document.myform;
@@ -182,9 +189,10 @@ function goSearch(){
 		frm.action = "${pageContext.request.contextPath}/game/list";
 		frm.submit();
 	}
-	function goView(id) {
+	function goView(gamekey,teamkey) {
 		frm = document.myform;
-		frm.game_key.value = id;
+		frm.game_key.value = gamekey;
+		frm.team_key.value = teamkey;
 		frm.method = "get";
 		frm.action = "${pageContext.request.contextPath}/game/view";
 		frm.submit();

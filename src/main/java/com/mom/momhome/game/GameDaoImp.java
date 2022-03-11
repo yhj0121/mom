@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mom.momhome.common.BaseDto;
+import com.mom.momhome.membership.MembershipDto;
 
 @Repository("gameDao")
 public class GameDaoImp implements GameDao {
@@ -52,14 +53,21 @@ public class GameDaoImp implements GameDao {
 	}
 
 	@Override
-	public String getCityList(String team_key) {
+	public GameDto getCityList(String user_key) {
 		// TODO Auto-generated method stub
-		return sm.selectOne("game_cityList", team_key);
+		return sm.selectOne("game_cityList", user_key);
 	}
 
-	
-
-
+	@Override
+	public GameDto teamkeySelect(String user_key) {
+		// TODO Auto-generated method stub
+		return sm.selectOne("game_getMembershipUserkey", user_key);
+	}
 
 
 }
+
+
+
+
+

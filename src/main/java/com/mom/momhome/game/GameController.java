@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.gamejoin.GameJoinDto;
+import com.mom.momhome.membership.MembershipDto;
 
 
 @Controller
@@ -37,11 +38,15 @@ public class GameController {
 //	}
 	
 	@RequestMapping(value="game/view", method=RequestMethod.GET)
-	String view(Model model,String game_key)
+	String view(Model model,GameDto dto)
 	{
-
-		GameDto dto = service.getView(game_key);
-		model.addAttribute("GameDto", dto);
+		System.out.println("***__*_*_*_*_*_*_*_*_*_*_*");
+		System.out.println("dto"+dto.getTeam_key());
+		GameDto viewDto = service.getView(dto.getGame_key());
+		GameDto tdto = service.teamkeySelect(dto.getTeam_key());
+		System.out.println("유저키"+tdto.getUser_key());
+		model.addAttribute("teamdto", tdto);
+		model.addAttribute("GameDto", viewDto);
 		return "game/gameview";
 	}
 	
@@ -54,9 +59,6 @@ public class GameController {
 		dto.setStart( dto.getPg()*10); 
 		
 		List<GameDto> list = service.getList(dto);
-		
-		
-	
 		model.addAttribute("boardList", list);
 		model.addAttribute("totalCnt", service.getTotal(dto));
 		
@@ -76,11 +78,12 @@ public class GameController {
 	@ResponseBody
 	String board_save(GameDto dto)
 	{
-			
+		System.out.println(dto.getTeam_name());	
 		if(dto.getGame_key().equals(""))
 			service.insert(dto);
 		else
 			service.update(dto);
+		
 		return "redirect:/game/list";  
 	}
 
@@ -103,14 +106,13 @@ public class GameController {
 	
 	@RequestMapping(value="/game/apply")
 	@ResponseBody
-	String gamejoin_insert(GameJoinDto dto)
-	{
-		System.out.println("insert 시작부분");
-		service.gameinsertJoin(dto);
-		System.out.println(dto.getGame_key()+"+++++++++++++++++++++++++");
-		return "redirect:/game/list";  
-		
-	}
+    String gamejoin_insert(GameJoinDto dto)
+    {
+        System.out.println("insert 시작부분");
+        service.gameinsertJoin(dto);
+        System.out.println(dto.getGame_key()+"+++++++++++++++++++++++++");
+        return "redirect:/game/list";  
+    }
 	
 	@RequestMapping(value="/game/applyview")
 	@ResponseBody
@@ -132,14 +134,28 @@ public class GameController {
 	
 	@RequestMapping("/game/selectCity")
 	@ResponseBody
-	String game_getCityList(String team_key)
+	GameDto game_getCityList(String user_key)
 	{
-		
 		System.out.println("도입전");
-		String citylist = service.getCityList(team_key);
+		GameDto dto = service.getCityList(user_key);
+		System.out.println(dto);
 		System.out.println("도입후");
-		System.out.println(citylist);
 		
-		return citylist;
+
+	
+		return dto;
 	}
+	
+
+	/*
+	 * @RequestMapping("/game/updatekey")
+	 * 
+	 * @ResponseBody GameDto game_teamkeyList(Model model,String user_key) { GameDto
+	 * cnt = service.teamkeySelect(user_key); System.out.println("팀키 들어가기전");
+	 * model.addAttribute("teamkeyList", cnt); System.out.println(cnt);
+	 * 
+	 * 
+	 * 
+	 * return dto; }
+	 */
 }

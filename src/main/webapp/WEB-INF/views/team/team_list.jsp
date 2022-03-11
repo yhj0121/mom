@@ -54,12 +54,14 @@ table td {
 		<%
 		TeamDto tdto = (TeamDto) request.getAttribute("teamDto");
 		MemberDto mdto = (MemberDto) request.getAttribute("memberDto");
+		
 		%>
 		<%
 		String key = StringUtil.nullToValue(request.getParameter("key"), "");
 		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
 		int totalCnt = (Integer) request.getAttribute("totalCnt");
+		List<TeamDto> list = (List<TeamDto>)request.getAttribute("getTeamList");
 		%>
 
 
@@ -81,10 +83,10 @@ table td {
 
 				<section>
 					<!-- 게시판 작성 -->
-					<form name="myform">
-						<%-- <input type="hidden" name="user_key" id="user_key" value="<%=user_key%>"/> --%>
-						<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> <input
-							type="hidden" name="team_key" id="team_key" value="" />
+					<form name="myform" method="get">
+						<input type="hidden" name="key" id="key" value="<%=key%>" />
+						<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> 
+						<input type="hidden" name="team_key" id="team_key" value="" />
 
 						<div class="row gtr-uniform">
 							<div class="col-3 col-6-xsmall">
@@ -107,7 +109,7 @@ table td {
 							</div>
 
 						</div>
-
+						
 						<div class="table-wrapper">
 							<table>
 								<colgroup>
@@ -130,21 +132,21 @@ table td {
 								</thead>
 								<tbody>
 									<%
-									List<TeamDto> list = (List<TeamDto>) request.getAttribute("getTeamList");
-									for (TeamDto tempDto : list) {
+									
+									for(TeamDto dto : list) {
 									%>
 									<tr>
-										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
+										<td><%=totalCnt - dto.getRnum() + 1%></td>
 
 										<td><a
-											href="${pageContext.request.contextPath}/team/view"
-											onclick="goView('<%=tempDto.getTeam_key()%>')"><%=tempDto.getTeam_name()%></a></td>
-										<td><%=tempDto.getTeam_city()%></td>
-										<td><%=tempDto.getTeam_fdate()%></td>
-										<td><%=tempDto.getUser_name()%></td>
+											href="javascript:void(0)"
+											onclick="goView('<%=dto.getTeam_key()%>')"><%=dto.getTeam_name()%></a></td>
+										<td><%=dto.getTeam_city()%></td>
+										<td><%=dto.getTeam_fdate()%></td>
+										<td><%=dto.getUser_name()%></td>
 										<td>
 											<%
-											if (tempDto.getTeam_recruit_yn().equals("1")) {
+											if (dto.getTeam_recruit_yn().equals("1")) {
 											%> 모집중<%
 											} else {
 											%>모집종료<%
@@ -267,7 +269,7 @@ function goSearch(){
 	}
 	function goView(id) {
 		frm = document.myform;
-		frm.mercenary_key.value = id;
+		frm.team_key.value = id;
 		frm.method = "get";
 		frm.action = "${pageContext.request.contextPath}/team/view";
 		frm.submit();

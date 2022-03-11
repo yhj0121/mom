@@ -5,6 +5,8 @@
 <%@page import="com.mom.momhome.common.*" %>
 <%@page import="com.mom.momhome.member.*" %>
 <%@page import="com.mom.momhome.mercenaryjoin.*" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,14 +26,19 @@ margin:auto;
 	<div id="wrapper">
 	<%@include file="../include/nav.jsp"%>
 	<%
-	 	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
+		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 	 	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 	 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
 	 	String membership_role = (String)session.getAttribute("membership_role");
 	 %>
 	 <%
-	   MercenaryDto mdto = (MercenaryDto)request.getAttribute("mercenaryDto");
-	  %>
+		MercenaryDto mdto = (MercenaryDto)request.getAttribute("mercenaryDto");
+	 %>
+	<%
+		Date nowTime = new Date();
+	  	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	  	Date date = sf.parse(mdto.getGame_date());
+	%>
 		<div id="main">
 	 		<article class="post">
 	 			<header>
@@ -68,26 +75,49 @@ margin:auto;
 									<input type="text" name="user_name" id="user_name" style="color:black;" 
 									value="<%=mdto.getUser_name()%>" readonly />
 								</div>
+								<div class="col-6 col-12-xsmall">
+									<%if(mdto.getMercenary_complete().equals("0")) {%>
+										<input type="text" name="mercenary_complete" id="mercenary_complete" style="color:black;" 
+										value="용병 모집중" readonly />
+									<%}else{ %>
+										<input type="text" name="mercenary_complete" id="mercenary_complete" style="color:black;" 
+										value="용병 모집마감" readonly />
+									<%}%>
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<input type="text" name="game_date" id="game_date" style="color:black;" 
+									value="<%=mdto.getGame_date()%>" readonly />
+								</div>
+								<div class="col-6 col-12-xsmall">
+									<input type="text" name="game_location" id="game_location" style="color:black;" 
+									value="<%=mdto.getGame_location()%>" readonly />
+								</div>
 								<div class="col-12">
 									<textarea name="mercenary_contents" style="color:black;" id="mercenary_contents" rows="6" readonly ><%=mdto.getMercenary_contents()%></textarea>
 								</div>
 								<div class="col-12">
 									<ul class="actions">
-							<% if(!user_key.isEmpty()) {%>
-									<% if(membership_role.equals("1") && (user_key.equals(mdto.getUser_key()))) {%>
+									<%if(date.compareTo(nowTime)<0) {%>
 										<li><input type="button" value="목록" onclick="goList()" /></li>
-										<li><input type="button" value="수정" onclick="goModify()" /></li>
-										<li><input type="button" value="삭제" onclick="goDelete()" /></li>
-										<li><input type="button" value="용병신청리스트" onclick="goViewApplicants()" /></li>
-									<%} else if(membership_role.equals("1")){%>
-										<li><input type="button" value="목록" onclick="goList()" /></li>
-									<%} else {%>
-										<li><input type="button" value="목록" onclick="goList()" /></li>
-										<li><input type="button" value="용병신청" onclick="goApply()" /></li>
-									<%}%>
-							<%}else{%>		
-										<li><input type="button" value="목록" onclick="goList()" /></li>
-									<%} %>
+									 <%}else{ %>  
+										<% if(!user_key.isEmpty()) {%>
+												<% if(membership_role.equals("1")) {%>
+													<% if(user_key.equals(mdto.getUser_key())) {%>
+														<li><input type="button" value="목록" onclick="goList()" /></li>
+														<li><input type="button" value="수정" onclick="goModify()" /></li>
+														<li><input type="button" value="삭제" onclick="goDelete()" /></li>
+														<li><input type="button" value="용병신청리스트" onclick="goViewApplicants()" /></li>
+													<%}else{ %>
+														<li><input type="button" value="목록" onclick="goList()" /></li>
+													<%}%>
+												<%} else {%>
+													<li><input type="button" value="목록" onclick="goList()" /></li>
+													<li><input type="button" value="용병신청" onclick="goApply()" /></li>
+												<%}%>
+										<%}else{%>		
+													<li><input type="button" value="목록" onclick="goList()" /></li>
+												<%} %>
+									 <%} %>
 									</ul>
 								</div>
 							</div>
@@ -158,6 +188,7 @@ function goList()
 {
 	var frm = document.myform;
    	frm.action="<%=request.getContextPath()%>/mercenary/list";
+   	frm.method = "post";
    	frm.submit();
 }
 
@@ -267,11 +298,11 @@ function goApprove(mercenaryjoin_key)
 }
 function goDecline(mercenaryjoin_key)
 {
-	alert("count :"+count);
-	alert("i : "+i);
+	/* alert("count :"+count);
+	alert("i : "+i); */
  	if(count>i){
- 		alert("count :"+count);
- 		alert("i : "+i);
+ 		/* alert("count :"+count);
+ 		alert("i : "+i); */
 		alert("거절 가능 횟수 초과"); 
  	}else if(count == i){
  		//고용했다가 거절누르면 count가 원래 count인 i와 같아지는 경우로 만들때는 거절이 가능해야함

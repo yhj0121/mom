@@ -41,7 +41,7 @@ margin:auto;
 						<!-- <h3>용병구인작성</h3> -->
 							<form name="myform" >
 								<input type="hidden" name="user_key" id="user_key" value="${userkey}"/>
-								<input type=hidden name="game_key" id="game_key" value=""/>
+								<input type="hidden" name="game_key" id="game_key" value=""/>
 								<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>"/>
 								<input type="hidden" name="mercenary_complete" id="mercenary_complete" value="<%=mdto.getMercenary_complete()%>"/>
 								
@@ -60,7 +60,7 @@ margin:auto;
 									</div>
 									<div class="col-12">
 										<select name="gameInfo" id="gameInfo">
-											<option id="gameOption" value="<%=mdto.getGame_date()%>">원하는 게임을 선택하세요</option>
+											<option id="gameDate" value="<%=mdto.getGame_date()%>">원하는 게임 날짜를 선택하세요</option>
 										</select>
 									</div>
 									<div class="col-12">
@@ -92,6 +92,12 @@ $(document).ready(function(){
 	getGameList();
 })
 
+$("#gameInfo").change(function(){
+	var gameInfo =$(this).val();
+  	$("#game_key").val(gameInfo);
+	
+})
+
 //game정보 가져오기
 function getGameList(){
 	var user_key = document.getElementById("user_key").value;
@@ -105,14 +111,11 @@ function getGameList(){
 		var i=1;
 	
 	  result.forEach( (item)=>{
-	    	var data = "<option "+"value='"+item.game_date+"'>";
+	    	var data = "<option "+"value='"+item.game_key+"'>";
 	    	    data +=  item.game_date ;
 	    	    data += "</option>";
 	    	i++;
-	      	$("#gameOption").after(data);
-	      	var k = item.game_key;
-	      	$("#game_key").val(k);
-	      	
+	      	$("#gameDate").after(data);
 		})
 	 
 	})

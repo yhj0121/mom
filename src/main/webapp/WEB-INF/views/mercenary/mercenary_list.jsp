@@ -32,6 +32,7 @@ img {
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
 		int totalCnt = (Integer) request.getAttribute("totalCnt");
 		%>
+		
 		<div id="main">
 			<article class="post">
 				<header>
@@ -50,7 +51,6 @@ img {
 
 				<section>
 					<form name="myform">
-						<%-- <input type="hidden" name="user_key" id="user_key" value="<%=user_key%>"/> --%>
 						<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> 
 						<input type="hidden" name="mercenary_key" id="mercenary_key" value="" />
 
@@ -98,10 +98,10 @@ img {
 									<tr>
 										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
 										<%
-										if(tempDto.getMercenary_complete().equals("0")){%>
+										if((Integer)tempDto.getCha()>0){%>
 											<td>모집중</td>
 										<%}else{%>
-											<td>모집 완료</td>
+											<td>마감</td>
 										<%}%>
 										<td><a href="#none"
 											onclick="goView('<%=tempDto.getMercenary_key()%>')"><%=tempDto.getMercenary_title()%></a></td>
@@ -138,6 +138,10 @@ img {
 <script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 <script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
+$(document).ready(function(){
+	let frm = document.myform;
+	frm.key.value = "<%=key%>";
+})
 function goSearch()
 {
 	let frm = document.myform;

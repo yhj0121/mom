@@ -7,6 +7,15 @@ public class GameJoinDto {
 	private String game_key="";
 	private String matching_date=""; //matchingjoin 테이블 사용
 	private String team_name="";
+	private String user_key="";
+	
+	
+	public String getUser_key() {
+		return user_key;
+	}
+	public void setUser_key(String user_key) {
+		this.user_key = user_key;
+	}
 	public String getTeam_name() {
 		return team_name;
 	}

@@ -159,14 +159,41 @@ function goupdate()
 function goDelete()
 {
 	if( confirm("삭제하시겠습니까?"))
-	   {
-	      var frm = document.myform;
-	      frm.action="<%=request.getContextPath()%>/game/delete";
-	      frm.submit();
-	   }
+   {
+      var frm = document.myform;
+      frm.action="<%=request.getContextPath()%>/game/delete";
+      frm.submit();
+   }
 }
 
 function goapply()
+{	
+	var frmData = document.myform; 
+	var queryString = $("form[name=myform]").serialize();
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/joinduplicate",
+		data:queryString,
+		processData:false,
+		type:"POST"
+	})
+	.done((result)=>{
+		console.log(result);
+		if(result===0)
+		{
+			insertJoin();
+		}
+		else
+		{	
+			alert("이미 신청하셨습니다.");
+			return false;
+		} 
+	})
+	.fail((error)=>{
+		console.log(error);
+	})		
+}
+
+function insertJoin()
 {
 	$("#result_proc").val("1");
 	var frmData = document.myform; 
@@ -180,13 +207,12 @@ function goapply()
 		console.log(data);
 		alert("신청이 완료되었습니다.");
 		location.href="<%=request.getContextPath()%>/game/list";
-		})
-		.fail(function(err){
-			console.log(err);
-		})
+		
+	})
+	  .fail(function(err){
+		console.log(err);
+	})	
 }
-
-
 
 function goviewlist()
 {
@@ -283,6 +309,7 @@ function golineup(team_side)
 	frm.submit();
 	
 }
+
 </script>
 </html>
 

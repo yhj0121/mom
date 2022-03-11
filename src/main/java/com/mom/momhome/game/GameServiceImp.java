@@ -58,6 +58,8 @@ public class GameServiceImp implements GameService {
 
 	@Override
 	public void gameinsertJoin(GameJoinDto dto) {
+		String team_key = gamejoindao.getTeamkey(dto.getUser_key());
+		dto.setTeam_key(team_key);
 		gamejoindao.gameinsertJoin(dto);
 		
 	}
@@ -86,10 +88,11 @@ public class GameServiceImp implements GameService {
 	}
 
 	@Override
-	public int Gamejoinduplicate(String team_key) {
+	public int GetCount(GameJoinDto dto) {
 		// TODO Auto-generated method stub
-		return gamejoindao.Gamejoinduplicate(team_key);
+		return gamejoindao.GetCount(dto);
 	}
+
 
 
 

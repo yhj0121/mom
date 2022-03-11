@@ -146,6 +146,18 @@ public class GameController {
 		return dto;
 	}
 	
+	@RequestMapping("/game/joinduplicate")
+	@ResponseBody
+	int gamejoin_duplicate(GameJoinDto dto)
+	{	
+		System.out.println("게임키" + dto.getGame_key());
+		System.out.println("유저키" + dto.getUser_key());
+		int count = service.GetCount(dto);
+		System.out.println("카운트 값"+count);
+		return count;
+	}
+	
+	
 
 	/*
 	 * @RequestMapping("/game/updatekey")

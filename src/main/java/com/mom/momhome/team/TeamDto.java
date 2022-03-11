@@ -30,12 +30,12 @@ public class TeamDto extends BaseDto{
 	public void setUser_name(String user_name) {
 		this.user_name = user_name;
 	}
-	public String getMembership_role(MembershipDto mdto) {
+	public String getMembership_role() {
 		return membership_role;
 	}
 	public void setMembership_role(String membership_role) {
 		this.membership_role = membership_role;
-	}
+	}	
 	public String getUser_key() {
 		return user_key;
 	}
@@ -108,8 +108,10 @@ public class TeamDto extends BaseDto{
 		return "TeamDto [team_key=" + team_key + ", team_name=" + team_name + ", team_fdate=" + team_fdate
 				+ ", team_fee=" + team_fee + ", team_city=" + team_city + ", team_intro=" + team_intro
 				+ ", team_emblem=" + team_emblem + ", team_notice=" + team_notice + ", team_num=" + team_num
-				+ ", team_recruit_yn=" + team_recruit_yn + "]";
-	} 
+				+ ", team_recruit_yn=" + team_recruit_yn + ", user_key=" + user_key + ", membership_role="
+				+ membership_role + ", user_name=" + user_name + "]";
+	}
+
 	
 	
 	

@@ -1,8 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@page import="java.util.List"%>
+<%@page import="java.util.*"%>
 <%@page import="com.mom.momhome.member.*"%>
+<%@page import="com.mom.momhome.team.*"%>
 <%@page import="com.mom.momhome.mercenary.*"%>
 <%@page import="com.mom.momhome.common.*"%>
 <html>
@@ -13,6 +14,8 @@
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <style>
 .actions {
 	justify-content: center;
@@ -46,14 +49,26 @@ table td:not(.introduction) {
 
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
+		<%
+			String key = StringUtil.nullToValue(request.getParameter("key"), "1");
+		%>
+		<%
+			TeamDto dto = (TeamDto)request.getAttribute("teamDto");
+		%>
+		
 		<!-- Main -->
 		<div id="main">
+			<form name="myform">
+			<input type="hidden" name="team_name" value="<%=dto.getTeam_name()%>"/>
 			<!-- Post -->
 			<article class="post">
+			
 				<header>
+					
 					<div class="title">
+					
 						<h2>
-							<a href="single.html">team_name 끌어오기</a>
+							<a href="single.html"><%=dto.getTeam_name() %></a>
 						</h2>
 					</div>
 					<div class="meta">
@@ -95,7 +110,7 @@ table td:not(.introduction) {
 					<h2>모집여부</h2>
 					<p>team_recruit_yn 끌어오기</p>
 				</div>
-
+				
 
 				<ul class="actions" style=" margin-top: 200px; justify-content:unset;">
 					<li><input type="button" value="목록" /></li>
@@ -104,12 +119,14 @@ table td:not(.introduction) {
 					<li><input type="button" value="미정"  /></li>
 					<li><input type="button" value="미정"  /></li>
 				</ul>
+				
 			</article>
-
+			
 			<!-- Footer -->
 			<%@include file="../include/footer.jsp"%>
+			</form>
 		</div>
-
+	
 	</div>
 
 	<!-- Scripts -->

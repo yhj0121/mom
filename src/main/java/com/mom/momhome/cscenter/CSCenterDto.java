@@ -1,6 +1,8 @@
 package com.mom.momhome.cscenter;
 
-public class CSCenterDto {
+import com.mom.momhome.common.BaseDto;
+
+public class CSCenterDto extends BaseDto  {
 	String cscenter_key="";
 	String user_key="";
 	String cscenter_title="";

@@ -4,7 +4,7 @@ public class TeamjoinDto {
 	private String teamjoin_key="";
 	private String team_key="";
 	private String user_key="";
-	private String teamjoin_proc=""; //대기-1, 수락-2, 거절-3
+	private String teamjoin_proc=""; //기본값-1, 가입 요청-2, 가입 수락-3, 가입 거절-4,탈퇴 요청-5, 탈퇴 수락-6
 	private String user_name="";
 	private String team_name="";
 	private String user_position="";

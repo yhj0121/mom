@@ -225,14 +225,23 @@ public class MemberController {
 		dto.setUser_key(user_key);
 		dto.setStart(dto.getPg()*10);
 		
+		//감독이 팀을 생성했을 때 
 		List<TeamDto> list = memberService.getTeamList(dto);
+		System.out.println("팀 리스트: "+list);
 		model.addAttribute("teamList",list);
-		System.out.println(list);
 		model.addAttribute("totalCnt",memberService.getTeamTotal(dto));
 		
+		//감독 계정에서 팀에 누군가 가입했을 때 
+//		if( !list.isEmpty() ) {
+//		}
+
 		jdto.setTeam_key(list.get(0).getTeam_key());
 		List<TeamjoinDto>teamjoinlist = memberService.getTeamjoinList(jdto);
+		System.out.println("팀 조인 리스트: "+teamjoinlist);
 		model.addAttribute("teamjoinlist",teamjoinlist);
+		
+		//일반회원 계쩡에서 팀에 가입 신청을 했을 때 
+		
 		return "member/member_teamdetail";
 	}
 	

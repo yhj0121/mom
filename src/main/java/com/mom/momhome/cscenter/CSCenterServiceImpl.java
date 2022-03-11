@@ -13,13 +13,24 @@ public class CSCenterServiceImpl implements CSCenterService {
 	CSCenterDao cscenterDao;
 	
 	@Override
-	public List<CSCenterDto> getList() {
-		return cscenterDao.getList();
+	public List<CSCenterDto> getList(CSCenterDto dto) {
+		return cscenterDao.getList(dto);
 	}
 
 	@Override
 	public void writeData(CSCenterDto dto) {
 		cscenterDao.writeData(dto);
+	}
+
+	@Override
+	public CSCenterDto getDetail(CSCenterDto dto) {
+		return cscenterDao.getDetail(dto.getCscenter_key());
+	}
+
+	@Override
+	public int getTotal(CSCenterDto dto) {
+		
+		return cscenterDao.getTotal(dto);
 	}
 	
 	

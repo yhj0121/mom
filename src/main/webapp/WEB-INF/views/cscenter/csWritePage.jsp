@@ -1,6 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import="com.mom.momhome.cscenter.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.mom.momhome.common.*" %>
 <html>
 	<head>
 		<title>Man of the match</title>
@@ -26,8 +29,9 @@
 				align-items: center;
 				justify-content: center;
 				width: 80vw;
-				height: 80vh;
+				height: 100%;
 				background-color: white;
+				margin: 50px 0px 50px 0px;
 			">
 
 				<!-- Header -->
@@ -50,7 +54,13 @@
 				"><h1>문의사항</h1></section>
 				
 				<!-- Input Form -->
-				<form name="writeForm">
+				<form name="writeForm" style="
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					width: 100%;
+					height: 100%;
+				">
 					<input type="hidden" name="user_key" value="<%=user_key%>"/>
 					<div class="mb-3" style="
 					width: 80%;
@@ -64,7 +74,7 @@
 					</div>
 					<div class="mb-3" style="
 					width: 80%;
-					height: 50%;
+					height: 100%;
 					margin: 20px 0px 20px 0px;
 					">
 					  <label for="exampleFormControlTextarea1" class="form-label">문의 내용</label>
@@ -76,6 +86,7 @@
 				</form>
 								
 					<!-- btn Senction -->
+						
 						<section class="section_writeBtn" 
 						style="
 						display: flex;
@@ -86,12 +97,24 @@
 							height: 50px;
 							border-color: #dddddd;
 							padding-right: 6px;
-							margin-bottom: 9px;
+							margin: 10px;
 							">접수하기</button>
+							<button type="button" class="btn btn-goList" 
+							style="
+							height: 50px;
+							border-color: #dddddd;
+							padding-right: 6px;
+							margin: 10px;
+							">뒤로가기</button>
 						</section>
 					
-					<!-- Seperate Line -->
-					<hr style="width:100%" />
+				<!-- Seperate Line -->
+					<div style="width: 100%">
+						<hr style="
+							width: 100%;
+							margin-top: 30px;
+						" />
+					</div>
 					
 						<!-- Footer -->
 							<section id="footer" style="
@@ -125,6 +148,7 @@ function goWrite()
 		alert('로그인이 필요합니다.');
 		return;
 	}
+	
 	var frmData = document.writeForm; // form name
 	var queryString = $("form[name=writeForm]").serialize();
 	if(frmData.cscenter_title.value.trim().length < 10)
@@ -149,10 +173,18 @@ function goWrite()
 		console.log(result);
 		alert("정상적으로 접수 되었습니다.");
 		<%-- alert('<%=request.getAttribute("msg")%>'); --%>
+		location.href='${commonURL}/cscenter';
 	})
 	.fail((error)=>{
 		console.log(error);
 	})
 }
+
+	const btnGoList = document.querySelector('.btn-goList');
+	
+	btnGoList.addEventListener('click', () => {
+		location.href='${commonURL}/cscenter';
+	})
+
 </script>
 </html>

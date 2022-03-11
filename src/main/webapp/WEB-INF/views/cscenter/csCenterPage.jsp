@@ -19,6 +19,7 @@
 	justify-content: center;
 	align-items: center;
 	background-color: #f4f4f4;
+	margin: 50px 0px 50px 0px;
 	">
 	
 		<!-- Wrapper -->
@@ -29,7 +30,6 @@
 				align-items: center;
 				justify-content: center;
 				width: 80vw;
-				height: 80vh;
 				background-color: white;
 			">
 
@@ -54,6 +54,17 @@
 				
 					
 					<!-- Board Table -->
+					<%
+						String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+						int totalCnt = (Integer) request.getAttribute("totalCnt");
+						System.out.println(pg);
+						System.out.println(totalCnt);
+					%>
+					<form name="myForm" style="
+						width: 80%;
+					">
+					<input type="hidden" name="cscenter_key"/>
+					<input type="hidden" name="pg" id="pg" value="<%=pg%>"/>
 						<table class="table table-hover">
 						  <thead>
 						    <tr>
@@ -69,7 +80,7 @@
 								for(int i = 0; i < list.size(); i++) {
 									CSCenterDto csCenterDto = list.get(i);
 							%>
-						    <tr  style="cursor: pointer">
+						    <tr class="listUnit"  style="cursor: pointer">
 						      <td><%=csCenterDto.getCscenter_key()%></td>
 						      <td><%=csCenterDto.getCscenter_title()%></td>
 						      <td><%=csCenterDto.getUser_name()%></td>
@@ -78,13 +89,15 @@
 								<%}%>
 						  </tbody>
 						</table>
+					</form>
 						
 						<!-- btn Senction -->
 						<section class="section_writeBtn" 
 						style="
-						display: flex;
-						width: 100%;
-						flex-direction: row-reverse;">
+							display: flex;
+							width: 80%;
+							flex-direction: row-reverse;
+						">
 							<button type="button" class="btn btn-outline-secondary" 
 							style="
 							height: 50px;
@@ -94,22 +107,17 @@
 							">문의하기</button>
 						</section>
 						
-					<!-- Pagination -->
-						<nav aria-label="...">
-						  <ul class="pagination" style="margin-top:16">
-						    <li class="page-item disabled">
-						      <a class="page-link">Previous</a>
-						    </li>
-						    <li class="page-item"><a class="page-link" href="#">1</a></li>
-						    <li class="page-item active" aria-current="page">
-						      <a class="page-link" href="#">2</a>
-						    </li>
-						    <li class="page-item"><a class="page-link" href="#">3</a></li>
-						    <li class="page-item">
-						      <a class="page-link" href="#">Next</a>
-						    </li>
-						  </ul>
-						</nav>
+					<!-- Pagination  -->
+						<div class="container"
+							style="
+							display: flex; 
+							justify-content: center;
+							background-color: white;
+							">
+							<%=Pager.makeTag(request, 10, totalCnt)%>
+						</div>
+					<!-- /Pagination  -->
+			
 					</div>
 					<!-- Seperate Line -->
 					<hr style="width:100%" />
@@ -135,17 +143,42 @@
 			<script src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-<<<<<<< HEAD
-			<script src="${pageContext.request.contextPath}/resources/assets/js/csCenterPage.js"></script>
-=======
 			
 			<script>
-				const btn = document.querySelector('.btn-outline-secondary');
-				
-				btn.addEventListener('click', ()=> {
-					location.href="http://localhost:8080/mom/cscenter/write";
+				const reqBtn = document.querySelector('.btn-outline-secondary');
+				const listUnit = document.querySelectorAll('.listUnit');
+					
+				reqBtn.addEventListener('click', ()=> {
+					location.href="http://localhost:8080/momhome/cscenter/write";
 				});
+				
+				for(let i = 0; i < listUnit.length; i++) {
+					listUnit[i].addEventListener('click', (e)=> {
+						let unitId = e.target.parentNode.childNodes[1].textContent;
+// 						console.log(unitId)
+						goView(unitId);
+					});
+				}
+
+				function goView(unitId) 
+				{
+					frm = document.myForm;
+					frm.cscenter_key.value = unitId;
+					frm.method = "get";
+					frm.action = "${pageContext.request.contextPath}/cscenter/detail";
+					frm.submit();
+				}
+				
+				function goPage(pg) 
+				{
+					console.log(pg);
+					frm = document.myForm;
+					frm.pg.value = pg;
+					frm.method = "get";
+					frm.action = "${pageContext.request.contextPath}/cscenter";
+					frm.submit();
+				}
+				
 			</script>
->>>>>>> 53467ef (페이지 기능 구현 중..)
 	</body>
 </html>

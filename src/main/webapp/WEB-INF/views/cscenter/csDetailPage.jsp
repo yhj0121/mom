@@ -1,6 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%@ page import="com.mom.momhome.cscenter.*" %>
+<%@ page import="java.util.*" %>
+<%@ page import="com.mom.momhome.common.*" %>
 <html>
 	<head>
 		<title>Man of the match</title>
@@ -27,6 +30,8 @@
 				width: 80vw;
 				height: 90vh;
 				background-color: white;
+				height: 100%;
+				margin: 50px 0px 50px 0px;
 			">
 
 				<!-- Header -->
@@ -40,6 +45,7 @@
 						align-items: center;
 						height: 100%;
 					">
+					
 				<!-- section csTitle -->
 				<section class="section_csTitle"
 				style="
@@ -51,6 +57,7 @@
 				</section>
 				
 				<!-- Detail Main Form -->
+				<%CSCenterDto csDto = (CSCenterDto)request.getAttribute("csDetail"); %>
 				<form style="
 			    	margin: 0px 0px 25px 0px;
 			    	width: 80%
@@ -68,7 +75,7 @@
 					   	cursor: grab;
 					   	color: black;
 					   	margin-top: 10px;
-				    " value="축구 실력 문의">
+				    " value=<%=csDto.getCscenter_title()%>>
 				  </div>
 				  
 				    <div class="form-group">
@@ -84,7 +91,7 @@
 					   	cursor: grab;
 					   	color: black;
 					   	margin-top: 10px;
-				    " value="Lionel Messi">
+				    " value=<%=csDto.getUser_name()%>>
 				  </div>
 				  
 				    <div class="form-group">
@@ -100,7 +107,7 @@
 					   	cursor: grab;
 					   	color: black;
 					   	margin-top: 10px;
-				    " value="2022-03-07">
+				    " value=<%=csDto.getCscenter_date()%>>
 				  </div>
 				
 				  <div class="form-group">
@@ -118,7 +125,7 @@
 				   	 cursor: grab;
 				   	 color: black;
 				   	 margin-top: 10px;
-				    ">축구 잘 하려면 어떻게 해야 하나요??</textarea>
+				    "><%=csDto.getCscenter_contents()%></textarea>
 				  </div>
 				</form>
 								
@@ -133,14 +140,17 @@
 							height: 50px;
 							border-color: #dddddd;
 							padding-right: 6px;
-							margin-bottom: 9px;
+							margin-bottom: 10px;
 							">뒤로가기</button>
 						</section>
 					</div>
 					
 					<!-- Seperate Line -->
 					<div style="width: 100%">
-						<hr style="width:100%" />
+						<hr style="
+							width: 100%;
+							margin-top: 30px;
+						" />
 					</div>
 						<!-- Footer -->
 							<section id="footer" style="
@@ -163,5 +173,13 @@
 			<script src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+			
+			<script>
+				const backBtn = document.querySelector('.btn-outline-secondary');
+				console.log(backBtn)
+				backBtn.addEventListener('click', () => {
+					location.href='${commonURL}/cscenter';
+				})
+			</script>
 	</body>
 </html>

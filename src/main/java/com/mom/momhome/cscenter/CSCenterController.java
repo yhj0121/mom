@@ -17,8 +17,10 @@ public class CSCenterController {
 	
 	
 	@RequestMapping(value = "/cscenter", method = RequestMethod.GET)
-	public String csCenterMain(Model model) {
-		model.addAttribute("csCenterList", cscenterService.getList());
+	public String csCenterMain(CSCenterDto dto, Model model) {
+		dto.setStart(dto.getPg()*10);
+		model.addAttribute("csCenterList", cscenterService.getList(dto));
+		model.addAttribute("totalCnt",cscenterService.getTotal(dto));
 		return "cscenter/csCenterPage";
 	}
 	
@@ -33,11 +35,12 @@ public class CSCenterController {
 	public String csCenterWriteSave(CSCenterDto dto) {
 		
 		cscenterService.writeData(dto);
-		return "redirect:/cscenter/csCenterPage";
+		return "redirect:/cscenter";
 	}
 	
 	@RequestMapping(value = "/cscenter/detail", method = RequestMethod.GET)
-	public String csCenterDetail() {
+	public String csCenterDetail(CSCenterDto dto, Model model) {
+		model.addAttribute("csDetail", cscenterService.getDetail(dto));
 		return "cscenter/csDetailPage";
 	}
 }

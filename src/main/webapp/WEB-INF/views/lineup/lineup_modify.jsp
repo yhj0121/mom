@@ -16,10 +16,29 @@
 	<title>Insert title here</title>
 	
 <style>
-	th, td {
- 		text-align: center;
+	@media(min-width:700px)
+	{
+		table{
+			width:700px !important;
+		}
 	}
 	
+	table{
+		margin-bottom:0 !important;
+	}
+	
+	table thead tr th{
+		text-align: center;
+	}
+	td {
+ 		text-align: center;
+ 		padding:0 !important;
+	}
+	hr{
+		padding:0 !important;
+		margin-top:5px !important;
+		margin-bottom:5px !important;
+	}
 </style>
 </head>
 <body class="is-preload">
@@ -34,7 +53,7 @@
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
 		%>
 		
-		<article class="post">
+		<article class="post" style="overflow:unset">
 				<header>
 					<div class="title">
 						<h2>
@@ -52,20 +71,25 @@
       	<form name="myform"> 	
           <section>
 			<div class="table-wrapper">
-				<table class="alt" style="width:40%; margin-left:auto; margin-right:auto;">
+				
+<!-- 				<select id="formation" name="formation" style="width:250px; margin-left:31%;">  -->
+<!-- 					<option id="formation_opt">원하는 포메이션을 선택하세요.</option> -->
+<!-- 				</select> -->
+<!-- 				<br/> -->
+
+				<table class="alt" style="width:700px; margin-left:auto; margin-right:auto;">
 						<colgroup>
 							<col width="10%">
-							<col width="18%">
+							<col width="16%">
 							<col width="*">      
-							<col width="27%">
+							<col width="30%">
 						</colgroup>
 					<thead>
 						<tr>
-							<th style="text-align:center;">번호</th>
-							<th style="text-align:center;">포지션</th>
-							<th style="text-align:center;">아이디</th>
-							<th style="text-align:center;">이름</th>
-							
+							<th>번호</th>
+							<th>포지션</th>
+							<th>아이디</th>
+							<th>이름</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -93,13 +117,23 @@
 						curRowNum++;
 					}
 					%>
+					</tbody>
+				</table>
 					
-					<tr> 
-						<td colspan="999" class="text-center">
-							<hr style="border: dashed 1px;">
-						</td>
-					</tr>
+<!-- 					<tr>  -->
+<!-- 						<td colspan="999" class="text-center"> -->
+							<hr style="border: dashed 1px; width:700px; margin-left:auto; margin-right:auto;">
+<!-- 						</td> -->
+<!-- 					</tr> -->
 					
+					<table class="alt" style="width:700px; margin-left:auto; margin-right:auto;">
+						<colgroup>
+							<col width="10%">
+							<col width="16%">
+							<col width="*">      
+							<col width="30%">
+						</colgroup>
+						<tbody>
 					<%
 					for(int i =0; i<maxBenchCount; i++)
 					{
@@ -138,7 +172,7 @@
            
 		</section>
        </form>
-       </article>
+      </article>
 	</div>
 </body>
 </html>

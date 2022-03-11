@@ -7,6 +7,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mom.momhome.game.GameDto;
+
 @Repository("lineupDao")
 public class LineupDaoImpl implements LineupDao{
 
@@ -15,7 +17,7 @@ public class LineupDaoImpl implements LineupDao{
 	
 	@Override
 	//
-	public List<LineupDto> getList(LineupDto dto) {
+	public List<LineupDto> getList(GameDto dto) {
 		return sm.selectList("Lineup_getList", dto);
 	}
 

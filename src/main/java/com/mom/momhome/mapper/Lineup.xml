@@ -10,7 +10,7 @@ id:식별값,
 parameterType: 전달할값
 resultType : 받아오는값  
 -->
-	<select id="Lineup_getList" parameterType="LineupDto"	resultType="LineupDto">
+	<select id="Lineup_getList" parameterType="GameDto"	resultType="LineupDto">
  		select
             lineup_key
             ,user_key

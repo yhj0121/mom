@@ -3,8 +3,10 @@ package com.mom.momhome.lineup;
 import java.util.List;
 import java.util.Map;
 
+import com.mom.momhome.game.GameDto;
+
 public interface LineupService {
-	List<LineupDto> getList(LineupDto dto);
+	List<LineupDto> getList(GameDto dto);
 	List<LineupPlayerDto> getPlayerList(String teamkey);
     LineupPlayerDto getPlayer(String userkey);
     

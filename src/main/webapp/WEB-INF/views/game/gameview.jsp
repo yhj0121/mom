@@ -87,18 +87,20 @@
 									<ul class="actions">
 									
 										<li><input type="button" value="목록" onclick="goList()" /></li>
-										<%if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key())) {%>
-												<li><input type="button" value="수정" onclick="goupdate()" /></li>
-												<li><input type="button" value="삭제" onclick="goDelete()" /></li>
-												<li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										
-												<li><input type="button" value="홈리스트" onclick="gohome()" /></li>
-										<%}
-										if(membership_role.equals("1")) 
-										{%>																
-										 <li><input type="button" value="신청" onclick="goapply()" /></li>
-									
-										<%}%>
-								 
+										<%if(membership_role.equals("1")) {%>
+											<li><input type="button" value="신청" onclick="goapply()"/></li>
+								     		<li><input type="button" value="어웨이리스트가기" onclick="golineup(2)"/></li>
+										<%
+										if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key())){
+										%>																
+												
+								 				 <li><input type="button" value="수정" onclick="goupdate()" /></li>
+												 <li><input type="button" value="삭제" onclick="goDelete()" /></li>
+												 <li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										
+												 <li><input type="button" value="홈리스트가기" onclick="golineup(1)" /></li>
+						
+												<%}%>
+								 			<%}%>
 							
 									
 									</ul>
@@ -269,6 +271,17 @@ function goDecline(matchingjoin_key)
 	.fail((error)=>{
 		console.log(error);
 	})
+}
+
+function golineup(team_side)
+{
+	var frm = document.myform;
+	frm.team_side.value=team_side;
+	console.log(frm.team_side);
+	frm.method = "get";
+	frm.action = "${pageContext.request.contextPath}/lineup/info";
+	frm.submit();
+	
 }
 </script>
 </html>

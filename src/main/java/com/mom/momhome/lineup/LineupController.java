@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mom.momhome.game.GameDto;
+
 @Controller
 public class LineupController {
 
@@ -22,11 +24,10 @@ public class LineupController {
 	LineupService service;
 	
 	@RequestMapping(value = "/lineup/info", method = RequestMethod.GET)
-	public String info(Model model, LineupDto dto) {
+	public String info(Model model, GameDto dto) {
 		
         //---temp---------
-        dto.setGame_key("1");
-        dto.setTeam_side("1");
+        
         //--------------
         List<LineupDto> list = service.getList(dto);
         
@@ -158,7 +159,7 @@ public class LineupController {
 //		System.out.println(team_key);
 //		System.out.println(team_side);
 		
-		LineupDto dto = new LineupDto();
+		GameDto dto = new GameDto();
         //---temp---------
         dto.setGame_key(game_key);
         dto.setTeam_key(team_key);

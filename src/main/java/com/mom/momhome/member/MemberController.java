@@ -83,8 +83,11 @@ public class MemberController {
 		HashMap<String, String> map = new HashMap<String, String>();
 		if(resultDto==null) {
 			map.put("flag", "2");	
-		} else {
-			if(resultDto.getUser_password().equals(dto.getUser_password())) {
+		} 
+		else 
+		{
+			if(resultDto.getUser_password().equals(dto.getUser_password())) 
+			{
 				map.put("flag", "1"); //로그온 성공시 세션에 정보를 저장한다 
 				session.setMaxInactiveInterval(1800); //30분 세션 유지 
 				session.setAttribute("userid", resultDto.getUser_id());
@@ -95,12 +98,16 @@ public class MemberController {
 				session.setAttribute("phone", resultDto.getUser_phone());
 				
 				MembershipDto membershipDto = memberService.getMembership(resultDto.getUser_key());
-		        if( membershipDto == null ) {
-		        	 session.setAttribute("membership_role", "");
-		        } else {
+				if( membershipDto != null )
+				{
+		        	session.setAttribute("membershipDto", membershipDto);
 		        	session.setAttribute("membership_role", membershipDto.getMembership_role());
-		        }
-			} else {
+				}
+				else
+					session.setAttribute("membershipDto", new MembershipDto());
+			} 
+	        else 
+	        {
 				map.put("flag", "3");
 			}
 		}

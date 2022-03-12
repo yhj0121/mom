@@ -3,6 +3,7 @@
     pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.mom.momhome.lineup.*" %>
+<%@ page import="com.mom.momhome.game.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,6 +66,8 @@
 				</header>
 				
 		<%
+		GameDto gameDto = (GameDto)request.getAttribute("gameDto");
+		
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
 		Map<Integer, LineupDto> lineupDic = new HashMap<Integer, LineupDto>();
 		for(int i = 0; i < lineups.size(); i++)
@@ -74,9 +77,9 @@
 		%>
 			  
 	    <form name="myform"> 	
-			<input type="hidden" name="game_key" id="game_key" value="1"/> <!-- 로그인세션에서 팀키가져오자 -->
-			<input type="hidden" name="team_key" id="team_key" value="1"/>
-			<input type="hidden" name="team_side" id="team_side" value="1"/> 
+			<input type="hidden" name="game_key" id="game_key" value="<%=gameDto.getGame_key()%>"/>
+			<input type="hidden" name="team_key" id="team_key" value="<%=gameDto.getTeam_key()%>"/>
+			<input type="hidden" name="team_side" id="team_side" value="<%=gameDto.getTeam_side()%>"/> 
 	          <section>
 				<div class="table-wrapper"> 
 					<table class="alt" style="width:700px; margin-left:auto; margin-right:auto;"> 

@@ -14,7 +14,7 @@ public interface GameDao {
 	int getTotal(GameDto dto);
 	
 	GameDto getCityList(String user_key);
-	GameDto teamkeySelect(String user_key);
+	GameDto getMembershipUserkey(String user_key);
 	/*
 	 * GameDto getteam_key(String user_key);
 	 */

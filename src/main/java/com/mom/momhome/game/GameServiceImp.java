@@ -77,19 +77,16 @@ public class GameServiceImp implements GameService {
 
 	@Override
 	public GameDto getCityList(String user_key) {
-		// TODO Auto-generated method stub
 		return dao.getCityList(user_key);
 	}
 
 	@Override
-	public GameDto teamkeySelect(String user_key) {
-		// TODO Auto-generated method stub
-		return dao.teamkeySelect(user_key);
+	public GameDto getMembershipUserkey(String user_key) {
+		return dao.getMembershipUserkey(user_key);
 	}
 
 	@Override
 	public int GetCount(GameJoinDto dto) {
-		// TODO Auto-generated method stub
 		return gamejoindao.GetCount(dto);
 	}
 

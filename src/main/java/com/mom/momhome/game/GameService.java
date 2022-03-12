@@ -20,7 +20,7 @@ public interface GameService {
 	void updateJoin(GameJoinDto dto);
 	List<GameJoinDto> getListJoin(GameJoinDto dto);//gamejoin테이블 정보
 	GameDto getCityList(String user_key);
-	GameDto teamkeySelect(String user_key);
+	GameDto getMembershipUserkey(String user_key);
 	int GetCount(GameJoinDto dto); //중복 신청 방지
 	
 

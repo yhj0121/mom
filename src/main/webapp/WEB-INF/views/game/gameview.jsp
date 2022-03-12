@@ -16,26 +16,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <link rel="stylesheet" href="../resources/assets/css/main.css" /></head>
-<body class="is-preload">
 
-			<%@include file="../include/nav.jsp"%>
-		<%
-		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
-		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
-		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-		String membership_role=(String)session.getAttribute("membership_role");
-	
-	%>
+<body class="is-preload">
+<%@include file="../include/nav.jsp"%>
 	<%
-	
+	String key = StringUtil.nullToValue(request.getParameter("key"), "1");
+	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
+	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+
 	GameDto daoo = (GameDto)request.getAttribute("GameDto");
 	GameDto tdaoo = (GameDto)request.getAttribute("teamdto");
-
 	%>
-	
-
- 
-    
+	    
 	<div id="main">
 	 		<article class="post">
 	 			<header>
@@ -50,88 +42,83 @@
 					</div>
 				</header>
 
-				
 	 			<section>
 					<h3 style="text-align: center">매칭 정보</h3>	
-						<form name="myform">
-					<input type="hidden" name="pg"      value="<%=pg%>" >
-					<input type="hidden" name="key"     value="<%=key%>" >
-					<input type="hidden" name="keyword" value="<%=keyword%>" >
-					<input type="hidden" name="membership_role" value="${membership_role}">			
-					<input type="hidden" name="team_key" id="team_key" value="<%=daoo.getTeam_key()%>">
-					<%-- <input type="hidden" name="team_key2" id="team_key2" value="<%=tdaoo.getTeam_key()%>"> --%>
-				    <input type="hidden" name="user_key" value="${userkey}">
-				    <input type="hidden" name="matchingjoin_key" id="matchingjoin_key" value="">
-				    <input type="hidden" name="team_side" id="team_side" value="" >
-				    <input type="hidden" name="team_name" id="team_name" value="<%=daoo.getTeam_name()%>">
-			   	    <input type="hidden" name="result_proc"  id="result_proc" value="" />
-			      	<input type="hidden" name="game_key" id="game_key" value="<%=daoo.getGame_key()%>">
-					<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_fdate()%>"> 
+					<form name="myform">
+						<input type="hidden" name="pg"      value="<%=pg%>" >
+						<input type="hidden" name="key"     value="<%=key%>" >
+						<input type="hidden" name="keyword" value="<%=keyword%>" >
+						<input type="hidden" name="membership_role" value="${membership_role}">			
+						<input type="hidden" name="team_key" id="team_key" value="<%=daoo.getTeam_key()%>">
+						<%-- <input type="hidden" name="team_key2" id="team_key2" value="<%=tdaoo.getTeam_key()%>"> --%>
+					    <input type="hidden" name="user_key" value="${userkey}">
+					    <input type="hidden" name="matchingjoin_key" id="matchingjoin_key" value="">
+					    <input type="hidden" name="team_side" id="team_side" value="" >
+					    <input type="hidden" name="team_name" id="team_name" value="<%=daoo.getTeam_name()%>">
+				   	    <input type="hidden" name="result_proc"  id="result_proc" value="" />
+				      	<input type="hidden" name="game_key" id="game_key" value="<%=daoo.getGame_key()%>">
+						<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_fdate()%>"> 
 					      	
-							<div class="row gtr-uniform">
-								<div class="col-12">
+						<div class="row gtr-uniform">
+							<div class="col-12">
 								<input type="text" name="game_title"   name="game_title"  value="<%=daoo.getGame_title()%>"  style="color:black;" readonly  />
-								</div>
-							
-							
-										<div class="col-6 col-12-xsmall">
-									<input type="text" name="game_fdate" id="game_fdate" value="<%=daoo.getGame_fdate()%>"  style="color:black;" readonly />
-								</div>
-								<div class="col-12">
-									<input type="text" name="game_location" id="game_location" value="<%=daoo.getGame_location()%>" style="color:black;" readonly />
-								</div>
-								<div class="col-12">
-									<textarea name="game_contents" id="game_contents" rows="6" style="color:black;" readonly><%=daoo.getGame_contents()%></textarea>
-								</div>
-								<div class="col-12">
-									<ul class="actions">
-									
-										<li><input type="button" value="목록" onclick="goList()" /></li>
-										<%if(membership_role.equals("1")) {%>
-											<li><input type="button" value="신청" onclick="goapply()"/></li>
-								     		<li><input type="button" value="어웨이리스트가기" onclick="golineup(2)"/></li>
-										<%
-										if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key())){
-										%>																
-												
-								 				 <li><input type="button" value="수정" onclick="goupdate()" /></li>
-												 <li><input type="button" value="삭제" onclick="goDelete()" /></li>
-												 <li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										
-												 <li><input type="button" value="홈리스트가기" onclick="golineup(1)" /></li>
-						
-												<%}%>
-								 			<%}%>
-							
-									
-									</ul>
-								</div>
 							</div>
-								<br/>
-							<br/>
-							<div class="table-wrapper" id ="tbl_app" style="display:none;">
-									<table id ="tbl_applicants">
-										<colgroup>
-							              <col width="8%">
-							              <col width="12%">
-							              <col width="12%">
-							              <col width="20%">
-							              <col width="*">
-							           </colgroup>
-							            <thead class="table-secondary">
-							              <tr>
-							                <th>번호</th>
-							                <th>팀이름</th>
-							                <th>신청일</th>
-							                <th>신청상태</th>
-							              </tr>
-							            </thead>
-							            <tbody>
-							            </tbody>
-									</table>
-								</div>
-						</form>
-					</section>
-				</article>
+							
+							<div class="col-6 col-12-xsmall">
+								<input type="text" name="game_fdate" id="game_fdate" value="<%=daoo.getGame_fdate()%>"  style="color:black;" readonly />
+							</div>
+							<div class="col-12">
+								<input type="text" name="game_location" id="game_location" value="<%=daoo.getGame_location()%>" style="color:black;" readonly />
+							</div>
+							<div class="col-12">
+								<textarea name="game_contents" id="game_contents" rows="6" style="color:black;" readonly><%=daoo.getGame_contents()%></textarea>
+							</div>
+						
+							<div class="col-12">
+								<ul class="actions">
+									<li><input type="button" value="목록" onclick="goList()" /></li>
+									<%if(membership_role.equals("1")) 
+									{%>
+										<li><input type="button" value="신청" onclick="goapply()"/></li>
+							     		<li><input type="button" value="어웨이리스트가기" onclick="golineup(2)"/></li>
+							     		
+										<%if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key()))
+										{%>		
+							 				 <li><input type="button" value="수정" onclick="goupdate()" /></li>
+											 <li><input type="button" value="삭제" onclick="goDelete()" /></li>
+											 <li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										
+											 <li><input type="button" value="홈리스트가기" onclick="golineup(1)" /></li>
+										<%}%>
+					 				<%}%>
+								</ul>
+							</div>
+						</div>
+						<br/><br/>
+						<div class="table-wrapper" id ="tbl_app" style="display:none;">
+							<table id ="tbl_applicants">
+								<colgroup>
+					              <col width="8%">
+					              <col width="12%">
+					              <col width="12%">
+					              <col width="20%">
+					              <col width="*">
+					           </colgroup>
+					            <thead class="table-secondary">
+					              <tr>
+					                <th>번호</th>
+					                <th>팀이름</th>
+					                <th>신청일</th>
+					                <th>신청상태</th>
+					              </tr>
+					            </thead>
+					            <tbody>
+					            </tbody>
+							</table>
+						</div>
+						
+					</form>
+				</section>
+			</article>
 		</div>
 </body>
 

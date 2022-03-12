@@ -8,4 +8,14 @@ public interface TeamjoinDao {
 	int getTeamjoinTotal(TeamjoinDto jdto); //페이지네이션
 	//팀 조인 승인
 	TeamjoinDto teamAccept( TeamjoinDto jdto );
+	//팀 조인 거절
+	TeamjoinDto teamRefuse( TeamjoinDto jdto );
+	//팀 탈퇴 승인
+	TeamjoinDto teamoutAccept( TeamjoinDto jdto );
+	//팀 탈퇴 거절
+	TeamjoinDto teamoutRefuse( TeamjoinDto jdto );
+	//회원 퇴출 
+	TeamjoinDto teamkickout( TeamjoinDto jdto );
+	//내가 가입 신청한 팀 리스트 보기
+	List<TeamjoinDto> getMyTeamList( TeamjoinDto jdto );
 }

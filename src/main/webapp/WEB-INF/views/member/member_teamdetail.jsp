@@ -41,6 +41,24 @@ a.link{
 	font-size: .9rem;
 	color: rgb(46, 174, 173);
 }
+
+.tab-pane {
+	display: none;
+}
+
+.tab-pane.active {
+	display: block;
+}
+
+.tabMenuList a {
+	border-bottom: 1px solid rgba(160,160,160,0.3);
+	box-shadow: none !important;
+}
+
+.tabMenuList.active a{
+	border-bottom: 3px solid rgb(46, 174, 173);
+	box-shadow: none !important;
+}
 </style>
 </head>
 <body class="is-preload">
@@ -63,6 +81,7 @@ a.link{
 			<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> 
 			<input type="hidden" name="team_key" id="team_key" /> 
 			<input type="hidden" name="user_key" id="user_key" value="" />
+			
 			<!-- Post -->
 			<article class="post">
 				<header>
@@ -120,20 +139,53 @@ a.link{
 							</tbody>
 						</table>
 					</div>
-					<%
-					for (TeamDto tempDto : teamList) {
-					if( tempDto.getMembership_role().equals("1") ) { %>
+					
 					<hr />
 					
-					<h3>가입 신청내역</h3>
-					<div class="table-wrapper">
+					<!-- Tabs navs -->
+					<ul class="actions" id="tabMenu"style="justify-content: unset; margin-top: 100px;">
+					
+					<%
+					for (TeamDto tDto : teamList) {
+					if( tDto.getMembership_role().equals("1") ) { %>
+					  <li class="tabMenuList active"  data-tab="tab-1" style="padding: 0;">
+					    <a class="button" href="javascript:void(0)">가입 신청 내역</a>
+					  </li>
+					  <li class="tabMenuList"  data-tab="tab-2" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">가입 승인 내역</a>
+					  </li>
+					  <li class="tabMenuList"  data-tab="tab-3" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">가입 거절 내역</a>
+					  </li>
+					  <li class="tabMenuList"  data-tab="tab-4" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">탈퇴 신청 내역</a>
+					  </li>
+					  <li class="tabMenuList"  data-tab="tab-5" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">탈퇴 승인 내역</a>
+					  </li>
+					  <li class="tabMenuList"  data-tab="tab-6" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">퇴출 리스트</a>
+					  </li>
+					  <%}else {%>
+					  <li class="tabMenuList"  data-tab="tab-7" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">가입 내역</a>
+					  </li>
+					  <%}} %>
+					</ul>
+					<!-- Tabs navs -->
+					
+					<!-- Tabs content -->
+					
+					<div class="tab-content" id="tab-content">
+					  <div class="tab-pane fade show active" id="tab-1">
+					    <div class="table-wrapper">
 						<table>
 							<colgroup>
 								<col width="5%" />
 								<col width="13%" />
 								<col width="13%" />
 								<col width="*" />
-								<col width="15%" />
+								<col width="13%" />
 							</colgroup>
 							<thead>
 								<tr>
@@ -141,7 +193,7 @@ a.link{
 									<th>이름</th>
 									<th>선호 포지션</th>
 									<th>자기소개</th>
-									<th>상태</th>
+									<th>퇴출여부</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -157,23 +209,22 @@ a.link{
 									<td><%=joinDto.getUser_position()%></td>
 									<td class="introduction"><%=joinDto.getUser_intro()%></td>
 									<td><button href="javascript:void(0)" type="button"
-										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinAccept('<%=joinDto.getUser_key()%>',<%=joinDto.getTeam_key()%>)">승인</button>
+										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinAccept(<%=joinDto.getUser_key()%>,<%=joinDto.getTeam_key()%>)">승인</button>
 										<button type="button"
-										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinRefuse()">거절</button></td>
+										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinRefuse(<%=joinDto.getUser_key()%>,<%=joinDto.getTeam_key()%>)">거절</button></td>
 								</tr>
-								<%}else { %>
+								<%}}} else { %>
 								<tr>
-									<td colspan="6"><div class="title" >아직 가입을 신청한 사람이 없습니다. </div></td>
+									<td colspan="5"><div class="title" >아직 가입을 신청한 사람이 없습니다. </div></td>
 								</tr>
-								<%} }} %>
+								<%} %>
 							</tbody>
 						</table>
 					</div>
-					
-					<hr />
-					
-					<h3>가입 승인 내역</h3>
-					<div class="table-wrapper">
+					  </div>
+					  
+					  <div class="tab-pane fade" id="tab-2">
+					    <div class="table-wrapper">
 						<table>
 							<colgroup>
 								<col width="5%" />
@@ -204,22 +255,63 @@ a.link{
 									<td><%=joinedDto.getUser_position()%></td>
 									<td class="introduction"><%=joinedDto.getUser_intro()%></td>
 									<td>
-										<button type="button"
-										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinRefuse()">퇴출</button></td>
+										<button type="button" style="line-height: 0; padding: 1rem; height: auto;" onclick="kickout(<%=joinedDto.getUser_key()%>,<%=joinedDto.getTeam_key()%>)">퇴출</button></td>
 								</tr>
-								<%}else { %>
+								<%}} }else { %>
 								<tr>
-									<td colspan="4"><div class="title" >아직 가입을 승인한 사람이 없습니다. </div></td>
+									<td colspan="5"><div class="title" >아직 가입을 승인한 사람이 없습니다. </div></td>
 								</tr>
-								<%} }} %>
+								<%} %>
 							</tbody>
 						</table>
 					</div>
-
-					<hr />
-
-					<h3>탈퇴 신청내역</h3>
-					<div class="table-wrapper">
+					  </div>
+					  
+					  <div class="tab-pane fade" id="tab-3">
+					    <div class="table-wrapper">
+						<table>
+							<colgroup>
+								<col width="5%" />
+								<col width="13%" />
+								<col width="13%" />
+								<col width="*" />
+								<col width="13%" />
+							</colgroup>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>이름</th>
+									<th>선호 포지션</th>
+									<th>자기소개</th>
+									<th>상태</th>
+								</tr>
+							</thead>
+							<tbody>
+							<%
+								List<TeamjoinDto> joinRefusedlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
+								if( !joinRefusedlist.isEmpty()) {
+								for (TeamjoinDto joinedDto : joinRefusedlist) {
+									if( joinedDto.getTeamjoin_proc().equals("3")) {
+								%>
+								<tr>
+									<td><%=joinedDto.getTeamjoin_key()%></td>
+									<td><%=joinedDto.getUser_name()%></td>
+									<td><%=joinedDto.getUser_position()%></td>
+									<td class="introduction"><%=joinedDto.getUser_intro()%></td>
+									<td>거절완료</td>
+								</tr>
+								<%}} }else { %>
+								<tr>
+									<td colspan="5"><div class="title" >아직 가입을 거절한 사람이 없습니다. </div></td>
+								</tr>
+								<%} %>
+							</tbody>
+						</table>
+					</div>
+					  </div>
+					  
+					  <div class="tab-pane fade" id="tab-4">
+					   <div class="table-wrapper">
 						<table>
 							<colgroup>
 								<col width="5%" />
@@ -240,33 +332,33 @@ a.link{
 							<tbody>
 								<%
 								List<TeamjoinDto> teamoutlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
-								if( !teamoutlist.isEmpty()) {
+			
+								if( !teamoutlist.isEmpty()) {					
 								for (TeamjoinDto teamOutDto : teamoutlist) {
-									if( teamOutDto.getTeamjoin_proc().equals("3")) {
+									if( teamOutDto.getTeamjoin_proc().equals("4")) {
 								%>
 								<tr>
 									<td><%=teamOutDto.getTeamjoin_key()%></td>
 									<td><%=teamOutDto.getUser_name()%></td>
 									<td><%=teamOutDto.getUser_position()%></td>
 									<td class="introduction"><%=teamOutDto.getUser_intro()%></td>
-									<td><button href="javascript:void(0)" type="button"
-										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinAccept('<%=teamOutDto.getUser_key()%>',<%=teamOutDto.getTeam_key()%>)">승인</button>
+									<td><button type="button"
+										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamoutAccept(<%=teamOutDto.getUser_key()%>,<%=teamOutDto.getTeam_key()%>)">승인</button>
 										<button type="button"
-										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinRefuse()">거절</button></td>
+										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamoutRefuse(<%=teamOutDto.getUser_key()%>,<%=teamOutDto.getTeam_key()%>)">거절</button></td>
 								</tr>
 								<%} else { %>
 								<tr>
-									<td colspan="6"><div class="title" >아직 탈퇴를  신청한 사람이 없습니다. </div></td>
+									<td colspan="5"><div class="title" >아직 탈퇴를 신청한 사람이 없습니다. </div></td>
 								</tr>
 								<%}}} %>
 							</tbody>
 						</table>
 					</div>
-					
-					<hr />
-
-					<h3>탈퇴 승인 내역</h3>
-					<div class="table-wrapper">
+					  </div>
+					  
+					  <div class="tab-pane fade" id="tab-5">
+					     <div class="table-wrapper">
 						<table>
 							<colgroup>
 								<col width="5%" />
@@ -298,18 +390,19 @@ a.link{
 									<td class="introduction"><%=outDto.getUser_intro()%></td>
 									<td>완료</td>
 								</tr>
-								<%}else { %>
+								<%} else { %>
 								<tr>
-									<td colspan="6"><div class="title" >아직 탈퇴를 승인한 사람이 없습니다. </div></td>
+									<td colspan="5"><div class="title" >아직 탈퇴를 승인한 사람이 없습니다. </div></td>
 								</tr>
-								<%}}} %>
+								<%}}}%>
 							</tbody>
 						</table>
 					</div>
-							<hr />
-					
-					<h3>가입 내역</h3>
-					<div class="table-wrapper">
+					  </div>
+					  
+					  
+					  <div class="tab-pane fade" id="tab-6">
+					     <div class="table-wrapper">
 						<table>
 							<colgroup>
 								<col width="5%" />
@@ -322,39 +415,37 @@ a.link{
 								<tr>
 									<th>번호</th>
 									<th>이름</th>
-									<th>선호 포지션</th>
+									<th>포지션</th>
+									<th>자기소개</th>
 									<th>상태</th>
 								</tr>
 							</thead>
 							<tbody>
-							<%
-								List<TeamjoinDto> joinedlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
-								if( !joinedlist.isEmpty()) {
-								for (TeamjoinDto joinedDto : joinedlist) {
-									if( joinedDto.getTeamjoin_proc().equals("1")) {
+								<%
+								List<TeamjoinDto> kickoutlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
+								if( !kickoutlist.isEmpty()) {
+								for (TeamjoinDto kickoutDto : kickoutlist) {
+									if( kickoutDto.getTeamjoin_proc().equals("7")) {
 								%>
 								<tr>
-									<td><%=joinedDto.getTeamjoin_key()%></td>
-									<td><%=joinedDto.getUser_name()%></td>
-									<td><%=joinedDto.getUser_position()%></td>
-									<td class="introduction"><%=joinedDto.getUser_intro()%></td>
-									<td>
-										<button type="button"
-										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinRefuse()">퇴출</button></td>
+									<td><%=kickoutDto.getTeamjoin_key()%></td>
+									<td><%=kickoutDto.getUser_name()%></td>
+									<td><%=kickoutDto.getUser_position()%></td>
+									<td class="introduction"><%=kickoutDto.getUser_intro()%></td>
+									<td>퇴출완료</td>
 								</tr>
-								<%}else { %>
+								<%} else { %>
 								<tr>
-									<td colspan="4"><div class="title" >감독이 가입 승인을 고려중입니다. 조금만 기다려주세요. </div></td>
+									<td colspan="5"><div class="title" >아직 퇴출한 사람이 없습니다. </div></td>
 								</tr>
-								<%} }} %>
+								<%}}}%>
 							</tbody>
 						</table>
 					</div>
-					<%}else {%>
-					<hr />
-					
-					<h3>가입 신청내역</h3>
-					<div class="table-wrapper">
+					  </div>
+					  
+					  <div class="tab-pane fade" id="tab-7">
+					    <div class="table-wrapper">
 						<table>
 							<colgroup>
 								<col width="5%" />
@@ -374,31 +465,43 @@ a.link{
 							</thead>
 							<tbody>
 							<%
-								List<TeamjoinDto> teamjoinlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
-							if( !teamjoinlist.isEmpty()) {
-								for (TeamjoinDto joinDto : teamjoinlist) {
+								List<TeamjoinDto> myTeamlist = (List<TeamjoinDto>) request.getAttribute("myteamList");
+							System.out.println(myTeamlist);
+							if( !myTeamlist.isEmpty()) {
+								for (TeamjoinDto myTeamDto : myTeamlist) {
 								%>
 								<tr>
-									<td><%=joinDto.getTeamjoin_key()%></td>
-									<td><%=joinDto.getUser_name()%></td>
-									<td><%=joinDto.getUser_position()%></td>
-									<td class="introduction"><%=joinDto.getUser_intro()%></td>
-									<%if( joinDto.getTeamjoin_proc().equals("1")) { %>
+									<td><%=myTeamDto.getTeamjoin_key()%></td>
+									<td><%=myTeamDto.getUser_name()%></td>
+									<td><%=myTeamDto.getUser_position()%></td>
+									<td class="introduction"><%=myTeamDto.getUser_intro()%></td>
+									<%if( myTeamDto.getTeamjoin_proc().equals("1")) { %>
 									<td>가입 대기중</td>
-									<%} else if(joinDto.getTeamjoin_proc().equals("2")) {%>
+									<%} else if(myTeamDto.getTeamjoin_proc().equals("2")) {%>
 									<td>가입 완료</td>
-									<%} %>
+									<%} else if(myTeamDto.getTeamjoin_proc().equals("3")) {%>
+									<td>가입 거절</td>
+									<%} else if(myTeamDto.getTeamjoin_proc().equals("4")) {%>
+									<td>탈퇴 요청</td>
+									<%} else if(myTeamDto.getTeamjoin_proc().equals("5")) {%>
+									<td>탈퇴 승인</td>
+									<%} else if(myTeamDto.getTeamjoin_proc().equals("6")) {%>
+									<td>탈퇴 거절</td>
+									<%} else if(myTeamDto.getTeamjoin_proc().equals("7")) {%>
+									<td>퇴출됨</td>
 								</tr>
-								<%} } else {%>
-								
+								<%} } } else {%>
 								<tr>
-									<td colspan="6"><div class="title" >아직 가입을 신청한 팀이 없습니다. </div></td>
+									<td colspan="5"><div class="title" >아직 가입을 신청한 팀이 없습니다. </div></td>
 								</tr>
 								<%} %>
 							</tbody>
 						</table>
 					</div>
-					<% }  }%>
+					  </div>
+					  
+					</div>
+					<!-- Tabs content -->
 				</section>
 			</article>
 			</form>
@@ -419,6 +522,15 @@ a.link{
 	<script
 		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 	<script>
+	
+	//탭메뉴에서 일반회원 계정으로 로그인시 메뉴가 1개밖에 안나오기 때문에 예외처리 
+	window.onload = function(){
+		if( $('#tabMenu li').length == 1 ) {
+			$('#tab-content div.tab-pane').removeClass("active");
+			$('#tabMenu li:nth-child(1)').addClass("active");
+			$('#tab-content div.tab-pane:nth-child(6)').addClass("active");
+		}
+	}
 		function teamjoinAccept( uk, tk ) {
 			var delConfirm = confirm("팀 가입을 승인하시겠습니까?");
 			if (delConfirm) {
@@ -456,6 +568,74 @@ a.link{
 				})
 			}
 		}
+		
+		function teamoutAccept( uk, tk ) {
+			var delConfirm = confirm("팀 탈퇴를 승인하시겠습니까?");
+			if (delConfirm) {
+				$.ajax({
+					url: "${ commonURL }/member/teamoutAccept",
+					data:{ user_key: uk, team_key: tk },
+					dataType: "json",
+					type: "POST"
+				})
+				.done( (data)=>{
+					alert("팀 탈퇴를 승인했습니다.");
+					location.href="${ commonURL }/member/teamdetail";
+				})
+				.fail( (error) => {
+					alert("팀 탈퇴 승인 실패, 관리자에게 문의해주세요.");
+				})
+			}
+		}
+		
+		function teamoutRefuse( uk, tk  ){
+			var delConfirm = confirm("팀 탈퇴를 거절하시겠습니까?");
+			if (delConfirm) {
+				$.ajax({
+					url: "${ commonURL }/member/teamoutRefuse",
+					data:{ user_key: uk, team_key: tk },
+					dataType: "json",
+					type: "POST"
+				})
+				.done( (data)=>{
+					alert("팀 탈퇴를 거절했습니다.");
+					location.href="${ commonURL }/member/teamdetail";
+				})
+				.fail( (error) => {
+					alert("팀 탈퇴 거절 실패, 관리자에게 문의해주세요.");
+				})
+			}
+		}
+
+		function kickout( uk, tk  ){
+			var delConfirm = confirm("팀에서 퇴출하시겠습니까?");
+			if (delConfirm) {
+				$.ajax({
+					url: "${ commonURL }/member/teamkickout",
+					data:{ user_key: uk, team_key: tk },
+					dataType: "json",
+					type: "POST"
+				})
+				.done( (data)=>{
+					alert("성공적으로 퇴출시켰습니다.");
+					location.href="${ commonURL }/member/teamdetail";
+				})
+				.fail( (error) => {
+					alert("퇴출 실패, 관리자에게 문의해주세요.");
+				})
+			}
+		}
+		
+		//탭메뉴 스크립트
+		$('#tabMenu li').click(function(){
+				const num=$(this).attr('data-tab');
+				$('#tabMenu li').removeClass('active');
+				$('#tab-content div.tab-pane').removeClass('active');
+				
+				$(this).addClass("active");
+				$("#" + num).addClass('active');
+				
+		});
 	</script>
 
 </body>

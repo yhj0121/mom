@@ -232,22 +232,19 @@ public class MemberController {
 		dto.setUser_key(user_key);
 		dto.setStart(dto.getPg()*10);
 		
-		//감독이 팀을 생성했을 때 
 		List<TeamDto> list = memberService.getTeamList(dto);
-		System.out.println("팀 리스트: "+list);
 		model.addAttribute("teamList",list);
 		model.addAttribute("totalCnt",memberService.getTeamTotal(dto));
 		
-		//감독 계정에서 팀에 누군가 가입했을 때 
-//		if( !list.isEmpty() ) {
-//		}
-
 		jdto.setTeam_key(list.get(0).getTeam_key());
 		List<TeamjoinDto>teamjoinlist = memberService.getTeamjoinList(jdto);
-		System.out.println("팀 조인 리스트: "+teamjoinlist);
+
+		jdto.setUser_key(user_key);
+		List<TeamjoinDto>myteamList =  memberService.getMyTeamList(jdto);
 		model.addAttribute("teamjoinlist",teamjoinlist);
+		model.addAttribute("myteamList",myteamList);
 		
-		//일반회원 계쩡에서 팀에 가입 신청을 했을 때 
+		System.out.println(myteamList);
 		
 		return "member/member_teamdetail";
 	}
@@ -255,11 +252,53 @@ public class MemberController {
 	@RequestMapping("member/teamAccept")
 	@ResponseBody
 	public HashMap<String, String> member_teamAccept(String team_key, String user_key, TeamjoinDto jdto, Model model){
-		System.out.println("user_key"+user_key);
-		System.out.println("team_key"+team_key);
 		jdto.setTeam_key(team_key);
 		jdto.setUser_key(user_key);
 		memberService.teamAccept( jdto );
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("member/teamRefuse")
+	@ResponseBody
+	public HashMap<String, String> member_teamRefuse(String team_key, String user_key, TeamjoinDto jdto, Model model){
+		jdto.setTeam_key(team_key);
+		jdto.setUser_key(user_key);
+		memberService.teamRefuse( jdto );
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("member/teamoutAccept")
+	@ResponseBody
+	public HashMap<String, String> member_teamoutAccept(String team_key, String user_key, TeamjoinDto jdto, Model model){
+		jdto.setTeam_key(team_key);
+		jdto.setUser_key(user_key);
+		memberService.teamoutAccept( jdto );
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("member/teamoutRefuse")
+	@ResponseBody
+	public HashMap<String, String> member_teamoutRefuse(String team_key, String user_key, TeamjoinDto jdto, Model model){
+		jdto.setTeam_key(team_key);
+		jdto.setUser_key(user_key);
+		memberService.teamoutRefuse( jdto );
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("member/teamkickout")
+	@ResponseBody
+	public HashMap<String, String> member_teamkickout(String team_key, String user_key, TeamjoinDto jdto, Model model){
+		jdto.setTeam_key(team_key);
+		jdto.setUser_key(user_key);
+		memberService.teamkickout( jdto );
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("result", "success");
 		return map;

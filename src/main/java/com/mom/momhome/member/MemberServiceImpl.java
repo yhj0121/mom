@@ -127,4 +127,29 @@ public class MemberServiceImpl implements MemberService {
 		return teamjoinDao.teamAccept(jdto);
 	}
 
+	@Override
+	public TeamjoinDto teamRefuse(TeamjoinDto jdto) {
+		return teamjoinDao.teamRefuse(jdto);
+	}
+
+	@Override
+	public TeamjoinDto teamoutAccept(TeamjoinDto jdto) {
+		return teamjoinDao.teamoutAccept(jdto);
+	}
+
+	@Override
+	public TeamjoinDto teamoutRefuse(TeamjoinDto jdto) {
+		return teamjoinDao.teamoutRefuse(jdto);
+	}
+
+	@Override
+	public List<TeamjoinDto> getMyTeamList(TeamjoinDto jdto) {
+		return teamjoinDao.getMyTeamList(jdto);
+	}
+
+	@Override
+	public TeamjoinDto teamkickout(TeamjoinDto jdto) {
+		return teamjoinDao.teamkickout(jdto);
+	}
+
 }

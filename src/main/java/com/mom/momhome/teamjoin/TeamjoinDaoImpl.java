@@ -25,4 +25,29 @@ public class TeamjoinDaoImpl implements TeamjoinDao {
 	public TeamjoinDto teamAccept( TeamjoinDto jdto ) {
 		return sm.selectOne("Teamjoin_teamjoinAccept",jdto);
 	}
+
+	@Override
+	public TeamjoinDto teamRefuse(TeamjoinDto jdto) {
+		return sm.selectOne("Teamjoin_teamjoinRefuse",jdto);
+	}
+
+	@Override
+	public TeamjoinDto teamoutAccept(TeamjoinDto jdto) {
+		return sm.selectOne("Teamjoin_teamoutAccept",jdto);
+	}
+
+	@Override
+	public TeamjoinDto teamoutRefuse(TeamjoinDto jdto) {
+		return sm.selectOne("Teamjoin_teamoutRefuse",jdto);
+	}
+
+	@Override
+	public List<TeamjoinDto> getMyTeamList(TeamjoinDto jdto) {
+		return sm.selectList("Teamjoin_teamjoinedList",jdto);
+	}
+
+	@Override
+	public TeamjoinDto teamkickout(TeamjoinDto jdto) {
+		return sm.selectOne("Teamjoin_teamkickout", jdto);
+	}
 }

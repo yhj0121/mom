@@ -106,7 +106,7 @@ a.link{
 							</colgroup> 
 							<thead>
 								<tr>
-									<th>팀이름</th>
+									<th>팀 이름</th>
 									<th>지역</th>
 									<th>인원</th>
 									<th>회비</th>
@@ -118,8 +118,10 @@ a.link{
 							<tbody>
 								<%
 								List<TeamDto> teamList = (List<TeamDto>) request.getAttribute("teamList");
+								boolean bWaitExist = false;
 								if( !teamList.isEmpty()) {
 								for (TeamDto tempDto : teamList) {
+									if( tempDto.getMembership_role().equals("1")|| tempDto.getTeamjoin_proc().equals("1") || tempDto.getTeamjoin_proc().equals("2")  ) {
 								%>
 								<tr>
 									<td><a href="#none"
@@ -131,7 +133,8 @@ a.link{
 									<td><%if(tempDto.getMembership_role().equals("1")){ %>감독<%} else {%>팀원<%} %></td>
 									<td><%=tempDto.getTeam_fdate()%></td>
 								</tr>
-									<% }} else { %>
+								<% bWaitExist = true; } } 
+								} if(false == bWaitExist){ %>
 								<tr>
 									<td colspan="7"><div class="title" >아직 소속된 팀이 없습니다. <a href="${pageContext.request.contextPath}/team/main" class="link"> >> 팀 구경하러 가기 << </a></div></td>
 								</tr>
@@ -199,7 +202,7 @@ a.link{
 							<tbody>
 							<%
 								List<TeamjoinDto> teamjoinlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
-								boolean bWaitExist = false;
+								bWaitExist = false;
 								if( !teamjoinlist.isEmpty()) {
 								for (TeamjoinDto joinDto : teamjoinlist) {
 									if( joinDto.getTeamjoin_proc().equals("1")) {
@@ -214,12 +217,8 @@ a.link{
 										<button type="button"
 										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinRefuse(<%=joinDto.getUser_key()%>,<%=joinDto.getTeam_key()%>)">거절</button></td>
 								</tr>
-								<%
-								bWaitExist = true;
-									}
-									}
-								} %>
-								<%if(false == bWaitExist){ %>
+								<% bWaitExist = true; } } 
+								} if(false == bWaitExist){ %>
 								<tr>
 									<td colspan="5"><div class="title" >아직 가입을 신청한 사람이 없습니다. </div></td>
 								</tr>
@@ -250,9 +249,9 @@ a.link{
 							</thead>
 							<tbody>
 							<%
-								List<TeamjoinDto> teamjoinedlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
-								if( !teamjoinedlist.isEmpty()) {
-								for (TeamjoinDto joinedDto : teamjoinedlist) {
+							bWaitExist = false;
+								if( !teamjoinlist.isEmpty()) {
+								for (TeamjoinDto joinedDto : teamjoinlist) {
 									if( joinedDto.getTeamjoin_proc().equals("2")) {
 								%>
 								<tr>
@@ -263,7 +262,8 @@ a.link{
 									<td>
 										<button type="button" style="line-height: 0; padding: 1rem; height: auto;" onclick="kickout(<%=joinedDto.getUser_key()%>,<%=joinedDto.getTeam_key()%>)">퇴출</button></td>
 								</tr>
-								<%}} }else { %>
+								<%bWaitExist = true;
+									}}} if(false == bWaitExist) {%>
 								<tr>
 									<td colspan="5"><div class="title" >아직 가입을 승인한 사람이 없습니다. </div></td>
 								</tr>
@@ -294,9 +294,9 @@ a.link{
 							</thead>
 							<tbody>
 							<%
-								List<TeamjoinDto> joinRefusedlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
-								if( !joinRefusedlist.isEmpty()) {
-								for (TeamjoinDto joinedDto : joinRefusedlist) {
+							bWaitExist = false;
+								if( !teamjoinlist.isEmpty()) {
+								for (TeamjoinDto joinedDto : teamjoinlist) {
 									if( joinedDto.getTeamjoin_proc().equals("3")) {
 								%>
 								<tr>
@@ -306,7 +306,8 @@ a.link{
 									<td class="introduction"><%=joinedDto.getUser_intro()%></td>
 									<td>거절완료</td>
 								</tr>
-								<%}} }else { %>
+								<%bWaitExist = true;
+									}}} if(false == bWaitExist) {%>
 								<tr>
 									<td colspan="5"><div class="title" >아직 가입을 거절한 사람이 없습니다. </div></td>
 								</tr>
@@ -337,10 +338,9 @@ a.link{
 							</thead>
 							<tbody>
 								<%
-								List<TeamjoinDto> teamoutlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
 								bWaitExist = false;
-								if( !teamoutlist.isEmpty()) {					
-								for (TeamjoinDto teamOutDto : teamoutlist) {
+								if( !teamjoinlist.isEmpty()) {					
+								for (TeamjoinDto teamOutDto : teamjoinlist) {
 									if( teamOutDto.getTeamjoin_proc().equals("4")) {
 								%>
 								<tr>
@@ -386,10 +386,9 @@ a.link{
 							</thead>
 							<tbody>
 								<%
-								List<TeamjoinDto> outlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
 								bWaitExist = false;
-								if( !outlist.isEmpty()) {
-								for (TeamjoinDto outDto : outlist) {
+								if( !teamjoinlist.isEmpty()) {
+								for (TeamjoinDto outDto : teamjoinlist) {
 									if( outDto.getTeamjoin_proc().equals("5")) {
 								%>
 								<tr>
@@ -432,10 +431,9 @@ a.link{
 							</thead>
 							<tbody>
 								<%
-								List<TeamjoinDto> kickoutlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
 								bWaitExist = false;
-								if( !kickoutlist.isEmpty()) {
-								for (TeamjoinDto kickoutDto : kickoutlist) {
+								if( !teamjoinlist.isEmpty()) {
+								for (TeamjoinDto kickoutDto : teamjoinlist) {
 									if( kickoutDto.getTeamjoin_proc().equals("7")) {
 								%>
 								<tr>
@@ -450,8 +448,8 @@ a.link{
 								<tr>
 									<td colspan="5"><div class="title" >아직 퇴출한 사람이 없습니다. </div></td>
 								</tr>
-								<%}%>
-							</tbody>
+								<%} %>
+								</tbody>
 						</table>
 					</div>
 					  </div>
@@ -469,7 +467,7 @@ a.link{
 							<thead>
 								<tr>
 									<th>번호</th>
-									<th>이름</th>
+									<th>팀 이름</th>
 									<th>선호 포지션</th>
 									<th>자기소개</th>
 									<th>상태</th>
@@ -483,7 +481,7 @@ a.link{
 								%>
 								<tr>
 									<td><%=myTeamDto.getTeamjoin_key()%></td>
-									<td><%=myTeamDto.getUser_name()%></td>
+									<td><%=myTeamDto.getTeam_name()%></td>
 									<td><%=myTeamDto.getUser_position()%></td>
 									<td class="introduction"><%=myTeamDto.getUser_intro()%></td>
 									<%if( myTeamDto.getTeamjoin_proc().equals("1")) { %>
@@ -539,7 +537,7 @@ a.link{
 		if( $('#tabMenu li').length == 1 ) {
 			$('#tab-content div.tab-pane').removeClass("active");
 			$('#tabMenu li:nth-child(1)').addClass("active");
-			$('#tab-content div.tab-pane:nth-child(6)').addClass("active");
+			$('#tab-content div.tab-pane:nth-child(7)').addClass("active");
 		}
 	}
 		function teamjoinAccept( uk, tk ) {

@@ -187,6 +187,7 @@
 		,TEAM_NAME 
 		,team_fdate
 		,(select user_name from user where user_key=m.USER_KEY) as user_name
+		,(select teamjoin_proc from teamjoin where user_key=m.user_key) as teamjoin_proc
 		,membership_role 
 		,TEAM_FEE 
 		,TEAM_CITY 
@@ -196,7 +197,9 @@
 		,TEAM_NUM 
 		,TEAM_RECRUIT_YN 
 		,@rownum := @rownum+1 AS rnum
-		from (select @rownum:=0) B, team t  inner join membership m on (t.TEAM_KEY=m.TEAM_KEY) where user_key=#{user_key};
+		from (select @rownum:=0) B, team t  
+		inner join membership m on (t.TEAM_KEY=m.TEAM_KEY)
+		where m.user_key=#{user_key};
 	</select>
 
 	<select id="Member_teamGetTotal"

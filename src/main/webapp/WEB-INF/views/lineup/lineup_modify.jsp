@@ -79,10 +79,10 @@
           <section>
 			<div class="table-wrapper">
 				
-<!-- 				<select id="formation" name="formation" style="width:250px; margin-left:31%;">  -->
-<!-- 					<option id="formation_opt">원하는 포메이션을 선택하세요.</option> -->
-<!-- 				</select> -->
-<!-- 				<br/> -->
+				<select id="formation" name="formation" onChange="onFormationChanged()" style="width:250px; margin-left:31%;"> 
+					<option id="formation_opt">원하는 포메이션을 선택하세요.</option>
+				</select>
+				<br/>
 
 				<table class="alt" style="width:700px; margin-left:auto; margin-right:auto;">
 						<colgroup>
@@ -169,14 +169,10 @@
 			</div>
 			
 			<div class="container mt-3" style="text-align:right;">
-            	<button  type="button" class="btn btn-secondary" onclick="saveLineup()">저장</button>
+				<button class="button large previous" type="button" onclick="goLineupInfo()">뒤로가기</button>
+            	<button  type="button" class="button large icon solid fa-save" onclick="saveLineup()">저장</button>
           	</div>
-          	
-<!-- 			<div class="container mt-3" style="text-align:right;"> -->
-<%--             	<a href="<%=request.getContextPath()%>/lineup/modify" class="btn btn-secondary">저장</a> --%>
-<!--           	</div> -->
-          
-           
+             
 		</section>
        </form>
       </article>
@@ -192,18 +188,27 @@
 // let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
 // let maxColumn = Math.ceil((tab_td.length-1) / tr_length);
 
+const formationNames=["4-4-2", "4-3-3", "4-2-4"];
+const formationPositions=[
+	["GK", "RB", "CB", "CB", "LB", "CDM", "CM", "CM", "CAM", "ST", "ST"],
+	["GK", "RB", "CB", "CB", "LB", "CDM", "CM", "CM", "RW", "ST", "LW"],
+	["GK", "RB", "CB", "CB", "LB", "CM", "CM", "RW", "ST", "ST", "LW"]
+];
+
+let formationSelect;
 let positionSelectList;
 let playerSelectList;
 let playerDictionary = {};
 
 $(()=>{
-	positionSelectListInit();
-	playerDictionaryInit(()=>{
+	initPositionSelectList();
+	initPlayerDictionary(()=>{
 		loadLineup();
+		initFormation();
 	});
 })
 
-function positionSelectListInit(){
+function initPositionSelectList(){
 	
  	//console.log("getPositionList()");
 	
@@ -228,11 +233,11 @@ function positionSelectListInit(){
 	})
 }
 
-function playerDictionaryInit(callback)
+function initPlayerDictionary(callback)
 {
 	$.ajax({
 		url: "${commonURL}/lineup/modify/getPlayerList",
-		data:{team_key: $("#team_key").val()},
+		data:{team_key: <%=membershipDto.getTeam_key()%>},
 		type: "POST",
 		dataType:"JSON"
 	})
@@ -249,14 +254,14 @@ function playerDictionaryInit(callback)
 // 			console.log(key);
 // 		}	
 
-		playerSelectListInit(callback);
+		initPlayerSelectListInit(callback);
 	})
 	.fail( (error) => {
 		alert("정보 가져오기 실패");
 	})
 }
 
-function playerSelectListInit(callback)
+function initPlayerSelectListInit(callback)
 {
 	playerSelectList = document.getElementsByName("playerList")
 	  
@@ -337,6 +342,30 @@ function loadLineup(){
 	<%
 	}
 	%>
+}
+
+function initFormation()
+{	
+	formationSelect = document.getElementById("formation");	
+   	for(item of formationNames)
+   		formationSelect.options[formationSelect.options.length] = new Option(item, item);
+}
+
+function onFormationChanged()
+{
+	//console.log ($("#formation").val());
+	//console.log ($("#formation option").index($("#formation option:selected")));
+	let idx = $("#formation option").index($("#formation option:selected")) - 1;
+	if(idx >= 0)
+	{
+		let i = 0;
+		for(item of formationPositions[idx])
+		{
+			//console.log(item); 
+			$("#positionList"+i).val(item).attr("selected", "selected");
+			i++;
+		}
+	}
 }
 
 function saveLineup()
@@ -425,5 +454,6 @@ function goPlayerInfo(id)
     frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
 	frm.submit();
 }
+
 
 </script>

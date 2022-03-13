@@ -66,4 +66,10 @@
 			from membership
 			where user_key=#{user_key}
 	</select>
+	
+	<select id="GameJoin_getGameJoinResult" parameterType="GameJoinDto" resultType="String">
+			select result_proc
+			from matchingjoin
+			where game_key =#{game_key} AND team_key=#{team_key}
+	</select>
 </mapper>

@@ -67,6 +67,7 @@
 				
 		<%
 		GameDto gameDto = (GameDto)request.getAttribute("gameDto");
+		String gameJoinResult = StringUtil.nullToValue((String)request.getAttribute("gameJoinResult"), "");
 		
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
 		Map<Integer, LineupDto> lineupDic = new HashMap<Integer, LineupDto>();
@@ -192,7 +193,19 @@
 				</div>
 				
 				<div class="container mt-3" style="text-align:right;">
-	            	<button class="btn btn-success" type="button" onclick="goModify()">수정</button>
+					<button class="button large previous" type="button" onclick="goGameView()">뒤로가기</button>
+					<%
+// 					System.out.println("membershipDto.getTeam_key() : " + membershipDto.getTeam_key());
+// 					System.out.println("gameDto.getTeam_key(): " + gameDto.getTeam_key());
+// 					System.out.println("membershipDto.getTeam_key() : " + membershipDto.getTeam_key());
+					if(membership_role.equals("1"))
+					{
+						if( (membershipDto.getTeam_key().equals(gameDto.getTeam_key()) && gameDto.getTeam_side().equals("1")) || (gameJoinResult.equals("2") && gameDto.getTeam_side().equals("2")) )
+						{%>	
+		            		<button class="button large next" type="button" onclick="goModify()">수정</button> 
+						<%}
+		          	}
+		          	%>
 	          	</div>
 	          	
 			</section>
@@ -223,4 +236,11 @@ function goModify()
 	frm.submit();
 }
 
+function goGameView() 
+{
+	frm = document.myform;
+	frm.method = "get";
+	frm.action = "${pageContext.request.contextPath}/game/view";
+	frm.submit();
+}
 </script>

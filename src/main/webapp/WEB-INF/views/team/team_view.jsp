@@ -72,43 +72,43 @@ table td:not(.introduction) {
 						</h2>
 					</div>
 					<div class="meta">
-						<time class="published">SINCE team_fdate 끌어오기</time>
-						<a href="#" class="author"><span class="name">감독 이름
-								끌어오기</span></a>
+						<time class="published">SINCE <%=dto.getTeam_fdate() %></time>
+						<a href="#" class="author"><span class="name"><%=dto.getUser_name() %>
+								</span></a>
 					</div>
 					<div class="meta" style="padding: 0;">
 						<img
-							src="${pageContext.request.contextPath}/resources/images/citylogo/busan.jpg"
+							src="../upload/<%=dto.getTeam_emblem() %>"
 							alt="팀 엠블럼" style="width: 100%; height: 100%;" />
 					</div>
 				</header>
 				<div>
 					<h2>팀 소개</h2>
-					<p>팀 소개 끌어오기</p>
+					<p><%=dto.getTeam_intro() %></p>
 				</div>
 				<div>
 					<h2>지역</h2>
-					<p>지역 끌어오기</p>
+					<p><%=dto.getTeam_city() %></p>
 				</div>
 				<div>
 					<h2>감독</h2>
-					<p>감독 끌어오기</p>
+					<p><%=dto.getUser_name() %></p>
 				</div>
 				<div>
 					<h2>팀 룰</h2>
-					<p>team_notice 끌어오기</p>
+					<p><%=dto.getTeam_notice() %></p>
 				</div>
 				<div>
 					<h2>회비</h2>
-					<p>team_fee 끌어오기</p>
+					<p><%=dto.getTeam_fee() %></p>
 				</div>
 				<div>
 					<h2>인원</h2>
-					<p>team_num 끌어오기</p>
+					<p><%=dto.getTeam_num() %>명</p>
 				</div>
 				<div>
 					<h2>모집여부</h2>
-					<p>team_recruit_yn 끌어오기</p>
+					<p><%if(dto.getTeam_recruit_yn().equals("1")){%>모집중<%}else{%>모집종료<%} %></p>
 				</div>
 				
 

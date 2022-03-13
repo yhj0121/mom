@@ -136,29 +136,19 @@
 	
 	<select id="Member_gameList" parameterType="GameDto"
 		resultType="GameDto">
-		select GAME_KEY
-         ,(select TEAM_key from team B where B.TEAM_KEY =A.TEAM_KEY) as TEAM_key
-         ,(select TEAM_NAME from team B where B.TEAM_KEY =A.TEAM_KEY) as TEAM_NAME
-		 ,GAME_DATE
-		 ,GAME_LOCATION
-		 ,GAME_TITLE
-		 ,GAME_CONTENTS
-		 ,GAME_FDATE
-		 ,rnum
-		 from(select
- 		A.GAME_KEY
- 		,A.TEAM_KEY
- 		,A.GAME_DATE
- 		 ,A.GAME_LOCATION
-		 ,A.GAME_TITLE
-		 ,A.GAME_CONTENTS
-		 ,A.GAME_FDATE
-		,@rownum := @rownum+1 AS rnum
-		from game A, (select @rownum:=0) B
-		order by game_key desc
-		) A where team_key=(
-		select team_key from membership
-		where user_key=#{user_key}) limit #{start}, #{pageSize}
+		select 
+		game_key 
+	,g.team_key 
+	,(select team_name from team where team_key=m.team_key) as team_name 
+	,game_date
+	, game_location
+	,game_title
+	,game_contents
+	,game_fdate
+	,@rownum := @rownum+1 AS rnum
+		from (select @rownum:=0) B, game g
+	inner join membership m on (g.TEAM_KEY=m.TEAM_KEY)
+	where user_key=#{user_key} limit #{start}, #{pageSize}
 	</select>
 
 	<select id="Member_gameGetTotal"

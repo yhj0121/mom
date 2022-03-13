@@ -121,7 +121,7 @@ a.link{
 								boolean bWaitExist = false;
 								if( !teamList.isEmpty()) {
 								for (TeamDto tempDto : teamList) {
-									if( tempDto.getMembership_role().equals("1")|| tempDto.getTeamjoin_proc().equals("1") || tempDto.getTeamjoin_proc().equals("2")  ) {
+									if( tempDto.getMembership_role().equals("1") || tempDto.getTeamjoin_proc().equals("2")  ) {
 								%>
 								<tr>
 									<td><a href="#none"
@@ -476,8 +476,12 @@ a.link{
 							<tbody>
 							<%
 								List<TeamjoinDto> myTeamlist = (List<TeamjoinDto>) request.getAttribute("myteamList");
-							if( !myTeamlist.isEmpty()) {
+								
+								System.out.println("나의 팀 리스트: "+myTeamlist);
+								bWaitExist = false;
+								if( !myTeamlist.isEmpty()) {
 								for (TeamjoinDto myTeamDto : myTeamlist) {
+									if( myTeamDto.getTeamjoin_proc().equals("1")) {
 								%>
 								<tr>
 									<td><%=myTeamDto.getTeamjoin_key()%></td>
@@ -498,8 +502,10 @@ a.link{
 									<td>탈퇴 거절</td>
 									<%} else if(myTeamDto.getTeamjoin_proc().equals("7")) {%>
 									<td>퇴출됨</td>
+									<%} %>
 								</tr>
-								<%} } } else {%>
+								<%bWaitExist = true;
+									}}} if(false == bWaitExist) {  %>
 								<tr>
 									<td colspan="5"><div class="title" >아직 가입을 신청한 팀이 없습니다. </div></td>
 								</tr>

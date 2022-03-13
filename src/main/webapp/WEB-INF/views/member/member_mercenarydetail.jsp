@@ -38,6 +38,13 @@ table td {
 table td:not(.introduction) {
 	text-align: center;
 }
+
+a.link{
+	margin-left: 20px; 
+	font-size: .9rem;
+	color: rgb(46, 174, 173);
+}
+
 </style>
 </head>
 <body class="is-preload">
@@ -106,18 +113,31 @@ table td:not(.introduction) {
 								<tbody>
 									<%
 									List<MercenaryDto> list = (List<MercenaryDto>) request.getAttribute("mercenaryList");
+									if(!list.isEmpty()) {
 									for (MercenaryDto tempDto : list) {
 									%>
 									<tr>
 										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
-										<td><%=tempDto.getMercenary_complete()%></td>
+										
+										<%
+										if(tempDto.getCha()<=0){%>
+											<td>모집 마감</td>
+										<%}else if(tempDto.getCha()>0 && tempDto.getMercenary_complete().equals("1")){%>
+											<td>모집 마감</td>
+										<%} else {%>
+											<td>모집 진행중</td>
+										<%}%>
 										<td class="introduction"><a href="#none"
 											onclick="goView('<%=tempDto.getMercenary_key()%>')"> <%=tempDto.getMercenary_title()%></a></td>
 										<td><%=tempDto.getReg_date()%></td>
 									</tr>
 									<%
-									}
+									} } else {
 									%>
+									<tr>
+									<td colspan="7"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/mercenary/list" class="link">  >> 글 작성하러 가기 << </a></div></td>
+								</tr>
+								<%} %>
 								</tbody>
 							</table>
 						</form>

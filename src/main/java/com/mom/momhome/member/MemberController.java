@@ -232,20 +232,29 @@ public class MemberController {
 		dto.setUser_key(user_key);
 		dto.setStart(dto.getPg()*10);
 		
+		// 나의 팀 내역 가져오기 
 		List<TeamDto> list = memberService.getTeamList(dto);
 		model.addAttribute("teamList",list);
 		model.addAttribute("totalCnt",memberService.getTeamTotal(dto));
-		
-		jdto.setTeam_key(list.get(0).getTeam_key());
+
+		System.out.println("팀 리스트 컨트롤러: " + dto.toString());
+
+		// 팀 가입/탈퇴 내역 가져오기 
+		if( !list.isEmpty()) {
+			jdto.setTeam_key(list.get(0).getTeam_key());
+		}
+		//jdto.setTeam_key(list.get(0).getTeam_key());
 		List<TeamjoinDto>teamjoinlist = memberService.getTeamjoinList(jdto);
 
 		jdto.setUser_key(user_key);
 		List<TeamjoinDto>myteamList =  memberService.getMyTeamList(jdto);
 		model.addAttribute("teamjoinlist",teamjoinlist);
 		model.addAttribute("myteamList",myteamList);
+		System.out.println("나의 팀 리스트 컨트롤러: " + jdto.toString());
 		return "member/member_teamdetail";
 	}
 	
+	//감독 권한- 팀 가입 승인
 	@RequestMapping("member/teamAccept")
 	@ResponseBody
 	public HashMap<String, String> member_teamAccept(String team_key, String user_key, TeamjoinDto jdto, Model model){
@@ -256,7 +265,8 @@ public class MemberController {
 		map.put("result", "success");
 		return map;
 	}
-	
+
+	//감독 권한- 팀 가입 거절
 	@RequestMapping("member/teamRefuse")
 	@ResponseBody
 	public HashMap<String, String> member_teamRefuse(String team_key, String user_key, TeamjoinDto jdto, Model model){
@@ -267,7 +277,8 @@ public class MemberController {
 		map.put("result", "success");
 		return map;
 	}
-	
+
+	//감독 권한- 팀 탈퇴 승인
 	@RequestMapping("member/teamoutAccept")
 	@ResponseBody
 	public HashMap<String, String> member_teamoutAccept(String team_key, String user_key, TeamjoinDto jdto, Model model){
@@ -278,7 +289,8 @@ public class MemberController {
 		map.put("result", "success");
 		return map;
 	}
-	
+
+	//감독 권한- 팀 탈퇴 거절
 	@RequestMapping("member/teamoutRefuse")
 	@ResponseBody
 	public HashMap<String, String> member_teamoutRefuse(String team_key, String user_key, TeamjoinDto jdto, Model model){
@@ -289,7 +301,8 @@ public class MemberController {
 		map.put("result", "success");
 		return map;
 	}
-	
+
+	//감독 권한- 팀에서 멤버 퇴출 
 	@RequestMapping("member/teamkickout")
 	@ResponseBody
 	public HashMap<String, String> member_teamkickout(String team_key, String user_key, TeamjoinDto jdto, Model model){
@@ -309,6 +322,7 @@ public class MemberController {
 		dto.setUser_key(user_key);
 		dto.setStart(dto.getPg()*10);
 		List<GameDto> list = memberService.getGameList(dto);
+		System.out.println("게임 리스트: " + list);
 		model.addAttribute("gameList",list);
 		model.addAttribute("totalCnt",memberService.getGameTotal(dto));
 		return "member/member_matchingdetail";

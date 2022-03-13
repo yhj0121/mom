@@ -26,5 +26,10 @@ public class MercenaryDaoImpl implements MercenaryjoinDao{
 		sm.update("Mercenaryjoin_update", dto);
 	}
 
+	@Override
+	public int mercenaryjoinDuplicate(MercenaryjoinDto dto) {
+		return sm.selectOne("Mercenaryjoin_duplicate", dto);
+	}
+
 	
 }

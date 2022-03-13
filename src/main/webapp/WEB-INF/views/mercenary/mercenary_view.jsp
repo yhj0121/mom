@@ -233,7 +233,7 @@ function goApply()
 	})
 	.done((result)=>{
 		console.log(result);
-		alert("신청이 완료되었습니다.");
+		alert(result);
 		location.href="<%=request.getContextPath()%>/mercenary/list";
 	})
 	.fail((error)=>{

@@ -80,6 +80,11 @@ public class MercenaryServiceImpl implements MercenaryService {
 		return mercenaryDao.getMsCount(game_key);
 	}
 
+	@Override
+	public int mercenaryjoinDuplicate(MercenaryjoinDto dto) {
+		return mercenaryjoinDao.mercenaryjoinDuplicate(dto);
+	}
+
 	
 
 }

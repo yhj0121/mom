@@ -96,12 +96,21 @@ public class MercenaryController {
 	}
 	
 	//용병 신청
-	@RequestMapping(value="/mercenary/apply")
+	@RequestMapping(value="/mercenary/apply", produces = "application/text; charset=UTF-8")
 	@ResponseBody
 	String mercenary_apply(MercenaryjoinDto dto)
 	{
-		service.insertJoin(dto);
-		return "redirect:/mercenary/list";
+		//mercenary_key와 user_key 확인해서 중복신청 제한
+		int dupCheck = service.mercenaryjoinDuplicate(dto);
+		String msg = null;
+
+		if(dupCheck != 0){
+			msg = "이미 해당 게임에 용병으로 신청 완료하였습니다.";
+		}else {
+			service.insertJoin(dto);
+			msg = "용병 신청이 완료되었습니다.";
+		}
+		return msg;
 	}
 	
 	//용병 신청한 선수 리스트 보기-감독권한

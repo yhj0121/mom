@@ -18,5 +18,5 @@ public interface MercenaryService {
 	List<MercenaryjoinDto> getApplicantsList(MercenaryjoinDto dto);
 	void updateJoin(MercenaryjoinDto dto);
 	int getMsCount(String game_key);
-	
+	int mercenaryjoinDuplicate(MercenaryjoinDto dto);
 }

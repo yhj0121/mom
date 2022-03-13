@@ -6,5 +6,6 @@ public interface MercenaryjoinDao {
 	void insertJoin(MercenaryjoinDto dto);
 	List<MercenaryjoinDto> getApplicantsList(MercenaryjoinDto dto);
 	void updateJoin(MercenaryjoinDto dto);
+	int mercenaryjoinDuplicate(MercenaryjoinDto dto);
 	
 }

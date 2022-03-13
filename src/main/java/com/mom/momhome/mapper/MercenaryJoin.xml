@@ -45,7 +45,11 @@
 		
 	</update>
 	
-	<!-- <update id="Mercenaryjoin_update_dec" parameterType="MercenaryjoinDto">
-		update mercenaryjoin set mercenary_proc = '3' where mercenaryjoin_key=#{mercenaryjoin_key}
-	</update> -->
+	<select id="Mercenaryjoin_duplicate" parameterType="MercenaryjoinDto" resultType="Integer">
+		select 
+			count(*) 
+		from mercenaryjoin 
+		where mercenary_key = #{mercenary_key}  
+			  and user_key = #{user_key}
+	</select>
 </mapper>

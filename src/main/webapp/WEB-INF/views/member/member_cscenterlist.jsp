@@ -104,6 +104,7 @@ table td:not(.introduction) {
 								<tbody>
 								<%
 									List<CSCenterDto> list = (List<CSCenterDto>) request.getAttribute("cscenterList");
+									if( !list.isEmpty() ) {
 									for (CSCenterDto tempDto : list) {
 									%>
 									<tr>
@@ -112,7 +113,11 @@ table td:not(.introduction) {
 											onclick="goView('<%=tempDto.getCscenter_key()%>')"> <%=tempDto.getCscenter_title()%></a></td>
 										<td><%=tempDto.getCscenter_date()%></td>
 									</tr>
-									<%}%> 
+									<%} } else {%> 
+									<tr>
+										<td colspan="7"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/game/list" class="link">  >> 글 작성하러 가기 << </a></div></td>
+									</tr>
+									<%} %>
 								</tbody>
 							</table>
 						</form>

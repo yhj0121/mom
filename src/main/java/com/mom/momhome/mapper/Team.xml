@@ -133,7 +133,7 @@
 	 </select>
 	
 	<select id="getTeamView" parameterType="String" resultType="TeamDto">
-		select
+		  <!-- select
 				A.team_key,
 			    A.team_name,
 		   	    A.team_fdate,
@@ -146,7 +146,17 @@
 			    A.team_recruit_yn,
 				(select team_key from membership B where B.team_key=A.team_key) as team_key
 		 from team A 
-		where team_key=#{team_key}
+		where team_key=#{team_key} -->
+		
+		select 
+			C.team_key,C.team_name,C.team_fdate,C.team_fee,C.team_city,
+			C.team_intro,C.team_emblem,C.team_notice,C.team_num,C.team_recruit_yn,
+			B.user_key,B.user_name,B.user_position,A.membership_role
+		
+		from membership A left join user B on A.user_key = B.user_key
+		
+		join team C on A.team_key=C.team_key where C.team_key=#{team_key};
+		
 	</select>
 
 </mapper>

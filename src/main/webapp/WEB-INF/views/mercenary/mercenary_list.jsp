@@ -108,7 +108,7 @@ img {
 										<td><a href="#none"
 											onclick="goView('<%=tempDto.getMercenary_key()%>')"><%=tempDto.getMercenary_title()%></a></td>
 										<td><%=tempDto.getUser_name()%></td>
-										<td><%=tempDto.getReg_date()%></td>
+										<td><%=(tempDto.getReg_date()).substring(0,10)%></td>
 									</tr>
 									<%}%>
 								</tbody>

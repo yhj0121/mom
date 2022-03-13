@@ -107,7 +107,8 @@
  			,game_fdate
  			,game_location
  		from game
- 		where team_key = (select team_key from membership where user_key = #{user_key} )
+ 		where team_key = (select team_key from membership where user_key = #{user_key} ) 
+			  and game_fdate>now()
 
 	</select>
 	

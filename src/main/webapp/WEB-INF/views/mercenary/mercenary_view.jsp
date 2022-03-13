@@ -29,6 +29,7 @@ margin:auto;
 		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 	 	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 	 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+	 	String filter = StringUtil.nullToValue(request.getParameter("filter"), "");
 	 	/* String membership_role = (String)session.getAttribute("membership_role"); */
 	 %>
 	 <%
@@ -57,6 +58,7 @@ margin:auto;
 							<input type="hidden" name="pg"      value="<%=pg%>" />
 					     	<input type="hidden" name="key"     value="<%=key%>" />
 					        <input type="hidden" name="keyword" value="<%=keyword%>"/>
+					        <input type="hidden" name="filter" value="<%=filter%>"/>
 					        <%-- <input type="text" name="test" value="<%=user_key%>" > --%>
 					        <input type="hidden" name="user_key" value="${userkey}" />
 							<input type="hidden" name="game_key" value="<%=mdto.getGame_key()%>"/>

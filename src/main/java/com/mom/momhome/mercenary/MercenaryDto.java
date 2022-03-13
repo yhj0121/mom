@@ -16,8 +16,17 @@ public class MercenaryDto extends BaseDto {
 	private String game_fdate = "";
 	private String game_location = "";
 	private int cha = 0;
+	private String filter="";
 	
 	
+	public String getFilter() {
+		return filter;
+	}
+
+	public void setFilter(String filter) {
+		this.filter = filter;
+	}
+
 	public int getCha() {
 		return cha;
 	}

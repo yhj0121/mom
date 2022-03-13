@@ -26,15 +26,24 @@
 			,cha
 			,@rownum := @rownum+1 AS rnum
 			from mercenary A,(select @rownum:=0) B 
+			where 1=1 
+			<if test='filter!=null'>
+				<if test='filter=="1"'>
+				 	and cha  <![CDATA[ > ]]>0 and mercenary_complete = 0
+				</if>
+				<if test='filter=="2"'>
+				 	and cha <![CDATA[ <= ]]> 0 or mercenary_complete = 1
+				</if>
+			</if>
 			<if test='key!=null and keyword!=null'>
 				<if test='key=="1"'>
-				 	where mercenary_title like concat('%',#{keyword}, '%')
+				 	 and mercenary_title like concat('%',#{keyword}, '%')
 				</if>
 				<if test='key=="2"'>
-				 	where mercenary_contents like concat('%',#{keyword}, '%')	  
+				 	 and mercenary_contents like concat('%',#{keyword}, '%')	  
 				</if>
 				<if test='key=="3"'>
-					 where mercenary_title like concat('%',#{keyword}, '%') or
+					and mercenary_title like concat('%',#{keyword}, '%') or
 				 	  	   mercenary_contents like concat('%',#{keyword}, '%') 
 				</if>
 			</if>

@@ -30,6 +30,7 @@ img {
 		String key = StringUtil.nullToValue(request.getParameter("key"), "");
 		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
+		String filter = StringUtil.nullToValue(request.getParameter("filter"), "");
 		int totalCnt = (Integer) request.getAttribute("totalCnt");
 		%>
 		
@@ -55,7 +56,7 @@ img {
 						<input type="hidden" name="mercenary_key" id="mercenary_key" value="" />
 
 						<div class="row gtr-uniform">
-							<div class="col-3 col-6-xsmall">
+							<div class="col-2 col-6-xsmall">
 								<select name="key" id="key">
 									<option value="">- 선택하세요 -</option>
 									<option value="1">제목</option>
@@ -63,7 +64,14 @@ img {
 									<option value="3">제목+내용</option>
 								</select>
 							</div>
-							<div class="col-7 col-12-xsmall">
+							<div class="col-2 col-6-xsmall">
+								<select name="filter" id="filter">
+									<option value="">전체</option>
+									<option value="1">모집 진행중</option>
+									<option value="2">모집 마감</option>
+								</select>
+							</div>
+							<div class="col-6 col-12-xsmall">
 								<input type="text" class="form-control" placeholder="검색어를 입력하세요"
 									name="keyword" id="keyword" value="<%=keyword%>">
 							</div>
@@ -143,6 +151,7 @@ img {
 $(document).ready(function(){
 	let frm = document.myform;
 	frm.key.value = "<%=key%>";
+	frm.filter.value = "<%=filter%>";
 })
 function goSearch()
 {
@@ -151,7 +160,7 @@ function goSearch()
     frm.action = "<%=request.getContextPath()%>/mercenary/list";
 	frm.method = "get";
 	frm.submit();
-	consol.log( frm.pg.value );
+	console.log( frm.pg.value );
 }
 
 function goPage(pg) 

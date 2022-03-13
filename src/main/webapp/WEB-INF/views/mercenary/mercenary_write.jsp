@@ -42,6 +42,7 @@ margin:auto;
 							<form name="myform" >
 								<input type="hidden" name="user_key" id="user_key" value="${userkey}"/>
 								<input type="hidden" name="game_key" id="game_key" value=""/>
+								<input type="hidden" name="game_fdate" id="game_fdate" value=""/>
 								<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>"/>
 								<input type="hidden" name="mercenary_complete" id="mercenary_complete" value="<%=mdto.getMercenary_complete()%>"/>
 								
@@ -60,7 +61,7 @@ margin:auto;
 									</div>
 									<div class="col-12">
 										<select name="gameInfo" id="gameInfo">
-											<option id="gameDate" value="<%=mdto.getGame_date()%>">원하는 게임 날짜를 선택하세요</option>
+											<option id="gameDate" value="<%=mdto.getGame_fdate()%>">원하는 게임 날짜를 선택하세요</option>
 										</select>
 									</div>
 									<div class="col-12">
@@ -94,7 +95,9 @@ $(document).ready(function(){
 
 $("#gameInfo").change(function(){
 	var gameInfo =$(this).val();
+	var gameDate = $("#gameInfo option:selected").text();
   	$("#game_key").val(gameInfo);
+	$("#game_fdate").val(gameDate);
 	
 })
 
@@ -112,7 +115,7 @@ function getGameList(){
 	
 	  result.forEach( (item)=>{
 	    	var data = "<option "+"value='"+item.game_key+"'>";
-	    	    data +=  item.game_date ;
+	    	    data +=  item.game_fdate ;
 	    	    data += "</option>";
 	    	i++;
 	      	$("#gameDate").after(data);

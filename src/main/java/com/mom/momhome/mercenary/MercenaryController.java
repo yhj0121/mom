@@ -132,7 +132,7 @@ public class MercenaryController {
 		for(MercenaryDto temp: gameList) 
 		{
 			System.out.println(temp.getGame_key());
-			System.out.println(temp.getGame_date());
+			System.out.println(temp.getGame_fdate());
 			System.out.println(temp.getGame_location());
 		}
 		

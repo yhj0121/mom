@@ -29,7 +29,7 @@ margin:auto;
 		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 	 	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 	 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	 	String membership_role = (String)session.getAttribute("membership_role");
+	 	/* String membership_role = (String)session.getAttribute("membership_role"); */
 	 %>
 	 <%
 		MercenaryDto mdto = (MercenaryDto)request.getAttribute("mercenaryDto");
@@ -37,7 +37,7 @@ margin:auto;
 	<%
 		Date nowTime = new Date();
 	  	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-	  	Date date = sf.parse(mdto.getGame_date());
+	  	Date date = sf.parse(mdto.getGame_fdate());
 	%>
 		<div id="main">
 	 		<article class="post">
@@ -64,42 +64,70 @@ margin:auto;
 							<%-- <input type="text" name="mercenary_complete" value="<%=mdto.getMercenary_complete()%>" /> --%>
 							<input type="hidden" name="mercenary_proc"  id="mercenary_proc" value="" />
 							<input type="hidden" name="mercenaryjoin_key"  id="mercenaryjoin_key" value="" />
-							<input type="hidden" name="membership_role" value="${membership_role}" /> 
-					      	
+					      	<input type="hidden" name="membership_role" value="${membership_role}" /> 
+					      	<input type="hidden" name="membership_role" value="<%=mdto.getGame_fdate()%>" /> 
+
 							<div class="row gtr-uniform">
-								<div class="col-12">
+								<div class="col-1" style="margin:auto;">
+									<p style=" text-align:left;">제목</p>
+								</div>
+								<div class="col-11">
 									<input type="text" name="mercenary_title" id="mercenary_title" style="color:black;"
 									value="<%=mdto.getMercenary_title()%>" readonly />
 								</div>
-								<div class="col-6 col-12-xsmall">
+								
+								<div class="col-1" style="margin:auto;">
+									<p style=" text-align:left;">작성자</p>
+								</div>
+								<div class="col-5 col-11-xsmall">
 									<input type="text" name="user_name" id="user_name" style="color:black;" 
 									value="<%=mdto.getUser_name()%>" readonly />
 								</div>
-								<div class="col-6 col-12-xsmall">
-									<%if(mdto.getMercenary_complete().equals("0")) {%>
+								
+								<div class="col-1" style="margin:auto;">
+									<p style=" text-align:left;">모집여부</p>
+								</div>
+								<div class="col-5 col-11-xsmall">
+									<%if(mdto.getCha()<=0) {%>
 										<input type="text" name="mercenary_complete" id="mercenary_complete" style="color:black;" 
-										value="용병 모집중" readonly />
-									<%}else{ %>
+										value="용병 모집 마감" readonly />
+									<%}else if(mdto.getCha()>0 && mdto.getMercenary_complete().equals("1")){ %>
 										<input type="text" name="mercenary_complete" id="mercenary_complete" style="color:black;" 
 										value="용병 모집마감" readonly />
+									<%}else{%>
+										<input type="text" name="mercenary_complete" id="mercenary_complete" style="color:black;" 
+										value="용병 모집중" readonly />
 									<%}%>
+								
 								</div>
-								<div class="col-6 col-12-xsmall">
+								
+								<div class="col-1" style="margin:auto;">
+									<p style=" text-align:left;">경기 날짜</p>
+								</div>
+								<div class="col-5 col-11-xsmall">
 									<input type="text" name="game_date" id="game_date" style="color:black;" 
-									value="<%=mdto.getGame_date()%>" readonly />
+									value="<%=mdto.getGame_fdate()%>" readonly />
 								</div>
-								<div class="col-6 col-12-xsmall">
+								
+								<div class="col-1" style="margin:auto;">
+								<p style=" text-align:left;">경기 지역</p>
+								</div>
+								<div class="col-5 col-11-xsmall">
 									<input type="text" name="game_location" id="game_location" style="color:black;" 
 									value="<%=mdto.getGame_location()%>" readonly />
+								</div>
+								
+								<div class="col-12" style="margin:auto;">
+								<p style=" text-align:left;">내용</p>
 								</div>
 								<div class="col-12">
 									<textarea name="mercenary_contents" style="color:black;" id="mercenary_contents" rows="6" readonly ><%=mdto.getMercenary_contents()%></textarea>
 								</div>
 								<div class="col-12">
 									<ul class="actions">
-									<%if(date.compareTo(nowTime)<0) {%>
+									 <%if(date.compareTo(nowTime)<0) {%>
 										<li><input type="button" value="목록" onclick="goList()" /></li>
-									 <%}else{ %>  
+									 <%}else{ %> 
 										<% if(!user_key.isEmpty()) {%>
 												<% if(membership_role.equals("1")) {%>
 													<% if(user_key.equals(mdto.getUser_key())) {%>
@@ -117,7 +145,7 @@ margin:auto;
 										<%}else{%>		
 													<li><input type="button" value="목록" onclick="goList()" /></li>
 												<%} %>
-									 <%} %>
+									 <%} %> 
 									</ul>
 								</div>
 							</div>

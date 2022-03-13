@@ -13,7 +13,7 @@ public class MercenaryDto extends BaseDto {
 	private String chg_user = ""; 
 	
 	public String user_name = "";
-	private String game_date = "";
+	private String game_fdate = "";
 	private String game_location = "";
 	private int cha = 0;
 	
@@ -26,12 +26,12 @@ public class MercenaryDto extends BaseDto {
 		this.cha = cha;
 	}
 
-	public String getGame_date() {
-		return game_date;
+	public String getGame_fdate() {
+		return game_fdate;
 	}
 
-	public void setGame_date(String game_date) {
-		this.game_date = game_date;
+	public void setGame_fdate(String game_fdate) {
+		this.game_fdate = game_fdate;
 	}
 
 	public String getGame_location() {

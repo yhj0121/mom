@@ -30,9 +30,17 @@ public class GameJoinDaoImp implements GameJoinDao {
 	}
 
 	@Override
-	public int Gamejoinduplicate(String game_key) {
+	public int GetCount(GameJoinDto dto) {
 		// TODO Auto-generated method stub
-		return sm.selectOne("Gamejoin_duplicate", game_key);
+		return sm.selectOne("Gamejoin_getCount",dto);
 	}
+
+	@Override
+	public String getTeamkey(String user_key) {
+		// TODO Auto-generated method stub
+		return sm.selectOne("Gamejoin_getTeamkey", user_key);
+	}
+
+
 
 }

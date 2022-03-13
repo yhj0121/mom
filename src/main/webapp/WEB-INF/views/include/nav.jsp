@@ -2,13 +2,19 @@
 	pageEncoding="utf-8"%>
 <%@page import="com.mom.momhome.member.*"%>
 <%@page import="com.mom.momhome.common.*"%>
+<%@page import="com.mom.momhome.membership.*"%>
+
 <%
 request.setAttribute("commonURL", request.getContextPath()); //commonURL을 변수로 저장 
+
 String userid = StringUtil.nullToValue(session.getAttribute("userid"), "");
 String username = StringUtil.nullToValue(session.getAttribute("username"), "");
 String email = StringUtil.nullToValue(session.getAttribute("email"), "");
 String phone = StringUtil.nullToValue(session.getAttribute("phone"), "");
 String user_key = StringUtil.nullToValue(session.getAttribute("userkey"), "");
+
+MembershipDto membershipDto = (MembershipDto)session.getAttribute("membershipDto");
+String membership_role= StringUtil.nullToValue(session.getAttribute("membership_role"), "");
 
 int maxRegularCount = 11;
 int maxBenchCount = 7;

@@ -60,28 +60,28 @@
 	</select>
 	
 	<select id="getTeamList"  parameterType="TeamDto"  resultType="TeamDto">
-		select
-   A.team_name
-   ,A.team_fdate
-   ,A.team_fee
-   ,A.team_city 
-   ,A.team_intro
-   ,A.team_emblem
-   ,A.team_notice
-   ,A.team_num
-   ,A.team_recruit_yn
-   , (
-   select
-   user_name
-   from user
-   where user_key IN(
-   select
-   user_key
-   from  membership where team_key=A.team_key AND membership_role = '1')
-   ) as user_name
-   ,@rownum := @rownum+1 AS rnum
-   from team A, (select @rownum:=0) B
-	         
+	select
+	    A.team_key
+	   ,A.team_name
+	   ,A.team_fdate
+	   ,A.team_fee
+	   ,A.team_city 
+	   ,A.team_intro
+	   ,A.team_emblem
+	   ,A.team_notice
+	   ,A.team_num
+	   ,A.team_recruit_yn
+	   , (
+	   select
+	   user_name
+	   from user
+	   where user_key IN(
+	   select
+	   user_key
+	   from  membership where team_key=A.team_key AND membership_role = '1')
+	   ) as user_name
+	   ,@rownum := @rownum+1 AS rnum
+	   from team A, (select @rownum:=0) B
 	         <if test='key!=null and keyword!=null'>
 	   
 	            <if test='key=="1"'>
@@ -132,8 +132,21 @@
 		</if>
 	 </select>
 	
-
-
-
+	<select id="getTeamView" parameterType="String" resultType="TeamDto">
+		select
+				A.team_key,
+			    A.team_name,
+		   	    A.team_fdate,
+			    A.team_fee,
+			    A.team_city,
+			    A.team_intro,
+			    A.team_emblem,
+			    A.team_notice,
+			    A.team_num,
+			    A.team_recruit_yn,
+				(select team_key from membership B where B.team_key=A.team_key) as team_key
+		 from team A 
+		where team_key=#{team_key}
+	</select>
 
 </mapper>

@@ -13,23 +13,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mom.momhome.game.GameDto;
+
 @Controller
 public class LineupController {
 
-	int maxLineupCount = 11; 
-	
 	@Resource(name="lineupService")
 	LineupService service;
 	
 	@RequestMapping(value = "/lineup/info", method = RequestMethod.GET)
-	public String info(Model model, LineupDto dto) {
+	public String info(Model model, GameDto gameDto) {
 		
-        //---temp---------
-        dto.setGame_key("1");
-        dto.setTeam_side("1");
-        //--------------
-        List<LineupDto> list = service.getList(dto);
+//      System.out.println("controller.GameKey: " + gameDto.getGame_key());
+//      System.out.println("controller.TeamKey: " + gameDto.getTeam_key());
+//      System.out.println("controller.TeamSide: " + gameDto.getTeam_side());
         
+        List<LineupDto> list = service.getList(gameDto);
         for(LineupDto tempDto : list)
         {
             tempDto.getPlayerDto().setUser_key(tempDto.getUser_key());
@@ -40,6 +39,7 @@ public class LineupController {
 //            System.out.println("UserID: " + tempDto.getPlayerDto().getUser_id());
         }
 
+        model.addAttribute("gameDto", gameDto);
 		model.addAttribute("lineupList", list);
 		
 		return "lineup/lineup_info";
@@ -152,20 +152,13 @@ public class LineupController {
 	}
 	
 	@RequestMapping(value = "/lineup/modify", method = RequestMethod.GET)
-	public String modify(String game_key, String team_key, String team_side, Model model) {
+	public String modify(GameDto gameDto, Model model) {
 		
-//		System.out.println(game_key);
-//		System.out.println(team_key);
-//		System.out.println(team_side);
-		
-		LineupDto dto = new LineupDto();
-        //---temp---------
-        dto.setGame_key(game_key);
-        dto.setTeam_key(team_key);
-        dto.setTeam_side(team_side);
-        //--------------
-        List<LineupDto> list = service.getList(dto);
-        
+		System.out.println("controller.GameKey: " + gameDto.getGame_key());
+	      System.out.println("controller.TeamKey: " + gameDto.getTeam_key());
+	      System.out.println("controller.TeamSide: " + gameDto.getTeam_side());
+	      
+        List<LineupDto> list = service.getList(gameDto);
         for(LineupDto tempDto : list)
         {
 //        	System.out.println("LineupKey: " + tempDto.getLineup_key());
@@ -183,9 +176,7 @@ public class LineupController {
         	}
         }
         
-		model.addAttribute("game_key", game_key);
-		model.addAttribute("team_key", team_key);
-		model.addAttribute("team_side", team_side);
+        model.addAttribute("gameDto", gameDto);
 		model.addAttribute("lineupList", list);
 		
 		return "lineup/lineup_modify";

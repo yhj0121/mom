@@ -73,7 +73,7 @@ margin:auto;
 									</div>
 									
 								<div class="col-12">
-							 	<input type="text" name="game_location" id="game_location" value="<%=dao.getGame_location()%>" placeholder="지역">
+							 	<input type="text" name="game_location" id="game_location" value="<%=dao.getGame_location()%>" placeholder="경기장 위치를 입력하세요">
 								</div>
 										
 								    <div class="col-12">

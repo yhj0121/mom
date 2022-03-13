@@ -19,6 +19,7 @@ import com.mom.momhome.game.GameDto;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 import com.mom.momhome.team.TeamDto;
+import com.mom.momhome.teamjoin.TeamjoinDto;
 
 @Controller
 public class MemberController {
@@ -82,8 +83,11 @@ public class MemberController {
 		HashMap<String, String> map = new HashMap<String, String>();
 		if(resultDto==null) {
 			map.put("flag", "2");	
-		} else {
-			if(resultDto.getUser_password().equals(dto.getUser_password())) {
+		} 
+		else 
+		{
+			if(resultDto.getUser_password().equals(dto.getUser_password())) 
+			{
 				map.put("flag", "1"); //로그온 성공시 세션에 정보를 저장한다 
 				session.setMaxInactiveInterval(1800); //30분 세션 유지 
 				session.setAttribute("userid", resultDto.getUser_id());
@@ -94,12 +98,16 @@ public class MemberController {
 				session.setAttribute("phone", resultDto.getUser_phone());
 				
 				MembershipDto membershipDto = memberService.getMembership(resultDto.getUser_key());
-		        if( membershipDto == null ) {
-		        	 session.setAttribute("membership_role", "");
-		        } else {
+				if( membershipDto != null )
+				{
+		        	session.setAttribute("membershipDto", membershipDto);
 		        	session.setAttribute("membership_role", membershipDto.getMembership_role());
-		        }
-			} else {
+				}
+				else
+					session.setAttribute("membershipDto", new MembershipDto());
+			} 
+	        else 
+	        {
 				map.put("flag", "3");
 			}
 		}
@@ -218,15 +226,79 @@ public class MemberController {
 	
 	//마이페이지 - 팀 가입/탈퇴내역으로 이동 
 	@RequestMapping("member/teamdetail")
-	String member_teamdetail( HttpServletRequest request, TeamDto dto, Model model ) {
+	String member_teamdetail( HttpServletRequest request, TeamDto dto, TeamjoinDto jdto, Model model ) {
 		HttpSession session = request.getSession();
 		String user_key = (String)session.getAttribute("userkey");
 		dto.setUser_key(user_key);
 		dto.setStart(dto.getPg()*10);
+		
 		List<TeamDto> list = memberService.getTeamList(dto);
 		model.addAttribute("teamList",list);
 		model.addAttribute("totalCnt",memberService.getTeamTotal(dto));
+		
+		jdto.setTeam_key(list.get(0).getTeam_key());
+		List<TeamjoinDto>teamjoinlist = memberService.getTeamjoinList(jdto);
+
+		jdto.setUser_key(user_key);
+		List<TeamjoinDto>myteamList =  memberService.getMyTeamList(jdto);
+		model.addAttribute("teamjoinlist",teamjoinlist);
+		model.addAttribute("myteamList",myteamList);
 		return "member/member_teamdetail";
+	}
+	
+	@RequestMapping("member/teamAccept")
+	@ResponseBody
+	public HashMap<String, String> member_teamAccept(String team_key, String user_key, TeamjoinDto jdto, Model model){
+		jdto.setTeam_key(team_key);
+		jdto.setUser_key(user_key);
+		memberService.teamAccept( jdto );
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("member/teamRefuse")
+	@ResponseBody
+	public HashMap<String, String> member_teamRefuse(String team_key, String user_key, TeamjoinDto jdto, Model model){
+		jdto.setTeam_key(team_key);
+		jdto.setUser_key(user_key);
+		memberService.teamRefuse( jdto );
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("member/teamoutAccept")
+	@ResponseBody
+	public HashMap<String, String> member_teamoutAccept(String team_key, String user_key, TeamjoinDto jdto, Model model){
+		jdto.setTeam_key(team_key);
+		jdto.setUser_key(user_key);
+		memberService.teamoutAccept( jdto );
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("member/teamoutRefuse")
+	@ResponseBody
+	public HashMap<String, String> member_teamoutRefuse(String team_key, String user_key, TeamjoinDto jdto, Model model){
+		jdto.setTeam_key(team_key);
+		jdto.setUser_key(user_key);
+		memberService.teamoutRefuse( jdto );
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
+	}
+	
+	@RequestMapping("member/teamkickout")
+	@ResponseBody
+	public HashMap<String, String> member_teamkickout(String team_key, String user_key, TeamjoinDto jdto, Model model){
+		jdto.setTeam_key(team_key);
+		jdto.setUser_key(user_key);
+		memberService.teamkickout( jdto );
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
 	}
 	
 	//마이페이지 - 팀 매칭신청내역으로 이동 
@@ -261,10 +333,10 @@ public class MemberController {
 		HttpSession session = request.getSession();
 		String user_key = (String)session.getAttribute("userkey");
 		dto.setUser_key(user_key);
-		//dto.setStart(dto.getPg()*10);
-//		List<CSCenterDto> list = memberService.getCscenterList(dto);
-//		model.addAttribute("cscenterList", list);
-//		model.addAttribute("totalCnt",memberService.getCscenterTotal(dto));
+		dto.setStart(dto.getPg()*10);
+		List<CSCenterDto> list = memberService.getCscenterList(dto);
+		model.addAttribute("cscenterList", list);
+		model.addAttribute("totalCnt",memberService.getCscenterTotal(dto));
 		return "member/member_cscenterlist";
 	}
 }

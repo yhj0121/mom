@@ -21,6 +21,8 @@
 			type="com.mom.momhome.common.BaseDto" />
 		<typeAlias alias="teamDto"
 			type="com.mom.momhome.team.TeamDto" />
+		<typeAlias alias="TeamjoinDto"
+			type="com.mom.momhome.teamjoin.TeamjoinDto" />
 			<typeAlias alias="MembershipDto"
 			type="com.mom.momhome.membership.MembershipDto" />
 		<typeAlias alias="LineupDto"
@@ -49,6 +51,7 @@
 		<mapper resource="/com/mom/momhome/mapper/Lineup.xml" />
 		<mapper resource="/com/mom/momhome/mapper/Main.xml" />
 		<mapper resource="/com/mom/momhome/mapper/CSCenter.xml"/>
+		<mapper resource="/com/mom/momhome/mapper/TeamJoin.xml"/>
 	</mappers>
 
 </configuration>

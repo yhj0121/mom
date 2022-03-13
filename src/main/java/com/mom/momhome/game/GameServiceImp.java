@@ -58,6 +58,8 @@ public class GameServiceImp implements GameService {
 
 	@Override
 	public void gameinsertJoin(GameJoinDto dto) {
+		String team_key = gamejoindao.getTeamkey(dto.getUser_key());
+		dto.setTeam_key(team_key);
 		gamejoindao.gameinsertJoin(dto);
 		
 	}
@@ -75,21 +77,19 @@ public class GameServiceImp implements GameService {
 
 	@Override
 	public GameDto getCityList(String user_key) {
-		// TODO Auto-generated method stub
 		return dao.getCityList(user_key);
 	}
 
 	@Override
-	public GameDto teamkeySelect(String user_key) {
-		// TODO Auto-generated method stub
-		return dao.teamkeySelect(user_key);
+	public GameDto getMembershipUserkey(String user_key) {
+		return dao.getMembershipUserkey(user_key);
 	}
 
 	@Override
-	public int Gamejoinduplicate(String team_key) {
-		// TODO Auto-generated method stub
-		return gamejoindao.Gamejoinduplicate(team_key);
+	public int GetCount(GameJoinDto dto) {
+		return gamejoindao.GetCount(dto);
 	}
+
 
 
 

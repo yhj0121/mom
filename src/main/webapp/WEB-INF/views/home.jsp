@@ -152,10 +152,11 @@ section.mypost:nth-child(odd) {
 										src="resources/images/icon_team.png" alt="팀 아이콘" /></a>
 								</article>
 							</li>
+							<% } %>
 							<li style="text-align: center;">
-								<button type="button" class="button small " onclick="location.href='${commonURL}/team/list'">모든 글 보러 가기</button>
+								<button type="button"  class="button small " onclick="location.href='${commonURL}/mercenary/list'">모든 글 보러 가기</button>
 							</li>
-							<% }	} else { %>
+							<%	} else { %>
 							<li>
 								<article style="height: 100%;">
 									<h3>아직 게시글이 없습니다.</h3>
@@ -190,10 +191,11 @@ section.mypost:nth-child(odd) {
 										src="resources/images/icon_soccerball.png" alt="게임 아이콘" /></a>
 								</article>
 							</li>
+							<% } %>
 							<li style="text-align: center;">
-								<button type="button"  class="button small " onclick="location.href='${commonURL}/game/list'">모든 글 보러 가기</button>
+								<button type="button"  class="button small " onclick="location.href='${commonURL}/mercenary/list'">모든 글 보러 가기</button>
 							</li>
-							<% }	} else { %>
+							<%	} else { %>
 							<li>
 								<article style="height: 100%;">
 									<h3>아직 게시글이 없습니다.</h3>
@@ -226,10 +228,11 @@ section.mypost:nth-child(odd) {
 										class="image"><img src="resources/images/icon_mercenary.png" alt="용병 아이콘" /></a>
 								</article>
 							</li>
+							<% } %>
 							<li style="text-align: center;">
 								<button type="button"  class="button small " onclick="location.href='${commonURL}/mercenary/list'">모든 글 보러 가기</button>
 							</li>
-							<% }} else { %>
+							<%	} else { %>
 							<li style="text-align: center;">
 								<h3 style=" margin: 100px 0;">아직 게시글이 없습니다.</h3>
 								<button  class="button small ">글 쓰러 가기</button>
@@ -260,7 +263,11 @@ section.mypost:nth-child(odd) {
 										src="resources/images/icon_customerservice.png" alt="고객센터 아이콘" /></a>
 								</article>
 							</li>
-							<% }	} else { %>
+							<% } %>
+							<li style="text-align: center;">
+								<button type="button"  class="button small " onclick="location.href='${commonURL}/mercenary/list'">모든 글 보러 가기</button>
+							</li>
+							<%	} else { %>
 							<li style="text-align: center;">
 								<h3 style=" margin: 100px 0;">아직 게시글이 없습니다.</h3>
 								<button type="button"   class="button small ">글 쓰러 가기</button>

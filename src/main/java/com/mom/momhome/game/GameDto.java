@@ -15,10 +15,17 @@ public class GameDto extends BaseDto {
 	public String user_key="";
 	public String team_city = "";
 	public String game_complete ="0";  //게임 모집중 or 완료 
+	public String team_side=""; //홈 어웨이
 	
 	
 
 	
+	public String getTeam_side() {
+		return team_side;
+	}
+	public void setTeam_side(String team_side) {
+		this.team_side = team_side;
+	}
 	public String getGame_complete() {
 		return game_complete;
 	}

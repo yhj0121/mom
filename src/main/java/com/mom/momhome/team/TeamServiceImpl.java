@@ -80,5 +80,11 @@ public class TeamServiceImpl implements TeamService{
 		return teamDao.getTeamTotal(dto);
 	}
 
+	@Override
+	public TeamDto getTeamView(TeamDto dto) {
+		
+		return teamDao.getTeamView(dto);
+	}
+
 
 }

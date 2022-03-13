@@ -40,11 +40,15 @@ public class GameController {
 	@RequestMapping(value="game/view", method=RequestMethod.GET)
 	String view(Model model,GameDto dto)
 	{
-		System.out.println("***__*_*_*_*_*_*_*_*_*_*_*");
-		System.out.println("dto"+dto.getTeam_key());
+//		System.out.println("***__*_*_*_*_*_*_*_*_*_*_*");
+//		System.out.println("gameController.View.team_key : " + dto.getTeam_key());
+//		System.out.println("gameController.View.game_key : "+dto.getGame_key());
+		
 		GameDto viewDto = service.getView(dto.getGame_key());
-		GameDto tdto = service.teamkeySelect(dto.getTeam_key());
-		System.out.println("유저키"+tdto.getUser_key());
+		
+		GameDto tdto = service.getMembershipUserkey(dto.getTeam_key());
+//		System.out.println("gameController.View.user_key : "+tdto.getUser_key());
+		
 		model.addAttribute("teamdto", tdto);
 		model.addAttribute("GameDto", viewDto);
 		return "game/gameview";
@@ -145,6 +149,18 @@ public class GameController {
 	
 		return dto;
 	}
+	
+	@RequestMapping("/game/joinduplicate")
+	@ResponseBody
+	int gamejoin_duplicate(GameJoinDto dto)
+	{	
+		System.out.println("게임키" + dto.getGame_key());
+		System.out.println("유저키" + dto.getUser_key());
+		int count = service.GetCount(dto);
+		System.out.println("카운트 값"+count);
+		return count;
+	}
+	
 	
 
 	/*

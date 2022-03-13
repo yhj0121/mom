@@ -9,23 +9,47 @@
 		#[]이 더 효율적이다.
 	 -->
 <mapper namespace="CSCenter">
+	<select id="csGetTotal" parameterType="CSCenterDto" resultType="Integer">
+		select count(*) from cscenter;
+	</select>
 	
-<select id="csList"  resultType="CSCenterDto">
-SELECT cscenter_key,
-		user_key,
-		cscenter_title,
-		cscenter_contents,
-		(SELECT user_name FROM `user` u WHERE u.USER_KEY=c.user_key) as user_name,
-		cscenter_date
-		FROM cscenter c
-</select>
+	<select id="csList" parameterType="CSCenterDto"  resultType="CSCenterDto">
+         select 
+         	cscenter_key,
+         	user_key,
+			cscenter_title,
+			cscenter_contents,
+			(SELECT user_name FROM `user` B WHERE B.USER_KEY=A.user_key) as user_name,
+			cscenter_date
+		from
+	 		 (
+	 	 select
+	 	 	A.cscenter_key,
+	 		A.user_key,
+			A.cscenter_title,
+			A.cscenter_contents,
+			A.cscenter_date,
+			@rownum := @rownum+1 AS rnum
+		from cscenter A, (select @rownum:=0) B
+		order by cscenter_key
+		) A
+		limit #{start}, #{pageSize}
+	</select>
 
 <insert id="csInsert" parameterType="CSCenterDto">
-	INSERT into cscenter
-	values(default, #{user_key}, #{cscenter_title}, #{cscenter_contents}, now());
+	INSERT INTO cscenter
+	VALUES (default, #{user_key}, #{cscenter_title}, #{cscenter_contents}, now());
 </insert>
 	
-		
+	<select id="csGetDetail" parameterType="String" resultType="CSCenterDto">
+		SELECT
+			cscenter_title,
+			cscenter_contents,
+			(SELECT user_name FROM `user` u WHERE u.USER_KEY=c.user_key) as user_name,
+			cscenter_date
+			FROM cscenter c WHERE cscenter_key=#{cscenter_key};
+	</select>
+	
 </mapper>
 
 

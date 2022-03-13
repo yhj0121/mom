@@ -3,6 +3,7 @@
     pageEncoding="utf-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.mom.momhome.lineup.*" %>
+<%@ page import="com.mom.momhome.game.*" %>
 
 <!DOCTYPE html>
 <html>
@@ -50,6 +51,8 @@
 		<%@include file="../include/nav.jsp"%>
 		
 		<%
+		GameDto gameDto = (GameDto)request.getAttribute("gameDto");
+		System.out.println("modify.jsp/ gamekey : " + gameDto.getGame_key());
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
 		%>
 		
@@ -68,7 +71,11 @@
 					</div>
 				</header>
 				
-      	<form name="myform"> 	
+      	<form name="myform">
+      		<input type="hidden" name="game_key" id="game_key" value="<%=gameDto.getGame_key()%>"/>
+			<input type="hidden" name="team_key" id="team_key" value="<%=gameDto.getTeam_key()%>"/>
+			<input type="hidden" name="team_side" id="team_side" value="<%=gameDto.getTeam_side()%>"/> 
+			
           <section>
 			<div class="table-wrapper">
 				
@@ -181,29 +188,24 @@
 
 <script>
 
-let game_key = <%=(String)request.getAttribute("game_key")%>;
-let team_key = <%=(String)request.getAttribute("team_key")%>;
-let team_side = <%=(String)request.getAttribute("team_side")%>;
-
 // let tr_length = $('#tb tr').length-1;//맨위 테이블 행은 빼줘야한다.
 // let tab_td = $('#tb td');//tb 테이블의 td들 불러오기
-// let maxColumn = Math.ceil((tab_td.length-1) / tr_length); 
+// let maxColumn = Math.ceil((tab_td.length-1) / tr_length);
 
 let positionSelectList;
 let playerSelectList;
 let playerDictionary = {};
 
 $(()=>{
-	positionSelectListInit(()=>{
-		playerDictionaryInit(()=>{
-			loadLineup();
-		});		
+	positionSelectListInit();
+	playerDictionaryInit(()=>{
+		loadLineup();
 	});
 })
 
-function positionSelectListInit(callback){
+function positionSelectListInit(){
 	
-// 	console.log("getPositionList()");
+ 	//console.log("getPositionList()");
 	
 	$.ajax({
 		url: "${commonURL}/member/selectPosition",
@@ -212,9 +214,9 @@ function positionSelectListInit(callback){
 		type: "POST"
 	})
 	.done( (result) => {
+		//console.log("getPositionList().result.length: " + result.length); 
 		positionSelectList = document.getElementsByName("positionList")
-// 	    console.log(selects.length);
-	    
+ 	    //console.log(positionSelectList.length); 
 		for(select of positionSelectList)
     	{
 	    	for(item of result)
@@ -224,19 +226,20 @@ function positionSelectListInit(callback){
 	.fail( (error) => {
 		alert("정보 가져오기 실패");
 	})
-	
-	callback();
 }
 
 function playerDictionaryInit(callback)
 {
 	$.ajax({
 		url: "${commonURL}/lineup/modify/getPlayerList",
-		data:{team_key: team_key},
+		data:{team_key: $("#team_key").val()},
 		type: "POST",
 		dataType:"JSON"
 	})
 	.done( (result) => {
+		
+		if(result.length == 0)
+			return;
 		
 		for(item of result)
 		{
@@ -371,9 +374,10 @@ function saveLineup()
  		if(positionSelectList[i].selectedIndex > 0)
  			lineup.code_key = positionSelectList[i].value;
  		
- 		lineup.team_key = team_key;
- 		lineup.game_key = game_key; 		
- 		lineup.team_side = team_side;
+ 		lineup.team_key = $("#team_key").val();
+ 		lineup.game_key = $("#game_key").val(); 	
+ 		console.log("team_side: " + $("#team_side").val());
+ 		lineup.team_side = $("#team_side").val();
  		lineup.lineup_index = i;
  		
 		newLineupList.push(lineup);
@@ -396,15 +400,22 @@ function saveLineup()
 
 	})
 	.done((result)=>{
-		console.log(result);
+		//console.log(result);
 		alert("성공적으로 저장되었습니다.");
-		location.href="${commonURL}/lineup/info";
+		goLineupInfo();
 	})
 	.fail((error)=>{
 		console.log(error);
 	})
 }
 
+function goLineupInfo()
+{
+	let frm = document.myform;
+	frm.method="get";
+    frm.action="${commonURL}/lineup/info";
+	frm.submit();
+}
 
 function goPlayerInfo(id)
 {

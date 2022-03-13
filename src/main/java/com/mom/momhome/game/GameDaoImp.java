@@ -22,11 +22,9 @@ public class GameDaoImp implements GameDao {
 	}
 
 	@Override
-	public GameDto getView(String game_key) {
-		// TODO Auto-generated method stub
-		return sm.selectOne("game_view",game_key);
+	public GameDto getView(String game_key) {		
+		return sm.selectOne("game_view", game_key);
 	}
-
 
 	@Override
 	public void update(GameDto dto) {
@@ -36,13 +34,11 @@ public class GameDaoImp implements GameDao {
 
 	@Override
 	public List<GameDto> getList(GameDto dto) {
-		// TODO Auto-generated method stub
 		return sm.selectList("game_list", dto);
 	}
 
 	@Override
 	public int getTotal(GameDto dto) {
-		// TODO Auto-generated method stub
 		return sm.selectOne("game_getTotal",dto);
 	}
 
@@ -54,13 +50,11 @@ public class GameDaoImp implements GameDao {
 
 	@Override
 	public GameDto getCityList(String user_key) {
-		// TODO Auto-generated method stub
 		return sm.selectOne("game_cityList", user_key);
 	}
 
 	@Override
-	public GameDto teamkeySelect(String user_key) {
-		// TODO Auto-generated method stub
+	public GameDto getMembershipUserkey(String user_key) {
 		return sm.selectOne("game_getMembershipUserkey", user_key);
 	}
 

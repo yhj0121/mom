@@ -9,6 +9,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.mom.momhome.game.GameDto;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -19,7 +21,7 @@ public class LineupServiceImpl implements LineupService{
 	LineupDao lineupDao;
 
 	@Override
-	public List<LineupDto> getList(LineupDto dto) {
+	public List<LineupDto> getList(GameDto dto) {
 		return lineupDao.getList(dto);
 	}
 

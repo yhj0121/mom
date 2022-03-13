@@ -18,12 +18,19 @@ public class TeamDto extends BaseDto{
 	private String team_num = ""; 
 	private String team_recruit_yn = "1"; //모집여부 상태 표시 , 1 yes, 2 no
 	private String user_key = ""; //user_key 추가 및 getter, setter 추가 *수정함*
+	private String teamjoin_proc="";
 	String membership_role ="";
 	
 	String user_name = "";
 	
 
-	
+
+	public String getTeamjoin_proc() {
+		return teamjoin_proc;
+	}
+	public void setTeamjoin_proc(String teamjoin_proc) {
+		this.teamjoin_proc = teamjoin_proc;
+	}
 	public String getUser_name() {
 		return user_name;
 	}
@@ -108,12 +115,9 @@ public class TeamDto extends BaseDto{
 		return "TeamDto [team_key=" + team_key + ", team_name=" + team_name + ", team_fdate=" + team_fdate
 				+ ", team_fee=" + team_fee + ", team_city=" + team_city + ", team_intro=" + team_intro
 				+ ", team_emblem=" + team_emblem + ", team_notice=" + team_notice + ", team_num=" + team_num
-				+ ", team_recruit_yn=" + team_recruit_yn + ", user_key=" + user_key + ", membership_role="
-				+ membership_role + ", user_name=" + user_name + "]";
+				+ ", team_recruit_yn=" + team_recruit_yn + ", user_key=" + user_key + ", teamjoin_proc=" + teamjoin_proc
+				+ ", membership_role=" + membership_role + ", user_name=" + user_name + "]";
 	}
 
-	
-	
-	
 }
 

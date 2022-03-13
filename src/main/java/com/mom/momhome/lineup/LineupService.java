@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.mom.momhome.game.GameDto;
+import com.mom.momhome.gamejoin.GameJoinDto;
 
 public interface LineupService {
 	List<LineupDto> getList(GameDto dto);
@@ -19,4 +20,5 @@ public interface LineupService {
 	void insert_teamDummy(LineupTeamDto dto);
 	void insert_membershipDummy(LineupMembershipDto dto);
 	void insert_gameDummy(LineupGameDto dto);
+	String getGameJoinResult(GameJoinDto gameJoinDto);
 }

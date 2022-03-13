@@ -290,7 +290,7 @@ function golineup(team_side)
 {
 	var frm = document.myform;
 	frm.team_side.value=team_side;
-	console.log(frm.team_side);
+	//console.log(frm.team_side);
 	frm.method = "get";
 	frm.action = "${pageContext.request.contextPath}/lineup/info";
 	frm.submit();

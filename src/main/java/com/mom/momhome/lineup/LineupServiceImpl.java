@@ -10,6 +10,8 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.mom.momhome.game.GameDto;
+import com.mom.momhome.gamejoin.GameJoinDao;
+import com.mom.momhome.gamejoin.GameJoinDto;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -19,6 +21,9 @@ public class LineupServiceImpl implements LineupService{
 
 	@Resource(name="lineupDao")
 	LineupDao lineupDao;
+	
+	@Resource(name="")
+	GameJoinDao gameJoinDao;
 
 	@Override
 	public List<LineupDto> getList(GameDto dto) {
@@ -109,6 +114,12 @@ public class LineupServiceImpl implements LineupService{
 		}
 		paramMap.put("resendMapList", resendMapList);
 		lineupDao.insert(paramMap);
+	}
+	
+	@Override
+	public String getGameJoinResult(GameJoinDto gameJoinDto)
+	{
+		return gameJoinDao.getGameJoinResult(gameJoinDto);
 	}
 }
 

@@ -193,7 +193,7 @@
 				</div>
 				
 				<div class="container mt-3" style="text-align:right;">
-	            	<button class="btn btn-success" type="button" onclick="goModify()">수정</button>
+					<button class="button large previous" type="button" onclick="goGameView()">뒤로가기</button>
 					<%
 // 					System.out.println("membershipDto.getTeam_key() : " + membershipDto.getTeam_key());
 // 					System.out.println("gameDto.getTeam_key(): " + gameDto.getTeam_key());
@@ -236,4 +236,11 @@ function goModify()
 	frm.submit();
 }
 
+function goGameView() 
+{
+	frm = document.myform;
+	frm.method = "get";
+	frm.action = "${pageContext.request.contextPath}/game/view";
+	frm.submit();
+}
 </script>

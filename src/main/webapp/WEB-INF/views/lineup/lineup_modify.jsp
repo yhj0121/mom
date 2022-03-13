@@ -169,7 +169,8 @@
 			</div>
 			
 			<div class="container mt-3" style="text-align:right;">
-            	<button  type="button" class="btn btn-secondary" onclick="saveLineup()">저장</button>
+				<button class="button large previous" type="button" onclick="goLineupInfo()">뒤로가기</button>
+            	<button  type="button" class="button large icon solid fa-save" onclick="saveLineup()">저장</button>
           	</div>
           	
 <!-- 			<div class="container mt-3" style="text-align:right;"> -->
@@ -232,7 +233,7 @@ function playerDictionaryInit(callback)
 {
 	$.ajax({
 		url: "${commonURL}/lineup/modify/getPlayerList",
-		data:{team_key: $("#team_key").val()},
+		data:{team_key: <%=membershipDto.getTeam_key()%>},
 		type: "POST",
 		dataType:"JSON"
 	})
@@ -425,5 +426,6 @@ function goPlayerInfo(id)
     frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
 	frm.submit();
 }
+
 
 </script>

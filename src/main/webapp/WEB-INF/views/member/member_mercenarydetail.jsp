@@ -118,7 +118,12 @@ a.link{
 									%>
 									<tr>
 										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
-										<td><%=tempDto.getMercenary_complete()%></td>
+										<%
+										if((Integer)tempDto.getCha()>0){%>
+											<td>모집중</td>
+										<%}else{%>
+											<td>마감</td>
+										<%}%>
 										<td class="introduction"><a href="#none"
 											onclick="goView('<%=tempDto.getMercenary_key()%>')"> <%=tempDto.getMercenary_title()%></a></td>
 										<td><%=tempDto.getReg_date()%></td>

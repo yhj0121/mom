@@ -243,9 +243,6 @@ public class MemberController {
 		List<TeamjoinDto>myteamList =  memberService.getMyTeamList(jdto);
 		model.addAttribute("teamjoinlist",teamjoinlist);
 		model.addAttribute("myteamList",myteamList);
-		
-		System.out.println(myteamList);
-		
 		return "member/member_teamdetail";
 	}
 	

@@ -199,6 +199,7 @@ a.link{
 							<tbody>
 							<%
 								List<TeamjoinDto> teamjoinlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
+								boolean bWaitExist = false;
 								if( !teamjoinlist.isEmpty()) {
 								for (TeamjoinDto joinDto : teamjoinlist) {
 									if( joinDto.getTeamjoin_proc().equals("1")) {
@@ -208,12 +209,17 @@ a.link{
 									<td><%=joinDto.getUser_name()%></td>
 									<td><%=joinDto.getUser_position()%></td>
 									<td class="introduction"><%=joinDto.getUser_intro()%></td>
-									<td><button href="javascript:void(0)" type="button"
+									<td><button type="button"
 										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinAccept(<%=joinDto.getUser_key()%>,<%=joinDto.getTeam_key()%>)">승인</button>
 										<button type="button"
 										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamjoinRefuse(<%=joinDto.getUser_key()%>,<%=joinDto.getTeam_key()%>)">거절</button></td>
 								</tr>
-								<%}}} else { %>
+								<%
+								bWaitExist = true;
+									}
+									}
+								} %>
+								<%if(false == bWaitExist){ %>
 								<tr>
 									<td colspan="5"><div class="title" >아직 가입을 신청한 사람이 없습니다. </div></td>
 								</tr>
@@ -332,7 +338,7 @@ a.link{
 							<tbody>
 								<%
 								List<TeamjoinDto> teamoutlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
-			
+								bWaitExist = false;
 								if( !teamoutlist.isEmpty()) {					
 								for (TeamjoinDto teamOutDto : teamoutlist) {
 									if( teamOutDto.getTeamjoin_proc().equals("4")) {
@@ -347,11 +353,13 @@ a.link{
 										<button type="button"
 										style="line-height: 0; padding: 1rem; height: auto;" onclick="teamoutRefuse(<%=teamOutDto.getUser_key()%>,<%=teamOutDto.getTeam_key()%>)">거절</button></td>
 								</tr>
-								<%} else { %>
+								<%
+								bWaitExist = true;
+									}}} if(false == bWaitExist) { %>
 								<tr>
 									<td colspan="5"><div class="title" >아직 탈퇴를 신청한 사람이 없습니다. </div></td>
 								</tr>
-								<%}}} %>
+								<%} %>
 							</tbody>
 						</table>
 					</div>
@@ -379,6 +387,7 @@ a.link{
 							<tbody>
 								<%
 								List<TeamjoinDto> outlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
+								bWaitExist = false;
 								if( !outlist.isEmpty()) {
 								for (TeamjoinDto outDto : outlist) {
 									if( outDto.getTeamjoin_proc().equals("5")) {
@@ -390,11 +399,12 @@ a.link{
 									<td class="introduction"><%=outDto.getUser_intro()%></td>
 									<td>완료</td>
 								</tr>
-								<%} else { %>
+								<%bWaitExist = true;
+									}}} if(false == bWaitExist) { %>
 								<tr>
 									<td colspan="5"><div class="title" >아직 탈퇴를 승인한 사람이 없습니다. </div></td>
 								</tr>
-								<%}}}%>
+								<%}%>
 							</tbody>
 						</table>
 					</div>
@@ -423,6 +433,7 @@ a.link{
 							<tbody>
 								<%
 								List<TeamjoinDto> kickoutlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
+								bWaitExist = false;
 								if( !kickoutlist.isEmpty()) {
 								for (TeamjoinDto kickoutDto : kickoutlist) {
 									if( kickoutDto.getTeamjoin_proc().equals("7")) {
@@ -434,11 +445,12 @@ a.link{
 									<td class="introduction"><%=kickoutDto.getUser_intro()%></td>
 									<td>퇴출완료</td>
 								</tr>
-								<%} else { %>
+								<%bWaitExist = true;
+									}}} if(false == bWaitExist) {  %>
 								<tr>
 									<td colspan="5"><div class="title" >아직 퇴출한 사람이 없습니다. </div></td>
 								</tr>
-								<%}}}%>
+								<%}%>
 							</tbody>
 						</table>
 					</div>
@@ -466,7 +478,6 @@ a.link{
 							<tbody>
 							<%
 								List<TeamjoinDto> myTeamlist = (List<TeamjoinDto>) request.getAttribute("myteamList");
-							System.out.println(myTeamlist);
 							if( !myTeamlist.isEmpty()) {
 								for (TeamjoinDto myTeamDto : myTeamlist) {
 								%>
@@ -634,6 +645,8 @@ a.link{
 				
 				$(this).addClass("active");
 				$("#" + num).addClass('active');
+				
+				console.log(num);
 				
 		});
 	</script>

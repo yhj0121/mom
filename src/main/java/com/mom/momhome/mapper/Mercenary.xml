@@ -11,9 +11,8 @@
  			,mercenary_contents
  			,mercenary_complete
  			,reg_date
- 			,game_fdate
+ 			,cha
  			,rnum
- 			,TO_DAYS(game_fdate) - TO_DAYS(now()) as cha
  		from
  		(
  		select
@@ -24,19 +23,18 @@
 			,A.mercenary_contents 
 			,mercenary_complete
 			,reg_date
-			,game_fdate
+			,cha
 			,@rownum := @rownum+1 AS rnum
-			from mercenary A,(select @rownum:=0) B , game C 	
-            where A.game_key=C.game_key
+			from mercenary A,(select @rownum:=0) B 
 			<if test='key!=null and keyword!=null'>
 				<if test='key=="1"'>
-				 	AND mercenary_title like concat('%',#{keyword}, '%')
+				 	where mercenary_title like concat('%',#{keyword}, '%')
 				</if>
 				<if test='key=="2"'>
-				 	AND mercenary_contents like concat('%',#{keyword}, '%')	  
+				 	where mercenary_contents like concat('%',#{keyword}, '%')	  
 				</if>
 				<if test='key=="3"'>
-					 AND mercenary_title like concat('%',#{keyword}, '%') or
+					 where mercenary_title like concat('%',#{keyword}, '%') or
 				 	  	   mercenary_contents like concat('%',#{keyword}, '%') 
 				</if>
 			</if>
@@ -64,9 +62,9 @@
 
 	<insert id="Mercenary_insert" parameterType="MercenaryDto">
 		insert into mercenary
-		(user_key, game_key, mercenary_title, mercenary_contents, mercenary_complete, reg_date, reg_user)
+		(user_key, game_key, mercenary_title, mercenary_contents, mercenary_complete, reg_date, reg_user, cha)
 		values
-		(#{user_key}, #{game_key}, #{mercenary_title}, #{mercenary_contents},0, now(), #{user_name})
+		(#{user_key}, #{game_key}, #{mercenary_title}, #{mercenary_contents},0, now(), #{user_name}, TO_DAYS(#{game_fdate}) - TO_DAYS(now()))
 	</insert>
 	
 	 <select id="Mercenary_getView" parameterType="String" resultType="MercenaryDto">
@@ -78,6 +76,7 @@
 				A.mercenary_contents,
 				A.mercenary_complete,
 				A.reg_date,
+				A.cha,
 				(select user_name from user B where B.user_key=A.user_key) as user_name,
 				(select game_fdate from game B where B.game_key=A.game_key) as game_fdate,
                 (select game_location from game B where B.game_key=A.game_key) as game_location

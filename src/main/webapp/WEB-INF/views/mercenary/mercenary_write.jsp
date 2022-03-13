@@ -42,6 +42,7 @@ margin:auto;
 							<form name="myform" >
 								<input type="hidden" name="user_key" id="user_key" value="${userkey}"/>
 								<input type="hidden" name="game_key" id="game_key" value=""/>
+								<input type="hidden" name="game_fdate" id="game_fdate" value=""/>
 								<input type="hidden" name="mercenary_key" value="<%=mdto.getMercenary_key()%>"/>
 								<input type="hidden" name="mercenary_complete" id="mercenary_complete" value="<%=mdto.getMercenary_complete()%>"/>
 								
@@ -94,7 +95,9 @@ $(document).ready(function(){
 
 $("#gameInfo").change(function(){
 	var gameInfo =$(this).val();
+	var gameDate = $("#gameInfo option:selected").text();
   	$("#game_key").val(gameInfo);
+	$("#game_fdate").val(gameDate);
 	
 })
 

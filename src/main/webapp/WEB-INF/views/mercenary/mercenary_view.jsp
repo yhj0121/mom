@@ -29,7 +29,7 @@ margin:auto;
 		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
 	 	String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 	 	String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
-	 	String membership_role = (String)session.getAttribute("membership_role");
+	 	/* String membership_role = (String)session.getAttribute("membership_role"); */
 	 %>
 	 <%
 		MercenaryDto mdto = (MercenaryDto)request.getAttribute("mercenaryDto");
@@ -88,13 +88,17 @@ margin:auto;
 									<p style=" text-align:left;">모집여부</p>
 								</div>
 								<div class="col-5 col-11-xsmall">
-									<%if(mdto.getMercenary_complete().equals("0")) {%>
+									<%if(mdto.getCha()<=0) {%>
 										<input type="text" name="mercenary_complete" id="mercenary_complete" style="color:black;" 
-										value="용병 모집중" readonly />
-									<%}else{ %>
+										value="용병 모집 마감" readonly />
+									<%}else if(mdto.getCha()>0 && mdto.getMercenary_complete().equals("1")){ %>
 										<input type="text" name="mercenary_complete" id="mercenary_complete" style="color:black;" 
 										value="용병 모집마감" readonly />
+									<%}else{%>
+										<input type="text" name="mercenary_complete" id="mercenary_complete" style="color:black;" 
+										value="용병 모집중" readonly />
 									<%}%>
+								
 								</div>
 								
 								<div class="col-1" style="margin:auto;">

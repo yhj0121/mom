@@ -173,9 +173,9 @@ public class LineupController {
 	@RequestMapping(value = "/lineup/modify", method = RequestMethod.GET)
 	public String modify(GameDto gameDto, Model model) {
 		
-		System.out.println("controller.GameKey: " + gameDto.getGame_key());
-	      System.out.println("controller.TeamKey: " + gameDto.getTeam_key());
-	      System.out.println("controller.TeamSide: " + gameDto.getTeam_side());
+//		System.out.println("controller.GameKey: " + gameDto.getGame_key());
+//      System.out.println("controller.TeamKey: " + gameDto.getTeam_key());
+//	    System.out.println("controller.TeamSide: " + gameDto.getTeam_side());
 	      
         List<LineupDto> list = service.getList(gameDto);
         for(LineupDto tempDto : list)

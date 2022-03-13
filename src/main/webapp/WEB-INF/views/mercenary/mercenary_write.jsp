@@ -60,7 +60,7 @@ margin:auto;
 									</div>
 									<div class="col-12">
 										<select name="gameInfo" id="gameInfo">
-											<option id="gameDate" value="<%=mdto.getGame_date()%>">원하는 게임 날짜를 선택하세요</option>
+											<option id="gameDate" value="<%=mdto.getGame_fdate()%>">원하는 게임 날짜를 선택하세요</option>
 										</select>
 									</div>
 									<div class="col-12">
@@ -112,7 +112,7 @@ function getGameList(){
 	
 	  result.forEach( (item)=>{
 	    	var data = "<option "+"value='"+item.game_key+"'>";
-	    	    data +=  item.game_date ;
+	    	    data +=  item.game_fdate ;
 	    	    data += "</option>";
 	    	i++;
 	      	$("#gameDate").after(data);

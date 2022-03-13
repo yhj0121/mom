@@ -11,9 +11,9 @@
  			,mercenary_contents
  			,mercenary_complete
  			,reg_date
- 			,game_date
+ 			,game_fdate
  			,rnum
- 			,TO_DAYS(game_date) - TO_DAYS(now()) as cha
+ 			,TO_DAYS(game_fdate) - TO_DAYS(now()) as cha
  		from
  		(
  		select
@@ -24,24 +24,22 @@
 			,A.mercenary_contents 
 			,mercenary_complete
 			,reg_date
-			,game_date
+			,game_fdate
 			,@rownum := @rownum+1 AS rnum
 			from mercenary A,(select @rownum:=0) B , game C 	
             where A.game_key=C.game_key
- 
 			<if test='key!=null and keyword!=null'>
 				<if test='key=="1"'>
-				 	where mercenary_title like concat('%',#{keyword}, '%')
+				 	AND mercenary_title like concat('%',#{keyword}, '%')
 				</if>
 				<if test='key=="2"'>
-				 	where mercenary_contents like concat('%',#{keyword}, '%')	  
+				 	AND mercenary_contents like concat('%',#{keyword}, '%')	  
 				</if>
 				<if test='key=="3"'>
-					 where mercenary_title like concat('%',#{keyword}, '%') or
+					 AND mercenary_title like concat('%',#{keyword}, '%') or
 				 	  	   mercenary_contents like concat('%',#{keyword}, '%') 
 				</if>
 			</if>
-
 			order by mercenary_key desc
 			) A
 			limit #{start}, #{pageSize}
@@ -81,7 +79,7 @@
 				A.mercenary_complete,
 				A.reg_date,
 				(select user_name from user B where B.user_key=A.user_key) as user_name,
-				(select game_date from game B where B.game_key=A.game_key) as game_date,
+				(select game_fdate from game B where B.game_key=A.game_key) as game_fdate,
                 (select game_location from game B where B.game_key=A.game_key) as game_location
 		 from mercenary A 
 		where mercenary_key=#{mercenary_key}
@@ -107,7 +105,7 @@
 	<select id="Mercenary_getGameList" parameterType="MercenaryDto"	resultType="MercenaryDto">
  		select 
  			game_key
- 			,game_date
+ 			,game_fdate
  			,game_location
  		from game
  		where team_key = (select team_key from membership where user_key = #{user_key} )

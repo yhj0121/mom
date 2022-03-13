@@ -38,6 +38,11 @@ table td {
 table td:not(.introduction) {
 	text-align: center;
 }
+a.link{
+	margin-left: 20px; 
+	font-size: .9rem;
+	color: rgb(46, 174, 173);
+}
 </style>
 </head>
 <body class="is-preload">
@@ -68,7 +73,8 @@ table td:not(.introduction) {
 					<div class="table-wrapper">
 						<form name="myform">
 							<input type="hidden" name="pg" id="pg" value="<%=pg%>" />
-							 <input type="hidden" name="mercenary_key" id="mercenary_key" value="" />
+							 <input type="hidden" name="game_key" id="game_key" value="" />
+							 <input type="hidden" name="team_key" id="team_key" value="" />
 							<div class="row gtr-uniform mb-5">
 								<div class="col-3 col-6-xsmall">
 									<select name="key" id="key">
@@ -91,33 +97,43 @@ table td:not(.introduction) {
 							<table>
 								<colgroup>
 									<col width="5%" />
-									<col width="5%" />
 									<col width="*" />
 									<col width="15%" />
+									<col width="13%" />
 								</colgroup>
 								<thead>
 									<tr>
 										<th>번호</th>
-										<th>상태</th>
 										<th>제목</th>
 										<th>작성일</th>
+										<th>모집여부</th>
 									</tr>
 								</thead>
 								<tbody>
 									<%
 									List<GameDto> list = (List<GameDto>) request.getAttribute("gameList");
+									if(!list.isEmpty()) {
 									for (GameDto tempDto : list) {
 									%>
 									<tr>
 										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
-										<td><%=tempDto.getGame_key() %></td>
 										<td class="introduction"><a href="#none"
-											onclick="goView('<%=tempDto.getGame_key()%>')"> <%=tempDto.getGame_title()%></a></td>
+											onclick="goView('<%=tempDto.getGame_key()%>','<%=tempDto.getTeam_key()%>')"> <%=tempDto.getGame_title()%></a></td>
 										<td><%=tempDto.getGame_fdate()%></td>
+										<%
+										if(tempDto.getGame_complete().equals("0")){%>
+										<td>모집중</td>
+										<%}else{%>
+											<td>모집 완료</td>
+										<%}%>
 									</tr>
 									<%
-									}
+									} } else {
 									%>
+									<tr>
+									<td colspan="7"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/game/list" class="link">  >> 글 작성하러 가기 << </a></div></td>
+								</tr>
+								<%} %>
 								</tbody>
 							</table>
 						</form>
@@ -151,22 +167,16 @@ table td:not(.introduction) {
 		function goSearch() {
 			let frm = document.myform;
 			frm.pg.value = 0;
-			frm.action = "${pageContext.request.contextPath}/member/mercenarylist";
+			frm.action = "${pageContext.request.contextPath}/member/matchinglist";
 			frm.method = "get";
 			frm.submit();
 		}
-		function goView(id) {
+		function goView(gamekey,teamkey) {
 			frm = document.myform;
-			frm.mercenary_key.value = id;
+			frm.game_key.value = gamekey;
+			frm.team_key.value = teamkey;
 			frm.method = "get";
-			frm.action = "${pageContext.request.contextPath}/mercenary/view";
-			frm.submit();
-		}
-		function goPage(pg) {
-			frm = document.myform;
-			frm.pg.value = pg;
-			frm.method = "get";
-			frm.action = "${pageContext.request.contextPath}/member/mercenarylist";
+			frm.action = "${pageContext.request.contextPath}/game/view";
 			frm.submit();
 		}
 	</script>

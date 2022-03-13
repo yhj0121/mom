@@ -109,6 +109,7 @@
  		from game
  		where team_key = (select team_key from membership where user_key = #{user_key} ) 
 			  and game_fdate>now()
+			  and game_key not in (select game_key from mercenary)
 
 	</select>
 	

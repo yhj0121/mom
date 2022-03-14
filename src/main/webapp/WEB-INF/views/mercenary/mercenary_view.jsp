@@ -179,6 +179,8 @@ margin:auto;
 						</form>
 					</section>
 				</article>
+				<!-- Footer -->
+			<%@include file="../include/footer.jsp"%>
 		</div>
 	</div>
 </body>
@@ -189,11 +191,15 @@ margin:auto;
 <script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 <script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 <script>
-$(document).ready(function(){
-	getCount();
-})
 var count;
 var i;
+var approveCnt;
+
+$(document).ready(function(){
+	getCount();
+	getApproveCount();
+})
+
 function getCount()
 {
    	var frmData = document.myform; 
@@ -205,9 +211,28 @@ function getCount()
 		type:"POST"
 	})
 	.done((result)=>{
-		console.log(result);
+		/* console.log(result); */
 		count = result;
 		i = count;
+	})
+	.fail((error)=>{
+		console.log(error);
+	})
+}
+
+function getApproveCount()
+{
+   	var frmData = document.myform; 
+	var queryString = $("form[name=myform]").serialize();
+	$.ajax({
+		url:"<%=request.getContextPath()%>/mercenary/approveCount",
+		data:queryString,
+		processData:false,
+		type:"POST"
+	})
+	.done((result)=>{
+		approveCnt=result;
+		
 	})
 	.fail((error)=>{
 		console.log(error);
@@ -302,7 +327,7 @@ function goViewApplicants()
 }
 function goApprove(mercenaryjoin_key)
 {
-	if(count<=0){
+	if(count-approveCnt<=0){
 		alert("용병 자리가 다 찼습니다.")
 	}else{
 		$("#mercenaryjoin_key").val(mercenaryjoin_key);
@@ -328,11 +353,7 @@ function goApprove(mercenaryjoin_key)
 }
 function goDecline(mercenaryjoin_key)
 {
-	/* alert("count :"+count);
-	alert("i : "+i); */
- 	if(count>i){
- 		/* alert("count :"+count);
- 		alert("i : "+i); */
+ 	if(count-approveCnt>i){
 		alert("거절 가능 횟수 초과"); 
  	}else if(count == i){
  		//고용했다가 거절누르면 count가 원래 count인 i와 같아지는 경우로 만들때는 거절이 가능해야함

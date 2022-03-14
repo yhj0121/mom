@@ -101,24 +101,34 @@ img {
 								<tbody>
 									<%
 									List<MercenaryDto> list = (List<MercenaryDto>) request.getAttribute("mercenaryList");
-									for (MercenaryDto tempDto : list) {
-									%>
-									<tr>
-										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
-										<%
-										if(tempDto.getCha()<=0){%>
-											<td>모집 마감</td>
-										<%}else if(tempDto.getCha()>0 && tempDto.getMercenary_complete().equals("1")){%>
-											<td>모집 마감</td>
-										<%} else {%>
-											<td>모집 진행중</td>
-										<%}%>
-										<td><a href="#none"
-											onclick="goView('<%=tempDto.getMercenary_key()%>')"><%=tempDto.getMercenary_title()%></a></td>
-										<td><%=tempDto.getUser_name()%></td>
-										<td><%=(tempDto.getReg_date()).substring(0,10)%></td>
-									</tr>
-									<%}%>
+									if( !list.isEmpty() ) {
+										for (MercenaryDto tempDto : list) {
+										%>
+										<tr>
+											<td><%=totalCnt - tempDto.getRnum() + 1%></td>
+											<%
+											if(tempDto.getCha()<=0){%>
+												<td>모집 마감</td>
+											<%}else if(tempDto.getCha()>0 && tempDto.getMercenary_complete().equals("1")){%>
+												<td>모집 마감</td>
+											<%} else {%>
+												<td>모집 진행중</td>
+											<%}%>
+											<td><a href="#none"
+												onclick="goView('<%=tempDto.getMercenary_key()%>')"><%=tempDto.getMercenary_title()%></a></td>
+											<td><%=tempDto.getUser_name()%></td>
+											<td><%=(tempDto.getReg_date()).substring(0,10)%></td>
+										</tr>
+										<%} %>
+									<%}else{%>
+										<tr>
+											<td colspan="5">
+												<div class="title" style="text-align:center;" >아직 작성한 글이 없습니다. <br/>
+												<a href="${pageContext.request.contextPath}/mercenary/write" class="link">  >> 글 작성하러 가기 << </a>
+												</div>
+											</td>
+										</tr>
+									<%} %>
 								</tbody>
 							</table>
 
@@ -137,7 +147,8 @@ img {
 				style="display: flex; justify-content: center;">
 				<%=Pager.makeTag(request, 10, totalCnt)%>
 			</div>
-			<!-- /Pagination  -->
+			<!-- Footer -->
+			<%@include file="../include/footer.jsp"%>
 		</div>
 	</div>
 </body>

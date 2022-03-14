@@ -48,6 +48,17 @@
 		select * from user
 		where user_id=#{ user_id } and USER_PASSWORD=#{ user_password } and user_delete=1
 	</select>
+	
+	<select id="Member_getSimpleInfo" parameterType="String" resultType="MemberDto">
+		select
+			user_id
+			,user_name
+			,user_mail 
+			,user_position
+			,user_intro
+		from user
+		where user_key=#{user_key}
+	</select>
 
 	<update id="Member_update" parameterType="MemberDto">
 		update User set

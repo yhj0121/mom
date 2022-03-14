@@ -77,6 +77,8 @@ margin:auto;
 							</form>
 						</section>
 					</article>
+					<!-- Footer -->
+					<%@include file="../include/footer.jsp"%>
 				</div>
 		</div>
 </body>

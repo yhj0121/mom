@@ -19,5 +19,14 @@ public class MembershipDaoImpl implements MembershipDao{
 	public MembershipDto getMembership(String user_key) {
 		return sm.selectOne("Membership_getMembership", user_key);
 	}
+	
+	@Override
+	public void insertMember(MembershipDto dto) {
+		sm.insert("Membership_insert", dto);
+	}
 
+	@Override
+	public void deleteMember(MembershipDto dto) {
+		sm.delete("Membership_delete", dto);
+	}
 }

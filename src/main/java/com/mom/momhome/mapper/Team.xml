@@ -40,21 +40,6 @@
 		#{team_recruit_yn})
 	</insert>
 
-	<insert id="Membership_insert" parameterType="MembershipDto">
-		insert into membership(
-		user_key,
-		TEAM_KEY,
-		MEMBERSHIP_ROLE,
-		TEAM_JOINDATE
-		)
-		value(
-		#{user_key},
-		#{team_key},
-		#{membership_role},
-		now()
-		)
-	</insert>
-
 	<select id="lastid"  resultType="String">
 			SELECT LAST_INSERT_ID() 
 	</select>
@@ -158,5 +143,7 @@
 		join team C on A.team_key=C.team_key where C.team_key=#{team_key};
 		
 	</select>
+	
+
 
 </mapper>

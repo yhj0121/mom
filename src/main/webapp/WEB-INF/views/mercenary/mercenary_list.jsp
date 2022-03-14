@@ -147,7 +147,8 @@ img {
 				style="display: flex; justify-content: center;">
 				<%=Pager.makeTag(request, 10, totalCnt)%>
 			</div>
-			<!-- /Pagination  -->
+			<!-- Footer -->
+			<%@include file="../include/footer.jsp"%>
 		</div>
 	</div>
 </body>

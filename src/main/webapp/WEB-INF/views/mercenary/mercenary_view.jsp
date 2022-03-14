@@ -179,6 +179,8 @@ margin:auto;
 						</form>
 					</section>
 				</article>
+				<!-- Footer -->
+			<%@include file="../include/footer.jsp"%>
 		</div>
 	</div>
 </body>
@@ -196,7 +198,6 @@ var approveCnt;
 $(document).ready(function(){
 	getCount();
 	getApproveCount();
-	/* count = count - approveCnt; */
 })
 
 function getCount()

@@ -22,11 +22,6 @@ public class MercenaryController {
 	@RequestMapping(value="/mercenary/list", method = {RequestMethod.GET, RequestMethod.POST})
 	String mercenary_list(Model model, MercenaryDto dto)
 	{
-		/*
-		 * System.out.println("선택: " + dto.getKey()); System.out.println("선택: " +
-		 * dto.getKeyword());
-		 */
-		
 		dto.setStart(dto.getPg()*10);
 		
 		List<MercenaryDto> list = service.getList(dto);

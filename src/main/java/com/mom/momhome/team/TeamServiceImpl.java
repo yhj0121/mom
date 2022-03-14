@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.membership.MembershipDao;
 import com.mom.momhome.membership.MembershipDto;
+import com.mom.momhome.teamjoin.TeamjoinDto;
 import com.mom.momhome.member.MemberDto;
 import com.mom.momhome.member.MemberDao;
 
@@ -84,6 +85,13 @@ public class TeamServiceImpl implements TeamService{
 	public TeamDto getTeamView(TeamDto dto) {
 		
 		return teamDao.getTeamView(dto);
+	}
+
+	@Override
+	public void teamJoin(TeamjoinDto dto) {
+		
+		teamDao.teamJoin(dto);
+		
 	}
 
 

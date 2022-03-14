@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.member.MemberDto;
 import com.mom.momhome.membership.MembershipDto;
+import com.mom.momhome.teamjoin.TeamjoinDto;
 
 @Repository("teamDao")
 public class TeamDaoImpl implements TeamDao {
@@ -70,6 +71,20 @@ public class TeamDaoImpl implements TeamDao {
 		
 		return sm.selectOne("getTeamView", dto);
 	}
+
+	@Override
+	public void teamJoin(TeamjoinDto dto) {
+		
+		sm.insert("Teamjoin_insert", dto);
+
+	}
+
+
+
+	
+
+	
+	
 
 
 	

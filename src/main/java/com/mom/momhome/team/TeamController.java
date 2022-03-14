@@ -20,6 +20,8 @@ import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.common.FileUploadUtil;
 import com.mom.momhome.member.MemberDto;
 import com.mom.momhome.membership.MembershipDto;
+import com.mom.momhome.teamjoin.*;
+
 
 @Controller
 public class TeamController {
@@ -71,6 +73,7 @@ public class TeamController {
 	}
 
 	
+	
 
 	//지역 정보 리스트 (팀생성 화면에서 지역 선택 보여주기)
 	@RequestMapping("/team/selectCity")
@@ -109,6 +112,7 @@ public class TeamController {
 	      
 	      return "redirect:/team/main"; //팀 생성 후 이동하기 list이동 수정함
 	   }
+
 }
 
 

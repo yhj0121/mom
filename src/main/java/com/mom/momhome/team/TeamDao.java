@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.membership.MembershipDto;
+import com.mom.momhome.teamjoin.TeamjoinDto;
 import com.mom.momhome.member.MemberDto;
 
 public interface TeamDao {
@@ -24,5 +25,5 @@ public interface TeamDao {
 	
 	void membershipInsert( MembershipDto dto ); //멤버십 생성
 	
-	
+	void teamJoin(TeamjoinDto dto); //팀 가입 신청
 }

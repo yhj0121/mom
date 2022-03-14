@@ -158,5 +158,12 @@
 		join team C on A.team_key=C.team_key where C.team_key=#{team_key};
 		
 	</select>
+	
+	<insert id="Teamjoin_insert" parameterType="TeamjoinDto">
+		insert into teamjoin
+		(team_key, user_key, teamjoin_proc)
+		value
+		(#{team_key}, #{user_key}, teamjoin_proc='1')
+	</insert>
 
 </mapper>

@@ -481,7 +481,6 @@ a.link{
 								bWaitExist = false;
 								if( !myTeamlist.isEmpty()) {
 								for (TeamjoinDto myTeamDto : myTeamlist) {
-									if( myTeamDto.getTeamjoin_proc().equals("1")) {
 								%>
 								<tr>
 									<td><%=myTeamDto.getTeamjoin_key()%></td>
@@ -505,7 +504,7 @@ a.link{
 									<%} %>
 								</tr>
 								<%bWaitExist = true;
-									}}} if(false == bWaitExist) {  %>
+									}} if(false == bWaitExist) {  %>
 								<tr>
 									<td colspan="5"><div class="title" >아직 가입을 신청한 팀이 없습니다. </div></td>
 								</tr>

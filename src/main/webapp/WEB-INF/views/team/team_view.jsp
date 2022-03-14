@@ -54,6 +54,7 @@ table td:not(.introduction) {
 		%>
 		<%
 			TeamDto dto = (TeamDto)request.getAttribute("teamDto");
+			
 		%>
 		
 		<!-- Main -->
@@ -86,35 +87,62 @@ table td:not(.introduction) {
 							alt="팀 엠블럼" style="width: 100%; height: 100%;" />
 					</div>
 				</header>
-				<div>
-					<h2>팀 소개</h2>
-					<p><%=dto.getTeam_intro() %></p>
-				</div>
-				<div>
-					<h2>지역</h2>
-					<p><%=dto.getTeam_city() %></p>
-				</div>
-				<div>
-					<h2>감독</h2>
-					<p><%=dto.getUser_name() %></p>
-				</div>
-				<div>
-					<h2>공지사항</h2>
-					<p><%=dto.getTeam_notice() %></p>
-				</div>
-				<div>
-					<h2>회비(월)</h2>
-					<p><%=dto.getTeam_fee() %>원</p>
-				</div>
-				<div>
-					<h2>인원</h2>
-					<p><%=dto.getTeam_num() %>명</p>
-				</div>
-				<div>
-					<h2>모집여부</h2>
-					<p><%if(dto.getTeam_recruit_yn().equals("1")){%>모집중<%}else{%>모집종료<%} %></p>
-				</div>
 				
+				<div class="row gtr-uniform" align="center">
+					<div class="col-6 col-12-medium">
+						<p>
+							<h2>팀 소개</h2>
+							<div><%=dto.getTeam_intro() %></div>
+						</p>
+						<br>
+						<p>
+							<h2>지역</h2>
+							<div><%=dto.getTeam_city() %></div>
+						</p>
+						<br>
+						<p>
+							<h2>감독</h2>
+							<div><%=dto.getUser_name() %></div>
+						</p>
+						<br>
+						<p>
+							<h2>모집여부</h2>
+							<div><%if(dto.getTeam_recruit_yn().equals("1")){%>모집중<%}else{%>모집종료<%} %></div>
+						</p>
+					</div>
+				
+					<div class="col-6 col-12-medium">
+						<p>
+							<h2>공지사항</h2>
+							<div><%=dto.getTeam_notice() %></div>
+						</p>
+						<br>
+						<p>
+							<h2>회비(월)</h2>
+							<div><%=dto.getTeam_fee() %>원</div>
+						</p>
+						<br>
+						<p>
+							<h2>인원</h2>
+							<div><%=dto.getTeam_num() %>명</div>
+						</p>
+						<br>
+					
+					</div>
+				</div>
+				<br>
+				<table>
+					<tr>
+						<td>팀 회원 명단</td>
+						<td>직책</td>
+						<td>선호표지션</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					</tr>	
+				</table>
 
 				<ul class="actions" style=" margin-top: 200px; justify-content:unset;">
 					<li><input type="button" value="목록" /></li>

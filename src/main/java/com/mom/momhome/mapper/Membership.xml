@@ -29,6 +29,20 @@
 			,#{ team_key }
 			,'2'
 			,now()
+</insert>
+
+	<insert id="Membership_insert" parameterType="MembershipDto">
+		insert into membership(
+		user_key,
+		TEAM_KEY,
+		MEMBERSHIP_ROLE,
+		TEAM_JOINDATE
+		)
+		value(
+		#{user_key},
+		#{team_key},
+		#{membership_role},
+		now()
 		)
 	</insert>
 </mapper>

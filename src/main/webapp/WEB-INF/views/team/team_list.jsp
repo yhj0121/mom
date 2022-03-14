@@ -114,7 +114,7 @@ table td {
 							<table>
 								<colgroup>
 									<col width="8%">
-									<col width="*">
+									<col width="25%">
 									<col width="9%">
 									<col width="20%">
 									<col width="10%">

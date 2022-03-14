@@ -113,6 +113,12 @@ public class TeamController {
 	      return "redirect:/team/main"; //팀 생성 후 이동하기 list이동 수정함
 	   }
 
+	@RequestMapping("/team/teamJoin")
+	String team_join(TeamjoinDto dto)
+	{
+		teamService.Teamjoin_teamjoinInsert(dto);
+		return "redirect:/team/list";
+	}
 }
 
 

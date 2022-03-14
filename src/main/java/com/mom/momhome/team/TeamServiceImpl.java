@@ -13,7 +13,7 @@ import com.mom.momhome.membership.MembershipDao;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.teamjoin.TeamjoinDto;
 import com.mom.momhome.member.MemberDto;
-import com.mom.momhome.member.MemberDao;
+
 
 @Service("teamService")
 public class TeamServiceImpl implements TeamService{
@@ -88,9 +88,9 @@ public class TeamServiceImpl implements TeamService{
 	}
 
 	@Override
-	public void teamJoin(TeamjoinDto dto) {
+	public void Teamjoin_teamjoinInsert(TeamjoinDto dto) {
 		
-		teamDao.teamJoin(dto);
+		teamDao.Teamjoin_teamjoinInsert(dto);
 		
 	}
 

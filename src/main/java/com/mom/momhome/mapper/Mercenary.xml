@@ -32,7 +32,7 @@
 				 	and cha  <![CDATA[ > ]]>0 and mercenary_complete = 0
 				</if>
 				<if test='filter=="2"'>
-				 	and cha <![CDATA[ <= ]]> 0 or mercenary_complete = 1
+				 	and (cha <![CDATA[ <= ]]> 0 or mercenary_complete = 1)
 				</if>
 			</if>
 			<if test='key!=null and keyword!=null'>

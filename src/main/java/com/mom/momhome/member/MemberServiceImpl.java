@@ -157,4 +157,9 @@ public class MemberServiceImpl implements MemberService {
 		membershipDao.insertMember(dto);
 	}
 
+	@Override
+	public void deleteMember(MembershipDto dto) {
+		membershipDao.deleteMember(dto);
+	}
+
 }

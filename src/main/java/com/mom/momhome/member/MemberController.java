@@ -237,12 +237,10 @@ public class MemberController {
 		model.addAttribute("teamList",list);
 		model.addAttribute("totalCnt",memberService.getTeamTotal(dto));
 
-
 		// 팀 가입/탈퇴 내역 가져오기 
 		if( !list.isEmpty()) {
 			jdto.setTeam_key(list.get(0).getTeam_key());
 		}
-		//jdto.setTeam_key(list.get(0).getTeam_key());
 		List<TeamjoinDto>teamjoinlist = memberService.getTeamjoinList(jdto);
 
 		jdto.setUser_key(user_key);
@@ -259,10 +257,13 @@ public class MemberController {
 		jdto.setTeam_key(team_key);
 		jdto.setUser_key(user_key);
 		memberService.teamAccept( jdto );
+		System.out.println(jdto.toString());
 		
 		mdto.setTeam_key(team_key);
 		mdto.setUser_key(user_key);
+		mdto.setMembership_role("2");
 		memberService.insertMember( mdto );
+		System.out.println(mdto.toString());
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("result", "success");
 		return map;
@@ -283,10 +284,14 @@ public class MemberController {
 	//감독 권한- 팀 탈퇴 승인
 	@RequestMapping("member/teamoutAccept")
 	@ResponseBody
-	public HashMap<String, String> member_teamoutAccept(String team_key, String user_key, TeamjoinDto jdto, Model model){
+	public HashMap<String, String> member_teamoutAccept(String team_key, String user_key, MembershipDto mdto, TeamjoinDto jdto, Model model){
 		jdto.setTeam_key(team_key);
 		jdto.setUser_key(user_key);
 		memberService.teamoutAccept( jdto );
+		
+		mdto.setTeam_key(team_key);
+		mdto.setUser_key(user_key);
+		memberService.deleteMember( mdto );
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("result", "success");
 		return map;
@@ -307,10 +312,14 @@ public class MemberController {
 	//감독 권한- 팀에서 멤버 퇴출 
 	@RequestMapping("member/teamkickout")
 	@ResponseBody
-	public HashMap<String, String> member_teamkickout(String team_key, String user_key, TeamjoinDto jdto, Model model){
+	public HashMap<String, String> member_teamkickout(String team_key, String user_key, MembershipDto mdto, TeamjoinDto jdto, Model model){
 		jdto.setTeam_key(team_key);
 		jdto.setUser_key(user_key);
 		memberService.teamkickout( jdto );
+		
+		mdto.setTeam_key(team_key);
+		mdto.setUser_key(user_key);
+		memberService.deleteMember( mdto );
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("result", "success");
 		return map;

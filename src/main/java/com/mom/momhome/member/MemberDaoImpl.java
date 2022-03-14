@@ -107,9 +107,4 @@ public class MemberDaoImpl implements MemberDao {
 		return sm.selectOne("Member_cscenterGetTotal", dto);
 	}
 
-	@Override
-	public void insertMember(MembershipDto dto) {
-		sm.insert("Membership_insertMember", dto);
-	}
-
 }

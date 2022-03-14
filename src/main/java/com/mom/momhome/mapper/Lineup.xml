@@ -186,6 +186,13 @@ resultType : 받아오는값
 	);
 	</insert>
 	
+	<select id="Lineup_getCount" parameterType="map" resultType="Integer">
+	select
+		count(*) 
+	from lineup
+	where game_key=#{game_key} AND team_side=#{team_side}
+	</select>
+	
 </mapper>
 
 

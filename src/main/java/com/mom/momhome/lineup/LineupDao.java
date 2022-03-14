@@ -19,9 +19,10 @@ public interface LineupDao {
 	void delete(LineupDto dto);
 	void update(LineupDto dto);
 	
-	
 	void insert_userDummy(LineupPlayerDto dto);
 	void insert_teamDummy(LineupTeamDto dto);
 	void insert_membershipDummy(LineupMembershipDto dto);
 	void insert_gameDummy(LineupGameDto dto);
+	
+	Integer getLineupCount(LineupDto lineupDto);
 }

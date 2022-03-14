@@ -66,4 +66,10 @@ public class LineupDaoImpl implements LineupDao{
 	public void insert_gameDummy(LineupGameDto dto) {
 		sm.insert("Lineup_insertGameData", dto);
 	}
+	
+	@Override
+	public Integer getLineupCount(LineupDto lineupDto)
+	{
+		return sm.selectOne("Lineup_getCount", lineupDto);
+	}
 }

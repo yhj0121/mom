@@ -79,8 +79,8 @@
 							<div class="col-12">
 								<ul class="actions">
 									<li><input type="button" value="목록" onclick="goList()" /></li>
-							        <li><input type="button" value="어웨이리스트가기" onclick="golineup(2)"/></li>
-								    <li><input type="button" value="홈리스트가기" onclick="golineup(1)" /></li>
+							        <li><input type="button" value="어웨이리스트가기" onclick="goLineup(2)"/></li>
+								    <li><input type="button" value="홈리스트가기" onclick="goLineup(1)" /></li>
 									
 									<%if(membership_role.equals("1") && user_key.indexOf(tdaoo.getUser_key())==-1) 
 									{%>
@@ -324,16 +324,84 @@ function goDecline(matchingjoin_key)
 	})
 }
 
-function golineup(team_side)
+function goLineup(team_side)
 {
-	var frm = document.myform;
-	frm.team_side.value=team_side;
-	//console.log(frm.team_side);
-	frm.method = "get";
-	frm.action = "${pageContext.request.contextPath}/lineup/info";
-	frm.submit();
-	
+	$.ajax({
+		url:"${commonURL}/game/getLineupCount",
+		data:{'game_key': <%=daoo.getGame_key()%>, 'team_side':team_side},
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+		type:"POST",
+		dataType:"JSON"
+	})
+	.done((result)=>{
+		//console.log("goLineup.count: " + result);
+		if(result > 0)
+		{
+		 	var frm = document.myform;
+		 	frm.team_side.value=team_side;
+		 	frm.method = "get";
+		 	frm.action = "${commonURL}/lineup/info";
+		 	frm.submit();
+		}
+		else
+		{
+			if(<%=membership_role.equals("2")%>)
+			{
+				alert("아직 라인업이 작성되지 않았습니다.");
+			}
+			else
+			{
+				
+				if(team_side == 1) 
+				{
+					if(<%=daoo.getTeam_key().equals(membershipDto.getTeam_key())%>)
+						goLineupModify();
+					else
+						alert("아직 라인업이 작성되지 않았습니다.");	
+				}
+				else if(team_side == 2)
+					checkAwayLineupPermission();
+			}
+		}
+	})
+	.fail((error)=>{
+		console.log(error);
+	})
 }
+
+function checkAwayLineupPermission()
+{
+	console.log("game_key: " + <%=daoo.getGame_key()%>)
+	console.log("team_key: " + <%=membershipDto.getTeam_key()%>);
+	$.ajax({
+		url:"${commonURL}/game/getGameJoinResultProc",
+		data:{'game_key': <%=daoo.getGame_key()%>, 'team_key':<%=membershipDto.getTeam_key()%>},
+		contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
+		type:"POST",
+		dataType:"JSON"
+	})
+	.done((result)=>{
+		//console.log("checkAwayLineupPermission().result : "+ result);
+		if(result === "2")
+			goLineupModify();
+		else
+			alert("아직 라인업이 작성되지 않았습니다.");	
+	})
+	.fail((error)=>{
+		console.log(error);
+	})
+}
+
+function goLineupModify()
+{	
+	var frm = document.myform;
+ 	frm.team_side.value=team_side;
+ 	frm.method = "get";
+ 	frm.action = "${commonURL}/lineup/modify";
+ 	frm.submit();
+}
+
+
 
 </script>
 </html>

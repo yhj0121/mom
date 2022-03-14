@@ -1,21 +1,17 @@
 package com.mom.momhome.game;
 
-import java.util.HashMap;
 import java.util.List;
-
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.gamejoin.GameJoinDto;
-import com.mom.momhome.membership.MembershipDto;
 
 
 @Controller
@@ -154,9 +150,6 @@ public class GameController {
 		GameDto dto = service.getCityList(user_key);
 		System.out.println(dto);
 		System.out.println("도입후");
-		
-
-	
 		return dto;
 	}
 	
@@ -164,7 +157,6 @@ public class GameController {
 	@ResponseBody
 	int gamejoin_duplicate(GameJoinDto dto)
 	{	
-
 		int count = service.GetCount(dto);
 		System.out.println("카운트 값"+count);
 		return count;
@@ -175,7 +167,6 @@ public class GameController {
 	@ResponseBody
 	int gamejoin_getMatchingjoin(GameJoinDto dto)
 	{	
-		
 		System.out.println("중복체크확인");
 		System.out.println("result proc"+dto.getResult_proc());
 		int resultcount = service.getMatchingjoincount(dto);
@@ -183,7 +174,36 @@ public class GameController {
 		return resultcount;
 	}
 	
+	@RequestMapping("/game/getLineupCount")
+	@ResponseBody
+	int getLineupCount(@RequestParam("game_key") String game_key, @RequestParam("team_side") String team_side)
+	{	
+//		System.out.println("game_key:" + game_key);
+//		System.out.println("team_side:" + team_side);
+		return service.getLineupCount(game_key, team_side);
+	}
 	
-
-	
+	@RequestMapping("/game/getGameJoinResultProc")
+	@ResponseBody
+	String getGameJoinResultProc(@RequestParam("game_key") String game_key, @RequestParam("team_key") String team_key)
+	{	
+//		System.out.println("getGameJoinResultProc.game_key:" + game_key);
+//		System.out.println("getGameJoinResultProc.team_key:" + team_key);
+		return service.getGameJoinResultProc(game_key, team_key);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

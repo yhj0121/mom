@@ -6,6 +6,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.mom.momhome.common.StringUtil;
+
 
 @Repository("gamejoinDao")
 public class GameJoinDaoImp implements GameJoinDao {
@@ -40,13 +42,11 @@ public class GameJoinDaoImp implements GameJoinDao {
 
 	@Override
 	public String getGameJoinResult(GameJoinDto gameJoinDto) {
-		
-		return sm.selectOne("GameJoin_getGameJoinResult", gameJoinDto);
+		return StringUtil.nullToValue(sm.selectOne("GameJoin_getGameJoinResult", gameJoinDto), "1");
 	}
 
 	@Override
 	public int getMatchingjoincount(GameJoinDto gamejoinDto) {
-		// TODO Auto-generated method stub
 		return sm.selectOne("GameJoin_getMatchingjoin", gamejoinDto);
 	}
 

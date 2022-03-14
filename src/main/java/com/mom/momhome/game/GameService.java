@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.gamejoin.GameJoinDto;
+import com.mom.momhome.lineup.LineupDto;
 import com.mom.momhome.membership.MembershipDto;
 
 
@@ -24,11 +25,6 @@ public interface GameService {
 	int GetCount(GameJoinDto dto); //중복 신청 방지
 	int getMatchingjoincount(GameJoinDto gamejoinDto); //result 갯수 확인
 
-	
-
-
-
-
-
-
+	int getLineupCount(String game_key, String team_side);
+	String getGameJoinResultProc(String game_key, String team_key);
 }

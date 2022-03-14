@@ -61,6 +61,8 @@ table td:not(.introduction) {
 			<form name="myform">
 			<input type="hidden" name="team_name" value="<%=dto.getTeam_name()%>"/>
 			<input type="hidden" name="team_key" value="<%=dto.getTeam_key() %>"/>
+			<input type="hidden" name="user_key" value="<%=dto.getUser_key() %>"/>
+			
 			<!-- Post -->
 			<article class="post">
 			
@@ -151,22 +153,10 @@ table td:not(.introduction) {
 
 	function goJoin()
 	{
-		$("#teamjoin_proc").val("1");
-		var frmData = document.myform; 
-		var queryString = $("form[name=myform]").serialize();
-		$.ajax({
-			url:"<%=request.getContextPath()%>//apply",
-			data:queryString,
-			processData:false,
-			type:"POST"
-		})
-		.done((result)=>{
-			console.log(result);
-			alert(result);
-			location.href="<%=request.getContextPath()%>/mercenary/list";
-		})
-		.fail((error)=>{
-			console.log(error);
-		})
+		var frm = document.myform;
+		frm.action="<%=request.getContextPath()%>/team/teamJoin";
+		frm.method="post";
+		alert("팀 가입 신청이 완료되었습니다.");
+		frm.submit();
 	}
 </script>

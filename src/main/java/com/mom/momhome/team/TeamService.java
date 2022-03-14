@@ -27,5 +27,5 @@ public interface TeamService {
 	
 	void membershipInsert( MembershipDto dto ); //멤버십 생성
 	
-	void teamJoin(TeamjoinDto dto); //팀 가입 신청
+	void Teamjoin_teamjoinInsert(TeamjoinDto dto); //팀 가입 신청
 }

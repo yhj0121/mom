@@ -90,6 +90,13 @@ public class GameServiceImp implements GameService {
 		return gamejoindao.GetCount(dto);
 	}
 
+	@Override
+	public int getMatchingjoincount(GameJoinDto gamejoinDto) {
+		// TODO Auto-generated method stub
+		return gamejoindao.getMatchingjoincount(gamejoinDto);
+	}
+
+
 
 
 

@@ -80,9 +80,9 @@
 									<%if(membership_role.equals("1")) 
 									{%>
 										<li><input type="button" value="신청" onclick="goapply()"/></li>
-							     		<li><input type="button" value="어웨이리스트가기" onclick="golineup(2)"/></li>
-							     		
-										<%if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key()))
+									    <li><input type="button" value="어웨이리스트가기" onclick="golineup(2)" /></li>
+										
+									   	<%if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key()))
 										{%>		
 							 				 <li><input type="button" value="수정" onclick="goupdate()" /></li>
 											 <li><input type="button" value="삭제" onclick="goDelete()" /></li>
@@ -151,6 +151,33 @@ function goDelete()
       frm.action="<%=request.getContextPath()%>/game/delete";
       frm.submit();
    }
+}
+ function goresult()
+{
+	var frmDate = document.myform;
+	var queryString = $("form[name=myform]").serialize();
+	$.ajax({
+		url:"<%=request.getContextPath()%>/game/joinresult",
+		data:queryString,
+		processData:false,
+		type:"POST"
+	})
+	.done((result)=>{
+		console.log(result);
+		if(result===0)
+		{
+			insertJoin();
+		}
+		else
+		{	
+			alert("이미 신청완료된 팀이 있습니다.");
+			return false;
+		} 
+	})
+	.fail((error)=>{
+		console.log(error);
+	})		
+
 }
 
 function goapply()
@@ -245,6 +272,7 @@ function goApprove(matchingjoin_key)
 	$("#matchingjoin_key").val(matchingjoin_key);
 	$("#result_proc").val("2");
 	var frmData = document.myform; 
+	console.log(frmData);
 	var queryString = $("form[name=myform]").serialize();
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/proc",

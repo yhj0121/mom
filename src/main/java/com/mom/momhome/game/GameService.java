@@ -22,6 +22,8 @@ public interface GameService {
 	GameDto getCityList(String user_key);
 	GameDto getMembershipUserkey(String user_key);
 	int GetCount(GameJoinDto dto); //중복 신청 방지
+	int getMatchingjoincount(GameJoinDto gamejoinDto); //result 갯수 확인
+
 	
 
 

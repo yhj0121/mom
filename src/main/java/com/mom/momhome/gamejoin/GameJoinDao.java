@@ -10,4 +10,6 @@ public interface GameJoinDao {
 		int GetCount(GameJoinDto dto);
 		String getTeamkey(String user_key);
 		String getGameJoinResult(GameJoinDto gameJoinDto);
+		int getMatchingjoincount(GameJoinDto gamejoinDto);
+
 }

@@ -162,6 +162,18 @@ public class GameController {
 	}
 	
 	
+	@RequestMapping("/game/joinresult")
+	@ResponseBody
+	int gamejoin_getMatchingjoin(GameJoinDto dto)
+	{	
+		//System.out.println("게임키" + dto.getGame_key());
+		//System.out.println("유저키" + dto.getUser_key());
+		int resultcount = service.getMatchingjoincount(dto);
+		System.out.println("카운트 값"+resultcount);
+		return resultcount;
+	}
+	
+	
 
 	/*
 	 * @RequestMapping("/game/updatekey")

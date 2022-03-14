@@ -72,4 +72,10 @@
 			from matchingjoin
 			where game_key =#{game_key} AND team_key=#{team_key}
 	</select>
+	
+	 <select id="GameJoin_getMatchingjoin" parameterType="GameJoinDto" resultType="String">
+			select count(*) 
+			from matchingjoin 
+			where game_key =#{game_key} and result_proc=2;
+	</select> 
 </mapper>

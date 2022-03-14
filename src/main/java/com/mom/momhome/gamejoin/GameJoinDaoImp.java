@@ -44,4 +44,10 @@ public class GameJoinDaoImp implements GameJoinDao {
 		return sm.selectOne("GameJoin_getGameJoinResult", gameJoinDto);
 	}
 
+	@Override
+	public int getMatchingjoincount(GameJoinDto gamejoinDto) {
+		// TODO Auto-generated method stub
+		return sm.selectOne("GameJoin_getMatchingjoin", gamejoinDto);
+	}
+
 }

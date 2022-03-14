@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.member.MemberDto;
 import com.mom.momhome.membership.MembershipDto;
+import com.mom.momhome.teamjoin.TeamjoinDto;
 
 public interface TeamService {
 	
@@ -26,5 +27,5 @@ public interface TeamService {
 	
 	void membershipInsert( MembershipDto dto ); //멤버십 생성
 	
-	
+	void teamJoin(TeamjoinDto dto); //팀 가입 신청
 }

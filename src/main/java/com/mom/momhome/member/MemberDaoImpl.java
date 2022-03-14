@@ -40,6 +40,11 @@ public class MemberDaoImpl implements MemberDao {
 	public MemberDto getInfo(MemberDto dto) {
 		return sm.selectOne("Member_getInfo", dto);
 	}
+	
+	@Override
+	public MemberDto getSimpleInfo(String user_key){
+		return sm.selectOne("Member_getSimpleInfo", user_key);
+	}
 
 	@Override
 	public void update(MemberDto dto) {

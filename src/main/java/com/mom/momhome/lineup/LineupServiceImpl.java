@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.gamejoin.GameJoinDao;
 import com.mom.momhome.gamejoin.GameJoinDto;
+import com.mom.momhome.member.MemberDao;
+import com.mom.momhome.member.MemberDto;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -22,9 +24,12 @@ public class LineupServiceImpl implements LineupService{
 	@Resource(name="lineupDao")
 	LineupDao lineupDao;
 	
-	@Resource(name="")
+	@Resource(name="gamejoinDao")
 	GameJoinDao gameJoinDao;
-
+	
+	@Resource(name="memberDao")
+	MemberDao memberDao;
+	
 	@Override
 	public List<LineupDto> getList(GameDto dto) {
 		return lineupDao.getList(dto);
@@ -120,6 +125,12 @@ public class LineupServiceImpl implements LineupService{
 	public String getGameJoinResult(GameJoinDto gameJoinDto)
 	{
 		return gameJoinDao.getGameJoinResult(gameJoinDto);
+	}
+	
+	@Override
+	public MemberDto getUserInfo(String user_key)
+	{
+		return memberDao.getSimpleInfo(user_key);
 	}
 }
 

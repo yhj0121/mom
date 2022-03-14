@@ -60,6 +60,7 @@ table td:not(.introduction) {
 		<div id="main">
 			<form name="myform">
 			<input type="hidden" name="team_name" value="<%=dto.getTeam_name()%>"/>
+			<input type="hidden" name="team_key" value="<%=dto.getTeam_key() %>"/>
 			<!-- Post -->
 			<article class="post">
 			
@@ -95,12 +96,12 @@ table td:not(.introduction) {
 					<p><%=dto.getUser_name() %></p>
 				</div>
 				<div>
-					<h2>팀 룰</h2>
+					<h2>공지사항</h2>
 					<p><%=dto.getTeam_notice() %></p>
 				</div>
 				<div>
-					<h2>회비</h2>
-					<p><%=dto.getTeam_fee() %></p>
+					<h2>회비(월)</h2>
+					<p><%=dto.getTeam_fee() %>원</p>
 				</div>
 				<div>
 					<h2>인원</h2>
@@ -114,7 +115,7 @@ table td:not(.introduction) {
 
 				<ul class="actions" style=" margin-top: 200px; justify-content:unset;">
 					<li><input type="button" value="목록" /></li>
-					<li><input type="button" value="팀 가입신청하기" /></li>
+					<li><input type="button" value="팀 가입신청하기" onclick="goJoin()" /></li>
 					<li><input type="button" value="미정"  /></li>
 					<li><input type="button" value="미정"  /></li>
 					<li><input type="button" value="미정"  /></li>
@@ -146,3 +147,26 @@ table td:not(.introduction) {
 
 </body>
 </html>
+<script>
+
+	function goJoin()
+	{
+		$("#teamjoin_proc").val("1");
+		var frmData = document.myform; 
+		var queryString = $("form[name=myform]").serialize();
+		$.ajax({
+			url:"<%=request.getContextPath()%>//apply",
+			data:queryString,
+			processData:false,
+			type:"POST"
+		})
+		.done((result)=>{
+			console.log(result);
+			alert(result);
+			location.href="<%=request.getContextPath()%>/mercenary/list";
+		})
+		.fail((error)=>{
+			console.log(error);
+		})
+	}
+</script>

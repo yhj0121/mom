@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.gamejoin.GameJoinDto;
+import com.mom.momhome.member.MemberDto;
 import com.mom.momhome.membership.MembershipDto;
 
 @Controller
@@ -220,6 +221,19 @@ public class LineupController {
 		map.put("result", "success");
 		return map;
 	}
+	
+	@RequestMapping(value="/lineup/userInfo")
+	public String getUserInfo(String user_key, Model model) 
+	{
+		MemberDto resultDto = service.getUserInfo(user_key);
+//		System.out.println("user_key: " + user_key);
+//		System.out.println("resultDto: " + resultDto);
+//		System.out.println("resultDto.userName: " + resultDto.getUser_name());
+		model.addAttribute("userInfo", resultDto);
+
+		return "lineup/lineup_userInfo";
+	}
+	
 }
 
 

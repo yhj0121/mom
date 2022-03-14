@@ -31,6 +31,7 @@ int maxLineupCount = maxRegularCount + maxBenchCount;
 			if (userid.equals("")) {
 			%>
 			<li><a href="${commonURL}/member/login">로그인</a></li>
+			<li><a href="${commonURL}/member/signup">회원가입</a></li>
 			<%
 			} else {
 			%>

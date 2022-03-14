@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.gamejoin.GameJoinDto;
+<<<<<<< Updated upstream
+=======
+import com.mom.momhome.gamejoin.GameJoinProcDto;
+import com.mom.momhome.membership.MembershipDto;
+>>>>>>> Stashed changes
 
 
 @Controller
@@ -124,23 +129,16 @@ public class GameController {
 	
 	@RequestMapping(value="/game/proc")
 	@ResponseBody
-	String game_apply(GameJoinDto dto)
+	String game_apply(GameJoinProcDto dto)
 	{
+		System.out.println(dto.getGame_complete());
 		service.updateJoin(dto);
-		System.out.println("처리됨");
+		System.out.println("처리됨");	
 		System.out.println(dto.getResult_proc());
 		return "/game/gameview";
 	}
 	
-	@RequestMapping(value="/game/procdecline")
-	@ResponseBody
-	String game_applydecline(GameJoinDto dto)
-	{
-		service.updateJoin(dto);
-		System.out.println("거절처리됨");
-		System.out.println(dto.getResult_proc());
-		return "/game/gameview";
-	}
+
 	
 	@RequestMapping("/game/selectCity")
 	@ResponseBody

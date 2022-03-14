@@ -4,7 +4,11 @@ import java.util.List;
 
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.gamejoin.GameJoinDto;
+<<<<<<< Updated upstream
 import com.mom.momhome.lineup.LineupDto;
+=======
+import com.mom.momhome.gamejoin.GameJoinProcDto;
+>>>>>>> Stashed changes
 import com.mom.momhome.membership.MembershipDto;
 
 
@@ -18,7 +22,7 @@ public interface GameService {
 
 	
 	void gameinsertJoin(GameJoinDto dto);
-	void updateJoin(GameJoinDto dto);
+	void updateJoin(GameJoinProcDto dto);
 	List<GameJoinDto> getListJoin(GameJoinDto dto);//gamejoin테이블 정보
 	GameDto getCityList(String user_key);
 	GameDto getMembershipUserkey(String user_key);

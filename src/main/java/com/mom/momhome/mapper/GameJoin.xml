@@ -34,7 +34,7 @@
 
 	</select>
 	
-	<update id="Gamejoin_update" parameterType="GameJoinDto">
+	<update id="Gamejoin_update" parameterType="GameJoinProcDto">
 		<if test='result_proc == 2'>
 			update matchingjoin set result_proc = '2' where matchingjoin_key=#{matchingjoin_key}	
 		</if>

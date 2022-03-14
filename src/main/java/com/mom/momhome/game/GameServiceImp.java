@@ -8,8 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.mom.momhome.gamejoin.GameJoinDao;
 import com.mom.momhome.gamejoin.GameJoinDto;
+<<<<<<< Updated upstream
 import com.mom.momhome.lineup.LineupDao;
 import com.mom.momhome.lineup.LineupDto;
+=======
+import com.mom.momhome.gamejoin.GameJoinProcDto;
+import com.mom.momhome.membership.MembershipDto;
+>>>>>>> Stashed changes
 
 
 
@@ -62,8 +67,15 @@ public class GameServiceImp implements GameService {
 	}
 
 	@Override
+<<<<<<< Updated upstream
 	public void updateJoin(GameJoinDto dto) {
 		gamejoindao.updateJoin(dto);		
+=======
+	public void updateJoin(GameJoinProcDto dto) {
+		dto.setGame_complete("1");
+		gamejoindao.updateJoin(dto);
+		
+>>>>>>> Stashed changes
 	}
 
 	@Override

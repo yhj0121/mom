@@ -37,6 +37,8 @@
 			type="com.mom.momhome.lineup.LineupGameDto" />
 		<typeAlias alias="CSCenterDto"
 			type="com.mom.momhome.cscenter.CSCenterDto" />
+			<typeAlias alias="GameJoinProcDto"
+			type="com.mom.momhome.gamejoin.GameJoinProcDto" />
 
 	</typeAliases>
 

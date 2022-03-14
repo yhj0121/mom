@@ -132,6 +132,8 @@
 			<script src="../resources/assets/js/util.js"></script>
 			<script src="../resources/assets/js/main.js"></script>
 <script>
+
+var count;
 function goList()
 {
 	var frm = document.myform;
@@ -167,19 +169,9 @@ function goDelete()
 		type:"POST"
 	})
 	.done((result)=>{
+		count =result;
 		console.log(result);
-		if(result===1)
-		{
-			alert("신청 할수 있다.");
-			  $("#tbl_app").hide();
-			target.disabled = true;
-		}
-		else
-		{	
-			alert("이미 신청완료된 팀이 있습니다.");
-			
 		
-		} 
 	})
 	.fail((error)=>{
 		console.log(error);
@@ -191,6 +183,7 @@ function goapply()
 {	
 	var frmData = document.myform; 
 	var queryString = $("form[name=myform]").serialize();
+	
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/joinduplicate",
 		data:queryString,
@@ -277,28 +270,32 @@ function goviewlist()
 	   })
 	}
 function goApprove(matchingjoin_key)
-{
-	$("#matchingjoin_key").val(matchingjoin_key);
-	$("#game_complete").val("1");
-	$("#result_proc").val("2");
-	var frmData = document.myform; 
-	console.log(frmData);
-	var queryString = $("form[name=myform]").serialize();
-	$.ajax({
-		url:"<%=request.getContextPath()%>/game/proc",
-		data:queryString,
-		processData:false,
-		type:"POST"
-	})
-	.done((result)=>{
-		console.log(result);
-		goresult()
-		goviewlist();
-	
-	})
-	.fail((error)=>{
-		console.log(error);
-	})
+{	
+	if(count>0) alert("못들어가요")
+	else
+	{
+		$("#matchingjoin_key").val(matchingjoin_key);
+		$("#game_complete").val("1");
+		$("#result_proc").val("2");
+		var frmData = document.myform; 
+		console.log(frmData);
+		var queryString = $("form[name=myform]").serialize();
+		$.ajax({
+			url:"<%=request.getContextPath()%>/game/proc",
+			data:queryString,
+			processData:false,
+			type:"POST"
+		})
+		.done((result)=>{
+			console.log(result);
+			goresult()
+			goviewlist();
+		
+		})
+		.fail((error)=>{
+			console.log(error);
+		})
+	}
 }
 function goDecline(matchingjoin_key)
 {

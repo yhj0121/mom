@@ -1,145 +1,94 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
-<%@ page import="com.mom.momhome.cscenter.*" %>
-<%@ page import="java.util.*" %>
-<%@ page import="com.mom.momhome.common.*" %>
+	pageEncoding="utf-8"%>
+<%@ page import="com.mom.momhome.cscenter.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.mom.momhome.common.*"%>
 <html>
-	<head>
-		<title>Man of the match</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	</head>
-	<body class="is-preload"
-	style="
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	background-color: #f4f4f4;
-	">
-	
-		<!-- Wrapper -->
-			<div id="wrapper" 
-			style="
-				display:flex; 
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				width: 80vw;
-				height: 100%;
-				background-color: white;
-				margin: 50px 0px 50px 0px;
-			">
+<head>
+<title>Man of the match</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, user-scalable=no" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
+<style>
+img {
+	display: block;
+	margin: auto;
+}
+</style>
+</head>
+<body class="is-preload">
 
-				<!-- Header -->
-				<%@include file="../include/nav.jsp"%>
-				
-				<!-- Main -->
-					<div id="main"
-					style="
-						display: flex;
-						flex-direction: column;
-						align-items: center;
-						height: 100%;
-					">
-				<section class="section_csTitle"
-				style="
-					display: flex;
-					justify-content: center;
-					width: 100%;
-					padding: 50px 0px 50px 0px;
-				"><h1>문의사항</h1></section>
-				
-				<!-- Input Form -->
-				<form name="writeForm" style="
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					width: 100%;
-					height: 100%;
-				">
-					<input type="hidden" name="user_key" value="<%=user_key%>"/>
-					<div class="mb-3" style="
-					width: 80%;
-					margin: 20px 0px 20px 0px;
-					">
-					  <label for="exampleFormControlInput1" class="form-label">제목</label>
-					  <input type="email" name="cscenter_title" class="form-control" id="exampleFormControlInput1" placeholder="" style="
-					  border-radius: 4px;
-					  background-color: white;
-					  ">
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<%@include file="../include/nav.jsp"%>
+
+		<!-- Main -->
+		<div id="main">
+			<article class="post">
+				<header>
+					<div class="title">
+						<h2>
+							<a href="#">문의사항 작성</a>
+						</h2>
+						<p>사이트 이용시 불편한 점이나 궁금했던 점을 작성해주세요. 빠른 시일 내에 답변해드리도록 하겠습니다.</p>
 					</div>
-					<div class="mb-3" style="
-					width: 80%;
-					height: 100%;
-					margin: 20px 0px 20px 0px;
-					">
-					  <label for="exampleFormControlTextarea1" class="form-label">문의 내용</label>
-					  <textarea class="form-control" name="cscenter_contents" id="exampleFormControlTextarea1" rows="3" style="
-					  height: 80%;
-					  resize: none;
-					  "></textarea>
+					<div class="meta">
+						<a href="#" class="logo"><img
+							src="${pageContext.request.contextPath}/resources/images/icon_customerservice.png"
+							alt="고객센터 아이콘" /></a>
+					</div>
+				</header>
+				<!-- Input Form -->
+				<form name="writeForm">
+					<input type="hidden" name="user_key" value="<%=user_key%>" />
+
+					<div class="row gtr-uniform">
+						<div class="col-12">
+							<label for="exampleFormControlInput1" class="form-label">제목</label>
+							<input type="email" name="cscenter_title" class="form-control"
+								id="exampleFormControlInput1" placeholder=""
+								style="border-radius: 4px; background-color: white;">
+						</div>
+					</div>
+					<div class="col-12">
+						<label for="exampleFormControlTextarea1" class="form-label"
+							style="margin-top: 20px;">문의 내용</label>
+						<textarea class="form-control" name="cscenter_contents"
+							id="exampleFormControlTextarea1" rows="3"
+							style="height: 80%; resize: none;"></textarea>
 					</div>
 				</form>
-								
-					<!-- btn Senction -->
-						
-						<section class="section_writeBtn" 
-						style="
-						display: flex;
-						width: 80%;
-						flex-direction: row-reverse;">
-							<button type="button" onClick="goWrite()" class="btn btn-outline-secondary" 
-							style="
-							height: 50px;
-							border-color: #dddddd;
-							padding-right: 6px;
-							margin: 10px;
-							">접수하기</button>
-							<button type="button" class="btn btn-goList" 
-							style="
-							height: 50px;
-							border-color: #dddddd;
-							padding-right: 6px;
-							margin: 10px;
-							">뒤로가기</button>
-						</section>
-					
-				<!-- Seperate Line -->
-					<div style="width: 100%">
-						<hr style="
-							width: 100%;
-							margin-top: 30px;
-						" />
-					</div>
-					
-						<!-- Footer -->
-							<section id="footer" style="
-								margin-top: 20px;
-							">
-								<ul class="icons">
-									<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-									<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
-									<li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-								</ul>
-								<p class="copyright">&copy; Untitled. Design: <a href="http://html5up.net">HTML5 UP</a>. Images: <a href="http://unsplash.com">Unsplash</a>.</p>
-							</section>
-							</div>
-			</div>
 
-		<!-- Scripts -->
-			<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
-			<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+				<div class="col-12" style="text-align: right;">
+					<ul class="actions">
+						<li style="margin-left: auto"><input type="button"
+							value="접수하기" onclick="goWrite()" /></li>
+						<li><input type="button" value="뒤로가기" class="btn-goList" /></li>
+					</ul>
+				</div>
+			</article>
 
-	</body>
+			<!-- Footer -->
+			<%@include file="../include/footer.jsp"%>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
+</body>
 <script>
 function goWrite()
 {

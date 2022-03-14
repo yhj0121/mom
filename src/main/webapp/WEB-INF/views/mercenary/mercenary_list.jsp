@@ -21,6 +21,12 @@ img {
 	display: block;
 	margin: auto;
 }
+
+a.link{
+	margin-left: 20px; 
+	font-size: .9rem;
+	color: rgb(46, 174, 173);
+}
 </style>
 <body class="is-preload">
 	<div id="wrapper">

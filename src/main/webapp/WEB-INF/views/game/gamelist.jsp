@@ -22,6 +22,13 @@
 </head>
 
 <style>
+
+a.link{
+	margin-left: 20px; 
+	font-size: .9rem;
+	color: rgb(46, 174, 173);
+}
+
 .pagination {
 	list-style: none;
 	margin: 0;
@@ -50,6 +57,13 @@ table {
 	margin-top: 40px !important;
 }
 
+table th {
+	text-align: center !important;
+}
+
+table td:not(.introduction) {
+	text-align: center;
+}
 </style>
 <body class="is-preload">
 	<div id="wrapper">
@@ -141,7 +155,7 @@ table {
 									<%}%>
 										<%} else {%>
 											<tr>
-												<td colspan="7"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/cscenter/list" class="link">  >> 글 작성하러 가기 << </a></div></td>
+												<td colspan="6"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/cscenter/list" class="link">  >> 글 작성하러 가기 << </a></div></td>
 											</tr>
 										<%} %>
 									

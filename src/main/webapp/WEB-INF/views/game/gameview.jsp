@@ -58,6 +58,8 @@
 				   	    <input type="hidden" name="result_proc"  id="result_proc" value="" />
 				      	<input type="hidden" name="game_key" id="game_key" value="<%=daoo.getGame_key()%>">
 						<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_fdate()%>"> 
+   						<input type="hidden" name="game_complete" id="game_complete" value=""/> 
+					    
 					      	
 						<div class="row gtr-uniform">
 							<div class="col-12">
@@ -77,19 +79,20 @@
 							<div class="col-12">
 								<ul class="actions">
 									<li><input type="button" value="목록" onclick="goList()" /></li>
-									<%if(membership_role.equals("1")) 
+							        <li><input type="button" value="어웨이리스트가기" onclick="golineup(2)"/></li>
+								    <li><input type="button" value="홈리스트가기" onclick="golineup(1)" /></li>
+									
+									<%if(membership_role.equals("1") && user_key.indexOf(tdaoo.getUser_key())==-1) 
 									{%>
 										<li><input type="button" value="신청" onclick="goapply()"/></li>
-									    <li><input type="button" value="어웨이리스트가기" onclick="golineup(2)" /></li>
-										
-									   	<%if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key()))
+						
+					 				<%}%>
+					 						<%if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key()))
 										{%>		
 							 				 <li><input type="button" value="수정" onclick="goupdate()" /></li>
 											 <li><input type="button" value="삭제" onclick="goDelete()" /></li>
 											 <li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										
-											 <li><input type="button" value="홈리스트가기" onclick="golineup(1)" /></li>
 										<%}%>
-					 				<%}%>
 								</ul>
 							</div>
 						</div>
@@ -155,6 +158,7 @@ function goDelete()
  function goresult()
 {
 	var frmDate = document.myform;
+	let target = document.getElementById('btn_button'); 
 	var queryString = $("form[name=myform]").serialize();
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/joinresult",
@@ -164,14 +168,17 @@ function goDelete()
 	})
 	.done((result)=>{
 		console.log(result);
-		if(result===0)
+		if(result===1)
 		{
-			insertJoin();
+			alert("신청 할수 있다.");
+			  $("#tbl_app").hide();
+			target.disabled = true;
 		}
 		else
 		{	
 			alert("이미 신청완료된 팀이 있습니다.");
-			return false;
+			
+		
 		} 
 	})
 	.fail((error)=>{
@@ -254,10 +261,12 @@ function goviewlist()
 						data += "<td>"+"매칭신청 수락됨";
 					else
 						data += "<td>"+"매칭신청 거절됨";
-					
-					data += "&nbsp&nbsp<button type='button' onclick=goApprove('"+item.matchingjoin_key+"')>수락</button>" 
-						 + "&nbsp&nbsp<button type='button' onclick=goDecline('"+item.matchingjoin_key+"')>거절</button>" +"</td>"
-					data += "</tr>";
+					if(item.result_proc =="1"){
+					data += "&nbsp&nbsp<button type='button' id='btn_button' onclick=goApprove('"+item.matchingjoin_key+"')>수락</button>" 
+					} else 
+						{
+							data += "</tr>";
+					    }	
 					i++;   
 	         $("#tbl_applicants > tbody:last").append(data);
 	         
@@ -270,6 +279,7 @@ function goviewlist()
 function goApprove(matchingjoin_key)
 {
 	$("#matchingjoin_key").val(matchingjoin_key);
+	$("#game_complete").val("1");
 	$("#result_proc").val("2");
 	var frmData = document.myform; 
 	console.log(frmData);
@@ -282,7 +292,7 @@ function goApprove(matchingjoin_key)
 	})
 	.done((result)=>{
 		console.log(result);
-		alert("승인처리 완료되었습니다.");
+		goresult()
 		goviewlist();
 	
 	})
@@ -299,7 +309,7 @@ function goDecline(matchingjoin_key)
 	var frmData = document.myform; 
 	var queryString = $("form[name=myform]").serialize();
 	$.ajax({
-		url:"<%=request.getContextPath()%>/game/proc",
+		url:"<%=request.getContextPath()%>/game/procdecline",
 		data:queryString,
 		processData:false,
 		type:"POST"

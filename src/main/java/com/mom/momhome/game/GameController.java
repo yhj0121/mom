@@ -136,6 +136,16 @@ public class GameController {
 		return "/game/gameview";
 	}
 	
+	@RequestMapping(value="/game/procdecline")
+	@ResponseBody
+	String game_applydecline(GameJoinDto dto)
+	{
+		service.updateJoin(dto);
+		System.out.println("거절처리됨");
+		System.out.println(dto.getResult_proc());
+		return "/game/gameview";
+	}
+	
 	@RequestMapping("/game/selectCity")
 	@ResponseBody
 	GameDto game_getCityList(String user_key)
@@ -154,8 +164,7 @@ public class GameController {
 	@ResponseBody
 	int gamejoin_duplicate(GameJoinDto dto)
 	{	
-		System.out.println("게임키" + dto.getGame_key());
-		System.out.println("유저키" + dto.getUser_key());
+
 		int count = service.GetCount(dto);
 		System.out.println("카운트 값"+count);
 		return count;
@@ -166,8 +175,9 @@ public class GameController {
 	@ResponseBody
 	int gamejoin_getMatchingjoin(GameJoinDto dto)
 	{	
-		//System.out.println("게임키" + dto.getGame_key());
-		//System.out.println("유저키" + dto.getUser_key());
+		
+		System.out.println("중복체크확인");
+		System.out.println("result proc"+dto.getResult_proc());
 		int resultcount = service.getMatchingjoincount(dto);
 		System.out.println("카운트 값"+resultcount);
 		return resultcount;
@@ -175,15 +185,5 @@ public class GameController {
 	
 	
 
-	/*
-	 * @RequestMapping("/game/updatekey")
-	 * 
-	 * @ResponseBody GameDto game_teamkeyList(Model model,String user_key) { GameDto
-	 * cnt = service.teamkeySelect(user_key); System.out.println("팀키 들어가기전");
-	 * model.addAttribute("teamkeyList", cnt); System.out.println(cnt);
-	 * 
-	 * 
-	 * 
-	 * return dto; }
-	 */
+	
 }

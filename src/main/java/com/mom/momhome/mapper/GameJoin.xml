@@ -16,7 +16,8 @@
  			,team_key
  			,result_proc
  			,matching_date
- 			,rnum	
+ 			,rnum
+ 			,(select TEAM_NAME from team B where B.TEAM_KEY =A.TEAM_KEY) as TEAM_NAME	
  		from
  		(
  		select
@@ -73,7 +74,7 @@
 			where game_key =#{game_key} AND team_key=#{team_key}
 	</select>
 	
-	 <select id="GameJoin_getMatchingjoin" parameterType="GameJoinDto" resultType="String">
+	 <select id="GameJoin_getMatchingjoin" parameterType="GameJoinDto" resultType="Integer">
 			select count(*) 
 			from matchingjoin 
 			where game_key =#{game_key} and result_proc=2;

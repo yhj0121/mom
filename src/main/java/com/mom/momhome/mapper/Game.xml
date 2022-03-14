@@ -131,12 +131,5 @@
 	<select id="game_getMembershipUserkey" parameterType="GameDto" resultType="GameDto">
 		 select A.user_key from membership A where A.team_key = #{team_key} AND A.membership_role = 1;
 	</select>	
-<!-- 	<select id="game_getTeamkey" parameterType="GameDto"
-		resultType="String">
-		select 
-			team_key,
-			team_name 
-		from team 
-		where team_key = (select team_key from membership where user_key = #{user_key})
-	</select> -->
+
 </mapper>

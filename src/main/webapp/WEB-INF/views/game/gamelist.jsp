@@ -120,7 +120,9 @@ table {
 								<tbody>
 									<%
 									List<GameDto> list = (List<GameDto>) request.getAttribute("boardList");
+									if( !list.isEmpty() ) {
 									for (GameDto tempDto : list) {
+										
 									%>
 									<tr>
 										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
@@ -137,6 +139,12 @@ table {
 										<%}%>
 									</tr>
 									<%}%>
+										<%} else {%>
+											<tr>
+												<td colspan="7"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/cscenter/list" class="link">  >> 글 작성하러 가기 << </a></div></td>
+											</tr>
+										<%} %>
+									
 
 
 								</tbody>

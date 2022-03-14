@@ -27,6 +27,7 @@ box-sizing: border-box;
 
 input,textarea {
 	box-sizing: border-box;
+	style="color:black;"
 }
 
 #button {
@@ -63,7 +64,7 @@ margin:auto;
 						<h3>게임게시글 작성</h3>
 							<form name="myform" >
 							<input type="hidden" name="team_key" id="team_key" value="1"/>	
-							<input type="text" name="user_key" id="user_key" value="<%=user_key%>"/>					
+							<input type="hidden" name="user_key" id="user_key" value="<%=user_key%>"/>					
 							<input type="hidden" name="game_key" value="<%=dao.getGame_key()%>"/>
 							<input type="hidden" name="game_complete" id="game_complete" value="<%=dao.getGame_complete()%>"/>	
 								
@@ -77,7 +78,7 @@ margin:auto;
 								</div>
 										
 								    <div class="col-12">
-								 	<input type="text" name="team_city" id="team_city" value="" placeholder="경기장 위치">
+								 	<input type="text" name="team_city" id="team_city" value="" placeholder="경기장 위치" readonly />
 											
 								   </div>
 									

@@ -38,6 +38,11 @@ table td {
 table td:not(.introduction) {
 	text-align: center;
 }
+a.link{
+	margin-left: 20px; 
+	font-size: .9rem;
+	color: rgb(46, 174, 173);
+}
 </style>
 </head>
 <body class="is-preload">
@@ -115,7 +120,7 @@ table td:not(.introduction) {
 									</tr>
 									<%} } else {%> 
 									<tr>
-										<td colspan="7"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/game/list" class="link">  >> 글 작성하러 가기 << </a></div></td>
+										<td colspan="7"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/cscenter/list" class="link">  >> 글 작성하러 가기 << </a></div></td>
 									</tr>
 									<%} %>
 								</tbody>

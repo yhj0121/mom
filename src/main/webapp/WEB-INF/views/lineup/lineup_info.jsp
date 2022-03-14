@@ -211,21 +211,24 @@
 			</section>
 			</article>
 		</form>
+		
+		<!-- Footer -->
+		<%@include file="../include/footer.jsp"%>
+		
 	</div>
 </body>
 </html>
 
 <script>
-function goPlayerInfo(id)
+function goPlayerInfo(player_key)
 {
-	if(id == "")
+	console.log("info.player_key : " + player_key);
+	if(player_key == "")
 		return;
 	
-	let frm = document.myform;
-	frm.id.value=id;
-	frm.method="get";
-    frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
-	frm.submit();
+	let url = "${commonURL}/lineup/userInfo?user_key=" + player_key;
+	let pop = window.open(url,"content","width=700,height=700");
+	//window.open(result, "window", "width="+ww+", height="+wh+", top="+top+", left="+left+", toolbar=no, menubar=no, scrollbars=no, resizable=no");
 }
 
 function goModify()
@@ -243,4 +246,5 @@ function goGameView()
 	frm.action = "${pageContext.request.contextPath}/game/view";
 	frm.submit();
 }
+
 </script>

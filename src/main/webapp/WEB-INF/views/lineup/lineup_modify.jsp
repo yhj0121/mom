@@ -176,6 +176,10 @@
 		</section>
        </form>
       </article>
+      
+      <!-- Footer -->
+	  <%@include file="../include/footer.jsp"%>
+		
 	</div>
 </body>
 </html>

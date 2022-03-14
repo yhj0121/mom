@@ -20,7 +20,25 @@
 textarea {
 	text-align: left !important;
 	resize: none;
+	padding: 0.75em 1em !important;
 }
+body{
+	padding:0;
+}
+dl>*{
+	display:inline-block !important; 
+}
+dl{
+	text-align: center;
+	margin-bottom:0;
+}
+dl dt{
+	width:80px;
+}
+dl dd{
+	width:280px;
+}
+
 </style>
 </head>
 <body class="is-preload">
@@ -32,45 +50,43 @@ textarea {
 // 	System.out.println("email : " + mdto.getUser_mail());
 // 	System.out.println("intro : " + mdto.getUser_intro());
 %>
-	<div id="wrapper">
-		<div id="main">
-			<article class="post">
-				<section>
-					<form id="myform" name="myform" method="post" action="#">
-						<div class="row gtr-uniform">
-							<div class="col-6 col-12-medium">
-								이름 <input type="text" name="user_name" id="username" value="<%=mdto.getUser_name()%>" value="" />
-							</div>
-							<div class="col-6 col-12-medium" >
-								아이디 <input type="text" name="user_id" id="userid"  readonly value="<%=mdto.getUser_id()%>"
-									value=""  />
-							</div>
-							<div class="col-6 col-12-medium">
-								이메일 <input type="email" name="user_mail" id="email" value="<%=mdto.getUser_mail()%>"
-									value=""  />
-							</div>
-							<div class="col-12">
-								<select id="positionList" name="user_position">
-									<option id="opt1" value="NN">원하는 포지션을 선택해주세요.</option>
-								</select>
-							</div>
-							<div class="col-12">
-								자기소개 <textarea name="user_intro" id="intro"  rows="6"><%=mdto.getUser_intro()%></textarea>
-							</div>
-							<div class="col-12">
-								<ul class="actions">
-									<li><input type="reset" onclick="window.close()" value="확인" /></li>
-								</ul>
-							</div>
-						</div>
-					</form>
-				</section>
-			</article>
-			<!-- Footer -->
-			<%@include file="../include/footer.jsp"%>
-		</div>
 
-	</div>
+	<article class="post">
+		<div style="text-align : center;">
+			<img src="../resources/images/playerIcon1.png" alt="" />
+		</div>	
+		<br/><br/>	
+		<section style="padding-bottom: 50px;">
+			<div style="display:contents;">
+				<dl>
+					<dt style=" text-align:left;">이름</dt>
+					<dd><input type="text" name="user_name" id="username" style="color:black; " value="<%=mdto.getUser_name()%>" readonly /></dd>
+				</dl>
+				
+				<dl>
+					<dt style=" text-align:left;">아이디</dt>
+					<dd><input type="text" name="user_id" id="userid" style="color:black;" value="<%=mdto.getUser_id()%>" readonly /></dd>
+				</dl>
+				
+				<dl>
+					<dt style=" text-align:left;">이메일</dt>
+					<dd><input type="email" name="user_mail" id="email" style="color:black;" value="<%=mdto.getUser_mail()%>" readonly /></dd>
+				</dl>
+				
+				<dl>
+					<dt style=" text-align:left;">선호포지션</p>
+					<dd><input type="text" name="user_id" id="userid" style="color:black;" value="<%=mdto.getUser_position()%>" readonly></dd>
+				</dl>
+
+				<dl>					
+					<dt style=" text-align:left; vertical-align: top;">자기소개</dt>
+					<dd><textarea name="user_intro" id="intro"  rows="6" style="color:black;" readonly><%=mdto.getUser_intro()%></textarea></dd>
+				</dl>
+				
+				<button class="button large next" type="button" style="margin:auto; display:block; width:150px" onclick="window.close()">확인</button>
+			</div>
+		</section>
+	</article>
 </body>
 </html>
 
@@ -80,7 +96,18 @@ textarea {
 <script src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 <script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-	
-<script>
 
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

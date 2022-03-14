@@ -222,13 +222,17 @@
 <script>
 function goPlayerInfo(player_key)
 {
-	console.log("info.player_key : " + player_key);
+	//console.log("info.player_key : " + player_key);
 	if(player_key == "")
 		return;
 	
 	let url = "${commonURL}/lineup/userInfo?user_key=" + player_key;
-	let pop = window.open(url,"content","width=700,height=700");
-	//window.open(result, "window", "width="+ww+", height="+wh+", top="+top+", left="+left+", toolbar=no, menubar=no, scrollbars=no, resizable=no");
+	
+	const popupWidth = 700;
+	const popupHeight = 800;  
+	const popupX = (window.screen.width / 2) - (popupWidth / 2);
+	const popupY= (window.screen.height / 2) - (popupHeight / 2);
+	window.open(url, 'content', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
 }
 
 function goModify()

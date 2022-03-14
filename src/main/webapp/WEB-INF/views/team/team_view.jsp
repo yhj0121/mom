@@ -61,7 +61,8 @@ table td:not(.introduction) {
 			<form name="myform">
 			<input type="hidden" name="team_name" value="<%=dto.getTeam_name()%>"/>
 			<input type="hidden" name="team_key" value="<%=dto.getTeam_key() %>"/>
-			<input type="hidden" name="user_key" value="<%=dto.getUser_key() %>"/>
+			<input type="hidden" name="user_key" value="${userkey}"/>
+			
 			
 			<!-- Post -->
 			<article class="post">
@@ -151,11 +152,14 @@ table td:not(.introduction) {
 </html>
 <script>
 
+
 	function goJoin()
 	{
+		var user_key = `${user_key}`;
 		var frm = document.myform;
 		frm.action="<%=request.getContextPath()%>/team/teamJoin";
 		frm.method="post";
+		console.log('user_key');
 		alert("팀 가입 신청이 완료되었습니다.");
 		frm.submit();
 	}

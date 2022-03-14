@@ -23,7 +23,7 @@
 		select count(*) from teamjoin where team_key=#{team_key}
 	</select>
 	
-	<insert id="Teamjoin_insert" parameterType="TeamjoinDto">
+	<insert id="Teamjoin_teamjoinInsert" parameterType="TeamjoinDto">
 		insert into teamjoin
 		(team_key, user_key, teamjoin_proc)
 		value
@@ -35,7 +35,7 @@
 		teamjoin_proc = '2' where user_key=#{ user_key } and  team_key=#{ team_key } and teamjoin_proc='1'
 	</update>
 	
-		<update id="Teamjoin_teamjoinRefuse" parameterType="String">
+	<update id="Teamjoin_teamjoinRefuse" parameterType="String">
 		update teamjoin set
 		teamjoin_proc = '3' where user_key=#{ user_key } and  team_key=#{ team_key } and teamjoin_proc='1'
 	</update>

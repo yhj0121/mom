@@ -118,10 +118,11 @@ a.link{
 							<tbody>
 								<%
 								List<TeamDto> teamList = (List<TeamDto>) request.getAttribute("teamList");
+								List<TeamDto> memberTeamList = (List<TeamDto>) request.getAttribute("memberTeamList");
 								boolean bWaitExist = false;
 								if( !teamList.isEmpty()) {
 								for (TeamDto tempDto : teamList) {
-									if( tempDto.getMembership_role().equals("1") || tempDto.getTeamjoin_proc().equals("2")  ) {
+									if( tempDto.getMembership_role().equals("1") || tempDto.getMembership_role().equals("2")  ) {
 								%>
 								<tr>
 									<td><a href="#none"
@@ -149,6 +150,7 @@ a.link{
 					<ul class="actions" id="tabMenu"style="justify-content: unset; margin-top: 100px;">
 					
 					<%
+					if(!teamList.isEmpty()) {
 					for (TeamDto tDto : teamList) {
 					if( tDto.getMembership_role().equals("1") ) { %>
 					  <li class="tabMenuList active"  data-tab="tab-1" style="padding: 0;">
@@ -169,11 +171,36 @@ a.link{
 					  <li class="tabMenuList"  data-tab="tab-6" style="padding: 0;margin-left:-1px;">
 					    <a class="button" href="javascript:void(0)">퇴출 리스트</a>
 					  </li>
-					  <%}else {%>
+					  <%}else if(tDto.getMembership_role().equals("2") || tDto.getMembership_role().equals("")) {%>
 					  <li class="tabMenuList"  data-tab="tab-7" style="padding: 0;margin-left:-1px;">
 					    <a class="button" href="javascript:void(0)">가입 내역</a>
 					  </li>
-					  <%}} %>
+					  <%}}} else {
+						for (TeamDto tDto : memberTeamList) {
+						if( tDto.getMembership_role().equals("1") ) { %>
+					  <li class="tabMenuList active"  data-tab="tab-1" style="padding: 0;">
+					    <a class="button" href="javascript:void(0)">가입 신청 내역</a>
+					  </li>
+					  <li class="tabMenuList"  data-tab="tab-2" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">가입 승인 내역</a>
+					  </li>
+					  <li class="tabMenuList"  data-tab="tab-3" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">가입 거절 내역</a>
+					  </li>
+					  <li class="tabMenuList"  data-tab="tab-4" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">탈퇴 신청 내역</a>
+					  </li>
+					  <li class="tabMenuList"  data-tab="tab-5" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">탈퇴 승인 내역</a>
+					  </li>
+					  <li class="tabMenuList"  data-tab="tab-6" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">퇴출 리스트</a>
+					  </li>
+					  <%}else if(tDto.getMembership_role().equals("2") || tDto.getMembership_role().equals("")) {%>
+					  <li class="tabMenuList"  data-tab="tab-7" style="padding: 0;margin-left:-1px;">
+					    <a class="button" href="javascript:void(0)">가입 내역</a>
+					  </li>
+					  <%}}} %>
 					</ul>
 					<!-- Tabs navs -->
 					
@@ -476,18 +503,17 @@ a.link{
 							<tbody>
 							<%
 								List<TeamjoinDto> myTeamlist = (List<TeamjoinDto>) request.getAttribute("myteamList");
-								System.out.println("1"+myTeamlist);
+								System.out.println(myTeamlist);
 								bWaitExist = false;
 								if( !myTeamlist.isEmpty()) {
-									System.out.println("1"+myTeamlist);
 								for (TeamjoinDto myTeamDto : myTeamlist) {
 								%>
 								<tr>
-									<td><%=myTeamDto.getTeamjoin_key()%></td>
+									<td><%=totalCnt - myTeamDto.getRnum() + 1%></td>
 									<td><%=myTeamDto.getTeam_name()%></td>
 									<td><%=myTeamDto.getUser_position()%></td>
 									<td class="introduction"><%=myTeamDto.getUser_intro()%></td>
-									<%if( myTeamDto.getTeamjoin_proc().equals("1")) { %>
+									<%if( myTeamDto.getMembership_role().equals("1") ) { %>
 									<td>가입 대기중</td>
 									<%} else if(myTeamDto.getTeamjoin_proc().equals("2")) {%>
 									<td>가입 완료</td>

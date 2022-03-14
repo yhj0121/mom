@@ -181,28 +181,24 @@
 		</if>
 	</select>
 	
-	<select id="Member_teamList" parameterType="TeamDto"
+	<select id="Member_DirectorteamList" parameterType="TeamDto"
 		resultType="TeamDto">
-		select 
-		t.TEAM_KEY
-		,TEAM_NAME 
-		,team_fdate
-		,(select user_name from user where user_key=m.USER_KEY) as user_name
-		,(select teamjoin_proc from teamjoin where user_key=m.user_key) as teamjoin_proc
-		,membership_role 
-		,TEAM_FEE 
-		,TEAM_CITY 
-		,TEAM_INTRO 
-		,TEAM_EMBLEM 
-		,TEAM_NOTICE 
-		,TEAM_NUM 
-		,TEAM_RECRUIT_YN 
-		,@rownum := @rownum+1 AS rnum
-		from (select @rownum:=0) B, team t  
-		inner join membership m on (t.TEAM_KEY=m.TEAM_KEY)
+		select *
+		,(select user_name from user where user_key=m.user_key) as USER_NAME 
+		from team t
+		inner join membership m on t.TEAM_KEY = m.TEAM_KEY
 		where m.user_key=#{user_key};
 	</select>
-
+	
+		<select id="Member_MemberteamList" parameterType="TeamDto"
+		resultType="TeamDto">
+		select *
+		,(select user_name from user where user_key=tj.user_key) as USER_NAME 
+		from team t
+		inner join teamjoin tj on t.TEAM_KEY = tj.TEAM_KEY
+		where tj.user_key=#{user_key};
+	</select>
+	
 	<select id="Member_teamGetTotal"
 		parameterType="TeamDto" resultType="Integer">
 		select count(*) from team  where team_key=(

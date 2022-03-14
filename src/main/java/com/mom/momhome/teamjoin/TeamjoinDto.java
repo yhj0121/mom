@@ -1,6 +1,8 @@
 package com.mom.momhome.teamjoin;
 
-public class TeamjoinDto {
+import com.mom.momhome.common.BaseDto;
+
+public class TeamjoinDto extends BaseDto {
 	private String teamjoin_key="";
 	private String team_key="";
 	private String user_key="";
@@ -9,6 +11,13 @@ public class TeamjoinDto {
 	private String team_name="";
 	private String user_position="";
 	private String user_intro="";
+	private String membership_role="";
+	public String getMembership_role() {
+		return membership_role;
+	}
+	public void setMembership_role(String membership_role) {
+		this.membership_role = membership_role;
+	}
 	public String getUser_intro() {
 		return user_intro;
 	}
@@ -60,6 +69,8 @@ public class TeamjoinDto {
 	@Override
 	public String toString() {
 		return "TeamjoinDto [teamjoin_key=" + teamjoin_key + ", team_key=" + team_key + ", user_key=" + user_key
-				+ ", teamjoin_proc=" + teamjoin_proc + ", user_name=" + user_name + ", team_name=" + team_name + "]";
+				+ ", teamjoin_proc=" + teamjoin_proc + ", user_name=" + user_name + ", team_name=" + team_name
+				+ ", user_position=" + user_position + ", user_intro=" + user_intro + ", membership_role="
+				+ membership_role + "]";
 	}
 }

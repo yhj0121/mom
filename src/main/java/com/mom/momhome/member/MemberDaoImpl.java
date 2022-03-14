@@ -89,7 +89,7 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public List<TeamDto> getTeamList(TeamDto dto) {
-		return sm.selectList("Member_teamList", dto);
+		return sm.selectList("Member_DirectorteamList", dto);
 	}
 
 	@Override
@@ -105,6 +105,11 @@ public class MemberDaoImpl implements MemberDao {
 	@Override
 	public int getCscenterTotal(CSCenterDto dto) {
 		return sm.selectOne("Member_cscenterGetTotal", dto);
+	}
+
+	@Override
+	public List<TeamDto> getMemberTeamList(TeamDto dto) {
+		return sm.selectList("Member_MemberteamList", dto);
 	}
 
 }

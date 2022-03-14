@@ -27,8 +27,10 @@ public interface MemberService {
 	//게임 리스트 가져오기
 	List<GameDto> getGameList( GameDto dto );
 	int getGameTotal( GameDto dto );
-	//팀 리스트 가져오기
+	//감독권한 팀 리스트 가져오기
 	List<TeamDto> getTeamList ( TeamDto dto );
+	//멤버권한 팀 리스트 가져오기
+	List<TeamDto> getMemberTeamList ( TeamDto dto );
 	int getTeamTotal(TeamDto dto); //페이지네이션
 	//팀 조인 리스트 가져오기
 	List<TeamjoinDto> getTeamjoinList ( TeamjoinDto jdto );

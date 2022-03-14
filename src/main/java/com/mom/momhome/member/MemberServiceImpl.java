@@ -114,7 +114,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<TeamjoinDto> getTeamjoinList(TeamjoinDto jdto) {
-		System.out.println("팀 키로 리스트 조회 : "+jdto);
 		return teamjoinDao.getTeamjoinList(jdto);
 	}
 
@@ -145,7 +144,6 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public List<TeamjoinDto> getMyTeamList(TeamjoinDto jdto) {
-		System.out.println("유저 키로 리스트 조회 : "+jdto);
 		return teamjoinDao.getMyTeamList(jdto);
 	}
 
@@ -162,6 +160,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void deleteMember(MembershipDto dto) {
 		membershipDao.deleteMember(dto);
+	}
+
+	@Override
+	public List<TeamDto> getMemberTeamList(TeamDto dto) {
+		return memberDao.getMemberTeamList(dto);
 	}
 
 }

@@ -234,17 +234,20 @@ public class MemberController {
 		
 		// 나의 팀 내역 가져오기 
 		List<TeamDto> list = memberService.getTeamList(dto);
-		System.out.println("팀 키로 컨트롤러: "+list);
+		List<TeamDto> memberTeamList = memberService.getMemberTeamList(dto);
 		model.addAttribute("teamList",list);
+		model.addAttribute("memberTeamList",memberTeamList);
 		model.addAttribute("totalCnt",memberService.getTeamTotal(dto));
 
+		jdto.setUser_key(user_key);
 		// 팀 가입/탈퇴 내역 가져오기 
 		if( !list.isEmpty()) {
 			jdto.setTeam_key(list.get(0).getTeam_key());
 		}
+		if( !memberTeamList.isEmpty()) {
+			jdto.setTeam_key(memberTeamList.get(0).getTeam_key());
+		}
 		List<TeamjoinDto>teamjoinlist = memberService.getTeamjoinList(jdto);
-
-		jdto.setUser_key(user_key);
 		List<TeamjoinDto>myteamList =  memberService.getMyTeamList(jdto);
 		model.addAttribute("teamjoinlist",teamjoinlist);
 		model.addAttribute("myteamList",myteamList);
@@ -258,13 +261,11 @@ public class MemberController {
 		jdto.setTeam_key(team_key);
 		jdto.setUser_key(user_key);
 		memberService.teamAccept( jdto );
-		System.out.println(jdto.toString());
 		
 		mdto.setTeam_key(team_key);
 		mdto.setUser_key(user_key);
 		mdto.setMembership_role("2");
 		memberService.insertMember( mdto );
-		System.out.println(mdto.toString());
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("result", "success");
 		return map;
@@ -334,7 +335,6 @@ public class MemberController {
 		dto.setUser_key(user_key);
 		dto.setStart(dto.getPg()*10);
 		List<GameDto> list = memberService.getGameList(dto);
-		System.out.println("게임 리스트: " + list);
 		model.addAttribute("gameList",list);
 		model.addAttribute("totalCnt",memberService.getGameTotal(dto));
 		return "member/member_matchingdetail";

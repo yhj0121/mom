@@ -70,16 +70,13 @@ table td:not(.introduction) {
 			
 				<header>
 					
-					<div class="title">
-					
+					<div class="title" align="center">
 						<h2>
 							<a href="single.html"><%=dto.getTeam_name() %></a>
 						</h2>
 					</div>
 					<div class="meta">
-						<time class="published">SINCE <%=dto.getTeam_fdate() %></time>
-						<a href="#" class="author"><span class="name"><%=dto.getUser_name() %>
-								</span></a>
+						<time class="published">SINCE :<%=dto.getTeam_fdate()%></time>
 					</div>
 					<div class="meta" style="padding: 0;">
 						<img
@@ -147,8 +144,6 @@ table td:not(.introduction) {
 				<ul class="actions" style=" margin-top: 200px; justify-content:unset;">
 					<li><input type="button" value="목록" /></li>
 					<li><input type="button" value="팀 가입신청하기" onclick="goJoin()" /></li>
-					<li><input type="button" value="미정"  /></li>
-					<li><input type="button" value="미정"  /></li>
 					<li><input type="button" value="미정"  /></li>
 				</ul>
 				

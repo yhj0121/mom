@@ -159,11 +159,6 @@
 		
 	</select>
 	
-	<insert id="Teamjoin_insert" parameterType="TeamjoinDto">
-		insert into teamjoin
-		(team_key, user_key, teamjoin_proc)
-		value
-		(#{team_key}, #{user_key}, teamjoin_proc='1')
-	</insert>
+
 
 </mapper>

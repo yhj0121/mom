@@ -17,4 +17,18 @@
 			,team_joindate
 		from membership where user_key=#{ user_key }
 	</select>
+	
+	<insert id="Membership_insertMember " parameterType="MembershipDto">
+		insert into membership(
+			user_key
+			,team_key
+			,membership_role
+			,team_joindate
+		) value(
+			#{ user_key }
+			,#{ team_key }
+			,'2'
+			,now()
+		)
+	</insert>
 </mapper>

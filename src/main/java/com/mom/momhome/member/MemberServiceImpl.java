@@ -152,4 +152,9 @@ public class MemberServiceImpl implements MemberService {
 		return teamjoinDao.teamkickout(jdto);
 	}
 
+	@Override
+	public void insertMember(MembershipDto dto) {
+		membershipDao.insertMember(dto);
+	}
+
 }

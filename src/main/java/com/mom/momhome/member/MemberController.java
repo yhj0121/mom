@@ -234,6 +234,7 @@ public class MemberController {
 		
 		// 나의 팀 내역 가져오기 
 		List<TeamDto> list = memberService.getTeamList(dto);
+		System.out.println("팀 키로 컨트롤러: "+list);
 		model.addAttribute("teamList",list);
 		model.addAttribute("totalCnt",memberService.getTeamTotal(dto));
 

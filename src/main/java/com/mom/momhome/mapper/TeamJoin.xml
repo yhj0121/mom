@@ -15,7 +15,7 @@
 		,(select user_position from user where user_key=t.user_key) as user_position
 		,(select user_intro from user where user_key=t.user_key) as user_intro
 		,teamjoin_proc
-		 from teamjoin t where team_key=#{team_key}
+		 from teamjoin t where  team_key=t.team_key
 	</select>
 
 	<select id="Teamjoin_teamjoinGetTotal"
@@ -62,7 +62,7 @@
 		,(select user_position from user where user_key=t.user_key) as user_position
 		,(select user_intro from user where user_key=t.user_key) as user_intro
 		,teamjoin_proc
-		 from teamjoin t where team_key=#{team_key} and user_key=#{user_key}
+		 from teamjoin t where  team_key=t.team_key and user_key=#{user_key}
 	</select>
 		
 		<update id="Teamjoin_teamkickout" parameterType="String">

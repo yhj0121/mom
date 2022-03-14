@@ -476,9 +476,10 @@ a.link{
 							<tbody>
 							<%
 								List<TeamjoinDto> myTeamlist = (List<TeamjoinDto>) request.getAttribute("myteamList");
-								
+								System.out.println("1"+myTeamlist);
 								bWaitExist = false;
 								if( !myTeamlist.isEmpty()) {
+									System.out.println("1"+myTeamlist);
 								for (TeamjoinDto myTeamDto : myTeamlist) {
 								%>
 								<tr>

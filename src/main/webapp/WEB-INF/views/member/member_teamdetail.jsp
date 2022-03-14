@@ -477,7 +477,6 @@ a.link{
 							<%
 								List<TeamjoinDto> myTeamlist = (List<TeamjoinDto>) request.getAttribute("myteamList");
 								
-								System.out.println("나의 팀 리스트: "+myTeamlist);
 								bWaitExist = false;
 								if( !myTeamlist.isEmpty()) {
 								for (TeamjoinDto myTeamDto : myTeamlist) {

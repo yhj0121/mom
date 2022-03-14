@@ -5,6 +5,7 @@ import java.util.List;
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.cscenter.CSCenterDto;
 import com.mom.momhome.game.GameDto;
+import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.mercenary.MercenaryDto;
 import com.mom.momhome.team.TeamDto;
 

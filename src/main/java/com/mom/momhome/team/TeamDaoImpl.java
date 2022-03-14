@@ -73,9 +73,9 @@ public class TeamDaoImpl implements TeamDao {
 	}
 
 	@Override
-	public void teamJoin(TeamjoinDto dto) {
+	public void Teamjoin_teamjoinInsert(TeamjoinDto dto) {
 		
-		sm.insert("Teamjoin_insert", dto);
+		sm.insert("Teamjoin_teamjoinInsert", dto);
 
 	}
 

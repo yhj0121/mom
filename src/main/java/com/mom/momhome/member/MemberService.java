@@ -56,4 +56,8 @@ public interface MemberService {
 	MembershipDto getMembership(String user_key);
 	//회원 탈퇴 진행
 	void delete( MemberDto dto );
+	//멤버 계정 팀 가입시 멤버십 테이블에 삽입
+	void insertMember( MembershipDto dto );
+	//멤버 계정 팀 가입시 멤버십 테이블에 삭
+	void deleteMember(MembershipDto dto);
 }

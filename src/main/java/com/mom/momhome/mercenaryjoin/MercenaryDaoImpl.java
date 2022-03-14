@@ -31,5 +31,10 @@ public class MercenaryDaoImpl implements MercenaryjoinDao{
 		return sm.selectOne("Mercenaryjoin_duplicate", dto);
 	}
 
+	@Override
+	public int getApproveCount(String mercenary_key) {
+		return sm.selectOne("Mercenary_getApproveCount", mercenary_key);
+	}
+
 	
 }

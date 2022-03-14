@@ -52,4 +52,11 @@
 		where mercenary_key = #{mercenary_key}  
 			  and user_key = #{user_key}
 	</select>
+	
+	<select id="Mercenary_getApproveCount" parameterType="MercenaryjoinDto" resultType="Integer">
+		select count(*) 
+		  from mercenaryjoin 
+		 where mercenary_proc = "2"
+		   and mercenary_key = #{mercenary_key}
+	</select>
 </mapper>

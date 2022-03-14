@@ -85,6 +85,11 @@ public class MercenaryServiceImpl implements MercenaryService {
 		return mercenaryjoinDao.mercenaryjoinDuplicate(dto);
 	}
 
+	@Override
+	public int getApproveCount(String mercenary_key) {
+		return mercenaryjoinDao.getApproveCount(mercenary_key);
+	}
+
 	
 
 }

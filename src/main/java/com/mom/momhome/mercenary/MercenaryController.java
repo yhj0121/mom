@@ -151,5 +151,15 @@ public class MercenaryController {
 		int count = service.getMsCount(game_key);
 		return count;
 	}
+	
+	//mercenaryjoin 테이블에서 승인된 용병수 가져오기
+	@RequestMapping(value="/mercenary/approveCount")
+	@ResponseBody
+	Integer mercenary_approveCount(String mercenary_key)
+	{
+		int count = service.getApproveCount(mercenary_key);
+		return count;
+	}
+
 
 }

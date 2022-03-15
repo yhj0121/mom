@@ -131,5 +131,14 @@
 	<select id="game_getMembershipUserkey" parameterType="GameDto" resultType="GameDto">
 		 select A.user_key from membership A where A.team_key = #{team_key} AND A.membership_role = 1;
 	</select>	
-
+		
+		
+		
+		<update id="game_completeUpdate" parameterType="GameJoinProcDto">
+			update game 
+			set 
+	 		GAME_COMPLETE = #{game_complete}
+			where GAME_KEY = #{game_key};
+		</update>
+		
 </mapper>

@@ -21,8 +21,10 @@ public class GameJoinDaoImp implements GameJoinDao {
 	}
 
 	@Override
-	public void updateJoin(GameJoinDto dto) {
-		sm.update("Gamejoin_update",dto);
+	public void updateResultproc(GameJoinProcDto dto) {
+		System.out.println("JoinDao..getMatchingjoin_key() :" + dto.getMatchingjoin_key());
+		System.out.println("JoinDao..getResult_proc() :" + dto.getResult_proc());
+		sm.update("Gamejoin_resultprocUpdate",dto);
 	}
 
 	@Override

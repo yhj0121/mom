@@ -10,6 +10,8 @@ import com.mom.momhome.gamejoin.GameJoinDao;
 import com.mom.momhome.gamejoin.GameJoinDto;
 import com.mom.momhome.lineup.LineupDao;
 import com.mom.momhome.lineup.LineupDto;
+import com.mom.momhome.gamejoin.GameJoinProcDto;
+import com.mom.momhome.membership.MembershipDto;
 
 
 
@@ -61,9 +63,14 @@ public class GameServiceImp implements GameService {
 		gamejoindao.gameinsertJoin(dto);
 	}
 
-	@Override
-	public void updateJoin(GameJoinDto dto) {
-		gamejoindao.updateJoin(dto);		
+	@Override	
+	public void updateJoin(GameJoinProcDto dto) {
+		
+		System.out.println("Service..getGame_complete() :" + dto.getGame_complete());
+		System.out.println("Service..getResult_proc() :" + dto.getResult_proc());
+		 
+		gamejoindao.updateResultproc(dto); //result값 호출
+		dao.updateGameComplete(dto);  //game_complete값 호출
 	}
 
 	@Override

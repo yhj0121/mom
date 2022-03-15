@@ -52,24 +52,22 @@
 						<input type="hidden" name="pg"      value="<%=pg%>" >
 						<input type="hidden" name="key"     value="<%=key%>" >
 						<input type="hidden" name="keyword" value="<%=keyword%>" >
-						<input type="hidden" name="membership_role" value="${membership_role}">			
+						<input type="hidden" name="membership_role" value="${membership_role}">	
 						<input type="hidden" name="team_key" id="team_key" value="<%=daoo.getTeam_key()%>">
-						<%-- <input type="hidden" name="team_key2" id="team_key2" value="<%=tdaoo.getTeam_key()%>"> --%>
 					    <input type="hidden" name="user_key" value="${userkey}">
 					    <input type="hidden" name="matchingjoin_key" id="matchingjoin_key" value="">
 					    <input type="hidden" name="team_side" id="team_side" value="" >
 					    <input type="hidden" name="team_name" id="team_name" value="<%=daoo.getTeam_name()%>">
 				   	    <input type="hidden" name="result_proc"  id="result_proc" value="" />
 				      	<input type="hidden" name="game_key" id="game_key" value="<%=daoo.getGame_key()%>">
-						<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_fdate()%>"> 
    						<input type="hidden" name="game_complete" id="game_complete" value=""/> 
-					    
-					      	
+						<input type="hidden" name="game_date" id="game_date" value="<%=daoo.getGame_fdate()%>" readonly /> 						
+
 						<div class="row gtr-uniform">
 							<div class="col-12">
 								<input type="text" name="game_title"   name="game_title"  value="<%=daoo.getGame_title()%>"  style="color:black;" readonly  />
 							</div>
-							
+							<
 							<div class="col-6 col-12-xsmall">
 								<input type="text" name="game_fdate" id="game_fdate" value="<%=daoo.getGame_fdate()%>"  style="color:black;" readonly />
 							</div>
@@ -136,6 +134,12 @@
 			<script src="../resources/assets/js/util.js"></script>
 			<script src="../resources/assets/js/main.js"></script>
 <script>
+
+var count;
+$(document).ready(function(){
+	goresult();
+})
+
 function goList()
 {
 	var frm = document.myform;
@@ -171,19 +175,9 @@ function goDelete()
 		type:"POST"
 	})
 	.done((result)=>{
+		count =result;
 		console.log(result);
-		if(result===1)
-		{
-			alert("신청 할수 있다.");
-			  $("#tbl_app").hide();
-			target.disabled = true;
-		}
-		else
-		{	
-			alert("이미 신청완료된 팀이 있습니다.");
-			
 		
-		} 
 	})
 	.fail((error)=>{
 		console.log(error);
@@ -195,6 +189,7 @@ function goapply()
 {	
 	var frmData = document.myform; 
 	var queryString = $("form[name=myform]").serialize();
+	
 	$.ajax({
 		url:"<%=request.getContextPath()%>/game/joinduplicate",
 		data:queryString,
@@ -281,28 +276,35 @@ function goviewlist()
 	   })
 	}
 function goApprove(matchingjoin_key)
-{
-	$("#matchingjoin_key").val(matchingjoin_key);
-	$("#game_complete").val("1");
-	$("#result_proc").val("2");
-	var frmData = document.myform; 
-	console.log(frmData);
-	var queryString = $("form[name=myform]").serialize();
-	$.ajax({
-		url:"<%=request.getContextPath()%>/game/proc",
-		data:queryString,
-		processData:false,
-		type:"POST"
-	})
-	.done((result)=>{
-		console.log(result);
-		goresult()
-		goviewlist();
-	
-	})
-	.fail((error)=>{
-		console.log(error);
-	})
+{	
+	if(count>0) 
+	{
+		alert("못들어가요")
+	}
+	else
+	{
+		$("#matchingjoin_key").val(matchingjoin_key);
+		$("#game_complete").val("1");
+		$("#result_proc").val("2");
+		var frmData = document.myform; 
+		console.log(frmData);
+		var queryString = $("form[name=myform]").serialize();
+		$.ajax({
+			url:"<%=request.getContextPath()%>/game/proc",
+			data:queryString,
+			processData:false,
+			type:"POST"
+		})
+		.done((result)=>{
+			console.log(result.game_complete);
+			console.log(result);
+			goviewlist();
+		
+		})
+		.fail((error)=>{
+			console.log(error);
+		})
+	}
 }
 function goDecline(matchingjoin_key)
 {

@@ -14,15 +14,12 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="../resources/assets/css/main.css" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet"	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 
 </head>
 
 <style>
-
 a.link{
 	margin-left: 20px; 
 	font-size: .9rem;
@@ -75,6 +72,7 @@ table td:not(.introduction) {
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
 		int totalCnt = (Integer) request.getAttribute("totalCnt");
 		%>
+		
 		<div id="main">
 			<article class="post">
 				<header>
@@ -85,20 +83,19 @@ table td:not(.introduction) {
 						<p>감독님만 게임 매칭을 만들수 있어요</p>
 					</div>
 					<div class="meta">
-						<a href="#" class="logo"><i class="fas fa-futbol fa-8x"
-							style="display: flex; justify-content: center;"></i></a>
+						<a href="#" class="logo"><i class="fas fa-futbol fa-8x" style="display: flex; justify-content: center;"></i></a>
 					</div>
 				</header>
 
 				<section>
 					<h3 style="text-align: center">게임매칭게시판 (${totalCnt}건)</h3>
+					
 					<form name="myform" method="get">
-						<input type="hidden" name="team_key" id="team_key" value="" /> <input
-							type="hidden" name="pg" id="pg" value="<%=pg%>" /> <input
-							type="hidden" name="key" id="key" value="<%=key%>" /> 
-							<input type="hidden" name="game_key" id="game_key" value="" />
-				   			<input type="hidden" name="user_key" id="user_key" value="${userkey}" />
-							
+						<input type="hidden" name="team_key" id="team_key" value="" /> 
+						<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> 
+						<input type="hidden" name="key" id="key" value="<%=key%>" /> 
+						<input type="hidden" name="game_key" id="game_key" value="" />
+			   			<input type="hidden" name="user_key" id="user_key" value="${userkey}" />
 
 						<div class="row gtr-uniform">
 							<div class="col-3 col-6-xsmall">
@@ -110,14 +107,13 @@ table td:not(.introduction) {
 								</select>
 							</div>
 							<div class="col-7 col-12-xsmall">
-								<input type="text" class="form-control" placeholder="검색어를 입력하세요"
-									name="keyword" id="keyword" value="<%=keyword%>">
+								<input type="text" class="form-control" placeholder="검색어를 입력하세요" name="keyword" id="keyword" value="<%=keyword%>">
 							</div>
 							<div class="col-2 col-4-xsmall">
-								<input type="button" style="width: 100%" value="검색"
-									onclick="goSearch()" />
+								<input type="button" style="width: 100%" value="검색" onclick="goSearch()" />
 							</div>
 						</div>
+						
 						<div class="table-wrapper">
 							<table>
 								<thead>
@@ -128,12 +124,11 @@ table td:not(.introduction) {
 										<th>날짜</th>
 										<th>팀이름</th>
 										<th>모집</th>
-
 									</tr>
 								</thead>
 								<tbody>
 									<%
-									List<GameDto> list = (List<GameDto>) request.getAttribute("boardList");
+									List<GameDto> list = (List<GameDto>)request.getAttribute("boardList");
 									if( !list.isEmpty() ) {
 									for (GameDto tempDto : list) {
 										
@@ -158,51 +153,43 @@ table td:not(.introduction) {
 												<td colspan="6"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/cscenter/list" class="link">  >> 글 작성하러 가기 << </a></div></td>
 											</tr>
 										<%} %>
-									
-
-
 								</tbody>
 							</table>
 						</div>
-
+						
 							<div class="col-12" style="text-align: right;">
 								<ul class="actions">
-									<li style="margin-left: auto"><input type="button"
-										value="글쓰기" onclick="goWrite()"/></li>
+									<li style="margin-left: auto"><input type="button" value="글쓰기" onclick="goWrite()"/></li>										
 								</ul>
 							</div>
 
 					</form>
-				</section>
-			</article>
-
+		 	     	</section>
+			   </article>
+			   
 			<!-- Pagination  -->
 			<div class="container"
 				style="display: flex; justify-content: center;">
 				<%=Pager.makeTag(request, 10, totalCnt)%>
 			</div>
+		</div>	
 		</div>
-	</div>
 </body>
 <!-- Scripts -->
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/browser.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
+
 <script>
 	function goSearch(){
-		   let frm = document.myform;
-		   frm.pg.value=0; 
-		   frm.action = "<%=request.getContextPath()%>/game/list";
-		   frm.method = "get";
-		   frm.submit();
-		}
+	   let frm = document.myform;
+	   frm.pg.value=0; 
+	   frm.action = "<%=request.getContextPath()%>/game/list";
+		frm.method = "get";
+		frm.submit();
+	}
 
 	function goPage(pg) {
 		frm = document.myform;
@@ -211,6 +198,7 @@ table td:not(.introduction) {
 		frm.action = "${pageContext.request.contextPath}/game/list";
 		frm.submit();
 	}
+	
 	function goView(gamekey,teamkey) {
 		frm = document.myform;
 		frm.game_key.value = gamekey;
@@ -219,6 +207,7 @@ table td:not(.introduction) {
 		frm.action = "${pageContext.request.contextPath}/game/view";
 		frm.submit();
 	}
+	
 	function goWrite() {
 		var frm = document.myform;
 		frm.action = "${pageContext.request.contextPath}/game/write";

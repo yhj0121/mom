@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.gamejoin.GameJoinDto;
 
+import com.mom.momhome.gamejoin.GameJoinProcDto;
+import com.mom.momhome.membership.MembershipDto;
 
 @Controller
 public class GameController {
 
 	@Resource(name="gameService")
 	GameService service;
-	
-	
-
 	
 //	@RequestMapping("/game/joinornot")
 //	@ResponseBody
@@ -124,23 +123,18 @@ public class GameController {
 	
 	@RequestMapping(value="/game/proc")
 	@ResponseBody
-	String game_apply(GameJoinDto dto)
+	String game_apply(GameJoinProcDto dto)
 	{
+		System.out.println("Controller..getGame_complete() :" + dto.getGame_complete());
+		System.out.println("Controller..getResult_proc() :" + dto.getResult_proc());
+
 		service.updateJoin(dto);
-		System.out.println("처리됨");
-		System.out.println(dto.getResult_proc());
+		System.out.println("처리됨");	
+		
 		return "/game/gameview";
 	}
 	
-	@RequestMapping(value="/game/procdecline")
-	@ResponseBody
-	String game_applydecline(GameJoinDto dto)
-	{
-		service.updateJoin(dto);
-		System.out.println("거절처리됨");
-		System.out.println(dto.getResult_proc());
-		return "/game/gameview";
-	}
+
 	
 	@RequestMapping("/game/selectCity")
 	@ResponseBody

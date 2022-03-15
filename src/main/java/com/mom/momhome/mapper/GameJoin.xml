@@ -34,22 +34,10 @@
 
 	</select>
 	
-	<update id="Gamejoin_update" parameterType="GameJoinProcDto">
-		<if test='result_proc == 2'>
-			update matchingjoin set result_proc = '2' where matchingjoin_key=#{matchingjoin_key}	
-		</if>
+	<update id="Gamejoin_resultprocUpdate" parameterType="GameJoinProcDto">
 		
-		
-		<!-- <if test='result_proc == 3'>
-			update matchingjoin set result_proc = '3' where matchingjoin_key=#{matchingjoin_key}	
-		</if> 
-		 -->
-		 
-	 <!-- 	<selectKey resultType="string" keyProperty="result_proc" order="BEFORE">
-        	SELECT MAX(boardID)+1 FROM board  	      
-    	</selectKey>   
-    	
-    	update matchingjoin set result_proc = '3' where game_key=35 And result_proc=1; -->
+		update matchingjoin set result_proc = #{result_proc} where matchingjoin_key=#{matchingjoin_key}	
+	
 	</update>
 	<select id="Gamejoin_getCount" parameterType="GameJoinDto" resultType="Integer">
 		  select count(*) 
@@ -68,7 +56,7 @@
 			where user_key=#{user_key}
 	</select>
 	
-	<select id="GameJoin_getGameJoinResult" parameterType="GameJoinDto" resultType="String">
+	<select id="GameJoin_getGameJoinResult" parameterType="GameJoinDto">
 			select result_proc
 			from matchingjoin
 			where game_key =#{game_key} AND team_key=#{team_key}

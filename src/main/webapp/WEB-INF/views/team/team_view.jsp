@@ -142,7 +142,7 @@ table td:not(.introduction) {
 				</table>
 
 				<ul class="actions" style=" margin-top: 200px; justify-content:unset;">
-					<li><input type="button" value="목록" /></li>
+					<li><input type="button" value="목록" onClick="location.href='/momhome/team/list'" /></li>
 					<li><input type="button" value="팀 가입신청하기" onclick="goJoin()" /></li>
 					<li><input type="button" value="미정"  /></li>
 				</ul>

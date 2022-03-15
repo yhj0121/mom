@@ -66,9 +66,6 @@ public class GameServiceImp implements GameService {
 	@Override	
 	public void updateJoin(GameJoinProcDto dto) {
 		
-		System.out.println("Service..getGame_complete() :" + dto.getGame_complete());
-		System.out.println("Service..getResult_proc() :" + dto.getResult_proc());
-		 
 		gamejoindao.updateResultproc(dto); //result값 호출
 		dao.updateGameComplete(dto);  //game_complete값 호출
 	}

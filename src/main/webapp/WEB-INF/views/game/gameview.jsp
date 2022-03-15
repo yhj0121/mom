@@ -67,7 +67,7 @@
 							<div class="col-12">
 								<input type="text" name="game_title"   name="game_title"  value="<%=daoo.getGame_title()%>"  style="color:black;" readonly  />
 							</div>
-							<
+						
 							<div class="col-6 col-12-xsmall">
 								<input type="text" name="game_fdate" id="game_fdate" value="<%=daoo.getGame_fdate()%>"  style="color:black;" readonly />
 							</div>
@@ -360,12 +360,12 @@ function goLineup(team_side)
 				if(team_side == 1) 
 				{
 					if(<%=daoo.getTeam_key().equals(userTeamkey)%>)
-						goLineupModify();
+						goLineupModify(team_side);
 					else
 						alert("아직 라인업이 작성되지 않았습니다.");	
 				}
 				else if(team_side == 2)
-					checkAwayLineupPermission();
+					checkAwayLineupPermission(team_side);
 			}
 		}
 	})
@@ -374,7 +374,7 @@ function goLineup(team_side)
 	})
 }
 
-function checkAwayLineupPermission()
+function checkAwayLineupPermission(team_side)
 {
 <%-- 	console.log("game_key: " + <%=daoo.getGame_key()%>) --%>
 <%-- 	console.log("team_key: " + <%=userTeamkey%>); --%>
@@ -388,7 +388,7 @@ function checkAwayLineupPermission()
 	.done((result)=>{
 		//console.log("checkAwayLineupPermission().result : "+ result);
 		if(result === "2")
-			goLineupModify();
+			goLineupModify(team_side);
 		else
 			alert("아직 라인업이 작성되지 않았습니다.");	
 	})
@@ -397,7 +397,7 @@ function checkAwayLineupPermission()
 	})
 }
 
-function goLineupModify()
+function goLineupModify(team_side)
 {	
 	var frm = document.myform;
  	frm.team_side.value=team_side;

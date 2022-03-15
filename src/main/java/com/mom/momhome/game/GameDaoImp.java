@@ -57,8 +57,6 @@ public class GameDaoImp implements GameDao {
 
 	@Override
 	public void updateGameComplete(GameJoinProcDto dto) {
-		System.out.println("GameDao..getGame_key() :" + dto.getGame_key());
-		System.out.println("GameDao..getGame_complete() :" + dto.getGame_complete());
 	    sm.update("game_completeUpdate", dto);
 	}
 

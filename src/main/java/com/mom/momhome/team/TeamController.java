@@ -58,11 +58,25 @@ public class TeamController {
 	@RequestMapping("/team/view")
 	String team_view(TeamDto dto, Model model)
 	{
+		List<TeamDto> list = teamService.getTeamViewList(dto);
 		TeamDto resultDto = teamService.getTeamView(dto);
+		
+		model.addAttribute("getTeamViewList", list);
 		model.addAttribute("teamDto", resultDto);
 		
 		return "team/team_view";
 	}
+	
+//	@RequestMapping("/team/viewlist")
+//	String team_viewList(TeamDto dto, Model model)
+//	{
+//		List<TeamDto> list = teamService.getTeamViewList(dto);
+//		
+//		for(TeamDto teamdto : list)
+//		model.addAttribute("getTeamViewList", list);
+//		
+//		return "team/team_view";
+//	}
 	
 	//팀 생성 화면 연결
 	@RequestMapping("/team/write")

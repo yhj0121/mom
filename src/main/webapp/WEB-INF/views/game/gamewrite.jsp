@@ -89,7 +89,7 @@ margin:auto;
 								</select>
 									</div>
 									<div class="col-6 col-12-xsmall">
-									           <input type="datetime-local"  id="game_fdate" name="game_fdate" id="dateTimeLocal"  onchange="setMinValue()">
+									           <input type="datetime-local"  id="game_fdate" name="game_fdate" >
 									</div>
 									
 						
@@ -120,6 +120,12 @@ margin:auto;
 		
 			
 <script>
+let dateElement = document.getElementById('game_fdate');
+let date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -5);
+dateElement.value = date;
+dateElement.setAttribute("min", date);
+
+
  $(document).ready(function(){
 		document.getElementById("mStatus").value= <%=dao.getGame_complete()%>;
 		getCityList();
@@ -158,17 +164,6 @@ function goWrite()
 }
 
 
-function setMinValue() {
-
-	let dateElement = document.getElementById('game_fdate');
-	let date = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, -5);
-	dateElement.value = date;
-	dateElement.setAttribute("min", date);
-    if(dateElement.value < date) {
-        alert('현재 시간보다 이전의 날짜는 설정할 수 없습니다.');
-        dateElement.value = date;
-    }
-}
 
 
 

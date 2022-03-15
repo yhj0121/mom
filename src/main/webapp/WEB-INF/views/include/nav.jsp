@@ -14,12 +14,16 @@ String phone = StringUtil.nullToValue(session.getAttribute("phone"), "");
 String user_key = StringUtil.nullToValue(session.getAttribute("userkey"), "");
 
 MembershipDto membershipDto = (MembershipDto)session.getAttribute("membershipDto");
+if(membershipDto == null)
+	membershipDto =	new MembershipDto();
+ 
 String membership_role= StringUtil.nullToValue(session.getAttribute("membership_role"), "");
 
 int maxRegularCount = 11;
 int maxBenchCount = 7;
 int maxLineupCount = maxRegularCount + maxBenchCount;
 %>
+
 <meta charset="UTF-8">
 <header id="header">
 	<h1>

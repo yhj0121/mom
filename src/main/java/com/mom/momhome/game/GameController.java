@@ -161,10 +161,8 @@ public class GameController {
 	@ResponseBody
 	int gamejoin_getMatchingjoin(GameJoinDto dto)
 	{	
-		System.out.println("중복체크확인");
-		System.out.println("result proc"+dto.getResult_proc());
+	
 		int resultcount = service.getMatchingjoincount(dto);
-		System.out.println("카운트 값"+resultcount);
 		return resultcount;
 	}
 	

@@ -196,10 +196,9 @@ section.mypost:nth-child(odd) {
 								<button type="button"  class="button small " onclick="location.href='${commonURL}/mercenary/list'">모든 글 보러 가기</button>
 							</li>
 							<%	} else { %>
-							<li>
-								<article style="height: 100%;">
-									<h3>아직 게시글이 없습니다.</h3>
-								</article>
+							<li style="text-align: center;">
+								<h3 style=" margin: 100px 0;">아직 게시글이 없습니다.</h3>
+								<button  class="button small ">글 쓰러 가기</button>
 							</li>
 							<% } %>
 						</ul>

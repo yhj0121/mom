@@ -166,14 +166,14 @@ table td:not(.introduction) {
 					</form>
 		 	     	</section>
 			   </article>
-			   	</div>
-
+			   
 			<!-- Pagination  -->
 			<div class="container"
 				style="display: flex; justify-content: center;">
 				<%=Pager.makeTag(request, 10, totalCnt)%>
 			</div>
 		</div>	
+		</div>
 </body>
 <!-- Scripts -->
 <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.min.js"></script>

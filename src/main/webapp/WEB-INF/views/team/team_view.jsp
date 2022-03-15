@@ -54,7 +54,7 @@ table td:not(.introduction) {
 		%>
 		<%
 			TeamDto dto = (TeamDto)request.getAttribute("teamDto");
-			
+			List<TeamDto> list = (List<TeamDto>) request.getAttribute("getTeamViewList");
 		%>
 		
 		<!-- Main -->
@@ -130,18 +130,24 @@ table td:not(.introduction) {
 					</div>
 				</div>
 				<br>
+				
 				<table>
 					<tr>
 						<td>팀 회원 명단</td>
 						<td>직책</td>
-						<td>선호표지션</td>
+						<td>선호포지션</td>
 					</tr>
 					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
+					<%
+					for(TeamDto teamDto : list) { 
+					%>
+						<td><%=teamDto.getUser_name() %></td>
+						<td><%if(teamDto.getMembership_role().equals("1")){ %>감독<%}else{%>선수<%} %></td>
+						<td><%=teamDto.getUser_position() %></td>
 					</tr>	
+					<%} %>
 				</table>
+				
 
 				<ul class="actions" style=" margin-top: 200px; justify-content:unset;">
 					<li><input type="button" value="목록" onClick="location.href='/momhome/team/list'" /></li>

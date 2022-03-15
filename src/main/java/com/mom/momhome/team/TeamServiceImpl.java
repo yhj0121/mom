@@ -94,5 +94,11 @@ public class TeamServiceImpl implements TeamService{
 		
 	}
 
+	@Override
+	public List<TeamDto> getTeamViewList(TeamDto dto) {
+		
+		return teamDao.getTeamViewList(dto);
+	}
+
 
 }

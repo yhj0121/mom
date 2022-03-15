@@ -23,6 +23,8 @@ public interface TeamService {
 	
 	TeamDto getTeamView(TeamDto dto);
 	
+	List<TeamDto> getTeamViewList(TeamDto dto);
+	
 	void team_InsertMembership(MembershipDto dto);//멤버쉽
 	
 	void membershipInsert( MembershipDto dto ); //멤버십 생성

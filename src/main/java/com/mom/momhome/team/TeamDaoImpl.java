@@ -79,6 +79,12 @@ public class TeamDaoImpl implements TeamDao {
 
 	}
 
+	@Override
+	public List<TeamDto> getTeamViewList(TeamDto dto) {
+		
+		return sm.selectList("getTeamViewList", dto);
+	}
+
 
 
 	

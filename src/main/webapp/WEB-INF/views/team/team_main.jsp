@@ -1,7 +1,10 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@page import="com.mom.momhome.membership.*" %>
+<%@page import="com.mom.momhome.member.*"%>
+<%@page import="com.mom.momhome.common.*"%>
+<% String membership_role = StringUtil.nullToValue(session.getAttribute("membership_role"),""); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +15,7 @@
 	content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/assets/css/main.css" />
+
 
 <style>
 	.imageWrap {
@@ -77,8 +81,11 @@
 							전국에 등록된 모든 팀의 정보를 확인 할수 있습니다.<br>참여를 희망하는 지역의 팀을 찾아서 함께
 							해보세요.<br>당신을 반겨줄 동료가 기다리고 있습니다.
 						</h4>
+					
 						<input type="button" class="btn btn-secondary" value="팀 구경 하러가기"
-							onClick="location.href='/momhome/team/list'"><br>
+							onClick="location.href='/momhome/team/list'">
+							
+						<br>
 						<br>
 					</div>
 					<div class="title">

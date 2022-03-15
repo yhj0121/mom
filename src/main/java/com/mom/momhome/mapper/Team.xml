@@ -133,7 +133,7 @@
 		 from team A 
 		where team_key=#{team_key} -->
 		
-		select 
+		<!--  select 
 			C.team_key,C.team_name,C.team_fdate,C.team_fee,C.team_city,
 			C.team_intro,C.team_emblem,C.team_notice,C.team_num,C.team_recruit_yn,
 			B.user_key,B.user_name,B.user_position,A.membership_role
@@ -141,7 +141,12 @@
 		from membership A left join user B on A.user_key = B.user_key
 		
 		join team C on A.team_key=C.team_key where C.team_key=#{team_key};
+		-->
 		
+		select * FROM team t 
+	inner join membership m on t.team_key=m.team_key
+	inner join user u on m.user_key=u.user_key
+	where m.team_key=#{team_key} and m.MEMBERSHIP_ROLE =1;
 	</select>
 	
 

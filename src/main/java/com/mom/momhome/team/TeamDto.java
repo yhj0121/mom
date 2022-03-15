@@ -20,11 +20,19 @@ public class TeamDto extends BaseDto{
 	private String user_key = ""; //user_key 추가 및 getter, setter 추가 *수정함*
 	private String teamjoin_proc="";
 	String membership_role ="";
-	
 	String user_name = "";
+	String user_position ="";
+	
+	
 	
 
 
+	public String getUser_position() {
+		return user_position;
+	}
+	public void setUser_position(String user_position) {
+		this.user_position = user_position;
+	}
 	public String getTeamjoin_proc() {
 		return teamjoin_proc;
 	}

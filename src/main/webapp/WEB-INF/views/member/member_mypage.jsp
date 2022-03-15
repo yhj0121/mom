@@ -31,8 +31,6 @@ textarea {
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
 
-
-
 		<!-- Main -->
 		<div id="main">
 
@@ -85,6 +83,8 @@ textarea {
 									alt="" /></a>
 							</article>
 						</li>
+						<% 	
+						if (membership_role.equals("1") ) { %>
 						<li>
 							<article>
 								<header>
@@ -111,6 +111,21 @@ textarea {
 									alt="" /></a>
 							</article>
 						</li>
+						<%} else {%>
+						<li>
+							<article>
+								<header>
+									<h3>
+										<a href="${pageContext.request.contextPath}/member/mercenarylist">용병 신청 내역</a>
+									</h3>
+									<p class="published">내가 작성한 용병 신청 내역을 볼 수 있습니다.</p>
+								</header>
+								<a href="${pageContext.request.contextPath}/member/mercenarylist" class="image"><img
+									src="${pageContext.request.contextPath}/resources/images/icon_list.png"
+									alt="" /></a>
+							</article>
+						</li>
+						<%} %>
 						<li>
 							<article>
 								<header>

@@ -98,7 +98,7 @@ a.link{
 							<table>
 								<colgroup>
 									<col width="5%" />
-									<col width="5%" />
+									<col width="13%" />
 									<col width="*" />
 									<col width="15%" />
 								</colgroup>

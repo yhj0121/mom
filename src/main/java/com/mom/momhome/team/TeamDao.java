@@ -20,6 +20,8 @@ public interface TeamDao {
 	
 	TeamDto getTeamView(TeamDto dto); //팀 상세보기
 	
+	List<TeamDto> getTeamViewList(TeamDto dto);
+	
 	int getTeamTotal(TeamDto dto);
 	
 	void team_InsertMembership(MembershipDto dto); //멤버쉽

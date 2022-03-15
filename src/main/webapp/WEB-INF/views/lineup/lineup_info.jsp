@@ -128,8 +128,8 @@
 							<tr>
 								<td><%=(curRowNum+1)%></td>
 								<td><%=position%></td>
-								<td><a href="#none" onclick="goPlayerInfo('<%=player_key%>')"><%=id%></a></td>
-								<td><%=name%></td>
+								<td><a href="#none" onclick="openPlayerInfo('<%=player_key%>')"><%=id%></a></td>
+								<td><a href="#none" onclick="openPlayerInfo('<%=player_key%>')"><%=name%></a></td>
 							</tr>
 						<%
 							curRowNum++;
@@ -180,8 +180,8 @@
 							<tr>
 								<td>후보</td>
 								<td><%=position%></td>
-								<td><a href="#none" onclick="goPlayerInfo('<%=player_key%>')"><%=id%></a></td>
-								<td><%=name%></td>
+								<td><a href="#none" onclick="openPlayerInfo('<%=player_key%>')"><%=id%></a></td>
+								<td><a href="#none" onclick="openPlayerInfo('<%=player_key%>')"><%=name%></a></td>
 							</tr>
 						<%
 							curRowNum++;
@@ -220,7 +220,7 @@
 </html>
 
 <script>
-function goPlayerInfo(player_key)
+function openPlayerInfo(player_key)
 {
 	//console.log("info.player_key : " + player_key);
 	if(player_key == "")

@@ -49,7 +49,6 @@ public class LineupController {
 		
 		HttpSession session = request.getSession();
 		MembershipDto membershipDto = (MembershipDto)session.getAttribute("membershipDto");
-		
 		if(membershipDto != null)
 		{
 	//		System.out.println("controller.GameKey: " + gameDto.getGame_key());

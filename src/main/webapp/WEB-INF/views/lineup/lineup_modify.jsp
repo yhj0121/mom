@@ -205,14 +205,15 @@ let playerSelectList;
 let playerDictionary = {};
 
 $(()=>{
-	initPositionSelectList();
-	initPlayerDictionary(()=>{
-		loadLineup();
-		initFormation();
+	initPositionSelectList(()=>{
+		initPlayerDictionary(()=>{
+			loadLineup();
+			initFormation();	
+		});
 	});
 })
 
-function initPositionSelectList(){
+function initPositionSelectList(callback){
 	
  	//console.log("getPositionList()");
 	
@@ -231,6 +232,8 @@ function initPositionSelectList(){
 	    	for(item of result)
 	    		select.options[select.options.length] = new Option(item.position, item.position);
     	}
+		
+		callback();
 	})
 	.fail( (error) => {
 		alert("정보 가져오기 실패");

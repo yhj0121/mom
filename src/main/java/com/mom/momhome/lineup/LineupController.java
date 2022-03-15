@@ -48,11 +48,14 @@ public class LineupController {
 		model.addAttribute("lineupList", list);
 		
 		HttpSession session = request.getSession();
-		String team_key = ((MembershipDto)session.getAttribute("membershipDto")).getTeam_key();
+		MembershipDto membershipDto = (MembershipDto)session.getAttribute("membershipDto");
 		
-//		System.out.println("controller.GameKey: " + gameDto.getGame_key());
-//		System.out.println("controller.membership.team_key: " + team_key);
-		info_setGameJoinResult(model, gameDto.getGame_key(), team_key);
+		if(membershipDto != null)
+		{
+	//		System.out.println("controller.GameKey: " + gameDto.getGame_key());
+	//		System.out.println("controller.membership.team_key: " + team_key);
+			info_setGameJoinResult(model, gameDto.getGame_key(), membershipDto.getTeam_key());
+		}
 		
 		return "lineup/lineup_info";
 	}

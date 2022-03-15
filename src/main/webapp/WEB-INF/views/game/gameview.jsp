@@ -26,8 +26,12 @@
 
 	GameDto daoo = (GameDto)request.getAttribute("GameDto");
 	GameDto tdaoo = (GameDto)request.getAttribute("teamdto");
+	
+	String userTeamkey = "-1";
+	if(membershipDto != null)
+		userTeamkey = StringUtil.nullToValue(membershipDto.getTeam_key(), "");
 	%>
-	    
+	     
 	<div id="main">
 	 		<article class="post">
 	 			<header>
@@ -325,7 +329,7 @@ function goDecline(matchingjoin_key)
 }
 
 function goLineup(team_side)
-{
+{ 
 	$.ajax({
 		url:"${commonURL}/game/getLineupCount",
 		data:{'game_key': <%=daoo.getGame_key()%>, 'team_side':team_side},
@@ -351,10 +355,9 @@ function goLineup(team_side)
 			}
 			else
 			{
-				
 				if(team_side == 1) 
 				{
-					if(<%=daoo.getTeam_key().equals(membershipDto.getTeam_key())%>)
+					if(<%=daoo.getTeam_key().equals(userTeamkey)%>)
 						goLineupModify();
 					else
 						alert("아직 라인업이 작성되지 않았습니다.");	
@@ -371,11 +374,11 @@ function goLineup(team_side)
 
 function checkAwayLineupPermission()
 {
-	console.log("game_key: " + <%=daoo.getGame_key()%>)
-	console.log("team_key: " + <%=membershipDto.getTeam_key()%>);
+<%-- 	console.log("game_key: " + <%=daoo.getGame_key()%>) --%>
+<%-- 	console.log("team_key: " + <%=userTeamkey%>); --%>
 	$.ajax({
 		url:"${commonURL}/game/getGameJoinResultProc",
-		data:{'game_key': <%=daoo.getGame_key()%>, 'team_key':<%=membershipDto.getTeam_key()%>},
+		data:{'game_key': <%=daoo.getGame_key()%>, 'team_key': <%=userTeamkey%>},
 		contentType: "application/x-www-form-urlencoded; charset=UTF-8;",
 		type:"POST",
 		dataType:"JSON"

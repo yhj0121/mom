@@ -39,8 +39,6 @@
 			<mapping path="/mercenary/write"></mapping> 
 			<mapping path="/game/write"></mapping> 
 			<mapping path="/team/write"></mapping>
-			<mapping path="/lineup/info"></mapping>
-			<mapping path="/lineup/modify"></mapping> 
 			<beans:bean id="LoginInterceptor" class="com.mom.momhome.common.LoginInterceptor" /> 
 		</interceptor>
  	</interceptors>

@@ -198,19 +198,30 @@ function goView(id)
 }
 function goWrite() 
 {
-	if(${membership_role == null})
+	if(${membership_role =="1"})
+	{
+		var frm = document.myform;
+		frm.action = "${pageContext.request.contextPath}/mercenary/write";
+		frm.submit();
+	}
+	else 
+	{
+		alert("감독이 아니면 구인글을 작성할 수 없습니다.");
+	}
+	/* 
+ 	if(${membership_role == null})
 	{
 		alert("감독이 아니면 구인글을 작성할 수 없습니다.");
 	}
 	else
-	{   
-		if(${membership_role !="1"})
+	{    
+		 if(${membership_role !="1"})
 			alert("감독이 아니면 구인글을 작성할 수 없습니다.");
-		else{
+		else{ 
 			var frm = document.myform;
 			frm.action = "${pageContext.request.contextPath}/mercenary/write";
 			frm.submit();
-		}
-	 }  
+		 } 
+	  }  */
 }
 </script>

@@ -127,6 +127,7 @@ margin:auto;
 								</div>
 								<div class="col-12">
 									<ul class="actions">
+									<li><input type="button" value="테스트" onclick="goTest()" /></li>
 									 <%if(date.compareTo(nowTime)<0) {%>
 										<li><input type="button" value="목록" onclick="goList()" /></li>
 									 <%}else{ %> 
@@ -377,6 +378,13 @@ function goDecline(mercenaryjoin_key)
 			console.log(error);
 		})
  	}
+}
+function goTest()
+{
+	var frm = document.myform;
+   	frm.action="<%=request.getContextPath()%>/mercenary/myinfo";
+   	frm.submit();
+	
 }
 </script>
 

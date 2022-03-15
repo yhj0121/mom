@@ -59,4 +59,17 @@
 		 where mercenary_proc = "2"
 		   and mercenary_key = #{mercenary_key}
 	</select>
+	
+	<select id="Mercenary_getMyInfo" parameterType="MercenaryjoinDto"	resultType="MercenaryjoinDto">
+ 		select 
+ 			A.game_fdate
+			,C.mercenary_proc
+        	,C.app_date
+        	,@rownum := @rownum+1 AS rnum
+		from game A, mercenary B, mercenaryjoin C , (select @rownum:=0) D
+		where a.game_key = b.game_key
+			and b.mercenary_key = c.mercenary_key
+			and c.user_key = #{user_key};
+
+	</select>
 </mapper>

@@ -12,21 +12,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mom.momhome.gamejoin.GameJoinDto;
-<<<<<<< Updated upstream
-=======
+
 import com.mom.momhome.gamejoin.GameJoinProcDto;
 import com.mom.momhome.membership.MembershipDto;
->>>>>>> Stashed changes
-
 
 @Controller
 public class GameController {
 
 	@Resource(name="gameService")
 	GameService service;
-	
-	
-
 	
 //	@RequestMapping("/game/joinornot")
 //	@ResponseBody
@@ -131,10 +125,12 @@ public class GameController {
 	@ResponseBody
 	String game_apply(GameJoinProcDto dto)
 	{
-		System.out.println(dto.getGame_complete());
+		System.out.println("Controller..getGame_complete() :" + dto.getGame_complete());
+		System.out.println("Controller..getResult_proc() :" + dto.getResult_proc());
+
 		service.updateJoin(dto);
 		System.out.println("처리됨");	
-		System.out.println(dto.getResult_proc());
+		
 		return "/game/gameview";
 	}
 	

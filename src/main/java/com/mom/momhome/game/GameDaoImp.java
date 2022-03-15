@@ -2,13 +2,11 @@ package com.mom.momhome.game;
 
 import java.util.List;
 
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.mom.momhome.common.BaseDto;
-import com.mom.momhome.membership.MembershipDto;
+import com.mom.momhome.gamejoin.GameJoinProcDto;
 
 @Repository("gameDao")
 public class GameDaoImp implements GameDao {
@@ -44,8 +42,7 @@ public class GameDaoImp implements GameDao {
 
 	@Override
 	public void delete(String game_key) {
-			sm.delete("game_delete",game_key);
-		
+		sm.delete("game_delete",game_key);
 	}
 
 	@Override
@@ -56,6 +53,13 @@ public class GameDaoImp implements GameDao {
 	@Override
 	public GameDto getMembershipUserkey(String user_key) {
 		return sm.selectOne("game_getMembershipUserkey", user_key);
+	}
+
+	@Override
+	public void updateGameComplete(GameJoinProcDto dto) {
+		System.out.println("GameDao..getGame_key() :" + dto.getGame_key());
+		System.out.println("GameDao..getGame_complete() :" + dto.getGame_complete());
+	    sm.update("game_completeUpdate", dto);
 	}
 
 

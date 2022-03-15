@@ -136,6 +136,10 @@
 <script>
 
 var count;
+$(document).ready(function(){
+	goresult();
+})
+
 function goList()
 {
 	var frm = document.myform;
@@ -273,7 +277,10 @@ function goviewlist()
 	}
 function goApprove(matchingjoin_key)
 {	
-	if(count>0) alert("못들어가요")
+	if(count>0) 
+	{
+		alert("못들어가요")
+	}
 	else
 	{
 		$("#matchingjoin_key").val(matchingjoin_key);
@@ -289,8 +296,8 @@ function goApprove(matchingjoin_key)
 			type:"POST"
 		})
 		.done((result)=>{
+			console.log(result.game_complete);
 			console.log(result);
-			goresult()
 			goviewlist();
 		
 		})

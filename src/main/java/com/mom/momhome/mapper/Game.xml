@@ -137,7 +137,7 @@
 		<update id="game_completeUpdate" parameterType="GameJoinProcDto">
 			update game 
 			set 
-	 		GAME_COMPLETE = #{game_complete};
+	 		GAME_COMPLETE = #{game_complete}
 			where GAME_KEY = #{game_key};
 		</update>
 		

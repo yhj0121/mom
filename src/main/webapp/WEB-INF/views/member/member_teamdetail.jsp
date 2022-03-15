@@ -513,7 +513,7 @@ a.link{
 									<td><%=myTeamDto.getTeam_name()%></td>
 									<td><%=myTeamDto.getUser_position()%></td>
 									<td class="introduction"><%=myTeamDto.getUser_intro()%></td>
-									<%if( myTeamDto.getMembership_role().equals("1") ) { %>
+									<%if( myTeamDto.getTeamjoin_proc().equals("1") ) { %>
 									<td>가입 대기중</td>
 									<%} else if(myTeamDto.getTeamjoin_proc().equals("2")) {%>
 									<td>가입 완료</td>

@@ -81,12 +81,9 @@
 							전국에 등록된 모든 팀의 정보를 확인 할수 있습니다.<br>참여를 희망하는 지역의 팀을 찾아서 함께
 							해보세요.<br>당신을 반겨줄 동료가 기다리고 있습니다.
 						</h4>
-						<% if(membership_role.equals("")){%>
+					
 						<input type="button" class="btn btn-secondary" value="팀 구경 하러가기"
 							onClick="location.href='/momhome/team/list'">
-						<%}else{%> 
-							<input type="button" class="btn btn-secondary" value="내 팀 정보 보기"
-									onClick="location.href='/momhome/team/view'"><%}%>
 							
 						<br>
 						<br>

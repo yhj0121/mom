@@ -63,6 +63,8 @@ table td:not(.introduction) {
 			<input type="hidden" name="team_name" value="<%=dto.getTeam_name()%>"/>
 			<input type="hidden" name="team_key" value="<%=dto.getTeam_key() %>"/>
 			<input type="hidden" name="user_key" value="${userkey}"/>
+		
+			
 			
 			
 			<!-- Post -->

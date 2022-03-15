@@ -31,8 +31,6 @@ textarea {
 		<!-- Header -->
 		<%@include file="../include/nav.jsp"%>
 
-
-
 		<!-- Main -->
 		<div id="main">
 
@@ -85,6 +83,8 @@ textarea {
 									alt="" /></a>
 							</article>
 						</li>
+						<% 	
+						if (membership_role.equals("1") ) { %>
 						<li>
 							<article>
 								<header>
@@ -111,6 +111,7 @@ textarea {
 									alt="" /></a>
 							</article>
 						</li>
+						<%} else {%>
 						<li>
 							<article>
 								<header>
@@ -124,6 +125,7 @@ textarea {
 									alt="" /></a>
 							</article>
 						</li>
+						<%} %>
 						<li>
 							<article>
 								<header>

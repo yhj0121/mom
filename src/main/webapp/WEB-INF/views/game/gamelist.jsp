@@ -96,7 +96,8 @@ table td:not(.introduction) {
 						<input type="hidden" name="key" id="key" value="<%=key%>" /> 
 						<input type="hidden" name="game_key" id="game_key" value="" />
 			   			<input type="hidden" name="user_key" id="user_key" value="${userkey}" />
-
+						<input type="hidden" name="membership_role" value="${membership_role}">	
+							
 						<div class="row gtr-uniform">
 							<div class="col-3 col-6-xsmall">
 								<select name="key" id="key">
@@ -156,12 +157,13 @@ table td:not(.introduction) {
 								</tbody>
 							</table>
 						</div>
-						
+							<%if(membership_role.equals("1")){%>
 							<div class="col-12" style="text-align: right;">
 								<ul class="actions">
 									<li style="margin-left: auto"><input type="button" value="글쓰기" onclick="goWrite()"/></li>										
 								</ul>
 							</div>
+							<%}%>
 
 					</form>
 		 	     	</section>

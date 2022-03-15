@@ -67,7 +67,7 @@
 							<div class="col-12">
 								<input type="text" name="game_title"   name="game_title"  value="<%=daoo.getGame_title()%>"  style="color:black;" readonly  />
 							</div>
-							<
+						
 							<div class="col-6 col-12-xsmall">
 								<input type="text" name="game_fdate" id="game_fdate" value="<%=daoo.getGame_fdate()%>"  style="color:black;" readonly />
 							</div>

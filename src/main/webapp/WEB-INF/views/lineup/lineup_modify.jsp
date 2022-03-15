@@ -353,6 +353,7 @@ function loadLineup(){
 
 function addPlayerNameClickEvent(idx, player_key)
 {
+	$("#playerName"+idx).unbind('click');
 	$("#playerName"+idx).on("click", function() {
 		openPlayerInfo(player_key);
     });
@@ -360,7 +361,7 @@ function addPlayerNameClickEvent(idx, player_key)
 
 function openPlayerInfo(player_key)
 {
-	console.log("info.player_key : " + player_key);
+// 	console.log("info.player_key : " + player_key);
 	if(player_key == "")
 		return;
 	

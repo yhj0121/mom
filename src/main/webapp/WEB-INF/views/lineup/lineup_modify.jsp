@@ -52,7 +52,7 @@
 		
 		<%
 		GameDto gameDto = (GameDto)request.getAttribute("gameDto");
-		System.out.println("modify.jsp/ gamekey : " + gameDto.getGame_key());
+// 		System.out.println("modify.jsp/ gamekey : " + gameDto.getGame_key());
 		List<LineupDto> lineups = (List<LineupDto>)request.getAttribute("lineupList");
 		%>
 		
@@ -118,7 +118,6 @@
 								</select>
 							</td>
 							<td> <a id = "playerName<%=curRowNum%>" name="playerName" href ="#none"></a> </td>
-<%-- 							<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> --%>
 						</tr>
 					<%
 						curRowNum++;
@@ -158,7 +157,6 @@
 								</select>
 							</td>
 							<td> <a id = "playerName<%=curRowNum%>" name="playerName" href ="#none"></a> </td>
-<%-- 							<a href="#none" onclick="goPlayerInfo('<%=lineups.get(i).getUser_key()%>')"><%=id%></a> --%>
 						</tr>
 					<%
 						curRowNum++;
@@ -296,6 +294,7 @@ function onPlayerSelectChanged(id)
  	{
  		//새롭게 선택한곳에 유저 아이디 넣기.
  		$("#playerName"+id).text(playerDictionary[selectedUserId].user_name);
+ 		addPlayerNameClickEvent(id, playerDictionary[selectedUserId].user_key);
  		
  		//기존에 있던 유저아이디, 유저이름 제거
  		let i = 0;
@@ -326,6 +325,7 @@ function loadLineup(){
 		LineupDto lineup = lineups.get(i);
 		int idx = Integer.valueOf(lineup.getLineup_index());
 		String name = lineup.getPlayerDto().getUser_name();
+		String userkey = lineup.getPlayerDto().getUser_key();
 	%> 
 	
 		position = "<%=lineup.getCode_key()%>";
@@ -345,11 +345,34 @@ function loadLineup(){
 			
 <%-- 		$("select[name=playerList]").eq(<%=idx%>).val("<%=id%>").prop("selected", true); --%>
 		$("[name=playerName]").eq(<%=idx%>).text("<%=name%>");
-		
+		addPlayerNameClickEvent(<%=idx%>, <%=userkey%>);
 	<%
 	}
 	%>
 }
+
+function addPlayerNameClickEvent(idx, player_key)
+{
+	$("#playerName"+idx).on("click", function() {
+		openPlayerInfo(player_key);
+    });
+}
+
+function openPlayerInfo(player_key)
+{
+	console.log("info.player_key : " + player_key);
+	if(player_key == "")
+		return;
+	
+	let url = "${commonURL}/lineup/userInfo?user_key=" + player_key;
+	
+	const popupWidth = 700;
+	const popupHeight = 800;  
+	const popupX = (window.screen.width / 2) - (popupWidth / 2);
+	const popupY= (window.screen.height / 2) - (popupHeight / 2);
+	window.open(url, 'content', 'status=no, height=' + popupHeight  + ', width=' + popupWidth  + ', left='+ popupX + ', top='+ popupY);
+}
+
 
 function initFormation()
 {	
@@ -450,15 +473,6 @@ function goLineupInfo()
 	let frm = document.myform;
 	frm.method="get";
     frm.action="${commonURL}/lineup/info";
-	frm.submit();
-}
-
-function goPlayerInfo(id)
-{
-	let frm = document.myform;
-	frm.id.value=id;
-	frm.method="get";
-    frm.action="${pageContext.request.contextPath}/lineup/lineup_playerinfo";
 	frm.submit();
 }
 

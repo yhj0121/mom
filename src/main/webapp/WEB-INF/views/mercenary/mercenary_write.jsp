@@ -130,7 +130,6 @@ function getGameList(){
 } 
  function goWrite()
 {
-	
 	var frmData = document.myform; 
 	frmData.mercenary_complete.value = $("#mStatus").val();
 	var queryString = $("form[name=myform]").serialize();

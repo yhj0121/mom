@@ -164,7 +164,7 @@ a.link{
 			frm = document.myform;
 			frm.cscenter_key.value = id;
 			frm.method = "get";
-			frm.action = "${pageContext.request.contextPath}/cscenter/view";
+			frm.action = "${pageContext.request.contextPath}/cscenter/detail";
 			frm.submit();
 		}
 	</script>

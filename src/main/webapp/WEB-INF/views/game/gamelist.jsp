@@ -151,7 +151,7 @@ table td:not(.introduction) {
 									<%}%>
 										<%} else {%>
 											<tr>
-												<td colspan="6"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/cscenter/list" class="link">  >> 글 작성하러 가기 << </a></div></td>
+												<td colspan="6"><div class="title" >아직 작성한 글이 없습니다.  <a href="${pageContext.request.contextPath}/game/write" class="link">  >> 글 작성하러 가기 << </a></div></td>
 											</tr>
 										<%} %>
 								</tbody>

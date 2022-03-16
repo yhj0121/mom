@@ -67,7 +67,7 @@ table td:not(.introduction) {
 		<%@include file="../include/nav.jsp"%>
 
 		<%
-		String key = StringUtil.nullToValue(request.getParameter("key"), "1");
+		String key = StringUtil.nullToValue(request.getParameter("key"), "");
 		String keyword = StringUtil.nullToValue(request.getParameter("keyword"), "");
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
 		int totalCnt = (Integer) request.getAttribute("totalCnt");
@@ -93,7 +93,7 @@ table td:not(.introduction) {
 					<form name="myform" method="get">
 						<input type="hidden" name="team_key" id="team_key" value="" /> 
 						<input type="hidden" name="pg" id="pg" value="<%=pg%>" /> 
-						<input type="hidden" name="key" id="key" value="<%=key%>" /> 
+<%-- 						<input type="hidden" name="key" id="key" value="<%=key%>" />  --%>
 						<input type="hidden" name="game_key" id="game_key" value="" />
 			   			<input type="hidden" name="user_key" id="user_key" value="${userkey}" />
 						<input type="hidden" name="membership_role" value="${membership_role}">	
@@ -185,6 +185,11 @@ table td:not(.introduction) {
 <script	src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 
 <script>
+
+$(document).ready(function(){
+	let frm = document.myform;
+	frm.key.value = "<%=key%>";
+})
 	function goSearch(){
 	   let frm = document.myform;
 	   frm.pg.value=0; 

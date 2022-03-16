@@ -68,6 +68,7 @@
 			    	   GAME_CONTENTS like concat('%',#{keyword}, '%') 
 				</if>
 			</if>
+			
 		order by GAME_KEY desc
 		) A
 		limit #{start}, #{pageSize}

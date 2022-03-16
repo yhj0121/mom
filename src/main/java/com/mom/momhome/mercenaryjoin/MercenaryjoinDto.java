@@ -1,6 +1,8 @@
 package com.mom.momhome.mercenaryjoin;
 
-public class MercenaryjoinDto {
+import com.mom.momhome.common.BaseDto;
+
+public class MercenaryjoinDto extends BaseDto{
 	private String mercenaryjoin_key = "";
 	private String mercenary_key = "";
 	private String user_key = "";
@@ -9,7 +11,15 @@ public class MercenaryjoinDto {
 	public String user_name = "";
 	private String user_position = "";
 	
+	private String game_fdate = "";
 	
+	
+	public String getGame_fdate() {
+		return game_fdate;
+	}
+	public void setGame_fdate(String game_fdate) {
+		this.game_fdate = game_fdate;
+	}
 	public String getMercenaryjoin_key() {
 		return mercenaryjoin_key;
 	}

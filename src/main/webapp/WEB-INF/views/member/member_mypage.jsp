@@ -116,7 +116,7 @@ textarea {
 							<article>
 								<header>
 									<h3>
-										<a href="${pageContext.request.contextPath}/member/mercenarylist">용병 신청 내역</a>
+										<a href="${pageContext.request.contextPath}/mercenary/myinfo">용병 신청 내역</a>
 									</h3>
 									<p class="published">내가 작성한 용병 신청 내역을 볼 수 있습니다.</p>
 								</header>

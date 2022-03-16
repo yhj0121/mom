@@ -90,6 +90,11 @@ public class MercenaryServiceImpl implements MercenaryService {
 		return mercenaryjoinDao.getApproveCount(mercenary_key);
 	}
 
+	@Override
+	public List<MercenaryjoinDto> getMyInfo(MercenaryjoinDto dto) {
+		return mercenaryjoinDao.getMyInfo(dto);
+	}
+
 	
 
 }

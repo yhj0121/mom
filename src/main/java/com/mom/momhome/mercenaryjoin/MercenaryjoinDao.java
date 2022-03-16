@@ -8,4 +8,5 @@ public interface MercenaryjoinDao {
 	void updateJoin(MercenaryjoinDto dto);
 	int mercenaryjoinDuplicate(MercenaryjoinDto dto);
 	int getApproveCount(String mercenary_key);
+	List<MercenaryjoinDto> getMyInfo(MercenaryjoinDto dto);
 }

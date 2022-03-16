@@ -36,5 +36,10 @@ public class MercenaryDaoImpl implements MercenaryjoinDao{
 		return sm.selectOne("Mercenary_getApproveCount", mercenary_key);
 	}
 
+	@Override
+	public List<MercenaryjoinDto> getMyInfo(MercenaryjoinDto dto) {
+		return sm.selectList("Mercenary_getMyInfo",dto);
+	}
+
 	
 }

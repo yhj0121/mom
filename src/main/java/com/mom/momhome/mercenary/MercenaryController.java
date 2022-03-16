@@ -3,6 +3,8 @@ package com.mom.momhome.mercenary;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -160,6 +162,21 @@ public class MercenaryController {
 		int count = service.getApproveCount(mercenary_key);
 		return count;
 	}
-
+	
+	//내가 용병으로 신청한 내역 확인
+	@RequestMapping(value="/mercenary/myinfo", method = {RequestMethod.GET, RequestMethod.POST})
+	String mercenary_myinfo(Model model, MercenaryjoinDto dto, HttpServletRequest request)
+	{
+		HttpSession session = request.getSession();
+		
+		System.out.println("컨트롤러로 들어왔닞");
+		dto.setUser_key((String)session.getAttribute("userkey"));
+		System.out.println(dto.getUser_key());
+		List<MercenaryjoinDto> myList = service.getMyInfo(dto);
+		for(MercenaryjoinDto t:myList)
+			System.out.println(t.getGame_fdate());
+		model.addAttribute("mercenaryMyList",myList);
+		return "mercenary/mercenary_myinfo"; 
+	}
 
 }

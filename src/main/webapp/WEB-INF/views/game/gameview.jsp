@@ -29,7 +29,10 @@
 	
 	String userTeamkey = "-1";
 	if(membershipDto != null)
-		userTeamkey = StringUtil.nullToValue(membershipDto.getTeam_key(), "");
+		userTeamkey = StringUtil.nullToValue(membershipDto.getTeam_key(), "-1");
+	
+	if(userTeamkey == "")
+		userTeamkey = "-1";	
 	%>
 	     
 	<div id="main">
@@ -334,6 +337,8 @@ function goDecline(matchingjoin_key)
 
 function goLineup(team_side)
 { 
+<%-- 	console.log(typeof <%=userTeamkey%> ); --%>
+	
 	$.ajax({
 		url:"${commonURL}/game/getLineupCount",
 		data:{'game_key': <%=daoo.getGame_key()%>, 'team_side':team_side},

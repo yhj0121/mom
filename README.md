@@ -1,2 +1,1 @@
-# <center> 경기매칭서비스</center>
-
+# <div align="center">게임 매칭 서비스</div>

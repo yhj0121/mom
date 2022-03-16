@@ -2,6 +2,7 @@ package com.mom.momhome.teamjoin;
 
 import java.util.List;
 
+
 public interface TeamjoinDao {
 	//팀 조인 리스트 가져오기
 	List<TeamjoinDto> getTeamjoinList ( TeamjoinDto jdto );
@@ -18,4 +19,6 @@ public interface TeamjoinDao {
 	TeamjoinDto teamkickout( TeamjoinDto jdto );
 	//내가 가입 신청한 팀 리스트 보기
 	List<TeamjoinDto> getMyTeamList( TeamjoinDto jdto );
+	//멤버권한 가입내역 가져오기
+	List<TeamjoinDto> getMemberTeamjoinedList( TeamjoinDto jdto );
 }

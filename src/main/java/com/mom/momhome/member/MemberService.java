@@ -34,6 +34,8 @@ public interface MemberService {
 	int getTeamTotal(TeamDto dto); //페이지네이션
 	//팀 조인 리스트 가져오기
 	List<TeamjoinDto> getTeamjoinList ( TeamjoinDto jdto );
+	//멤버권한 가입내역 가져오기
+	List<TeamjoinDto> getMemberTeamjoinedList( TeamjoinDto jdto );
 	int getTeamjoinTotal(TeamjoinDto jdto); //페이지네이션
 	//팀 조인 승인
 	TeamjoinDto teamAccept( TeamjoinDto jdto );

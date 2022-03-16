@@ -228,7 +228,8 @@ a.link{
 							</thead>
 							<tbody>
 							<%
-								List<TeamjoinDto> teamjoinlist = (List<TeamjoinDto>) request.getAttribute("teamjoinlist");
+								List<TeamjoinDto> teamjoinlist = (List<TeamjoinDto>) request.getAttribute("myteamList");
+								System.out.println("teamjoinlist"+teamjoinlist);
 								bWaitExist = false;
 								if( !teamjoinlist.isEmpty()) {
 								for (TeamjoinDto joinDto : teamjoinlist) {
@@ -502,11 +503,12 @@ a.link{
 							</thead>
 							<tbody>
 							<%
-								List<TeamjoinDto> myTeamlist = (List<TeamjoinDto>) request.getAttribute("myteamList");
-								System.out.println(myTeamlist);
+								List<TeamjoinDto> memberMyteamList = (List<TeamjoinDto>) request.getAttribute("memberMyteamList");
+								
+								System.out.println(memberMyteamList);
 								bWaitExist = false;
-								if( !myTeamlist.isEmpty()) {
-								for (TeamjoinDto myTeamDto : myTeamlist) {
+								if( !memberMyteamList.isEmpty()) {
+								for (TeamjoinDto myTeamDto : memberMyteamList) {
 								%>
 								<tr>
 									<td><%=totalCnt - myTeamDto.getRnum() + 1%></td>
@@ -674,8 +676,6 @@ a.link{
 				
 				$(this).addClass("active");
 				$("#" + num).addClass('active');
-				
-				console.log(num);
 				
 		});
 	</script>

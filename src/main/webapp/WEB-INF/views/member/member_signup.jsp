@@ -120,9 +120,12 @@ textarea {
 	<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
 	<script>
+
+	var checkId = false;
+	
 	$(()=>{
 		getPositionList();
-		
+
 		$("#btnDuplicate").click(function(){
 			$.ajax({
 				url: "${ commonURL }/member/isDuplicate",
@@ -136,6 +139,7 @@ textarea {
 					alert("이미 사용중인 아이디입니다.");
 				} else {
 					alert("사용 가능한 아이디입니다.");
+					checkId = true;
 					$("#idcheck").val("Y");
 					$("#userid").prop("readonly", true); //사용중인 아이디라고 판명되면 읽기전용으로 입력창이 막힘 
 				}
@@ -172,6 +176,10 @@ textarea {
 			alert("전화번호를 입력해주세요.");
 			 $("#phone").focus();
 			 return;
+		}
+		
+		if(checkId == false ) {
+			alert("아이디 중복 체크를 해주세요.");
 		}
 		
 		//비밀번호 확인 
@@ -233,6 +241,8 @@ $(".not-kor").keyup(function(e) {
 		$(this).val(v.replace(/[^a-z0-9]/gi,''));
 	}
 });
+	
+	
 	</script>
 
 </body>

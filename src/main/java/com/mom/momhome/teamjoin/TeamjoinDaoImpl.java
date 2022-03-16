@@ -50,4 +50,9 @@ public class TeamjoinDaoImpl implements TeamjoinDao {
 	public TeamjoinDto teamkickout(TeamjoinDto jdto) {
 		return sm.selectOne("Teamjoin_teamkickout", jdto);
 	}
+
+	@Override
+	public List<TeamjoinDto> getMemberTeamjoinedList(TeamjoinDto jdto) {
+		return sm.selectList("Teamjoin_MemberTeamjoinedList", jdto);
+	}
 }

@@ -93,7 +93,7 @@
 	            </if>
 	            
 	         </if> 
-	         <!--  order by team_name desc -->
+	        order by team_key desc 
 			limit #{start}, #{pageSize};  
 	</select>
 	

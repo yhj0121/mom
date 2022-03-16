@@ -39,9 +39,12 @@ public class TeamServiceImpl implements TeamService{
 		System.out.println("getTeam_key: "+dto.getTeam_key());
 		membershipDao.insertMembership(mdto);
 		
+		mdto = membershipDao.getMembership(mdto.getUser_key());
+		
 		HttpSession session = request.getSession(); //팀 중복 생성 막기 위해서 membership_role 세션에 저장하기
 		session.setAttribute("membership_role", mdto.getMembership_role());
-		
+        session.setAttribute("membershipDto", mdto);
+    
 	}
 	
 	@Override

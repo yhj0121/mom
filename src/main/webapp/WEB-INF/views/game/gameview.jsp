@@ -29,7 +29,8 @@
 	
 	String userTeamkey = "-1";
 	if(membershipDto != null)
-		userTeamkey = StringUtil.nullToValue(membershipDto.getTeam_key(), "");
+		userTeamkey = StringUtil.nullToValue(membershipDto.getTeam_key(), "-1");
+		System.out.println("팀키:::::///////"+userTeamkey);  
 	%>
 	     
 	<div id="main">

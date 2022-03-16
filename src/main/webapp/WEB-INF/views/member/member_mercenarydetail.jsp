@@ -118,15 +118,14 @@ a.link{
 									%>
 									<tr>
 										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
-										
-										<%
-										if(tempDto.getCha()<=0){%>
-											<td>모집 마감</td>
-										<%}else if(tempDto.getCha()>0 && tempDto.getMercenary_complete().equals("1")){%>
-											<td>모집 마감</td>
-										<%} else {%>
-											<td>모집 진행중</td>
-										<%}%>
+											<%
+											if(tempDto.getCha()<=0){%>
+												<td>모집 마감</td>
+											<%}else if(tempDto.getCha()>0 && tempDto.getMercenary_complete().equals("1")){%>
+												<td>모집 마감</td>
+											<%} else {%>
+												<td>모집 진행중</td>
+											<%}%>
 										<td class="introduction"><a href="#none"
 											onclick="goView('<%=tempDto.getMercenary_key()%>')"> <%=tempDto.getMercenary_title()%></a></td>
 										<td><%=tempDto.getReg_date()%></td>

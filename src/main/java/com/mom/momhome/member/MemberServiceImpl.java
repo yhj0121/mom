@@ -167,4 +167,9 @@ public class MemberServiceImpl implements MemberService {
 		return memberDao.getMemberTeamList(dto);
 	}
 
+	@Override
+	public List<TeamjoinDto> getMemberTeamjoinedList(TeamjoinDto jdto) {
+		return teamjoinDao.getMemberTeamjoinedList(jdto);
+	}
+
 }

@@ -183,6 +183,7 @@ textarea {
 		    	i++;
 		      	$("#opt1").after(data);
 		})
+		$("#positionList").val('<%=mdto.getUser_position()%>').attr("selected", "selected");
 		})
 		.fail( (error) => {
 			alert("정보 가져오기 실패");

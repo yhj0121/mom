@@ -57,7 +57,7 @@
 									placeholder="이름" />
 							</div>
 							<div class=" col-12 col-12-xsmall">
-								<input type="password" name="user_phone" id="phone" value=""
+								<input type="tel" name="user_phone" id="phone" value=""
 									placeholder="전화번호" />
 							</div>
 							<div class=" col-12 mt-5">

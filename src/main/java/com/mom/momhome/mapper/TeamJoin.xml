@@ -54,13 +54,18 @@
 	
 		<select id="Teamjoin_teamjoinedList" parameterType="TeamjoinDto"
 		resultType="TeamjoinDto">
-		select *
-		,(select teamjoin_proc from teamjoin where user_key=tj.user_key) as teamjoin_proc 
-		,@rownum := @rownum+1 AS rnum
-         from (select @rownum:=0) B, team t
-		inner join teamjoin tj on (t.TEAM_KEY=tj.TEAM_KEY)
-		inner join user u on (tj.user_key=u.user_key)
-		where u.user_key=#{user_key};
+		select * from teamjoin tj
+		inner join team t on tj.TEAM_KEY = t.team_key
+		inner join user u on tj.user_key=u.user_key
+		where tj.team_key=#{team_key};
+	</select>
+	
+	<select id="Teamjoin_MemberTeamjoinedList" parameterType="TeamjoinDto"
+		resultType="TeamjoinDto">
+		select * from team t
+		inner join teamjoin tj on t.TEAM_KEY = tj.TEAM_KEY 
+		inner join user u on tj.USER_KEY = u.USER_KEY
+		where tj.user_key=#{user_key};
 	</select>
 		
 		<update id="Teamjoin_teamkickout" parameterType="String">

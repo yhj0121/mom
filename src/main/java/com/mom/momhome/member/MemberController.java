@@ -250,7 +250,7 @@ public class MemberController {
 		List<TeamjoinDto>teamjoinlist = memberService.getTeamjoinList(jdto);
 		List<TeamjoinDto>myteamList =  memberService.getMyTeamList(jdto);
 		List<TeamjoinDto>memberMyteamList = memberService.getMemberTeamjoinedList(jdto);
-		System.out.println(jdto.toString());
+		
 		model.addAttribute("teamjoinlist",teamjoinlist);
 		model.addAttribute("myteamList",myteamList);
 		model.addAttribute("memberMyteamList",memberMyteamList);

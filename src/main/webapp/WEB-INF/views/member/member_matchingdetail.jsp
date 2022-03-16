@@ -112,7 +112,6 @@ a.link{
 								<tbody>
 									<%
 									List<GameDto> list = (List<GameDto>) request.getAttribute("gameList");
-									System.out.println(list);
 									if(!list.isEmpty()) {
 									for (GameDto tempDto : list) {
 									%>

@@ -177,9 +177,9 @@
 
 	<select id="Member_gameGetTotal"
 		parameterType="GameDto" resultType="Integer">
-		select count(*) from game  where game_key=(
-		select game_key from membership
-		where user_key=#{user_key})
+		select count(*) from game g
+		where g.team_key=(select A.team_key  from membership A
+		 where A.membership_role = 1 and user_key=#{user_key})
 		<if test='key!=null and keyword!=null'>
 			<if test='key=="1"'>
 				and game_title like concat('%',#{keyword}, '%')

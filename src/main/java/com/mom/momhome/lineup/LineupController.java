@@ -18,11 +18,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.mom.momhome.game.GameDto;
 import com.mom.momhome.gamejoin.GameJoinDto;
 import com.mom.momhome.member.MemberDto;
+import com.mom.momhome.member.MemberService;
 import com.mom.momhome.membership.MembershipDto;
 
 @Controller
 public class LineupController {
 
+	@Resource(name="memberService")
+	MemberService memberService;
+	
 	@Resource(name="lineupService")
 	LineupService service;
 	
@@ -97,25 +101,32 @@ public class LineupController {
 		return "lineup/lineup_dummydatas";
 	}
 	
-	@RequestMapping(value="/lineup/insert_userDummy", method = RequestMethod.GET)
-	public void insert_userDummy()
+	@RequestMapping(value="/lineup/insert_userDummy")
+	@ResponseBody
+	public HashMap<String, String> insert_userDummy(@RequestParam("count") int count, @RequestParam("id") String id, @RequestParam("password") String password)
 	{
-		System.out.println("LineupController.insert_userDummy");
-		for(int i = 1; i < 31; i++)
+//		System.out.println("LineupController.insert_userDummy");
+		
+		for(int i = 0; i < count; i++)
 		{
-			LineupPlayerDto tempDto = new LineupPlayerDto();
-			tempDto.setUser_id("football_" + i);
-			tempDto.setUser_password("1111");
-			tempDto.setUser_name("홍길동_" + i);
-			tempDto.setUser_mail("hong" + i + "@naver.com");
-			tempDto.setUser_phone("010-0000-" + String.format("%04d", i));
-			tempDto.setUser_address1("주소_" + i);
-			tempDto.setUser_address2("상세주소_" + i);
+			MemberDto tempDto = new MemberDto();
+			String tempId = id+"_"+(i+1);
+			tempDto.setUser_id(tempId);
+			tempDto.setUser_password(password);
+			tempDto.setUser_name(tempId);
+			tempDto.setUser_mail(tempId + "@naver.com");
+			tempDto.setUser_phone("010-0000-" + String.format("%04d", i+1));
+			tempDto.setUser_address1("주소_" + tempId);
+			tempDto.setUser_address2("상세주소_" + tempId);
 			tempDto.setUser_position("GK");
-			tempDto.setUser_intro("안녕하세요_" + i);
+			tempDto.setUser_intro("안녕하세요_" + tempId);
 			
-			service.insert_userDummy(tempDto);
+			memberService.insert(tempDto);
 		}
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "success");
+		return map;
 	}
 	
 	@RequestMapping(value="/lineup/insert_teamDummy", method = RequestMethod.GET)

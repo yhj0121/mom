@@ -70,7 +70,7 @@ table td:not(.introduction) {
 			<!-- Post -->
 			<article class="post">
 			
-				<header>
+				<header style="max-height: 250px;">
 					
 					<div class="title" align="center">
 						<h2>

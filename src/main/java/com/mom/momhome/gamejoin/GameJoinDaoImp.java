@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mom.momhome.common.StringUtil;
+import com.mom.momhome.mercenary.MercenaryDto;
 
 
 @Repository("gamejoinDao")
@@ -50,6 +51,16 @@ public class GameJoinDaoImp implements GameJoinDao {
 	@Override
 	public int getMatchingjoincount(GameJoinDto gamejoinDto) {
 		return sm.selectOne("GameJoin_getMatchingjoin", gamejoinDto);
+	}
+
+	@Override
+	public List<GameJoinDto> getMatchTeamList(GameJoinDto dto) {
+		return sm.selectList("GameJoin_match", dto);
+	}
+
+	@Override
+	public int getMatchTotal(GameJoinDto dto) {
+		return sm.selectOne("GameJoin_matchGetTotal",dto);
 	}
 
 }

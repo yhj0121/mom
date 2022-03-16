@@ -27,7 +27,7 @@
 			,A.result_proc
 			,A.matching_date
 			,@rownum := @rownum+1 AS rnum
-			from matchingjoin A, (select @rownum:=0) B
+			from (select @rownum:=0) B, matchingjoin A
 			where A.game_key = #{game_key}
 			order by matchingjoin_key desc
 			) A
@@ -67,4 +67,42 @@
 			from matchingjoin 
 			where game_key =#{game_key} and result_proc=2;
 	</select> 
+	
+	<select id="GameJoin_match" parameterType="GameJoinDto"	resultType="GameJoinDto">
+	select
+		matchingjoin_key
+		,(select team_name from team where team_key=g.team_key) as home_team_name
+		,(select team_name from team where team_key=a.team_key) as team_name
+		,(select game_location from game where game_key=g.GAME_KEY) as game_location
+		,(select game_fdate from game g where g.game_key=a.game_key) as game_fdate
+		,rnum
+		FROM (
+			select 
+				a.matchingjoin_key
+				,a.team_key
+				,a.game_key
+				,@rownum := @rownum+1 AS rnum
+				from (select @rownum:=0) B, matchingjoin a
+				order by matchingjoin_key desc
+		)a
+	inner join game g on g.game_key=a.game_key 
+	inner join team t on t.team_key=g.team_key
+	</select>
+	
+		<select id="GameJoin_matchGetTotal" parameterType="GameJoinDto" resultType="Integer">
+		select count(*) from matchingjoin
+		<if test='key!=null and keyword!=null'>
+				<if test='key=="1"'>
+				 	where mercenary_title like concat('%',#{keyword}, '%')
+				</if>
+				<if test='key=="2"'>
+				 	where mercenary_contents like concat('%',#{keyword}, '%')	  
+				</if>
+				<if test='key=="3"'>
+					 where mercenary_title like concat('%',#{keyword}, '%') or
+				 	  	   mercenary_contents like concat('%',#{keyword}, '%') 
+				</if>
+			</if>
+	</select>
+	
 </mapper>

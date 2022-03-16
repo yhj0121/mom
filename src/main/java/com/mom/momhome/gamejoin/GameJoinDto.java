@@ -1,6 +1,8 @@
 package com.mom.momhome.gamejoin;
 
-public class GameJoinDto {
+import com.mom.momhome.common.BaseDto;
+
+public class GameJoinDto extends BaseDto {
 	private String matchingjoin_key ="";
 	private String team_key="";
 	private String result_proc="1"; //수락은 1 거절은 2
@@ -8,8 +10,28 @@ public class GameJoinDto {
 	private String matching_date=""; //matchingjoin 테이블 사용
 	private String team_name="";
 	private String user_key="";
+	private String home_team_name="";
+	private String game_fdate="";
+	private String game_location="";
 	
-	
+	public String getGame_location() {
+		return game_location;
+	}
+	public void setGame_location(String game_location) {
+		this.game_location = game_location;
+	}
+	public String getHome_team_name() {
+		return home_team_name;
+	}
+	public void setHome_team_name(String home_team_name) {
+		this.home_team_name = home_team_name;
+	}
+	public String getGame_fdate() {
+		return game_fdate;
+	}
+	public void setGame_fdate(String game_fdate) {
+		this.game_fdate = game_fdate;
+	}
 	public String getUser_key() {
 		return user_key;
 	}
@@ -52,9 +74,12 @@ public class GameJoinDto {
 	public void setMatching_date(String matching_date) {
 		this.matching_date = matching_date;
 	}
-	
-	
-	
-	
 
+	@Override
+	public String toString() {
+		return "GameJoinDto [matchingjoin_key=" + matchingjoin_key + ", team_key=" + team_key + ", result_proc="
+				+ result_proc + ", game_key=" + game_key + ", matching_date=" + matching_date + ", team_name="
+				+ team_name + ", user_key=" + user_key + ", home_team_name=" + home_team_name + ", game_date="
+				+ game_fdate + "]";
+	}
 }

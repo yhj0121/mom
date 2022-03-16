@@ -29,8 +29,7 @@
 	
 	String userTeamkey = "-1";
 	if(membershipDto != null)
-		userTeamkey = StringUtil.nullToValue(membershipDto.getTeam_key(), "-1");
-		System.out.println("팀키:::::///////"+userTeamkey);  
+		userTeamkey = StringUtil.nullToValue(membershipDto.getTeam_key(), "");
 	%>
 	     
 	<div id="main">
@@ -81,17 +80,21 @@
 						
 							<div class="col-12">
 								<ul class="actions">
-									<li><input type="button" value="목록" onclick="goList()" /></li>
-							        <li><input type="button" value="어웨이리스트가기" onclick="goLineup(2)"/></li>
-								    <li><input type="button" value="홈리스트가기" onclick="goLineup(1)" /></li>
+									<li><input type="button" value="목록" onclick="goList()"/></li>
+   							        <li><input type="button" value="어웨이리스트가기" onclick="goLineup(2)"/></li>
+								   
 									
-									<%if(membership_role.equals("1") && user_key.indexOf(tdaoo.getUser_key())==-1) 
-									{%>
-										<li><input type="button" value="신청" onclick="goapply()"/></li>
-						
+									<%if(membership_role.equals("1"))%> 
+									<%{%>
+										<%if(!user_key.equals(tdaoo.getUser_key()))%>
+										<%{%>
+											<li><input type="button" value="신청" onclick="goapply()"/></li>			
+											<%}%>
+											
 					 				<%}%>
 					 						<%if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key()))
-										{%>		
+										{%>	
+											 <li><input type="button" value="홈리스트가기" onclick="goLineup(1)" /></li>		
 							 				 <li><input type="button" value="수정" onclick="goupdate()" /></li>
 											 <li><input type="button" value="삭제" onclick="goDelete()" /></li>
 											 <li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										

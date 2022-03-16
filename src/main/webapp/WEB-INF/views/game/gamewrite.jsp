@@ -67,7 +67,8 @@ margin:auto;
 							<input type="hidden" name="user_key" id="user_key" value="<%=user_key%>"/>					
 							<input type="hidden" name="game_key" value="<%=dao.getGame_key()%>"/>
 							<input type="hidden" name="game_complete" id="game_complete" value="<%=dao.getGame_complete()%>"/>	
-								
+							<input type="hidden" name="mStatus" id="mStatus" value="0"/>
+									
 								<div class="row gtr-uniform">
 									<div class="col-12">
 										<input type="text" name="game_title" id="game_title" value="<%=dao.getGame_title()%>" placeholder="제목" />
@@ -82,12 +83,7 @@ margin:auto;
 											
 								   </div>
 									
-								<div class="col-6 col-12-xsmall">
-								<select name="mStatus" id="mStatus">
-									<option value="0">모집중</option>
-									<option value="1">모집완료</option>
-								</select>
-									</div>
+							
 									<div class="col-6 col-12-xsmall">
 									           <input type="datetime-local"  id="game_fdate" name="game_fdate" >
 									</div>
@@ -164,7 +160,13 @@ function goWrite()
 }
 
 
+function goCancle()
+{
 
+	var frm = document.myform;
+	frm.action="<%=request.getContextPath()%>/game/list";
+	frm.submit();
+}
 
 
 function getCityList(){

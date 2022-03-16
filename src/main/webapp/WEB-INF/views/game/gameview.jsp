@@ -77,32 +77,30 @@
 							<div class="col-12">
 								<textarea name="game_contents" id="game_contents" rows="6" style="color:black;" readonly><%=daoo.getGame_contents()%></textarea>
 							</div>
-						
 							<div class="col-12">
 								<ul class="actions">
-									<li><input type="button" value="목록" onclick="goList()"/></li>
-   							        <li><input type="button" value="어웨이리스트가기" onclick="goLineup(2)"/></li>
-								   
-									
-									<%if(membership_role.equals("1"))%> 
-									<%{%>
-										<%if(!user_key.equals(tdaoo.getUser_key()))%>
-										<%{%>
+									 <li><input type="button" value="목록" onclick="goList()" /></li>							 										
+									 <li><input type="button" value="홈라인업 보기" onclick="goLineup(1)" /></li>							
+									 <li><input type="button" value="어웨이라인업 보기" onclick="goLineup(2)" /></li>		
+								<%if(membership_role.equals("1")) 
+								{%>
+									<%if(user_key.equals(tdaoo.getUser_key()))
+									{%>	
+						 				 <li><input type="button" value="수정" onclick="goupdate()" /></li>
+										 <li><input type="button" value="삭제" onclick="goDelete()" /></li>
+										 <li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										
+									<%}
+									else{%>
+										<%if(daoo.getGame_complete().equals('0'))%>
 											<li><input type="button" value="신청" onclick="goapply()"/></li>			
-											<%}%>
-											
-					 				<%}%>
-					 						<%if(membership_role.equals("1")  && user_key.equals(tdaoo.getUser_key()))
-										{%>	
-											 <li><input type="button" value="홈리스트가기" onclick="goLineup(1)" /></li>		
-							 				 <li><input type="button" value="수정" onclick="goupdate()" /></li>
-											 <li><input type="button" value="삭제" onclick="goDelete()" /></li>
-											 <li><input type="button" value="팀신청리스트" onclick="goviewlist()" /></li>										
-										<%}%>
+									<%}
+				 				}%>
 								</ul>
+								</div>
 							</div>
 						</div>
-						<br/><br/>
+						<br/>
+						<br/>
 						<div class="table-wrapper" id ="tbl_app" style="display:none;">
 							<table id ="tbl_applicants">
 								<colgroup>

@@ -4,6 +4,8 @@
 <%@ page import="com.mom.momhome.cscenter.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="com.mom.momhome.common.*" %>
+<%@ page import="com.mom.momhome.member.*" %>
+<%@ page import="com.mom.momhome.csanswer.*" %>
 <html>
 	<head>
 		<title>Man of the match</title>
@@ -22,7 +24,7 @@ dl {
 }
 
 dl > *{
-	display: inline-block !important;
+	display: inline-block;
 }
 
 dl > dt {
@@ -33,7 +35,8 @@ dl:nth-of-type(4){
 overflow: hidden;
 }
 
-dl:nth-of-type(4) dd {
+dl:nth-of-type(4) dd, 
+dl:nth-of-type(5) dd {
 	display: block;
 	float: right;
 	background: rgba(160,160,160,.3);
@@ -46,6 +49,7 @@ dl:nth-of-type(4) dd {
 	</head>
 
 <body class="is-preload">
+<%MemberDto mdto = (MemberDto)request.getAttribute("memberDto");%>
 	<!-- Wrapper -->
 	<div id="wrapper">
 
@@ -66,8 +70,17 @@ dl:nth-of-type(4) dd {
 				</header>
 				
 				<!-- Detail Main Form -->
-				<%CSCenterDto csDto = (CSCenterDto)request.getAttribute("csDetail"); %>
-				<form>
+				<%CSCenterDto csDto = (CSCenterDto)request.getAttribute("csDetail");
+					System.out.println(csDto.getCscenter_key());
+					System.out.println("dto!!" + csDto.getUser_name());
+				  CSAnswerDto  csAnsDto = (CSAnswerDto)request.getAttribute("answerDto");
+				  if(csAnsDto == null) {
+					  csAnsDto = new CSAnswerDto();
+				  }
+				  System.out.println("content" + csAnsDto.getANS_CONTENT());
+				%>
+				
+				<form name="myform">
 				<dl>
 					<dt>제목</dt>
 					<dd><%=csDto.getCscenter_title()%></dd>
@@ -85,10 +98,21 @@ dl:nth-of-type(4) dd {
 					<dt>내용</dt>
 					<dd><%=csDto.getCscenter_contents()%></dd>
 				</dl>
+				<hr />
+				<dl class="resultAnswered" style="display: none; width: 100%;">
+					<dt>답변</dt>
+					<dd class="ansResult"><%=csAnsDto.getANS_CONTENT()%></dd>
+				</dl>
+					<textarea class="inputAnswered" style="display: none"></textarea>
 							<div class="col-12" style="text-align: right; margin-top: 50px;">
 								<ul class="actions">
-									<li style="margin-left: auto"><input type="button"
-										value="뒤로가기" class="goBack" /></li>
+									
+									<li style="margin-left: auto">
+									<input type="button" style="margin: 0px 10px 0px 10px; visibility: hidden;"
+										value="답변하기" class="answered" />
+									<input type="button" style="margin: 0px 10px 0px 10px"
+										value="뒤로가기" class="goBack" />
+									</li>
 								</ul>
 							</div>
 						</article>
@@ -104,13 +128,47 @@ dl:nth-of-type(4) dd {
 			<script src="${pageContext.request.contextPath}/resources/assets/js/breakpoints.min.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/assets/js/util.js"></script>
 			<script src="${pageContext.request.contextPath}/resources/assets/js/main.js"></script>
-			
+						
 			<script>
 				const backBtn = document.querySelector('.goBack');
-				console.log(backBtn)
+				const ansBtn = document.querySelector('.answered');
+				const resultAns = document.querySelector('.resultAnswered');
+				const inputAns = document.querySelector('.inputAnswered');
+				const ansResult = document.querySelector('.ansResult');
+				
 				backBtn.addEventListener('click', () => {
 					location.href='${commonURL}/cscenter';
 				})
+				
+				ansBtn.addEventListener('click', () => {
+					let jsonData = {
+							listId: <%=Integer.parseInt(csDto.getCscenter_key())%>,
+							 ANS_CONTENT: inputAns.value
+					};
+					
+					fetch('${commonURL}/cscenter/detail/insert', {
+						method: 'POST', // or 'PUT'
+						 body: JSON.stringify(jsonData), // data can be `string` or {object}!
+						 headers:{
+						   'Content-Type': 'application/json'
+						}
+					}).then(data => {
+						console.log('확인');
+						location.reload();
+					})
+				})
+				
+				if(<%=mdto.getIsManager()%> == 1 && <%=csDto.getAnswered()%> == 0) {
+					ansBtn.style.visibility = 'visible';
+					inputAns.style.display = 'inline-block';
+				}
+				
+				if(<%=csDto.getAnswered()%> == 1) {
+					resultAns.style.display = 'inline-block';
+					ansBtn.style.visibility = 'hidden';
+					inputAns.style.display = 'none';
+				}
+				
 			</script>
 	</body>
 </html>

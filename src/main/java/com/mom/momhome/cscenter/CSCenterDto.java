@@ -9,8 +9,14 @@ public class CSCenterDto extends BaseDto  {
 	String cscenter_contents="";
 	String user_name="";
 	String cscenter_date="";
-	
+	int answered=0;
 
+	public int getAnswered() {
+		return answered;
+	}
+	public void setAnswered(int answered) {
+		this.answered = answered;
+	}
 	public String getUser_name() {
 		return user_name;
 	}

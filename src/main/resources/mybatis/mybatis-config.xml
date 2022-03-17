@@ -39,6 +39,8 @@
 			type="com.mom.momhome.cscenter.CSCenterDto" />
 			<typeAlias alias="GameJoinProcDto"
 			type="com.mom.momhome.gamejoin.GameJoinProcDto" />
+		<typeAlias alias="CSAnswerDto"
+			type="com.mom.momhome.csanswer.CSAnswerDto" />
 
 	</typeAliases>
 
@@ -54,6 +56,7 @@
 		<mapper resource="/com/mom/momhome/mapper/Main.xml" />
 		<mapper resource="/com/mom/momhome/mapper/CSCenter.xml"/>
 		<mapper resource="/com/mom/momhome/mapper/TeamJoin.xml"/>
+		<mapper resource="/com/mom/momhome/mapper/CSAnswer.xml"/>
 	</mappers>
 
 </configuration>

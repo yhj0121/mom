@@ -42,12 +42,10 @@ a.link{
 	<div id="wrapper">
 		<%@include file="../include/nav.jsp"%>
 
-
+<%%>
 		<%
 		String pg = StringUtil.nullToValue(request.getParameter("pg"), "0");
 		int totalCnt = (Integer) request.getAttribute("totalCnt");
-		System.out.println(pg);
-		System.out.println(totalCnt);
 		%>
 
 		<!-- Main -->
@@ -80,6 +78,7 @@ a.link{
 								<col width="*" />
 								<col width="12%" />
 								<col width="17%" />
+								<col width="10%" />
 							</colgroup> 
 							<thead>
 								<tr>
@@ -87,6 +86,7 @@ a.link{
 									<th scope="col">제목</th>
 									<th scope="col">작성자</th>
 									<th scope="col">작성일</th>
+									<th scope="col">답변여부</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -102,8 +102,12 @@ a.link{
 									<td><%=csCenterDto.getCscenter_title()%></td>
 									<td><%=csCenterDto.getUser_name()%></td>
 									<td><%=csCenterDto.getCscenter_date()%></td>
+									<td><%if(csCenterDto.getAnswered() == 1) { %>
+										답변완료
+									<%} else {%>
+									답변중</td>
 								</tr>
-								<%}} else {%>
+								<%}}} else {%>
 								<tr>
 									<td colspan="7"><div class="title" >아직 작성된 글이 없습니다. <a href="${pageContext.request.contextPath}/cscenter/write" class="link"> >> 문의하러 가기 << </a></div></td>
 								</tr>
@@ -146,7 +150,7 @@ a.link{
 	<script>
 				const reqBtn = document.querySelector('.goWritePage');
 				const listUnit = document.querySelectorAll('.listUnit');
-					
+				
 				reqBtn.addEventListener('click', ()=> {
 					location.href="http://localhost:8080/momhome/cscenter/write";
 				});
@@ -154,7 +158,6 @@ a.link{
 				for(let i = 0; i < listUnit.length; i++) {
 					listUnit[i].addEventListener('click', (e)=> {
 						let unitId = e.target.parentNode.childNodes[1].textContent;
-// 						console.log(unitId)
 						goView(unitId);
 					});
 				}
@@ -170,7 +173,6 @@ a.link{
 				
 				function goPage(pg) 
 				{
-					console.log(pg);
 					frm = document.myForm;
 					frm.pg.value = pg;
 					frm.method = "get";

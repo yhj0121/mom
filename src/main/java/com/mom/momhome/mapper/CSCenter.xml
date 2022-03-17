@@ -20,7 +20,8 @@
 			cscenter_title,
 			cscenter_contents,
 			(SELECT user_name FROM `user` B WHERE B.USER_KEY=A.user_key) as user_name,
-			cscenter_date
+			cscenter_date,
+			answered
 		from
 	 		 (
 	 	 select
@@ -29,6 +30,7 @@
 			A.cscenter_title,
 			A.cscenter_contents,
 			A.cscenter_date,
+			A.answered,
 			@rownum := @rownum+1 AS rnum
 		from cscenter A, (select @rownum:=0) B
 		order by cscenter_key
@@ -38,17 +40,35 @@
 
 <insert id="csInsert" parameterType="CSCenterDto">
 	INSERT INTO cscenter
-	VALUES (default, #{user_key}, #{cscenter_title}, #{cscenter_contents}, now());
+	(
+		user_key,
+		cscenter_title,
+		cscenter_contents,
+		cscenter_date,
+		answered
+	)
+	VALUES
+	(#{user_key}, #{cscenter_title}, #{cscenter_contents}, now(), #{answered});
 </insert>
 	
 	<select id="csGetDetail" parameterType="String" resultType="CSCenterDto">
 		SELECT
+			cscenter_key,
 			cscenter_title,
 			cscenter_contents,
 			(SELECT user_name FROM `user` u WHERE u.USER_KEY=c.user_key) as user_name,
-			cscenter_date
+			cscenter_date,
+			answered
 			FROM cscenter c WHERE cscenter_key=#{cscenter_key};
 	</select>
+	
+	<update id="csansUpdate" parameterType="Integer">
+		update cscenter set
+		answered = 1
+		where cscenter_key=#{ listId }
+	</update>
+	
+	
 	
 </mapper>
 

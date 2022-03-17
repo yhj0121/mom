@@ -28,7 +28,7 @@ import org.springframework.stereotype.Repository;
 public class CSCenterDaoImp implements CSCenterDao{
 		
 	@Autowired
-	SqlSessionTemplate sm; 
+	SqlSessionTemplate sm;
 	// sm은 root-context.xml의 bean의 id이다.
 		
 	@Override
@@ -50,6 +50,12 @@ public class CSCenterDaoImp implements CSCenterDao{
 	public int getTotal(CSCenterDto dto) {
 		
 		return sm.selectOne("csGetTotal", dto);
+	}
+
+	@Override
+	public void updateAnsState(Integer listId) {
+		
+		sm.update("csansUpdate", listId);
 	}
 	
 	

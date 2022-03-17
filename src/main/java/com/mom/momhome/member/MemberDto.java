@@ -12,7 +12,14 @@ public class MemberDto {
 	String user_position="";
 	String user_intro="";
 	int user_delete=1;
+	int isManager=0;
 	
+	public int getIsManager() {
+		return isManager;
+	}
+	public void setIsManager(int isManager) {
+		this.isManager = isManager;
+	}
 	public int getUser_delete() {
 		return user_delete;
 	}

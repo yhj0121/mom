@@ -7,4 +7,5 @@ public interface CSCenterDao {
 	void writeData(CSCenterDto dto);
 	CSCenterDto getDetail(String cscenter_key);
 	int getTotal(CSCenterDto dto);
+	void updateAnsState(Integer listId);
 }

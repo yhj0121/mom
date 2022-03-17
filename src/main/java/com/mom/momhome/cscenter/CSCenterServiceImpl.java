@@ -6,11 +6,21 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.mom.momhome.csanswer.CSAnswerDao;
+import com.mom.momhome.csanswer.CSAnswerDto;
+import com.mom.momhome.member.MemberDao;
+import com.mom.momhome.member.MemberDto;
+
 @Service("cscenterService") // Controller에서 여기에 접근하기 위한 키
 public class CSCenterServiceImpl implements CSCenterService {
-
+	@Resource(name="csAnsDao")
+	CSAnswerDao csanswerdao;
+	
 	@Resource(name="csCenterDao") // CSCenterDao
 	CSCenterDao cscenterDao;
+	
+	@Resource(name="memberDao") // CSCenterDao
+	MemberDao memberDao;
 	
 	@Override
 	public List<CSCenterDto> getList(CSCenterDto dto) {
@@ -32,6 +42,22 @@ public class CSCenterServiceImpl implements CSCenterService {
 		
 		return cscenterDao.getTotal(dto);
 	}
+
+	@Override
+	public MemberDto getInfo(MemberDto dto) {
+		
+		return memberDao.getInfo(dto);
+	}
+
+	@Override
+	public void updateAnsState(CSAnswerDto dto) {
+		csanswerdao.insert(dto);
+		cscenterDao.updateAnsState(dto.getListId());
+	}
 	
+	@Override
+	public CSAnswerDto getAnswer(CSAnswerDto dto) {
+		return csanswerdao.select(dto);
+	}
 	
 }

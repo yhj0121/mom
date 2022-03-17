@@ -32,7 +32,7 @@
 		userTeamkey = StringUtil.nullToValue(membershipDto.getTeam_key(), "-1");
 	
 	if(userTeamkey == "")
-		userTeamkey = "-1";	
+		userTeamkey = "-1";
 	%>
 	     
 	<div id="main">
@@ -383,8 +383,8 @@ function goLineup(team_side)
 
 function checkAwayLineupPermission(team_side)
 {
-<%-- 	console.log("game_key: " + <%=daoo.getGame_key()%>) --%>
-<%-- 	console.log("team_key: " + <%=userTeamkey%>); --%>
+<%-- 	console.log("game_key: " + <%=daoo.getGame_key()%>)
+	console.log("team_key: " + <%=userTeamkey%>); --%>
 	$.ajax({
 		url:"${commonURL}/game/getGameJoinResultProc",
 		data:{'game_key': <%=daoo.getGame_key()%>, 'team_key': <%=userTeamkey%>},
@@ -393,8 +393,8 @@ function checkAwayLineupPermission(team_side)
 		dataType:"JSON"
 	})
 	.done((result)=>{
-		//console.log("checkAwayLineupPermission().result : "+ result);
-		if(result === "2")
+// 		console.log("checkAwayLineupPermission().result : "+ result);
+		if(result === "2"||result === 2)
 			goLineupModify(team_side);
 		else
 			alert("아직 라인업이 작성되지 않았습니다.");	

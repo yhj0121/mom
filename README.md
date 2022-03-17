@@ -32,7 +32,7 @@
   >용병 페이지 구현 용병 구인 페이지 구현
 
 </br>
- <div align=center><h1>�⛏기술 스택</h1></div>
+ <div align=center><h1>⛏기술 스택</h1></div>
 <div align=center> 
 
   <img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=java&logoColor=white">

@@ -121,10 +121,8 @@
 			</if>
 		</if>
 		order by mercenary_key desc
-		) A where user_key=(
-		select user_key from User
-		where user_key=#{ user_key }
-		) limit #{start}, #{pageSize}
+		) A where a.user_key=#{ user_key }
+		 limit #{start}, #{pageSize}
 	</select>
 
 	<select id="Member_mercenaryGetTotal"

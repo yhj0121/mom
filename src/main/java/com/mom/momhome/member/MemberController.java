@@ -351,12 +351,6 @@ public class MemberController {
 		dto.setUser_key(user_key);
 		dto.setStart(dto.getPg()*10);
 		List<MercenaryDto> list = memberService.getMercenaryList(dto);
-		for(MercenaryDto temp: list) 
-		{
-			System.out.println("cha는"+temp.getCha());
-			System.out.println("mc는"+temp.getMercenary_complete());
-			System.out.println(temp.rnum);
-		}
 		model.addAttribute("mercenaryList", list);
 		model.addAttribute("totalCnt",memberService.getTotal(dto));
 		return "member/member_mercenarydetail";

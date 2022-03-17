@@ -81,6 +81,9 @@ table td:not(.introduction) {
 							<a href="#">게임 매칭 게시판</a>
 						</h2>
 						<p>감독님만 게임 매칭을 만들수 있어요</p>
+						<ul class="actions">
+							<li><input type="button" value="지금까지 매칭된 내역 보기" onclick="location.href='${pageContext.request.contextPath}/game/matchList'" /></li>
+						</ul>
 					</div>
 					<div class="meta">
 						<a href="#" class="logo"><i class="fas fa-futbol fa-8x" style="display: flex; justify-content: center;"></i></a>

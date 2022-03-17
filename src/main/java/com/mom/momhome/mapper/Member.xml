@@ -105,6 +105,7 @@
 		,A.mercenary_contents
 		,mercenary_complete
 		,reg_date
+		,cha
 		,@rownum := @rownum+1 AS rnum
 		from mercenary A, (select @rownum:=0) B
 		<if test='key!=null and keyword!=null'>

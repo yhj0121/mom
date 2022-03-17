@@ -18,7 +18,7 @@
        <br>
 
 
-## 팀원 소개
+# 팀원 소개
 #### 🙆‍♂️팀장 류중걸
 >매칭 라인업 페이지 구현
 
@@ -46,10 +46,22 @@
 <img src="https://img.shields.io/badge/bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white">
 
 </div>
+<br>
+ 
+   #### 1. spring tool suite3
+
+   #### 2. MYSQL  8.0.26
+
 </br>
 <h1>💾ERD</h1>
+<br>
   <div align="center">
   <img src=https://user-images.githubusercontent.com/88082341/158753987-f6aa0db2-f2b6-45b5-9bbe-48006fc6fe81.png width="1000" height="800"/>
   </div>
+  <br>
+  
+# 📅스케줄
+
+>2022-02-21~2022-03-17
 
  

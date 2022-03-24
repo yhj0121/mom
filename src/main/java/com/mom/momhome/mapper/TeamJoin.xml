@@ -68,9 +68,13 @@
 		where tj.user_key=#{user_key};
 	</select>
 		
-		<update id="Teamjoin_teamkickout" parameterType="String">
+	<update id="Teamjoin_teamkickout" parameterType="String">
 		update teamjoin set
 		teamjoin_proc = '7' where user_key=#{ user_key } and  team_key=#{ team_key } and teamjoin_proc='2'
 	</update>
 	
+	<select id="Teamjoin_getCountForCheckingDuplicate"
+		parameterType="TeamjoinDto" resultType="Integer">
+		select count(*) from teamjoin where user_key=#{user_key} AND team_key=#{team_key} AND teamjoin_proc='1'
+	</select>
 </mapper>

@@ -21,4 +21,6 @@ public interface TeamjoinDao {
 	List<TeamjoinDto> getMyTeamList( TeamjoinDto jdto );
 	//멤버권한 가입내역 가져오기
 	List<TeamjoinDto> getMemberTeamjoinedList( TeamjoinDto jdto );
+		
+	int getCountForCheckingDuplicate(TeamjoinDto jdto);
 }

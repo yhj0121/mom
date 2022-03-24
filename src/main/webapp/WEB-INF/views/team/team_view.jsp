@@ -160,7 +160,7 @@ table td:not(.introduction) {
 					<%
 					System.out.println(membership_role);
 					if( !isAlreadyBelong && (membership_role.equals("2") || membership_role.equals(""))){ %>
-					<li><input type="button" value="팀 가입신청하기" onclick="goJoin()" /></li>
+					<li><input type="button" value="팀 가입신청하기" onclick="goapply()" /></li>
 					<%} %>
 				</ul>
 				
@@ -194,6 +194,37 @@ table td:not(.introduction) {
 $(()=>{
 	console.log("isAlreadyBelong : " + <%=isAlreadyBelong%>);
 });
+
+function goapply()
+{	
+	var frmData = document.myform; 
+// 	frmData.user_key.value = 
+// 	frmData.team_key.value =
+	var queryString = $("form[name=myform]").serialize();
+	
+	$.ajax({
+		url:"<%=request.getContextPath()%>/team/checkJoinDuplicate",
+		data:queryString,
+		processData:false,
+		type:"POST"
+	})
+	.done((result)=>{
+		console.log("checkJoinDuplicate: " + result);
+		//alert("checkJoinDuplicate: " + result);
+		if(result===0)
+		{
+			goJoin();
+		}
+		else
+		{	
+			alert("이미 신청하셨습니다.");
+			return false;
+		} 
+	})
+	.fail((error)=>{
+		console.log(error);
+	})		
+}
 
 	function goJoin()
 	{

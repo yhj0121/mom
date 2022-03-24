@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +17,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.common.FileUploadUtil;
+import com.mom.momhome.gamejoin.GameJoinDto;
 import com.mom.momhome.member.MemberDto;
 import com.mom.momhome.membership.MembershipDto;
-import com.mom.momhome.teamjoin.*;
+import com.mom.momhome.teamjoin.TeamjoinDto;
 
 
 @Controller
@@ -132,6 +132,14 @@ public class TeamController {
 	{
 		teamService.Teamjoin_teamjoinInsert(dto);
 		return "redirect:/team/list";
+	}
+	
+	@RequestMapping("/team/checkJoinDuplicate")
+	@ResponseBody
+	int gamejoin_duplicate(TeamjoinDto jdto)
+	{	
+		int count = teamService.getCountForCheckingDuplicate(jdto);
+		return count;
 	}
 }
 

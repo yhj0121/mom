@@ -55,4 +55,9 @@ public class TeamjoinDaoImpl implements TeamjoinDao {
 	public List<TeamjoinDto> getMemberTeamjoinedList(TeamjoinDto jdto) {
 		return sm.selectList("Teamjoin_MemberTeamjoinedList", jdto);
 	}
+	
+	@Override
+	public int getCountForCheckingDuplicate(TeamjoinDto jdto) {
+		return sm.selectOne("Teamjoin_getCountForCheckingDuplicate", jdto);
+	}
 }

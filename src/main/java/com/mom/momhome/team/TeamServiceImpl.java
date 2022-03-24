@@ -11,20 +11,21 @@ import org.springframework.stereotype.Service;
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.membership.MembershipDao;
 import com.mom.momhome.membership.MembershipDto;
+import com.mom.momhome.teamjoin.TeamjoinDao;
 import com.mom.momhome.teamjoin.TeamjoinDto;
-import com.mom.momhome.member.MemberDto;
 
 
 @Service("teamService")
 public class TeamServiceImpl implements TeamService{
-	
 
-	
 	@Resource(name="teamDao")
 	TeamDao teamDao;
 	
 	@Resource(name="membershipDao")//membershipDao 사용 추가 및 import
 	MembershipDao membershipDao;
+	
+	@Resource(name="teamjoinDao")
+	TeamjoinDao teamjoinDao;
 
 	@Override //insert 변경 *수정함*
 	public void insert(TeamDto dto, MembershipDto mdto, HttpServletRequest request) {
@@ -103,5 +104,9 @@ public class TeamServiceImpl implements TeamService{
 		return teamDao.getTeamViewList(dto);
 	}
 
+	@Override
+	public int getCountForCheckingDuplicate(TeamjoinDto jdto) {
+		return teamjoinDao.getCountForCheckingDuplicate(jdto);
+	}
 
 }

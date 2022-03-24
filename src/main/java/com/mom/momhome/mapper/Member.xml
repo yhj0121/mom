@@ -128,7 +128,7 @@
 	<select id="Member_mercenaryGetTotal"
 		parameterType="MercenaryDto" resultType="Integer">
 		select count(*) from mercenary where user_key =(select user_key from
-		User
+		user
 		where user_key=#{ user_key })
 		<if test='key!=null and keyword!=null'>
 			<if test='key=="1"'>

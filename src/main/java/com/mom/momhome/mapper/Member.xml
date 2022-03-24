@@ -10,6 +10,13 @@
 		count(*) from user
 		where user_id=#{ user_id }
 	</select>
+	
+	<select id="Member_isPhoneDuplicate" parameterType="MemberDto"
+		resultType="Integer">
+		select
+		count(*) from user
+		where user_phone=#{ user_phone }
+	</select>
 
 	<insert id="Member_insert" parameterType="MemberDto">
 		INSERT INTO user(

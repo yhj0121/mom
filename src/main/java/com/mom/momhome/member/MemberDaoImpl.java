@@ -112,4 +112,13 @@ public class MemberDaoImpl implements MemberDao {
 		return sm.selectList("Member_MemberteamList", dto);
 	}
 
+	@Override
+	public boolean isPhoneDuplicate(MemberDto dto) {
+		int cnt = sm.selectOne("Member_isPhoneDuplicate", dto);
+		if( cnt == 0 )
+			return false;
+		else
+			return true;
+	}
+
 }

@@ -37,9 +37,10 @@ public class MemberController {
 	//회원가입시 아이디 중복체크
 	@RequestMapping("/member/isDuplicate")
 	@ResponseBody
-	public HashMap<String, String> member_isDuplicate(MemberDto dto ) {
+	public HashMap<String, String> member_isDuplicate( MemberDto dto ) {
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("result", memberService.isDuplicate(dto)+"");
+		map.put("result2", memberService.isPhoneDuplicate(dto)+"");
 		return map;
 	}
 	

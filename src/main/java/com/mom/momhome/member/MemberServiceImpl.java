@@ -172,4 +172,9 @@ public class MemberServiceImpl implements MemberService {
 		return teamjoinDao.getMemberTeamjoinedList(jdto);
 	}
 
+	@Override
+	public boolean isPhoneDuplicate(MemberDto dto) {
+		return memberDao.isPhoneDuplicate(dto);
+	}
+
 }

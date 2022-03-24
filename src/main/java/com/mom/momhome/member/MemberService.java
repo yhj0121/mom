@@ -13,6 +13,7 @@ import com.mom.momhome.teamjoin.TeamjoinDto;
 public interface MemberService {
 	//아이디 중복확인 
 	boolean isDuplicate( MemberDto dto );
+	boolean isPhoneDuplicate( MemberDto dto );
 	//회원가입 진행 
 	void insert( MemberDto dto );
 	//포지션 리스트 전달

@@ -139,11 +139,7 @@ table td:not(.introduction) {
 					</tr>
 					<tr>
 					<%
-					boolean isAlreadyBelong = false;
 					for(TeamDto teamDto : list) {
-						
-						if(teamDto.getUser_key().equals(user_key))
-							isAlreadyBelong = true;
 					%>
 						<td><%=teamDto.getUser_name() %></td>
 						<td><%if(teamDto.getMembership_role().equals("1")){ %>감독<%}else{%>선수<%} %></td>
@@ -188,19 +184,9 @@ table td:not(.introduction) {
 </body>
 </html>
 <script>
-$(()=>{
-<%-- 	console.log("isAlreadyBelong : " + <%=isAlreadyBelong%>); --%>
-<%-- 	console.log("isAlreadyBelong : " + <%=membership_role%>); --%>
-<%-- 	console.log("isAlreadyBelong : " + <%=membership_role.equals("")%>); --%>
-});
-
 function goapply()
-{	
-	var frmData = document.myform; 
-// 	frmData.user_key.value = 
-// 	frmData.team_key.value =
+{	 
 	var queryString = $("form[name=myform]").serialize();
-	
 	$.ajax({
 		url:"<%=request.getContextPath()%>/team/checkJoinDuplicate",
 		data:queryString,
@@ -209,7 +195,6 @@ function goapply()
 	})
 	.done((result)=>{
 		console.log("checkJoinDuplicate: " + result);
-		//alert("checkJoinDuplicate: " + result);
 		if(result===0)
 		{
 			goJoin();

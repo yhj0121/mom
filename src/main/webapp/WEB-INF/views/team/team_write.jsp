@@ -220,9 +220,11 @@ $(()=>{
 		    	    data +=  item.city ;
 		    	    data += "</option>";
 		    	i++;
-		      	$("#cityoption").after(data);
-		      	
-		})
+		      	$("#cityoption").after(data);		      	
+			});
+			
+	      	$("#cityList option:eq(1)").attr("selected", "selected");
+	      	$("#team_recruit_yn option:eq(1)").attr("selected", "selected");
 		})
 		.fail( (error) => {
 			alert("정보 가져오기 실패");
@@ -239,27 +241,36 @@ $(()=>{
 	{
 		if( $("#team_name").val() == "" ) {
 			alert("팀 이름을 입력해주세요.");
-			 $("#username").focus();
+			 $("#team_name").focus();
 			 return;
-		} else if( $("#password").val() == "" ) {
-			alert("비밀번호를 입력해주세요.");
-			 $("#password").focus();
+		} else if( $("#upload").val() == "" ) {
+			alert("앰블렘을 선택해주세요.");
+			 $("#upload").focus();
 			 return;
-		} else if( $("#userid").val() == "") {
-			alert("아이디를 입력해주세요.");
-			 $("#userid").focus();
+		} else if( $("#team_num").val() == "") {
+			alert("팀인원을 입력해주세요.");
+			 $("#team_num").focus();
 			 return;
-		} else if( $("#email").val() == "" ) {
-			alert("이메일을 입력해주세요.");
-			 $("#email").focus();
+		} else if( $("#team_fee").val() == "" ) {
+			alert("회비를 입력해주세요.");
+			 $("#team_fee").focus();
 			 return;
-		} else if( $("#address1").val() == "" ) {
-			alert("주소를 입력해주세요.");
-			 $("#address1").focus();
+		} else if( $("#team_intro").val() == "" ) {
+			alert("팀 소개를 입력해주세요.");
+			 $("#team_intro").focus();
 			 return;
-		} else if( $("#phone").val() == "" ) {
-			alert("전화번호를 입력해주세요.");
-			 $("#phone").focus();
+		} else if( $("#team_notice").val() == "" ) {
+			alert("팀 공지를 입력해주세요.");
+			 $("#team_notice").focus();
+			 return;
+		} 
+		else if( $("#cityList option").index($("#cityList option:selected")) == 0 ) {
+			alert("지역을 입력해주세요.");
+			 $("#cityList").focus();
+			 return;
+		} else if( $("#team_recruit_yn option").index($("#team_recruit_yn option:selected")) == 0 ) {
+			alert("모집여부를 선택 해주세요.");
+			 $("#team_recruit_yn").focus();
 			 return;
 		}
 		

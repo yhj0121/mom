@@ -76,9 +76,10 @@ textarea {
 								<input type="email" name="user_mail" id="email" value="" pattern="^\w+((\.\w+)?)+@\w+.?\w+\.\w+$"
 									placeholder="이메일" />
 							</div>
-							<div class="col-6 col-12-medium">
+							<div class="col-6 col-12-medium" style="display: flex;">
 								<input type="tel" name="user_phone" id="phone" value="" class="not-kor"  style="height: 2.75em;"
 									placeholder="전화번호" pattern="[0-9]{2,3}-[0-9]{3,4}-[0-9]{3,4}" maxlength="13" />
+								<button class="btn btn-success" type="button" id="phoneDuplicate">중복체크</button>
 							</div>
 							<div class="col-6 col-12-medium">
 								<input type="text" name="user_address1" id="address1" value=""
@@ -122,6 +123,7 @@ textarea {
 	<script>
 
 	var checkId = false;
+	var checkPhone = false;
 	
 	$(()=>{
 		getPositionList();
@@ -142,6 +144,28 @@ textarea {
 					checkId = true;
 					$("#idcheck").val("Y");
 					$("#userid").prop("readonly", true); //사용중인 아이디라고 판명되면 읽기전용으로 입력창이 막힘 
+				}
+			})
+			.fail( (error) => {
+				console.log(error);
+			})
+		});
+		$("#phoneDuplicate").click(function(){
+			$.ajax({
+				url: "${ commonURL }/member/isDuplicate",
+				data:{ user_phone: $("#phone").val()},
+				dataType: "json",
+				type: "POST"
+			})
+			.done( (data)=>{
+				console.log(data);
+				if( data.result2 == "true" ) {
+					alert("이미 사용중인 전화번호입니다.");
+				} else {
+					alert("사용 가능한 전화번호입니다.");
+					checkPhone = true;
+					$("#idcheck").val("Y");
+					$("#phone").prop("readonly", true); //사용중인 아이디라고 판명되면 읽기전용으로 입력창이 막힘 
 				}
 			})
 			.fail( (error) => {
@@ -190,7 +214,7 @@ textarea {
 		
 		//회원가입 진행 
 		
-		if( checkId ) {
+		if( checkId && checkPhone ) {
 			var frmData = new FormData(document.myform);
 			
 			$.ajax({

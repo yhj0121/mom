@@ -109,6 +109,7 @@ section.mypost:nth-child(odd) {
 				<input type="hidden" name="team_key" id="team_key" 	value="" />
 				<input type="hidden" name="mercenary_key" id="mercenary_key" 	value="" />
 				<input type="hidden" name="game_key" id="game_key" 	value="" />
+				<input type="hidden" name=cscenter_key id="cscenter_key" 	value="" />
 				<!-- Intro -->
 				<section id="intro">
 					<a href="#" class="logo"><img src="resources/images/logo.jpg"
@@ -246,16 +247,15 @@ section.mypost:nth-child(odd) {
 						<ul class="posts">
 						
 						<%
-							List<CSCenterDto> list = (List<CSCenterDto>) request.getAttribute("cscenterlist");
-							if (!list.isEmpty()) {
-								for (int i = 0; i < list.size(); i++) {
-									CSCenterDto tempDto = list.get(i);
+							List<CSCenterDto> cscenterlist = (List<CSCenterDto>) request.getAttribute("cscenterlist");
+							if (!cscenterlist.isEmpty()) {
+								for (CSCenterDto tempDto : cscenterlist) {
 							%>
 							<li>
 								<article>
 									<header>
 										<h3 class="listUnit" >
-											<a href="#none"><%=tempDto.getCscenter_title()%></a>
+											<a href="#none" onclick="goCscenterView('<%=tempDto.getCscenter_key()%>')"><%=tempDto.getCscenter_title()%></a>
 										</h3>
 										<time class="published"><%=tempDto.getCscenter_date()%></time>
 									</header>
@@ -334,21 +334,11 @@ section.mypost:nth-child(odd) {
 			frm.action = "${pageContext.request.contextPath}/game/view";
 			frm.submit();
 		}
-		
 
-		const listUnit = document.querySelectorAll('.listUnit');
-		
-		for(let i = 0; i < listUnit.length; i++) {
-			listUnit[i].addEventListener('click', (e)=> {
-				let unitId = e.target.parentNode.childNodes[1].textContent;
-				goCscenterView(unitId);
-			});
-		}
-
-		function goCscenterView(unitId) 
+		function goCscenterView(id) 
 		{
 			frm = document.myForm;
-			frm.cscenter_key.value = unitId;
+			frm.cscenter_key.value = id;
 			frm.method = "get";
 			frm.action = "${pageContext.request.contextPath}/cscenter/detail";
 			frm.submit();

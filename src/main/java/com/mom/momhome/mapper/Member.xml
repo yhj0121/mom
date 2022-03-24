@@ -153,32 +153,19 @@
 	
 	<select id="Member_gameList" parameterType="GameDto"
 		resultType="GameDto">
-		select * from (
-	select
-	game_key 
-	,g.team_key 
-	,game_date
-	, game_location
-	,game_title
-	,game_contents
-	,game_fdate
-	,@rownum := @rownum+1 AS rnum
-	from game g, (select @rownum:=0) B
-	<if test='key!=null and keyword!=null'>
-			<if test='key=="1"'>
-				where game_title like concat('%',#{keyword}, '%')
-			</if>
-			<if test='key=="2"'>
-				where game_contents like concat('%',#{keyword}, '%')
-			</if>
-			<if test='key=="3"'>
-				where game_title like concat('%',#{keyword}, '%') or
-				game_contents like concat('%',#{keyword}, '%')
-			</if>
-		</if>
-	order by game_key desc
-	)g inner join membership m on (g.TEAM_KEY=m.TEAM_KEY)
-	where user_key=#{user_key} limit #{start}, #{pageSize}
+		select
+   game_key 
+   ,g.team_key 
+   ,game_date
+   ,game_location
+   ,game_title
+   ,game_contents
+   ,game_fdate
+   ,@rownum := @rownum+1 AS rnum
+   from game g, (select @rownum:=0) B, membership c
+   where g.team_key = c.team_key and c.user_key=#{user_key} 
+    order by game_key desc
+    limit #{start}, #{pageSize}
 	</select>
 
 	<select id="Member_gameGetTotal"

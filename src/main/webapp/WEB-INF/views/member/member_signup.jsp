@@ -206,6 +206,10 @@ textarea {
 			alert("아이디 중복 체크를 해주세요.");
 		}
 		
+		if(checkPhone == false ) {
+			alert("전화번호 중복 체크를 해주세요.");
+		}
+		
 		//비밀번호 확인 
 		if( $("#password").val() != $("#checkPassword").val() ) {
 			alert("비밀번호가 일치하지 않습니다.");

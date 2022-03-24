@@ -108,6 +108,7 @@ section.mypost:nth-child(odd) {
 			<form name="myform">
 				<input type="hidden" name="mercenary_key" id="mercenary_key" 	value="" />
 				<input type="hidden" name="game_key" id="game_key" 	value="" />
+				<input type="hidden" name="cscenter_key" id="cscenter_key" 	value="" />
 				<!-- Intro -->
 				<section id="intro">
 					<a href="#" class="logo"><img src="resources/images/logo.jpg"
@@ -328,7 +329,7 @@ section.mypost:nth-child(odd) {
 		}
 		function goCscenterView(id) {
 			frm = document.myform;
-			frm.game_key.value = id;
+			frm.cscenter_key.value = id;
 			frm.method = "get";
 			frm.action = "${pageContext.request.contextPath}/cscenter/view";
 			frm.submit();

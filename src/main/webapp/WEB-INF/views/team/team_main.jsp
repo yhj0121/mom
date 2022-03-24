@@ -83,7 +83,7 @@
 						</h4>
 					
 						<input type="button" class="btn btn-secondary" value="팀 구경 하러가기"
-							onClick="location.href='/momhome/team/list'">
+							onClick="location.href='${commonURL}/team/list'">
 							
 						<br>
 						<br>
@@ -114,55 +114,55 @@
 					<br>
 					<div class="imageWrap">
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=서울';" src="${pageContext.request.contextPath}/resources/images/citylogo/seoul.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=서울';" src="${pageContext.request.contextPath}/resources/images/citylogo/seoul.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=인천';" src="${pageContext.request.contextPath}/resources/images/citylogo/incheon.jpg"  />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=인천';" src="${pageContext.request.contextPath}/resources/images/citylogo/incheon.jpg"  />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=경기';" src="${pageContext.request.contextPath}/resources/images/citylogo/gyeonggi.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=경기';" src="${pageContext.request.contextPath}/resources/images/citylogo/gyeonggi.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=세종';" src="${pageContext.request.contextPath}/resources/images/citylogo/sejong.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=세종';" src="${pageContext.request.contextPath}/resources/images/citylogo/sejong.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=부산';" src="${pageContext.request.contextPath}/resources/images/citylogo/busan.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=부산';" src="${pageContext.request.contextPath}/resources/images/citylogo/busan.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=울산';" src="${pageContext.request.contextPath}/resources/images/citylogo/ulsan.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=울산';" src="${pageContext.request.contextPath}/resources/images/citylogo/ulsan.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=대구';" src="${pageContext.request.contextPath}/resources/images/citylogo/daegu.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=대구';" src="${pageContext.request.contextPath}/resources/images/citylogo/daegu.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=대전';" src="${pageContext.request.contextPath}/resources/images/citylogo/daejeon.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=대전';" src="${pageContext.request.contextPath}/resources/images/citylogo/daejeon.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=광주';" src="${pageContext.request.contextPath}/resources/images/citylogo/gwangju.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=광주';" src="${pageContext.request.contextPath}/resources/images/citylogo/gwangju.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=강원';" src="${pageContext.request.contextPath}/resources/images/citylogo/gangwon.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=강원';" src="${pageContext.request.contextPath}/resources/images/citylogo/gangwon.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=충북';" src="${pageContext.request.contextPath}/resources/images/citylogo/chungbuk.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=충북';" src="${pageContext.request.contextPath}/resources/images/citylogo/chungbuk.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=충남';" src="${pageContext.request.contextPath}/resources/images/citylogo/chungnam.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=충남';" src="${pageContext.request.contextPath}/resources/images/citylogo/chungnam.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=전북';" src="${pageContext.request.contextPath}/resources/images/citylogo/jeonbuk.jpg"  />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=전북';" src="${pageContext.request.contextPath}/resources/images/citylogo/jeonbuk.jpg"  />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=전남';" src="${pageContext.request.contextPath}/resources/images/citylogo/jeonnam.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=전남';" src="${pageContext.request.contextPath}/resources/images/citylogo/jeonnam.jpg" />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=경북';" src="${pageContext.request.contextPath}/resources/images/citylogo/gyeongbuk.jpg"  />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=경북';" src="${pageContext.request.contextPath}/resources/images/citylogo/gyeongbuk.jpg"  />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=경남';" src="${pageContext.request.contextPath}/resources/images/citylogo/gyeongnam.jpg"  />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=경남';" src="${pageContext.request.contextPath}/resources/images/citylogo/gyeongnam.jpg"  />
 						</div>
 						<div>
-							<img onclick="javascript:location.href='/momhome/team/list?pg=0&team_key=&key=1&keyword=제주';" src="${pageContext.request.contextPath}/resources/images/citylogo/jeju.jpg" />
+							<img onclick="javascript:location.href='${commonURL}/team/list?pg=0&team_key=&key=1&keyword=제주';" src="${pageContext.request.contextPath}/resources/images/citylogo/jeju.jpg" />
 						</div>
 					</div>
 				</div>
@@ -212,7 +212,7 @@
 		var membership_role = `${membership_role}`;
 
 		if (membership_role == "") {
-			location.href = '/momhome/team/write'
+			location.href = '${commonURL}/team/write'
 			console.log('membership_role');
 		} else {
 			alert("팀은 중복 생성이 안됩니다.");

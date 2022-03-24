@@ -66,7 +66,7 @@
 					</form>
 				</section>
 				<p id="findInfo"><a href="${commonURL}/member/findInfo">아이디나 비밀번호를 잊어버리셨나요?</a></p>
-				<p id="findInfo"><a href="${commonURL}/signup">아직 회원이 아니라면?</a></p>
+				<p id="findInfo"><a href="${commonURL}/member/signup">아직 회원이 아니라면?</a></p>
 			</article>
 			<!-- Footer -->
 			<%@include file="../include/footer.jsp"%>

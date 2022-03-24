@@ -7,12 +7,12 @@
 	<select id="Member_isDuplicate" parameterType="MemberDto"
 		resultType="Integer">
 		select
-		count(*) from User
+		count(*) from user
 		where user_id=#{ user_id }
 	</select>
 
 	<insert id="Member_insert" parameterType="MemberDto">
-		INSERT INTO User(
+		INSERT INTO user(
 		user_id
 		, user_password
 		, user_name
@@ -40,7 +40,7 @@
 
 	<select id="getPositionList" parameterType="BaseDto"
 		resultType="BaseDto">
-		select position from Code where CODEGROUP_ID='po'
+		select position from code where CODEGROUP_ID='po'
 	</select>
 
 	<select id="Member_getInfo" parameterType="MemberDto"
@@ -61,7 +61,7 @@
 	</select>
 
 	<update id="Member_update" parameterType="MemberDto">
-		update User set
+		update user set
 		user_name = #{ user_name }
 		, user_mail = #{ user_mail }
 		, user_phone = #{ user_phone }
@@ -76,7 +76,7 @@
 		resultType="MemberDto">
 		select
 		user_id
-		from User
+		from user
 		where user_name=#{user_name} and user_phone=#{user_phone}
 	</select>
 
@@ -84,7 +84,7 @@
 		resultType="MemberDto">
 		select
 		user_password
-		from User
+		from user
 		where user_id=#{user_id} and user_name=#{user_name} and
 		user_phone=#{user_phone}
 	</select>
@@ -121,7 +121,7 @@
 			</if>
 		</if>
 		order by mercenary_key desc
-		) A where a.user_key=#{ user_key }
+		) A where user_key=#{ user_key }
 		 limit #{start}, #{pageSize}
 	</select>
 
@@ -261,7 +261,7 @@
 	<select id="Member_cscenterGetTotal"
 		parameterType="CSCenterDto" resultType="Integer">
 		select count(*) from cscenter where user_key =(select user_key from
-		User where user_key=#{ user_key })
+		user where user_key=#{ user_key })
 		<if test='key!=null and keyword!=null'>
 			<if test='key=="1"'>
 				and mercenary_title like concat('%',#{keyword}, '%')

@@ -12,7 +12,7 @@
 
 	<select id="Team_isDuplicate" parameterType="TeamDto"
 		resultType="Integer">
-		select count(*) from Team
+		select count(*) from team
 		where team_name=#{team_name}
 	</select>
 
@@ -63,7 +63,7 @@
 	   where user_key IN(
 	   select
 	   user_key
-	   from  membership where team_key=A.team_key AND membership_role = '1')
+	   from membership where team_key=A.team_key AND membership_role = '1')
 	   ) as user_name
 	   ,@rownum := @rownum+1 AS rnum
 	   from team A, (select @rownum:=0) B

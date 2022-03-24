@@ -152,7 +152,7 @@ a.link{
 				const listUnit = document.querySelectorAll('.listUnit');
 				
 				reqBtn.addEventListener('click', ()=> {
-					location.href="http://localhost:8080/momhome/cscenter/write";
+					location.href="${commonURL}/cscenter/write";
 				});
 				
 				for(let i = 0; i < listUnit.length; i++) {

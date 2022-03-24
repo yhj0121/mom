@@ -106,6 +106,7 @@ section.mypost:nth-child(odd) {
 		<!-- Main -->
 		<div id="main">
 			<form name="myform">
+				<input type="hidden" name="team_key" id="team_key" 	value="" />
 				<input type="hidden" name="mercenary_key" id="mercenary_key" 	value="" />
 				<input type="hidden" name="game_key" id="game_key" 	value="" />
 				<input type="hidden" name="cscenter_key" id="cscenter_key" 	value="" />
@@ -145,7 +146,7 @@ section.mypost:nth-child(odd) {
 									<header>
 										<h3>
 											<a href="#none"
-												onclick="goMercenaryView('<%=tempDto.getTeam_key()%>')"><%=tempDto.getTeam_name()%></a>
+												onclick="goTeamView('<%=tempDto.getTeam_key()%>')"><%=tempDto.getTeam_name()%></a>
 										</h3>
 										<time class="published"><%=tempDto.getTeam_city()%></time>
 									</header>
@@ -155,7 +156,7 @@ section.mypost:nth-child(odd) {
 							</li>
 							<% } %>
 							<li style="text-align: center;">
-								<button type="button"  class="button small " onclick="location.href='${commonURL}/mercenary/list'">모든 글 보러 가기</button>
+								<button type="button"  class="button small " onclick="location.href='${commonURL}/team/list'">모든 글 보러 가기</button>
 							</li>
 							<%	} else { %>
 							<li>
@@ -194,7 +195,7 @@ section.mypost:nth-child(odd) {
 							</li>
 							<% } %>
 							<li style="text-align: center;">
-								<button type="button"  class="button small " onclick="location.href='${commonURL}/mercenary/list'">모든 글 보러 가기</button>
+								<button type="button"  class="button small " onclick="location.href='${commonURL}/game/list'">모든 글 보러 가기</button>
 							</li>
 							<%	} else { %>
 							<li style="text-align: center;">
@@ -313,6 +314,13 @@ section.mypost:nth-child(odd) {
 				prevEl : '.swiper-button-prev',
 			},
 		});
+		function goTeamView(id) {
+			frm = document.myform;
+			frm.team_key.value = id;
+			frm.method = "get";
+			frm.action = "${pageContext.request.contextPath}/team/view";
+			frm.submit();
+		}
 		function goMercenaryView(id) {
 			frm = document.myform;
 			frm.mercenary_key.value = id;

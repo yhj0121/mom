@@ -102,7 +102,7 @@ table td:not(.introduction) {
 										for (GameJoinDto tempDto : matchList) {
 										%>
 										<tr>
-											<td><%=totalCnt-tempDto.getRnum()+1 %></td>
+											<td><%=tempDto.getRnum()%></td>
 											<td><%=tempDto.getHome_team_name() %> vs <%=tempDto.getTeam_name() %></td>
 												<td><%=tempDto.getGame_fdate() %></td>
 												<td><%=tempDto.getGame_location() %></td>

@@ -90,19 +90,8 @@
 	</select>
 	
 		<select id="GameJoin_matchGetTotal" parameterType="GameJoinDto" resultType="Integer">
-		select count(*) from matchingjoin
-		<if test='key!=null and keyword!=null'>
-				<if test='key=="1"'>
-				 	where mercenary_title like concat('%',#{keyword}, '%')
-				</if>
-				<if test='key=="2"'>
-				 	where mercenary_contents like concat('%',#{keyword}, '%')	  
-				</if>
-				<if test='key=="3"'>
-					 where mercenary_title like concat('%',#{keyword}, '%') or
-				 	  	   mercenary_contents like concat('%',#{keyword}, '%') 
-				</if>
-			</if>
+		select count(*) from matchingjoin where result_proc=2
+
 	</select>
 	
 </mapper>

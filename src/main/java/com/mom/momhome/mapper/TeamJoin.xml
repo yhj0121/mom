@@ -16,7 +16,7 @@
 		,(select user_intro from user where user_key=t.user_key) as user_intro
 		,(select membership_role from membership where user_key=t.USER_KEY ) as membership_role
 		,teamjoin_proc
-		 from teamjoin t where team_key=t.team_key
+		 from teamjoin t where #{team_key}=t.team_key
 	</select>
 
 	<select id="Teamjoin_teamjoinGetTotal"

@@ -152,8 +152,8 @@ table td:not(.introduction) {
 				<ul class="actions" style=" margin-top: 200px; justify-content:unset;">
 					<li><input type="button" value="목록" onClick="location.href='${commonURL}/team/list'" /></li>
 					<%
-					System.out.println(dto.getMembership_role());
-					if( membership_role.equals("2")){ %>
+					System.out.println(membership_role);
+					if( membership_role.equals("2") || membership_role.equals("")){ %>
 					<li><input type="button" value="팀 가입신청하기" onclick="goJoin()" /></li>
 					<%} %>
 				</ul>

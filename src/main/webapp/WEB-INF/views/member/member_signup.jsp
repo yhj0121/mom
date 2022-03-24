@@ -189,20 +189,24 @@ textarea {
 		}
 		
 		//회원가입 진행 
-		 var frmData = new FormData(document.myform);
-		$.ajax({
-			url: "${commonURL}/member/insert",
-			data: frmData,
-			contentType: false,
-			processData: false,
-			type: "POST"
-		})
-		.done( (result) => {
-			location.href="${ commonURL }/member/login"; //로그인 페이지로 이동 
-		})
-		.fail( (error) => {
-			alert("회원가입 실패, 다시 시도해주세요.");
-		});
+		
+		if( checkId ) {
+			var frmData = new FormData(document.myform);
+			
+			$.ajax({
+				url: "${commonURL}/member/insert",
+				data: frmData,
+				contentType: false,
+				processData: false,
+				type: "POST"
+			})
+			.done( (result) => {
+				location.href="${ commonURL }/member/login"; //로그인 페이지로 이동 
+			})
+			.fail( (error) => {
+				alert("회원가입 실패, 다시 시도해주세요.");
+			});
+		}
 	});
 
 	//포지션 리스트 db에서 받아오기

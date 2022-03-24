@@ -133,14 +133,20 @@ table td:not(.introduction) {
 				
 				<table>
 					<tr>
+						<td>팀 회원 키</td>
 						<td>팀 회원 명단</td>
 						<td>직책</td>
 						<td>선호포지션</td>
 					</tr>
 					<tr>
 					<%
-					for(TeamDto teamDto : list) { 
+					boolean isAlreadyBelong = false;
+					for(TeamDto teamDto : list) {
+						
+						if(teamDto.getUser_key().equals(user_key))
+							isAlreadyBelong = true;
 					%>
+						<td><%=teamDto.getUser_key() %></td>
 						<td><%=teamDto.getUser_name() %></td>
 						<td><%if(teamDto.getMembership_role().equals("1")){ %>감독<%}else{%>선수<%} %></td>
 						<td><%=teamDto.getUser_position() %></td>
@@ -153,7 +159,7 @@ table td:not(.introduction) {
 					<li><input type="button" value="목록" onClick="location.href='${commonURL}/team/list'" /></li>
 					<%
 					System.out.println(membership_role);
-					if( membership_role.equals("2") || membership_role.equals("")){ %>
+					if( !isAlreadyBelong && (membership_role.equals("2") || membership_role.equals(""))){ %>
 					<li><input type="button" value="팀 가입신청하기" onclick="goJoin()" /></li>
 					<%} %>
 				</ul>
@@ -185,7 +191,9 @@ table td:not(.introduction) {
 </body>
 </html>
 <script>
-
+$(()=>{
+	console.log("isAlreadyBelong : " + <%=isAlreadyBelong%>);
+});
 
 	function goJoin()
 	{

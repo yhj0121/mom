@@ -254,7 +254,7 @@ section.mypost:nth-child(odd) {
 									<header>
 										<h3>
 											<a href="#none"
-												onclick="goMercenaryView('<%=tempDto.getCscenter_key()%>')"><%=tempDto.getCscenter_title()%></a>
+												onclick="goCscenterView('<%=tempDto.getCscenter_key()%>')"><%=tempDto.getCscenter_title()%></a>
 										</h3>
 										<time class="published"><%=tempDto.getCscenter_date()%></time>
 									</header>
@@ -264,7 +264,7 @@ section.mypost:nth-child(odd) {
 							</li>
 							<% } %>
 							<li style="text-align: center;">
-								<button type="button"  class="button small " onclick="location.href='${commonURL}/mercenary/list'">모든 글 보러 가기</button>
+								<button type="button"  class="button small " onclick="location.href='${commonURL}/cscenter/list'">모든 글 보러 가기</button>
 							</li>
 							<%	} else { %>
 							<li style="text-align: center;">
@@ -316,7 +316,7 @@ section.mypost:nth-child(odd) {
 			frm = document.myform;
 			frm.mercenary_key.value = id;
 			frm.method = "get";
-			frm.action = "${pageContext.request.contextPath}/game/view";
+			frm.action = "${pageContext.request.contextPath}/mercenary/view";
 			frm.submit();
 		}
 		function goGameView(id) {
@@ -324,6 +324,13 @@ section.mypost:nth-child(odd) {
 			frm.game_key.value = id;
 			frm.method = "get";
 			frm.action = "${pageContext.request.contextPath}/game/view";
+			frm.submit();
+		}
+		function goCscenterView(id) {
+			frm = document.myform;
+			frm.game_key.value = id;
+			frm.method = "get";
+			frm.action = "${pageContext.request.contextPath}/cscenter/view";
 			frm.submit();
 		}
 	</script>

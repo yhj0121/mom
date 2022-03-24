@@ -133,20 +133,14 @@ table td:not(.introduction) {
 				
 				<table>
 					<tr>
-						<td>팀 회원 키</td>
 						<td>팀 회원 명단</td>
 						<td>직책</td>
 						<td>선호포지션</td>
 					</tr>
 					<tr>
 					<%
-					boolean isAlreadyBelong = false;
 					for(TeamDto teamDto : list) {
-						
-						if(teamDto.getUser_key().equals(user_key))
-							isAlreadyBelong = true;
 					%>
-						<td><%=teamDto.getUser_key() %></td>
 						<td><%=teamDto.getUser_name() %></td>
 						<td><%if(teamDto.getMembership_role().equals("1")){ %>감독<%}else{%>선수<%} %></td>
 						<td><%=teamDto.getUser_position() %></td>
@@ -158,8 +152,7 @@ table td:not(.introduction) {
 				<ul class="actions" style=" margin-top: 200px; justify-content:unset;">
 					<li><input type="button" value="목록" onClick="location.href='${commonURL}/team/list'" /></li>
 					<%
-					System.out.println(membership_role);
-					if( !isAlreadyBelong && (membership_role.equals("2") || membership_role.equals(""))){ %>
+					if(membership_role.equals("")){ %>
 					<li><input type="button" value="팀 가입신청하기" onclick="goapply()" /></li>
 					<%} %>
 				</ul>
@@ -191,17 +184,9 @@ table td:not(.introduction) {
 </body>
 </html>
 <script>
-$(()=>{
-	console.log("isAlreadyBelong : " + <%=isAlreadyBelong%>);
-});
-
 function goapply()
-{	
-	var frmData = document.myform; 
-// 	frmData.user_key.value = 
-// 	frmData.team_key.value =
+{	 
 	var queryString = $("form[name=myform]").serialize();
-	
 	$.ajax({
 		url:"<%=request.getContextPath()%>/team/checkJoinDuplicate",
 		data:queryString,
@@ -210,7 +195,6 @@ function goapply()
 	})
 	.done((result)=>{
 		console.log("checkJoinDuplicate: " + result);
-		//alert("checkJoinDuplicate: " + result);
 		if(result===0)
 		{
 			goJoin();

@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,8 +18,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mom.momhome.common.BaseDto;
 import com.mom.momhome.common.FileUploadUtil;
-import com.mom.momhome.gamejoin.GameJoinDto;
 import com.mom.momhome.member.MemberDto;
+import com.mom.momhome.member.MemberService;
 import com.mom.momhome.membership.MembershipDto;
 import com.mom.momhome.teamjoin.TeamjoinDto;
 
@@ -28,6 +29,9 @@ public class TeamController {
 
 	@Resource(name="teamService")
 	TeamService teamService;
+	
+	@Resource(name="memberService")
+	MemberService memberService;
 	
 	//팀 메인 페이지 연결
 	@RequestMapping(value = "/team/main", method = RequestMethod.GET)
@@ -56,13 +60,23 @@ public class TeamController {
 	}
 	//팀 상세보기
 	@RequestMapping("/team/view")
-	String team_view(TeamDto dto, Model model)
+	String team_view(TeamDto dto, Model model, HttpServletRequest request)
 	{
 		List<TeamDto> list = teamService.getTeamViewList(dto);
 		TeamDto resultDto = teamService.getTeamView(dto);
 		
 		model.addAttribute("getTeamViewList", list);
 		model.addAttribute("teamDto", resultDto);
+		
+		HttpSession session = request.getSession();
+		MembershipDto membershipDto = memberService.getMembership(dto.getUser_key());
+		if( membershipDto != null )
+		{
+        	session.setAttribute("membershipDto", membershipDto);
+        	session.setAttribute("membership_role", membershipDto.getMembership_role());
+		}
+		else
+			session.setAttribute("membershipDto", new MembershipDto());
 		
 		return "team/team_view";
 	}

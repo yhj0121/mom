@@ -132,21 +132,22 @@ table td {
 								</thead>
 								<tbody>
 									<%
+									List<TeamDto> getTeamList = (List<TeamDto>) request.getAttribute("teamList");
 									
-									for(TeamDto dto : list) {
+									for(TeamDto tempDto : list) {
 									%>
 									<tr>
-										<td><%=totalCnt - dto.getRnum() + 1%></td>
+										<td><%=totalCnt - tempDto.getRnum() + 1%></td>
 
 										<td><a
 											href="javascript:void(0)"
-											onclick="goView('<%=dto.getTeam_key()%>')"><%=dto.getTeam_name()%></a></td>
-										<td><%=dto.getTeam_city()%></td>
-										<td><%=dto.getTeam_fdate()%></td>
-										<td><%=dto.getUser_name()%></td>
+											onclick="goView('<%=tempDto.getTeam_key()%>')"><%=tempDto.getTeam_name()%></a></td>
+										<td><%=tempDto.getTeam_city()%></td>
+										<td><%=tempDto.getTeam_fdate()%></td>
+										<td><%=tempDto.getUser_name()%></td>
 										<td>
 											<%
-											if (dto.getTeam_recruit_yn().equals("1")) {
+											if (tempDto.getTeam_recruit_yn().equals("1")) {
 											%> 모집중<%
 											} else {
 											%>모집종료<%
@@ -161,7 +162,9 @@ table td {
 					</form>
 				</section>
 			</article>
-			
+			<div class="container" style="display:flex; justify-content:center;">
+			<%=Pager.makeTag(request, 10, totalCnt) %>
+			</div>
 			<!-- Footer -->
 			<%@include file="../include/footer.jsp"%>
 		</div>

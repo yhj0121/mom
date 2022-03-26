@@ -68,8 +68,10 @@
 
 >2022-02-21~2022-03-17
 
-# 시연 영상
+# 시연 영상 
 <a href="https://www.youtube.com/embed/SqijIjMUQMY">시연 영상 </a>
        <br>
 
+# 배포 사이트 
+http://49.50.175.230:8080/mom/
  

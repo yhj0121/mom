@@ -117,6 +117,6 @@
 # 시연 영상 
 https://www.youtube.com/watch?v=SqijIjMUQMY&t=2s# 
 
-# 배포영상
+# 프로젝트 호스팅 주소
 http://49.50.175.230:8080/mom/
  

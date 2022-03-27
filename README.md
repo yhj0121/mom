@@ -115,7 +115,6 @@
 >2022-02-21~2022-03-17
 
 # 시연 영상 
-https://www.youtube.com/embed/SqijIjMUQMY
-# 배포 사이트 
+https://www.youtube.com/watch?v=SqijIjMUQMY&t=2s# 
 http://49.50.175.230:8080/mom/
  
